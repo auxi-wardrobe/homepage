@@ -189,8 +189,8 @@ h1, h2, h3, p { margin: 0; }
 .hero__title {
   position: absolute;
   left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  top: 100px;
+  transform: translateX(-50%);
   width: min(728px, 92vw);
   text-align: center;
   font-family: var(--font-display);
