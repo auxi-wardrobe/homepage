@@ -27,21 +27,48 @@
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
 
-  // --- scroll reveal (respects reduced-motion + no-JS via CSS fallback) ---
+  // --- scroll reveal (progressive enhancement) ---
+  // Invariant (CLAUDE.md): content must NEVER stay hidden because of JS. JS only
+  // animates it in. We drive the reveal off plain scroll geometry (bulletproof —
+  // scroll/resize events fire in every context) rather than an IntersectionObserver,
+  // whose callbacks can be silently dropped (bfcache restore, prefetch, print, some
+  // headless renders) and leave the whole page blank.
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var items = document.querySelectorAll(".reveal");
-  // Bail out -> content stays visible by default (CSS only hides when .reveal-ready set).
-  if (reduce || !("IntersectionObserver" in window)) return;
+  var items = Array.prototype.slice.call(document.querySelectorAll(".reveal"));
+  if (reduce || !items.length) return; // leave content visible (CSS-default, no .reveal-ready)
+
   document.documentElement.classList.add("reveal-ready");
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry, i) {
-      if (entry.isIntersecting) {
-        var el = entry.target;
-        // light stagger for siblings entering together
-        setTimeout(function () { el.classList.add("is-in"); }, (i % 4) * 80);
-        io.unobserve(el);
-      }
+
+  var reveal = function () {
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    items = items.filter(function (el) {
+      var r = el.getBoundingClientRect();
+      // reveal once the element's top crosses 90% of the viewport (and it's on-screen)
+      if (r.top < vh * 0.9 && r.bottom > 0) { el.classList.add("is-in"); return false; }
+      return true;
     });
-  }, { rootMargin: "0px 0px -10% 0px", threshold: 0.12 });
-  items.forEach(function (el) { io.observe(el); });
+    if (!items.length) {
+      window.removeEventListener("scroll", onReveal);
+      window.removeEventListener("resize", onReveal);
+    }
+  };
+
+  var ticking = false;
+  var onReveal = function () {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(function () { reveal(); ticking = false; });
+  };
+
+  window.addEventListener("scroll", onReveal, { passive: true });
+  window.addEventListener("resize", onReveal, { passive: true });
+  reveal(); // reveal whatever is already in view on load
+
+  // Absolute failsafe: if some environment never fires scroll/rAF, never leave
+  // content hidden — force-show everything after a short grace period.
+  window.setTimeout(function () {
+    document.querySelectorAll(".reveal").forEach(function (el) {
+      el.classList.add("is-in");
+    });
+  }, 3000);
 })();
