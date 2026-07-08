@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://macgie.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://macgie.com/features.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://macgie.com/ai-stylist.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://macgie.com/visualization.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://macgie.com/wardrobe.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://macgie.com/pricing.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://macgie.com/about.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://macgie.com/blog.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://macgie.com/blog/capsule-wardrobe-guide.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://macgie.com/blog/pack-a-carry-on.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://macgie.com/blog/color-theory-basics.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://macgie.com/faq.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://macgie.com/contact.html</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://macgie.com/help.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://macgie.com/careers.html</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://macgie.com/press.html</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://macgie.com/community.html</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://macgie.com/changelog.html</loc><changefreq>weekly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://macgie.com/privacy.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://macgie.com/terms.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+</urlset>

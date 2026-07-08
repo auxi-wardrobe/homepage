@@ -3,51 +3,132 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Macgie – Digital Wardrobe &amp; Outfit Planner</title>
-  <meta name="description" content="Explore your digital wardrobe, get instant outfit recommendations, create new looks, and visualize outfits with AI. Download Macgie today." />
+  <title>Macgie — Your wardrobe finally has a brain</title>
+  <meta name="description" content="Macgie is the AI stylist that knows your closet better than you do. Get outfit recommendations, visualize looks before you wear them, and never ask ‘what should I wear?’ again." />
   <meta name="robots" content="index, follow" />
-  <meta property="og:title" content="Macgie – Digital Wardrobe &amp; Outfit Planner" />
-  <meta property="og:description" content="Explore your digital wardrobe, get instant outfit recommendations, create new looks, and visualize outfits with AI. Download Macgie today." />
+  <link rel="canonical" href="https://macgie.com/" />
   <meta property="og:type" content="website" />
+  <meta property="og:title" content="Macgie — Your wardrobe finally has a brain" />
+  <meta property="og:description" content="The AI stylist that knows your closet better than you do. Outfit recommendations, instant visualization, and a wardrobe that thinks with you." />
+  <meta property="og:url" content="https://macgie.com/" />
+  <meta property="og:image" content="https://macgie.com/assets/img/hero-people.png" />
+  <meta name="twitter:card" content="summary_large_image" />
   <meta name="theme-color" content="#070707" />
-  <link rel="icon" href="assets/img/app-icon.svg" />
+  <link rel="icon" href="/assets/img/app-icon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700;800&family=Inter:wght@400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/site.css" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://macgie.com/#org",
+        "name": "Macgie",
+        "url": "https://macgie.com/",
+        "logo": "https://macgie.com/assets/img/logo-macgie.svg",
+        "sameAs": ["https://instagram.com", "https://tiktok.com", "https://threads.net", "https://x.com"]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://macgie.com/#website",
+        "url": "https://macgie.com/",
+        "name": "Macgie",
+        "publisher": { "@id": "https://macgie.com/#org" }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "Macgie",
+        "operatingSystem": "iOS",
+        "applicationCategory": "LifestyleApplication",
+        "description": "AI wardrobe and styling assistant that recommends outfits from clothes you already own and lets you visualize looks before you wear them.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "ratingCount": "1280" }
+      }
+    ]
+  }
+  </script>
 </head>
-<body>
+<body class="has-header">
 
-  <!-- ===== Fixed header: announcement + nav ===== -->
-  <header class="header" id="top">
-    <div class="topbar">
-      <p class="topbar__text">Get early access on launches and offers.</p>
-      <a class="topbar__link" href="https://testflight.apple.com/join/34jn3uvU" target="_blank" rel="noopener noreferrer">Join the waitlist
-        <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header" data-header>
+    <div class="ann">
+      <p>Macgie is in early access.&nbsp;<a href="https://testflight.apple.com/join/34jn3uvU" target="_blank" rel="noopener">Join the beta&nbsp;→</a></p>
     </div>
-    <nav class="nav" aria-label="Primary">
-      <div class="nav__tabs">
-        <a href="#top" class="nav__tab is-active">Home</a>
-        <a href="#features" class="nav__tab">Features</a>
-        <a href="#why-sample" class="nav__tab">Why sample wardrobe</a>
-      </div>
-      <a href="#top" class="nav__logo" aria-label="Macgie home">
-        <img src="assets/img/logo-macgie.svg" alt="Macgie" width="88" height="25" />
+    <nav class="topnav" aria-label="Primary">
+      <a class="topnav__logo" href="/index.html" aria-label="Macgie — home">
+        <img src="/assets/img/logo-macgie.svg" alt="Macgie" width="96" height="27" />
       </a>
+      <input class="topnav__toggle" type="checkbox" id="navtoggle" aria-label="Toggle menu" />
+      <label class="topnav__burger" for="navtoggle" aria-hidden="true"><span></span></label>
+      <div class="topnav__menu">
+        <a class="topnav__link" href="/features.html">Features</a>
+        <a class="topnav__link" href="/ai-stylist.html">AI Stylist</a>
+        <a class="topnav__link" href="/visualization.html">Visualization</a>
+        <a class="topnav__link" href="/pricing.html">Pricing</a>
+        <a class="topnav__link" href="/blog.html">Blog</a>
+        <a class="btn btn--dark topnav__cta" href="https://testflight.apple.com/join/34jn3uvU" target="_blank" rel="noopener">Download</a>
+      </div>
     </nav>
   </header>
 
-  <main>
+  <main id="main">
 
     <!-- ===== Hero ===== -->
     <section class="hero">
-      <img class="hero__bg" src="assets/img/hero-bg.png" alt="" aria-hidden="true" />
+      <img class="hero__bg" src="/assets/img/hero-bg.png" alt="" aria-hidden="true" />
+      <p class="hero__eyebrow">Your wardrobe finally has a brain</p>
       <h1 class="hero__title">You don't need more clothes</h1>
-      <img class="hero__people" src="assets/img/hero-people.png" alt="Three people wearing relaxed cream and ivory outfits" fetchpriority="high" />
-      <a href="#why" class="hero__scroll" aria-label="Scroll to learn more">
-        <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <img class="hero__people" src="/assets/img/hero-people.png" alt="Three people wearing relaxed cream and ivory outfits styled by Macgie" fetchpriority="high" />
+      <div class="hero__cta">
+        <a class="appstore" href="https://testflight.apple.com/join/34jn3uvU" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.7c0-2 1.6-3 1.7-3.05-1-1.4-2.4-1.6-2.9-1.6-1.2-.13-2.4.72-3 .72-.6 0-1.6-.7-2.6-.68-1.3.02-2.6.78-3.25 1.95-1.4 2.4-.36 6 1 8 .66.95 1.45 2.02 2.5 1.98 1-.04 1.38-.65 2.6-.65 1.2 0 1.55.65 2.6.63 1.07-.02 1.75-.97 2.4-1.92.76-1.1 1.07-2.16 1.08-2.2-.02-.02-2.08-.8-2.1-3.16zM14.5 6.6c.54-.66.9-1.57.8-2.48-.78.03-1.72.52-2.28 1.17-.5.58-.94 1.5-.82 2.4.87.06 1.76-.44 2.3-1.09z"/></svg>
+          <span><small>Download on the</small><strong>App Store</strong></span>
+        </a>
+        <a class="btn btn--cream btn--lg" href="https://testflight.apple.com/join/34jn3uvU" target="_blank" rel="noopener">Join the waitlist
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <a href="#problem" class="hero__scroll" aria-label="Scroll to learn more">
+        <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
+    </section>
+
+    <!-- ===== Problem ===== -->
+    <section class="section section--cream" id="problem">
+      <div class="container">
+        <div class="head-block center reveal">
+          <p class="eyebrow">The 8am problem</p>
+          <h2 class="h2 balance">A full closet and still<br>"I have nothing to wear."</h2>
+          <p class="lead mx-auto maxw-md">You're not disorganized and you don't need to shop more. Your wardrobe just has no memory — so every morning starts from zero.</p>
+        </div>
+        <div class="grid grid--4">
+          <article class="card reveal">
+            <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg></div>
+            <h3 class="card__title">Decision fatigue</h3>
+            <p class="card__text">15–30 minutes lost every morning deciding what to wear — before the day even begins.</p>
+          </article>
+          <article class="card reveal d1">
+            <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h16M4 12h16M4 17h10"/></svg></div>
+            <h3 class="card__title">The 80% you forget</h3>
+            <p class="card__text">Most people wear about 20% of their wardrobe. The rest hangs there, unseen and unworn.</p>
+          </article>
+          <article class="card reveal d2">
+            <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg></div>
+            <h3 class="card__title">Duplicate buys</h3>
+            <p class="card__text">Another black tee, another white shirt — because you couldn't remember what you already owned.</p>
+          </article>
+          <article class="card reveal d3">
+            <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2a7 7 0 0 0-4 12.7V17a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2.3A7 7 0 0 0 12 2z"/><path d="M9 22h6"/></svg></div>
+            <h3 class="card__title">Outfit anxiety</h3>
+            <p class="card__text">Standing in front of the mirror, second-guessing — and reaching for the same safe thing again.</p>
+          </article>
+        </div>
+      </div>
     </section>
 
     <!-- ===== Why Macgie feels different (pinned horizontal) ===== -->
@@ -90,34 +171,34 @@
               <span class="step__num">Step 1</span>
               <h3 class="step__head">Open</h3>
               <div class="step__media">
-                <span class="app-tile"><img src="assets/img/app-icon.svg" alt="Macgie app icon" width="72" height="75" /></span>
+                <span class="app-tile"><img src="/assets/img/app-icon.svg" alt="Macgie app icon" width="72" height="75" /></span>
               </div>
             </li>
             <li class="step">
               <span class="step__num">Step 2</span>
               <h3 class="step__head">Discover your perfect outfit</h3>
               <div class="step__media step__board">
-                <span class="tile"><img src="assets/img/tile-01.png" alt="Knit jacket" loading="lazy"></span>
-                <span class="tile"><img src="assets/img/tile-02.png" alt="Wide-leg trousers" loading="lazy"></span>
-                <span class="tile"><img src="assets/img/tile-03.png" alt="Leather sandals" loading="lazy"></span>
+                <span class="tile"><img src="/assets/img/tile-01.png" alt="Knit jacket" loading="lazy"></span>
+                <span class="tile"><img src="/assets/img/tile-02.png" alt="Wide-leg trousers" loading="lazy"></span>
+                <span class="tile"><img src="/assets/img/tile-03.png" alt="Leather sandals" loading="lazy"></span>
               </div>
             </li>
             <li class="step">
               <span class="step__num">Step 3</span>
               <h3 class="step__head">Save the looks you love</h3>
               <div class="step__media step__board">
-                <span class="tile"><img src="assets/img/tile-04.png" alt="Shoulder bag" loading="lazy"></span>
-                <span class="tile"><img src="assets/img/tile-05.png" alt="Tailored piece" loading="lazy"></span>
-                <span class="tile tile--sm"><img src="assets/img/tile-03.png" alt="Sandals" loading="lazy"></span>
+                <span class="tile"><img src="/assets/img/tile-04.png" alt="Shoulder bag" loading="lazy"></span>
+                <span class="tile"><img src="/assets/img/tile-05.png" alt="Tailored piece" loading="lazy"></span>
+                <span class="tile tile--sm"><img src="/assets/img/tile-03.png" alt="Sandals" loading="lazy"></span>
               </div>
             </li>
             <li class="step">
               <span class="step__num">Step 4</span>
               <h3 class="step__head">See yourself wearing them</h3>
               <div class="step__media step__board">
-                <span class="tile tile--tall"><img src="assets/img/outfit-wide.png" alt="Full outfit" loading="lazy"></span>
-                <span class="tile tile--sm"><img src="assets/img/tile-06.png" alt="Overshirt" loading="lazy"></span>
-                <span class="tile tile--sm"><img src="assets/img/tile-07.png" alt="Trousers" loading="lazy"></span>
+                <span class="tile tile--tall"><img src="/assets/img/outfit-wide.png" alt="Full outfit" loading="lazy"></span>
+                <span class="tile tile--sm"><img src="/assets/img/tile-06.png" alt="Overshirt" loading="lazy"></span>
+                <span class="tile tile--sm"><img src="/assets/img/tile-07.png" alt="Trousers" loading="lazy"></span>
               </div>
             </li>
           </ol>
@@ -125,13 +206,13 @@
       </div>
     </section>
 
-    <!-- ===== Everything you need ===== -->
+    <!-- ===== Everything you need (typographic feature grid) ===== -->
     <section class="features" id="features">
       <h2 class="features__title reveal">Everything you need to get dressed smarter</h2>
       <div class="features__grid">
         <article class="feature reveal">
           <h3 class="feature__head">Outfit Canvas</h3>
-          <p class="feature__text">Mix, match and create unlimited outfit combinations</p>
+          <p class="feature__text">Mix, match and create unlimited outfit combinations.</p>
         </article>
         <article class="feature reveal">
           <h3 class="feature__head">Outfit Scheduler</h3>
@@ -139,26 +220,116 @@
         </article>
         <article class="feature reveal">
           <h3 class="feature__head">Learns Your Habits</h3>
-          <p class="feature__text">Macgie remembers what you wear, what you love and what you ignore.<br>Recommendations become smarter over time.</p>
+          <p class="feature__text">Macgie remembers what you wear, what you love and what you ignore.<br>Recommendations get smarter over time.</p>
         </article>
         <article class="feature reveal">
-          <h3 class="feature__head">Instant Outfit Suggestions</h3>
+          <h3 class="feature__head">Instant Suggestions</h3>
           <p class="feature__text">Get outfit ideas based on weather, occasion and your wardrobe.</p>
         </article>
         <article class="feature reveal">
-          <h3 class="feature__head">Ready-to-use Sample Wardrobe</h3>
+          <h3 class="feature__head">Sample Wardrobe</h3>
           <p class="feature__text">Experience the app immediately.<br>No empty screens.</p>
         </article>
         <article class="feature reveal">
           <h3 class="feature__head">Auto Background Removal</h3>
-          <p class="feature__text">Just upload.<br>Macgie automatically removes the background.</p>
+          <p class="feature__text">Just upload.<br>Macgie removes the background automatically.</p>
         </article>
       </div>
     </section>
 
-    <!-- ===== Why we start with a sample wardrobe ===== -->
+    <!-- ===== The nine (feature cards, spec) ===== -->
+    <section class="section section--cream">
+      <div class="container">
+        <div class="head-block center reveal">
+          <p class="eyebrow">One app, your whole wardrobe</p>
+          <h2 class="h2 balance">Not a closet app.<br>An operating system for your wardrobe.</h2>
+          <p class="lead mx-auto maxw-md">Nine capabilities that work together — so getting dressed becomes a decision Macgie helps you make, not one you make alone.</p>
+        </div>
+        <div class="grid grid--3">
+          <article class="card reveal">
+            <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3v2M12 19v2M3 12h2M19 12h2M6 6l1.4 1.4M16.6 16.6 18 18M18 6l-1.4 1.4M7.4 16.6 6 18"/><circle cx="12" cy="12" r="3.5"/></svg></div>
+            <h3 class="card__title">AI Outfit Recommendations</h3>
+            <p class="card__text">Real styling based on your taste, body, the weather, the occasion and your mood — not random shuffles.</p>
+          </article>
+          <article class="card reveal d1">
+            <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 3v4h6V3M8 12h8M8 16h5"/></svg></div>
+            <h3 class="card__title">Digital Wardrobe</h3>
+            <p class="card__text">Every piece you own, organized and searchable — auto-tagged by color, category and season.</p>
+          </article>
+          <article class="card reveal d2">
+            <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg></div>
+            <h3 class="card__title">Instant Visualization</h3>
+            <p class="card__text">See yourself in the outfit before you put it on. Colors, silhouette, the whole look — previewed.</p>
+          </article>
+          <article class="card reveal">
+            <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="2.5"/></svg></div>
+            <h3 class="card__title">Smart Import</h3>
+            <p class="card__text">Add clothes by camera, screenshot, website or product link — from anywhere you shop.</p>
+          </article>
+          <article class="card reveal d1">
+            <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 15l4-4 3 3 5-5 4 4"/><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div>
+            <h3 class="card__title">Background Removal</h3>
+            <p class="card__text">No Photoshop, no fuss. Upload a photo and Macgie cuts out the garment for you, instantly.</p>
+          </article>
+          <article class="card reveal d2">
+            <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4M8 14h3"/></svg></div>
+            <h3 class="card__title">Outfit Calendar</h3>
+            <p class="card__text">Plan looks for the week, log what you actually wore, and stop repeating the same three outfits.</p>
+          </article>
+          <article class="card reveal">
+            <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 20V10M6 10 3 7l3-3M18 4v10M18 14l3 3-3 3"/><path d="M6 10h9a3 3 0 0 0 3-3"/></svg></div>
+            <h3 class="card__title">Travel Packing</h3>
+            <p class="card__text">Tell Macgie where you're going and for how long — it builds a mix-and-match capsule that fits your bag.</p>
+          </article>
+          <article class="card reveal d1">
+            <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 19V5M4 19h16M8 16v-4M12 16V8M16 16v-6"/></svg></div>
+            <h3 class="card__title">Wardrobe Insights</h3>
+            <p class="card__text">See your most-worn pieces, cost-per-wear, gaps and forgotten items — your closet, understood.</p>
+          </article>
+          <article class="card reveal d2">
+            <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 21s-7-4.5-9-9a5 5 0 0 1 9-2 5 5 0 0 1 9 2c-2 4.5-9 9-9 9z"/></svg></div>
+            <h3 class="card__title">Style Memory</h3>
+            <p class="card__text">Favorites, seasonal shifts, confidence and your evolving taste — remembered, so advice keeps improving.</p>
+          </article>
+        </div>
+        <div class="btn-row btn-row--center reveal" style="margin-top: clamp(36px,5vw,48px)">
+          <a class="btn btn--dark btn--lg" href="/features.html">Explore all features
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== How it works ===== -->
+    <section class="section">
+      <div class="container">
+        <div class="head-block center reveal">
+          <p class="eyebrow">How it works</p>
+          <h2 class="h2 balance">Three steps to a wardrobe that thinks with you.</h2>
+        </div>
+        <div class="steps3">
+          <div class="stepc reveal">
+            <div class="stepc__n">1</div>
+            <h3 class="stepc__title">Add your wardrobe</h3>
+            <p class="stepc__text">Snap a photo, paste a link, or import a screenshot. Macgie removes the background and tags each piece automatically — or start instantly with our sample wardrobe.</p>
+          </div>
+          <div class="stepc reveal d1">
+            <div class="stepc__n">2</div>
+            <h3 class="stepc__title">Let Macgie learn your style</h3>
+            <p class="stepc__text">Rate a few looks and go about your week. Macgie studies what you wear, love and skip — building a private model of your taste that sharpens every day.</p>
+          </div>
+          <div class="stepc reveal d2">
+            <div class="stepc__n">3</div>
+            <h3 class="stepc__title">Get dressed in seconds</h3>
+            <p class="stepc__text">Open the app to outfits picked for today's weather, your calendar and your mood — visualized, explained, and ready to wear.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Why we start with a sample wardrobe (dark) ===== -->
     <section class="sample" id="why-sample">
-      <img class="sample__bg" src="assets/img/outfit-wide.png" alt="" aria-hidden="true" loading="lazy" />
+      <img class="sample__bg" src="/assets/img/outfit-wide.png" alt="" aria-hidden="true" loading="lazy" />
       <div class="sample__inner">
         <p class="sample__eyebrow reveal">Why we start with a sample wardrobe</p>
         <div class="sample__lead">
@@ -166,6 +337,92 @@
           <p class="reveal">We include a sample wardrobe so you can experience recommendations immediately.</p>
           <p class="reveal">When you're ready, replace it with your own clothes for personalized styling.</p>
         </div>
+      </div>
+    </section>
+
+    <!-- ===== Social proof ===== -->
+    <section class="section section--cream">
+      <div class="container container--wide">
+        <div class="head-block center reveal">
+          <p class="eyebrow">Loved by early users</p>
+          <h2 class="h2 balance">"I've wanted this my whole life."</h2>
+          <p class="lead mx-auto maxw-md">The reaction we hear most from the people testing Macgie.</p>
+        </div>
+        <div class="testi-grid">
+          <figure class="testi reveal">
+            <div class="testi__stars" aria-hidden="true">★★★★★</div>
+            <blockquote class="testi__text">"I stopped saying 'I have nothing to wear.' Turns out I had everything — I just couldn't see it. Macgie shows me."</blockquote>
+            <figcaption class="testi__who"><span class="testi__avatar">JL</span><span><span class="testi__name">Jamie L.</span><span class="testi__meta">Product designer</span></span></figcaption>
+          </figure>
+          <figure class="testi reveal">
+            <div class="testi__stars" aria-hidden="true">★★★★★</div>
+            <blockquote class="testi__text">"Mornings used to eat 20 minutes of my life. Now I open Macgie, tap the look I like, and I'm out the door."</blockquote>
+            <figcaption class="testi__who"><span class="testi__avatar">PR</span><span><span class="testi__name">Priya R.</span><span class="testi__meta">Consultant</span></span></figcaption>
+          </figure>
+          <figure class="testi reveal">
+            <div class="testi__stars" aria-hidden="true">★★★★★</div>
+            <blockquote class="testi__text">"As someone with ADHD, decision fatigue is real. Macgie removes the paralysis. It's the calmest my closet has ever felt."</blockquote>
+            <figcaption class="testi__who"><span class="testi__avatar">MK</span><span><span class="testi__name">Morgan K.</span><span class="testi__meta">Student</span></span></figcaption>
+          </figure>
+          <figure class="testi reveal">
+            <div class="testi__stars" aria-hidden="true">★★★★★</div>
+            <blockquote class="testi__text">"Packed for a 10-day trip in one carry-on. Macgie built the capsule and I wore every single piece."</blockquote>
+            <figcaption class="testi__who"><span class="testi__avatar">AD</span><span><span class="testi__name">Alex D.</span><span class="testi__meta">Frequent traveler</span></span></figcaption>
+          </figure>
+          <figure class="testi reveal">
+            <div class="testi__stars" aria-hidden="true">★★★★★</div>
+            <blockquote class="testi__text">"I've rediscovered half my closet. Pieces I forgot I owned are now in my favorite outfits."</blockquote>
+            <figcaption class="testi__who"><span class="testi__avatar">SM</span><span><span class="testi__name">Sofia M.</span><span class="testi__meta">Marketing lead</span></span></figcaption>
+          </figure>
+          <figure class="testi reveal">
+            <div class="testi__stars" aria-hidden="true">★★★★★</div>
+            <blockquote class="testi__text">"It actually explains why an outfit works. I'm learning to style myself, not just following orders."</blockquote>
+            <figcaption class="testi__who"><span class="testi__avatar">TN</span><span><span class="testi__name">Theo N.</span><span class="testi__meta">Rebuilding his style</span></span></figcaption>
+          </figure>
+        </div>
+        <div class="stats reveal" style="margin-top: clamp(48px,7vw,72px)">
+          <div><div class="stat__num">4.9★</div><div class="stat__label">Average beta rating</div></div>
+          <div><div class="stat__num">80%</div><div class="stat__label">More of your closet, worn</div></div>
+          <div><div class="stat__num">~20 min</div><div class="stat__label">Saved every morning</div></div>
+          <div><div class="stat__num">1 min</div><div class="stat__label">To your first outfit</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Comparison ===== -->
+    <section class="section">
+      <div class="container">
+        <div class="head-block center reveal">
+          <p class="eyebrow">How Macgie compares</p>
+          <h2 class="h2 balance">Closet apps organize. Macgie decides with you.</h2>
+          <p class="lead mx-auto maxw-md">We admire the apps that came before us. Here's where Macgie goes further — fairly and side by side.</p>
+        </div>
+        <div class="compare-wrap reveal">
+          <table class="compare">
+            <thead>
+              <tr>
+                <th scope="col">Capability</th>
+                <th scope="col" class="col-macgie">Macgie</th>
+                <th scope="col">Whering</th>
+                <th scope="col">Indyx</th>
+                <th scope="col">Stylebook</th>
+                <th scope="col">Personal stylist</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Digital wardrobe</th><td class="col-macgie yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">No</td></tr>
+              <tr><th scope="row">Context-aware AI outfits <small>weather · mood · occasion</small></th><td class="col-macgie yes">Yes</td><td class="partial">Basic</td><td class="partial">Basic</td><td class="no">Manual</td><td class="yes">Yes</td></tr>
+              <tr><th scope="row">See yourself in the outfit</th><td class="col-macgie yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="partial">In person</td></tr>
+              <tr><th scope="row">Instant start (sample wardrobe)</th><td class="col-macgie yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
+              <tr><th scope="row">Import by link &amp; screenshot</th><td class="col-macgie yes">Yes</td><td class="partial">Partial</td><td class="partial">Partial</td><td class="no">No</td><td class="no">No</td></tr>
+              <tr><th scope="row">Explains why a look works</th><td class="col-macgie yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="yes">Yes</td></tr>
+              <tr><th scope="row">Learns &amp; improves over time</th><td class="col-macgie yes">Yes</td><td class="partial">Partial</td><td class="partial">Partial</td><td class="no">No</td><td class="partial">Slowly</td></tr>
+              <tr><th scope="row">Always available</th><td class="col-macgie yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">By appt.</td></tr>
+              <tr><th scope="row">Price</th><td class="col-macgie yes">Free–$/mo</td><td>Free–$</td><td>$$</td><td>$</td><td class="no">$$$$</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="toggle-note reveal">Comparison reflects publicly described features at time of writing and is offered in good faith. Every product here does something well.</p>
       </div>
     </section>
 
@@ -178,7 +435,7 @@
         <span class="bubble" style="--r:2deg">"Plan outfits before packing."</span>
       </div>
       <div class="decisions__stage reveal">
-        <img class="decisions__img" src="assets/img/faces.png" alt="A grid of people who use Macgie every day" loading="lazy" />
+        <img class="decisions__img" src="/assets/img/faces.png" alt="A grid of people who use Macgie every day" loading="lazy" />
         <span class="bubble bubble--float bubble--bl" style="--r:5deg">"Make it a little smarter."</span>
         <span class="bubble bubble--float bubble--br" style="--r:-8deg">"Use clothes I rarely wear."</span>
       </div>
@@ -188,21 +445,97 @@
       </div>
     </section>
 
+    <!-- ===== FAQ (condensed) ===== -->
+    <section class="section section--cream">
+      <div class="container">
+        <div class="head-block center reveal">
+          <p class="eyebrow">Questions</p>
+          <h2 class="h2 balance">Good questions, honest answers.</h2>
+        </div>
+        <div class="faq reveal">
+          <details class="faq__item"><summary>Is Macgie just another closet inventory app?</summary><p>No. Cataloging is the starting point, not the product. Macgie's job is to decide with you — recommending outfits from what you own, visualizing them, and explaining why they work.</p></details>
+          <details class="faq__item"><summary>Do I have to upload my whole wardrobe first?</summary><p>Never. You start with a ready-made sample wardrobe and get recommendations in the first minute. Swap in your own clothes whenever you like, at your own pace.</p></details>
+          <details class="faq__item"><summary>How does Macgie know what suits me?</summary><p>It considers your style preferences, body profile, the weather, the occasion, your mood, what's actually clean and available, and your wear history — then learns from every look you love or skip.</p></details>
+          <details class="faq__item"><summary>Can I really see myself in an outfit?</summary><p>Yes. Macgie visualizes the look so you can preview colors, silhouette and styling before you get dressed — building confidence, not guesswork.</p></details>
+          <details class="faq__item"><summary>How do I add my clothes?</summary><p>Camera, screenshot, website or product link. Background removal is automatic — no editing skills required.</p></details>
+          <details class="faq__item"><summary>Is my wardrobe data private?</summary><p>Your wardrobe is yours. We use your data to personalize your experience, never to sell you to advertisers. See our <a href="/privacy.html">Privacy Policy</a>.</p></details>
+        </div>
+        <div class="btn-row btn-row--center reveal" style="margin-top: 32px">
+          <a class="btn btn--light" href="/faq.html">Read all FAQs
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Final CTA ===== -->
+    <section class="cta-band">
+      <div class="cta-band__glow"></div>
+      <div class="container cta-band__inner center">
+        <h2 class="h2 reveal">We believe getting dressed<br>should feel effortless.</h2>
+        <p class="lead reveal">Fashion apps help you buy more. Macgie helps you use more — and feel good in it. Join the beta and let your wardrobe start thinking with you.</p>
+        <div class="btn-row btn-row--center reveal">
+          <a class="appstore" href="https://testflight.apple.com/join/34jn3uvU" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.7c0-2 1.6-3 1.7-3.05-1-1.4-2.4-1.6-2.9-1.6-1.2-.13-2.4.72-3 .72-.6 0-1.6-.7-2.6-.68-1.3.02-2.6.78-3.25 1.95-1.4 2.4-.36 6 1 8 .66.95 1.45 2.02 2.5 1.98 1-.04 1.38-.65 2.6-.65 1.2 0 1.55.65 2.6.63 1.07-.02 1.75-.97 2.4-1.92.76-1.1 1.07-2.16 1.08-2.2-.02-.02-2.08-.8-2.1-3.16zM14.5 6.6c.54-.66.9-1.57.8-2.48-.78.03-1.72.52-2.28 1.17-.5.58-.94 1.5-.82 2.4.87.06 1.76-.44 2.3-1.09z"/></svg>
+            <span><small>Download on the</small><strong>App Store</strong></span>
+          </a>
+          <a class="btn btn--ghost btn--lg" href="https://testflight.apple.com/join/34jn3uvU" target="_blank" rel="noopener" style="color:var(--cream)">Become a beta tester
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
   </main>
 
-  <!-- ===== Fixed bottom CTA bar ===== -->
-  <div class="cta-bar">
-    <div class="cta-bar__inner">
-      <div class="cta-bar__text">
-        <p class="cta-bar__lead">We believe getting dressed should feel effortless.</p>
-        <p class="cta-bar__sub">Fashion apps help you buy more. We want to help you use more.</p>
+  <footer class="site-footer">
+    <div class="container container--wide">
+      <div class="site-footer__top">
+        <div class="site-footer__brand">
+          <img src="/assets/img/logo-macgie.svg" alt="Macgie" width="112" height="32" />
+          <p class="site-footer__tag">Your wardrobe finally has a brain. Get dressed with confidence in seconds.</p>
+          <a class="btn btn--light" href="https://testflight.apple.com/join/34jn3uvU" target="_blank" rel="noopener">Download the app →</a>
+        </div>
+        <nav class="footer-cols" aria-label="Footer">
+          <div class="footer-col"><h4>Product</h4><ul>
+            <li><a href="/features.html">Features</a></li>
+            <li><a href="/ai-stylist.html">AI Stylist</a></li>
+            <li><a href="/visualization.html">Visualization</a></li>
+            <li><a href="/wardrobe.html">Digital Wardrobe</a></li>
+            <li><a href="/pricing.html">Pricing</a></li>
+            <li><a href="/changelog.html">Changelog</a></li>
+          </ul></div>
+          <div class="footer-col"><h4>Resources</h4><ul>
+            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/help.html">Help Center</a></li>
+            <li><a href="/faq.html">FAQ</a></li>
+            <li><a href="/community.html">Community</a></li>
+          </ul></div>
+          <div class="footer-col"><h4>Company</h4><ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/careers.html">Careers</a></li>
+            <li><a href="/press.html">Press</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+          </ul></div>
+          <div class="footer-col"><h4>Legal</h4><ul>
+            <li><a href="/privacy.html">Privacy</a></li>
+            <li><a href="/terms.html">Terms</a></li>
+          </ul></div>
+        </nav>
       </div>
-      <a class="btn btn--cream" href="https://testflight.apple.com/join/34jn3uvU" target="_blank" rel="noopener noreferrer">Become a Beta Tester
-        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
+      <div class="site-footer__bottom">
+        <p>© 2026 Macgie. Dress smarter, not harder.</p>
+        <div class="social-row">
+          <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://tiktok.com" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.3 2 1.6 3.6 3.5 3.9v2.6c-1.3.1-2.6-.3-3.6-1v6.1a5.5 5.5 0 1 1-5.5-5.5c.3 0 .6 0 .9.1v2.7a2.8 2.8 0 1 0 2 2.7V3h2.7z"/></svg></a>
+          <a href="https://threads.net" target="_blank" rel="noopener" aria-label="Threads"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21c-4.5 0-7-3-7-9s2.5-9 7-9 6.6 3.2 6.8 6"/><path d="M9 14c.5 1.4 1.8 2 3.2 2 1.8 0 3-1 3-2.6C15.2 11 13 10.8 12 11c-2 .3-3 1.4-3 2.6z"/></svg></a>
+          <a href="https://x.com" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 3h3l-6.6 7.6L21.7 21h-5.9l-4.2-5.5L6.6 21H3.6l7-8.1L2.7 3h6l3.8 5 4-5z"/></svg></a>
+        </div>
+      </div>
     </div>
-  </div>
+  </footer>
 
-  <script src="main.js"></script>
+  <script src="/site.js"></script>
+  <script src="/main.js"></script>
 </body>
 </html>
