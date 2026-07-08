@@ -26,7 +26,9 @@
 
   // --- pinned horizontal scroll sections ---
   var pins = Array.prototype.slice.call(document.querySelectorAll("[data-pin]"));
-  var HEADER = 86;
+  var headerEl = document.querySelector(".site-header");
+  function headerH() { return headerEl ? headerEl.offsetHeight : 94; }
+  var HEADER = headerH();
   var pinData = [];
 
   function canPin() {
@@ -45,6 +47,7 @@
       return;
     }
     docEl.classList.add("pin-ready");
+    HEADER = headerH();
     var viewH = window.innerHeight - HEADER;
     pinData = pins.map(function (p) {
       var track = p.querySelector(".pin__track");
