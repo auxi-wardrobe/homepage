@@ -9,18 +9,25 @@
 
 A **plain static site** — HTML + CSS + vanilla JS. **No build step**, no
 framework, no bundler, no package.json. Built faithfully from Figma
-(`Macgie` file, node `4294:13535`). One page: the Macgie landing page.
+(`Macgie` file). A **multi-page** marketing site; every page shares one chrome —
+the announcement bar + nav + App Store button (`.site-header`), the dark
+"Get dressed in seconds" CTA band (`.cta-band`), and the Product/Resources/Legal
+footer (`.site-footer`). Keep that chrome identical across pages.
 
 ## Layout
 
 ```
 homepage/
 ├── public/             # ← THE DEPLOYABLE SITE. Edit here. This is all that ships.
-│   ├── index.html      # the landing page (6 sections)
-│   ├── styles.css      # all styles + design tokens (:root)
-│   ├── main.js         # progressive enhancement only (nav, scroll-reveal)
+│   ├── index.html      # landing page (hero + pinned horizontal sections)
+│   ├── features.html   # feature grid, deep-dive splits, "three steps"
+│   ├── pricing.html    # Free vs Macgie+ plans, FAQ, testimonials
+│   ├── journal.html    # blog index (filters, featured + card grid)
+│   ├── journal-capsule-wardrobe.html  # article template (hero + prose + related)
+│   ├── styles.css      # all styles + design tokens (:root) — shared by every page
+│   ├── main.js         # progressive enhancement only (pinned scroll, scroll-reveal)
 │   ├── 404.html        # branded not-found page
-│   └── assets/img/     # hero, model photos, outfit cutouts, logo, face collage
+│   └── assets/img/     # photos, outfit cutouts, logo, app icon, App Store badge
 ├── scripts/deploy.sh   # Cloudflare Pages deploy (sandbox / prod)
 ├── README.md
 └── CLAUDE.md           # this file

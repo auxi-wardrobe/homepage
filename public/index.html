@@ -18,22 +18,25 @@
 </head>
 <body>
 
-  <!-- ===== Fixed header: announcement + nav ===== -->
-  <header class="header" id="top">
-    <div class="topbar">
-      <p class="topbar__text">Get early access on launches and offers.</p>
-      <a class="topbar__link" href="https://testflight.apple.com/join/34jn3uvU" target="_blank" rel="noopener noreferrer">Join the waitlist
-        <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
+  <!-- ===== Shared header: announcement + nav ===== -->
+  <header class="site-header" id="top">
+    <div class="announce">
+      <p>Get early access on launches and offers.</p>
+      <a href="https://testflight.apple.com/join/34jn3uvU" target="_blank" rel="noopener noreferrer">Join the waitlist →</a>
     </div>
-    <nav class="nav" aria-label="Primary">
-      <div class="nav__tabs">
-        <a href="#top" class="nav__tab is-active">Home</a>
-        <a href="#features" class="nav__tab">Features</a>
-        <a href="#why-sample" class="nav__tab">Why sample wardrobe</a>
+    <nav class="site-nav" aria-label="Primary">
+      <a class="site-nav__brand" href="index.html" aria-label="Macgie home">
+        <img class="mark" src="assets/img/app-icon.svg" alt="" width="26" height="27" />
+        <img class="word" src="assets/img/logo-macgie.svg" alt="Macgie" width="88" height="25" />
+      </a>
+      <div class="site-nav__links">
+        <a class="site-nav__link" href="#why-sample">Why sample wardrobe</a>
+        <a class="site-nav__link" href="features.html">Features</a>
+        <a class="site-nav__link" href="pricing.html">Pricing</a>
+        <a class="site-nav__link" href="journal.html">Journal</a>
       </div>
-      <a href="#top" class="nav__logo" aria-label="Macgie home">
-        <img src="assets/img/logo-macgie.svg" alt="Macgie" width="88" height="25" />
+      <a class="appstore" href="https://testflight.apple.com/join/34jn3uvU" target="_blank" rel="noopener noreferrer" aria-label="Download on the App Store">
+        <img src="assets/img/appstore-badge.svg" alt="Download on the App Store" width="130" height="44" />
       </a>
     </nav>
   </header>
@@ -190,18 +193,48 @@
 
   </main>
 
-  <!-- ===== Fixed bottom CTA bar ===== -->
-  <div class="cta-bar">
-    <div class="cta-bar__inner">
-      <div class="cta-bar__text">
-        <p class="cta-bar__lead">We believe getting dressed should feel effortless.</p>
-        <p class="cta-bar__sub">Fashion apps help you buy more. We want to help you use more.</p>
+  <!-- ===== Shared dark CTA band ===== -->
+  <section class="cta-band">
+    <h2 class="cta-band__title"><span class="warm">Get dressed in seconds.</span><br>Starting tomorrow morning.</h2>
+    <div class="cta-band__eyes" aria-hidden="true"><span></span><span></span></div>
+    <p class="cta-band__sub">Download Macgie and let your closet finally work for you.</p>
+    <a class="appstore" href="https://testflight.apple.com/join/34jn3uvU" target="_blank" rel="noopener noreferrer" aria-label="Download on the App Store">
+      <img src="assets/img/appstore-badge.svg" alt="Download on the App Store" width="130" height="44" />
+    </a>
+  </section>
+
+  <!-- ===== Shared footer ===== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="site-footer__grid">
+        <div class="site-footer__brand">
+          <a href="index.html" aria-label="Macgie home" style="display:flex;flex-direction:column;align-items:flex-start;gap:8px;">
+            <img class="mark" src="assets/img/app-icon.svg" alt="" width="34" height="35" />
+            <img class="word" src="assets/img/logo-macgie.svg" alt="Macgie" width="96" height="27" />
+          </a>
+          <p class="site-footer__tagline">Get dressed with more clarity, less pressure.</p>
+          <a class="appstore" href="https://testflight.apple.com/join/34jn3uvU" target="_blank" rel="noopener noreferrer" aria-label="Download on the App Store">
+            <img src="assets/img/appstore-badge.svg" alt="Download on the App Store" width="130" height="44" />
+          </a>
+        </div>
+        <div class="site-footer__cols">
+          <div class="site-footer__col">
+            <h4>Product</h4>
+            <ul><li><a href="features.html">Features</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="index.html">Changelog</a></li></ul>
+          </div>
+          <div class="site-footer__col">
+            <h4>Resources</h4>
+            <ul><li><a href="journal.html">Blog</a></li><li><a href="journal.html">Help Center</a></li><li><a href="journal.html">Community</a></li></ul>
+          </div>
+          <div class="site-footer__col">
+            <h4>Legal</h4>
+            <ul><li><a href="index.html">Privacy</a></li><li><a href="index.html">Terms</a></li></ul>
+          </div>
+        </div>
       </div>
-      <a class="btn btn--cream" href="https://testflight.apple.com/join/34jn3uvU" target="_blank" rel="noopener noreferrer">Become a Beta Tester
-        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
+      <p class="site-footer__legal">© 2026 Macgie, Inc. All rights reserved.</p>
     </div>
-  </div>
+  </footer>
 
   <script src="main.js"></script>
 </body>
