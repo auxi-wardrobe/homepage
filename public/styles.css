@@ -23,6 +23,11 @@
   --mint-ink: #1E7A54;
   --grad-warm: linear-gradient(96deg, #E84C9A 0%, #F5734F 52%, #F6A64B 100%);
   --grad-cool: linear-gradient(96deg, #7A3FF2 0%, #E84C9A 100%);
+  /* full brand spectrum (matches the app icon) — amber → red → pink → purple */
+  --grad-brand: linear-gradient(90deg, #FDC146 0%, #FE8357 20%, #FF645F 34%, #FF4567 48%, #DA4781 62%, #B5499A 74%, #904AB4 87%, #6B4CCD 100%);
+  --teal:  #4CF4D3;
+  --dark-card: #40444D;
+  --check:  #16A085;
 
   /* Type */
   --font-display: "Poppins", system-ui, sans-serif;
@@ -48,6 +53,7 @@
 }
 .grad-warm { background: var(--grad-warm); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .grad-cool { background: var(--grad-cool); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.grad-brand { background: var(--grad-brand); -webkit-background-clip: text; background-clip: text; color: transparent; }
 
 * { box-sizing: border-box; }
 
@@ -763,12 +769,12 @@ html.reveal-ready .reveal.is-in {
 .feat-cell p { font-family: var(--font-body); font-size: 14px; line-height: 1.6; color: var(--muted); }
 .badge {
   font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 11px;
+  font-weight: 500;
+  font-size: 12px;
   letter-spacing: .2px;
-  color: var(--mint-ink);
-  background: var(--mint);
-  padding: 3px 9px;
+  color: #12332b;
+  background: var(--teal);
+  padding: 3px 12px;
   border-radius: 999px;
 }
 
@@ -956,3 +962,101 @@ html.reveal-ready .reveal.is-in {
 .prose h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(22px, 3vw, 28px); color: var(--ink); margin: 12px 0 18px; }
 .prose ul { margin: 0 0 24px; padding-left: 22px; }
 .prose li { font-family: var(--font-body); font-size: 17px; line-height: 1.7; color: #2a2a2a; margin-bottom: 10px; }
+
+/* ============================================================
+   HOME (rebuilt from Figma node 4358-13188)
+   ============================================================ */
+
+/* Hero floating card */
+.hero__card {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(20px, 4vw, 40px);
+  transform: translateX(-50%);
+  z-index: 4;
+  width: min(720px, calc(100% - 32px));
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 2.4vw, 28px);
+  background: rgba(255, 255, 255, .92);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 18px clamp(18px, 2.4vw, 28px);
+  box-shadow: 0 16px 44px rgba(0, 0, 0, .16);
+}
+.hero__card .cat { width: 44px; flex-shrink: 0; }
+.hero__card p {
+  flex: 1;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(13px, 1.4vw, 15px);
+  line-height: 1.5;
+  color: var(--gray);
+}
+.hero__card .divider { width: 1px; align-self: stretch; background: var(--line); flex-shrink: 0; }
+.hero__card .appstore img { height: 40px; }
+@media (max-width: 640px) {
+  .hero__card { flex-direction: column; text-align: center; }
+  .hero__card .divider { display: none; }
+}
+
+/* Section 1 — the 8am problem */
+.prob-head { max-width: 720px; margin: 0 auto clamp(40px, 6vw, 60px); text-align: center; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.prob-title { display: inline-flex; align-items: center; gap: 20px; justify-content: center; flex-wrap: wrap; }
+.prob-title .cat { width: 56px; height: auto; flex-shrink: 0; }
+.prob-sub { font-family: var(--font-body); font-size: clamp(14px, 1.5vw, 16px); line-height: 1.6; color: var(--muted); max-width: 540px; }
+.prob-grid { display: grid; grid-template-columns: 1fr; gap: 32px 40px; max-width: 1040px; margin: 0 auto; }
+@media (min-width: 560px) { .prob-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 940px) { .prob-grid { grid-template-columns: repeat(4, 1fr); } }
+.prob-cell h3 { font-family: var(--font-display); font-weight: 700; font-size: 18px; color: var(--ink); margin-bottom: 12px; }
+.prob-cell p { font-family: var(--font-body); font-size: 14px; line-height: 1.6; color: var(--muted); }
+
+/* Section 2 — Why Macgie feels different */
+.why3 { display: grid; grid-template-columns: 1fr; gap: clamp(40px, 5vw, 56px); max-width: 1180px; margin: 0 auto; }
+@media (min-width: 860px) { .why3 { grid-template-columns: repeat(3, 1fr); } }
+.why3 .cell { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 20px; }
+.why3 .model { margin: 0 auto; }
+.why3 h3 { font-family: var(--font-display); font-weight: 800; font-size: clamp(22px, 2.4vw, 28px); color: var(--ink); }
+.why3 p { font-family: var(--font-display); font-weight: 300; font-size: 15px; line-height: 1.7; color: var(--gray); max-width: 320px; }
+
+/* Section 3 — From download to first outfit (dark) */
+.dl { background: var(--ink); color: var(--cream); }
+.dl .section-head .eyebrow { color: rgba(242, 239, 236, .6); }
+.dl-title { color: var(--cream); }
+.dl-actions { display: flex; justify-content: center; margin-top: 24px; }
+.dl-body { display: grid; grid-template-columns: 1fr; gap: clamp(32px, 5vw, 64px); align-items: center; max-width: 1000px; margin: clamp(40px, 6vw, 56px) auto 0; }
+@media (min-width: 860px) { .dl-body { grid-template-columns: 1.2fr 0.8fr; } }
+.dl-steps { display: flex; flex-direction: column; gap: 20px; }
+.dl-step { display: flex; gap: 22px; align-items: flex-start; padding: 22px clamp(20px, 2.4vw, 32px); border-radius: 22px; border: 1px solid transparent; transition: background .2s ease, border-color .2s ease; }
+.dl-step--on { background: var(--dark-card); }
+.dl-step:not(.dl-step--on) { border-color: rgba(242, 239, 236, .14); }
+.dl-step__icon { flex-shrink: 0; width: 48px; height: 48px; color: var(--cream); }
+.dl-step__icon svg { width: 48px; height: 48px; }
+.dl-step h3 { font-family: var(--font-display); font-weight: 800; font-size: 18px; color: var(--cream); margin-bottom: 8px; }
+.dl-step p { font-family: var(--font-display); font-weight: 300; font-size: 14px; line-height: 1.6; color: rgba(242, 239, 236, .72); }
+.dl-phone { display: flex; justify-content: center; }
+.dl-phone .phone { width: min(240px, 78%); box-shadow: 0 24px 60px rgba(0, 0, 0, .4); }
+
+/* Section head with inline cat (features on home) */
+.head-cat { display: inline-flex; align-items: center; gap: 20px; justify-content: center; flex-wrap: wrap; }
+.head-cat .cat { width: 52px; height: auto; flex-shrink: 0; }
+
+/* Section 7 — comparison table */
+.compare { max-width: 1120px; margin: 0 auto; overflow-x: auto; }
+.compare table { width: 100%; min-width: 720px; border-collapse: collapse; font-family: var(--font-body); }
+.compare th, .compare td { padding: 15px 14px; text-align: center; font-size: 15px; }
+.compare thead th { font-family: var(--font-display); font-weight: 600; font-size: 15px; color: var(--muted); border-bottom: 1px solid var(--line); }
+.compare thead th.c-cap { text-align: left; color: var(--ink); }
+.compare thead th.c-mac { color: var(--ink); }
+.compare tbody td { border-bottom: 1px solid var(--line); color: var(--ink); }
+.compare tbody td.c-cap { text-align: left; font-family: var(--font-body); }
+.compare tbody tr:last-child td { border-bottom: none; font-family: var(--font-display); font-weight: 600; }
+.compare .c-mac { background: var(--white); }
+.compare tbody tr:first-child .c-mac { border-top-left-radius: 12px; border-top-right-radius: 12px; }
+.compare tbody tr:last-child .c-mac { border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; }
+.compare .mark { display: inline-flex; }
+.compare .mark svg { width: 20px; height: 20px; }
+.compare .yes { color: var(--check); }
+.compare .no { color: #C2C4C8; }
+.compare .txt { color: var(--muted); font-size: 14px; }
