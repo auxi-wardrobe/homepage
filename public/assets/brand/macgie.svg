@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="75.2539" height="79.775" viewBox="0 0 75.2539 79.775" fill="none">
+  <defs>
+    <linearGradient id="macgieEyeLeft" gradientUnits="userSpaceOnUse" x1="41.0487" y1="36.0579" x2="23.9328" y2="53.1669">
+      <stop stop-color="#D6D6D6"></stop>
+      <stop offset="1" stop-color="#FFFFFF"></stop>
+    </linearGradient>
+    <linearGradient id="macgieEyeRight" gradientUnits="userSpaceOnUse" x1="68.071" y1="38.7811" x2="60.4373" y2="50.9894">
+      <stop stop-color="#D6D6D6"></stop>
+      <stop offset="1" stop-color="#FFFFFF"></stop>
+    </linearGradient>
+  </defs>
+  <path d="M0 14.1574C0 -2.09793 11.6167 -2.39268 18.9355 3.51872L33.0361 14.5871C37.9781 18.5786 45.1041 18.2744 51.6162 14.6691C52.2109 14.3399 52.7637 13.9396 53.2881 13.507L63.9131 4.74137C67.8141 1.67311 75.2537 4.09323 75.2539 11.0715V59.6886C75.2539 68.8386 70.7674 74.7546 63.458 75.4513L18.9355 79.6955C8.78202 80.6632 3.74105e-05 72.6763 0 62.4738V14.1574Z" fill="#070707"></path>
+  <ellipse cx="33.06" cy="45.92" rx="8.02" ry="16.58" fill="url(#macgieEyeLeft)"></ellipse>
+  <ellipse cx="36.4" cy="46.5" rx="2.2" ry="4.4" fill="#070707"></ellipse>
+  <ellipse cx="63.54" cy="44.6" rx="5" ry="13.5" fill="url(#macgieEyeRight)"></ellipse>
+  <ellipse cx="64.5" cy="44.6" rx="1.6" ry="3.5" fill="#070707"></ellipse>
+</svg>

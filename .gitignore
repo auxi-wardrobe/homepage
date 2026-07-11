@@ -30,3 +30,11 @@ pnpm-debug.log*
 .idea/
 .vscode/
 *.swp
+
+# Agent / tooling scratch
+.playwright-mcp/
+.superpowers/
+.ruff_cache/
+
+# Scratch QA screenshots at repo root (deployable images live in public/)
+/*.png

@@ -1,0 +1,44 @@
+/* ============================================================
+   Auxi — Spacing, radius, shadow & elevation tokens
+   8-pt spacing base. Radii follow the DS `ds.radius` scale.
+   Shadows are warm, low-opacity ink lifts (cards float gently; sheets
+   and dialogs cast upward).
+   ============================================================ */
+
+:root {
+  /* ---- Spacing (8-pt base) ---- */
+  --space-xs: 4px;
+  --space-s: 8px;
+  --space-m: 16px;
+  --space-l: 24px;
+  --space-xl: 32px;
+  --space-xxl: 48px;
+
+  /* Named layout constants (UAC flow) */
+  --space-body-pad: 24px;     /* screen horizontal padding */
+  --space-button-h: 56px;     /* primary CTA height */
+  --space-list-item-h: 56px;  /* list-row min height */
+  --space-hit-target: 44px;   /* minimum touch target */
+
+  /* ---- Border radius ---- */
+  --radius-xs: 2px;    /* checkbox */
+  --radius-sm: 12px;   /* text button · image tile */
+  --radius-md: 16px;   /* primary button · dialog */
+  --radius-lg: 17px;   /* secondary button */
+  --radius-xl: 18px;   /* sheet · screen */
+  --radius-full: 100px;/* pill · round */
+
+  /* ---- Shadows (warm ink lifts) ---- */
+  --shadow-card: 0 8px 16px rgba(29, 31, 35, 0.12);
+  --shadow-floating: 0 4px 12px rgba(29, 31, 35, 0.12);
+  --shadow-dialog: 0 -4px 40px rgba(0, 0, 0, 0.15);
+  --shadow-sheet: 0 -8px 40px rgba(29, 38, 70, 0.25);
+
+  /* ---- Z-index — canonical six-tier model ---- */
+  --z-base: 0; /* @kind other */
+  --z-content: 1; /* @kind other */
+  --z-sticky: 100; /* @kind other */
+  --z-dim: 1000; /* @kind other */
+  --z-modal: 1100; /* @kind other */
+  --z-toast: 1200; /* @kind other */
+}

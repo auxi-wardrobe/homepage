@@ -1,0 +1,113 @@
+/* ============================================================
+   Auxi — Typography tokens
+   App: a humanist display face (Poppins) paired with a Material-UI scale.
+   The consolidated, shippable set is Poppins / Roboto / Inter.
+     · Poppins  — display, marketing & large numerics
+     · Roboto   — button labels & UI (MD3 base, Regular only bundled)
+     · Inter    — dense UI, captions, text buttons, body
+     · JetBrains Mono — overlines / specs (not bundled → platform mono)
+   Marketing: Fraunces (display serif) + Inter (body).
+   ============================================================ */
+
+:root {
+  /* Family roles */
+  --font-display: 'Poppins', system-ui, sans-serif;
+  --font-ui: 'Roboto', system-ui, sans-serif;
+  --font-ui-alt: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Marketing roles */
+  --font-mk-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-mk-sans: 'Inter', system-ui, sans-serif;
+
+  /* Weights */
+  --fw-regular: 400; /* @kind other */
+  --fw-medium: 500; /* @kind other */
+  --fw-semibold: 600; /* @kind other */
+  --fw-bold: 700; /* @kind other */
+
+  /* UI type scale (px) — h1..caption from theme.typography.sizes */
+  --text-h1: 32px;       /* Poppins Bold 32/40, -0.64 tracking */
+  --text-h1-lh: 40px;
+  --text-h2: 24px;       /* Poppins SemiBold 24/32 */
+  --text-h2-lh: 32px;
+  --text-h3: 20px;       /* Inter SemiBold 20/26 */
+  --text-h3-lh: 26px;
+  --text-body: 16px;     /* Inter Regular 16/24 */
+  --text-body-lh: 24px;
+  --text-body-sm: 14px;  /* Inter 14/20 */
+  --text-body-sm-lh: 20px;
+  --text-caption: 12px;  /* Inter 12/16 */
+  --text-caption-lh: 16px;
+  --text-overline: 10px; /* Mono 10, 1px tracking, uppercase */
+  --text-overline-lh: 12px;
+
+  /* Display (marketing fluid clamps) */
+  --text-display-xl: clamp(2.5rem, 6vw, 4.5rem);
+  --text-display-xl-lh: 1.05;
+  --text-display-lg: clamp(2rem, 4.5vw, 3.25rem);
+  --text-display-lg-lh: 1.1;
+  --text-display-md: clamp(1.5rem, 3vw, 2.125rem);
+  --text-display-md-lh: 1.2;
+}
+
+/* ---- Type specimen / utility classes (app) ---- */
+.auxi-h1 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  font-size: var(--text-h1);
+  line-height: var(--text-h1-lh);
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+.auxi-h2 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-semibold);
+  font-size: var(--text-h2);
+  line-height: var(--text-h2-lh);
+  color: var(--text-primary);
+}
+.auxi-h3 {
+  font-family: var(--font-ui-alt);
+  font-weight: var(--fw-semibold);
+  font-size: var(--text-h3);
+  line-height: var(--text-h3-lh);
+  color: var(--text-primary);
+}
+.auxi-body {
+  font-family: var(--font-ui-alt);
+  font-weight: var(--fw-regular);
+  font-size: var(--text-body);
+  line-height: var(--text-body-lh);
+  color: var(--text-secondary);
+}
+.auxi-body-sm {
+  font-family: var(--font-ui-alt);
+  font-weight: var(--fw-regular);
+  font-size: var(--text-body-sm);
+  line-height: var(--text-body-sm-lh);
+  color: var(--text-secondary);
+}
+.auxi-caption {
+  font-family: var(--font-ui-alt);
+  font-weight: var(--fw-medium);
+  font-size: var(--text-caption);
+  line-height: var(--text-caption-lh);
+  color: var(--text-muted);
+}
+.auxi-overline {
+  font-family: var(--font-mono);
+  font-weight: var(--fw-regular);
+  font-size: var(--text-overline);
+  line-height: var(--text-overline-lh);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.auxi-label {
+  font-family: var(--font-ui);
+  font-weight: var(--fw-regular);
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.15px;
+}

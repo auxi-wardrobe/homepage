@@ -1,0 +1,74 @@
+/* ============================================================
+   Auxi — Color tokens
+   Source of truth: auxi mobile app theme.ds (theme.ts), extracted from
+   Auxi.fig. A warm, paper-toned neutral palette does the heavy lifting;
+   ink near-black carries text + primary actions; functional accents are
+   used sparingly. The marketing web surface adds an editorial paper/ink/
+   terracotta palette (auxi-web global.css).
+   ============================================================ */
+
+:root {
+  /* ---- Ink & neutrals (text · actions · strokes) ---- */
+  --auxi-ink: #1d1f23;        /* primary text · primary button */
+  --auxi-slate: #272a32;      /* deep surfaces · scrims */
+  --auxi-black: #070707;      /* control fills (radio dot) */
+  --auxi-on-variant: #49454f; /* secondary text (MD3 on-surface-variant) */
+  --auxi-warm-700: #5b5550;   /* strokes · warm gray */
+  --auxi-warm-500: #9e968e;   /* muted labels · hints */
+  --auxi-gray-500: #717171;   /* neutral gray */
+
+  /* ---- Surfaces — warm paper (backgrounds · cards · sheets) ---- */
+  --auxi-white: #ffffff;       /* app canvas */
+  --auxi-surface: #fcfcfd;     /* dialogs · sheets */
+  --auxi-surface-2: #f7f7f8;   /* subtle fills */
+  --auxi-cream: #f2efec;       /* primary warm surface · cards */
+  --auxi-warm-100: #eee6df;    /* dividers · hairlines · caption pills */
+  --auxi-tan: #e0d2c4;         /* warm accent surface · insight pills */
+  --auxi-tan-stroke: #c6bcb1;  /* borders on tan · inactive dots */
+  --auxi-placeholder: #d9d9d9; /* image placeholders */
+  --auxi-cool-100: #e3e3ec;    /* cool surface · icon chips */
+
+  /* ---- Functional accents (state · feedback) ---- */
+  --auxi-teal: #16a085;   /* switch active · success */
+  --auxi-green: #039855;  /* selected radio · confirm */
+  --auxi-danger: #bb251a; /* destructive actions */
+  --auxi-info: #1465b4;   /* informational text */
+  --auxi-ai: #822be6;     /* AI-sparkle accent (self-visualisation) */
+  /* raw red #ff0000 is flagged OFF-SYSTEM — never use in new work */
+
+  /* ---- Hairlines & scrims ---- */
+  --auxi-line: rgba(29, 31, 35, 0.10);   /* default hairline border */
+  --auxi-line-2: rgba(29, 31, 35, 0.06); /* faint inner divider */
+  --auxi-hairline: #eee6df;              /* warm list divider */
+  --auxi-divider-on-dark: rgba(242, 239, 236, 0.1); /* hairline on ink */
+  --auxi-scrim-dialog: rgba(25, 27, 34, 0.3);  /* centered dialog backdrop */
+  --auxi-scrim-overlay: rgba(38, 36, 33, 0.7); /* guidance overlay backdrop */
+
+  /* ---- Semantic aliases (use these in product code) ---- */
+  --text-primary: var(--auxi-ink);
+  --text-secondary: var(--auxi-on-variant);
+  --text-muted: var(--auxi-warm-500);
+  --text-inverse: var(--auxi-cream);
+  --text-danger: var(--auxi-danger);
+
+  --surface-canvas: var(--auxi-white);
+  --surface-card: var(--auxi-cream);
+  --surface-sheet: var(--auxi-surface);
+  --surface-accent: var(--auxi-tan);
+  --surface-dark: var(--auxi-ink);
+
+  --border-default: var(--auxi-line);
+  --border-strong: var(--auxi-ink);
+
+  --action-primary-bg: var(--auxi-ink);
+  --action-primary-fg: var(--auxi-cream);
+
+  /* ============================================================
+     Marketing web — editorial palette (auxi-web)
+     ============================================================ */
+  --auxi-paper: #faf7f2;     /* warm off-white page */
+  --auxi-mk-ink: #14110f;    /* near-black editorial ink */
+  --auxi-ash: #6f6a63;       /* muted body text */
+  --auxi-accent: #b5532a;    /* terracotta accent */
+  --auxi-mk-hairline: #e6e1d8;
+}
