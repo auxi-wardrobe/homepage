@@ -1,9 +1,15 @@
 # homepage — Macgie Landing Site (CLAUDE.md)
 
 > Marketing / landing website for **Macgie** (personal-wardrobe + AI outfit
-> recommender). Live at **macgie.com**. Submodule of the `wardrobe_project`
-> umbrella, alongside `auxi` (mobile), `auxi-web`, and `wardrobe-backend`.
-> This file is authoritative for anything done inside `homepage/`.
+> recommender). Submodule of the `wardrobe_project` umbrella, alongside `auxi`
+> (mobile), `auxi-web`, and `wardrobe-backend`. This file is authoritative for
+> anything done inside `homepage/`.
+>
+> **Currently served at `beta.macgie.com`** (staging). `macgie.com` was
+> temporarily reverted to the old Vercel site because this homepage's App Store
+> CTAs are premature — the app isn't on the App Store yet. Move it back to
+> `macgie.com` once the app ships (re-add `macgie.com`+`www` as Pages custom
+> domains and repoint their DNS to `macgie-homepage.pages.dev`).
 
 ## What this is
 
@@ -95,8 +101,10 @@ faithful; keep any hand-edits inside these scripts, not in the generated HTML.
 - **Sandbox first** to vibe-check; production is untouched until you run `prod`.
   Deploy is preview-first and never touches git — it just uploads `public/`.
 - Needs `wrangler` auth (`wrangler whoami`, Pages write). No build step.
-- **Custom domain:** `macgie.com` + `www.macgie.com` are attached to the
-  `macgie-homepage` project (proxied CNAMEs → `macgie-homepage.pages.dev`).
+- **Custom domain:** currently **`beta.macgie.com`** is attached to the
+  `macgie-homepage` project (proxied CNAME → `macgie-homepage.pages.dev`).
+  `macgie.com`/`www` were released back to the old Vercel site (apex `A
+  76.76.21.21`, `www` CNAME `cname.vercel-dns.com`) — see the note at the top.
   Email DNS (MX / SPF / DKIM / DMARC / `send` / `tracking`) is independent —
   **don't touch it.**
 

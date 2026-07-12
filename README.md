@@ -1,7 +1,7 @@
 # Auxi / Macgie — Homepage
 
 Marketing / landing website for **Macgie** (personal-wardrobe + AI outfit recommender).
-Live at **[macgie.com](https://macgie.com)**.
+Currently served at **[beta.macgie.com](https://beta.macgie.com)** (staging) — `macgie.com` is temporarily on the old site until the app ships.
 
 Part of the `wardrobe_project` umbrella monorepo, wired in as a git submodule
 alongside `auxi` (mobile), `auxi-web`, and `wardrobe-backend`.
