@@ -6,38 +6,29 @@ Live at **[macgie.com](https://macgie.com)**.
 Part of the `wardrobe_project` umbrella monorepo, wired in as a git submodule
 alongside `auxi` (mobile), `auxi-web`, and `wardrobe-backend`.
 
-This is a **faithful mirror of a Claude Design project** — "Macgie design home
-page" on claude.ai/design (`e0ce1eb4-0493-4f29-b99a-08288e1be2f9`). Five pages
-(home, features, pricing, journal, article) rendered by the Claude design-canvas
-runtime (`support.js` + `image-slot.js`, which load React/Babel from unpkg at
-view time). It is **not** hand-written HTML — see "Updating" below.
+A **static, hand-optimized 5-page marketing site** (home, features, pricing,
+journal, article) — plain HTML + CSS, **no client-side framework/runtime**.
+Lighthouse ≈ **perf 100 / a11y 100 / SEO 92 / best-practices 100**, LCP ~1.2s.
+
+The visual design is authored in the Claude Design project "Macgie design home
+page" (`e0ce1eb4-0493-4f29-b99a-08288e1be2f9`), which renders via a heavy client
+runtime. We **flatten** that into static HTML for speed + SEO (pre-render → strip
+runtime → optimize images/fonts). See `CLAUDE.md` for the full pipeline.
 
 ## Layout
 
 ```
 homepage/
-├── public/                       # ← the deployable site (this is what ships)
-│   ├── index.html · features.html · pricing.html · journal.html · article.html
-│   ├── 404.html
-│   ├── support.js · image-slot.js · .image-slots.state.json
-│   ├── _ds/                      # bundled design system (tokens, fonts, styles)
-│   └── assets/ · screenshots/ · uploads/ · *.svg · *.png
+├── public/                       # ← the deployable static site
+│   ├── index.html · features.html · pricing.html · journal.html · article.html · 404.html
+│   ├── app.js                    # tiny JS: mobile menu + FAQ accordion
+│   ├── robots.txt · sitemap.xml
+│   ├── img/ (webp) · assets/ (webp) · _ds/…/fonts/*.woff2 · *.svg
 └── scripts/
-    ├── deploy.sh                 # sandbox / prod deploy to Cloudflare Pages
-    └── postprocess-import.py     # turns a fresh design export into the deployable site
-```
-
-## Updating the site
-
-Design edits happen in **claude.ai/design**, not by hand:
-
-```bash
-# 1. edit the design in claude.ai/design, then Export the project as a ZIP
-# 2. replace public/ with the export:
-rm -rf public/* public/.image-slots.state.json public/.thumbnail
-unzip "Macgie design home page.zip" -d public
-# 3. apply the clean-URL / <title> / favicon / 404 transform:
-python3 scripts/postprocess-import.py
+    ├── deploy.sh                 # Cloudflare Pages deploy (sandbox / prod)
+    ├── postprocess-import.py     # clean URLs + head meta on a fresh design export
+    ├── flatten-static.py         # pre-rendered DOM -> static HTML
+    └── finalize-static.py        # FAQ answers + mobile-menu/FAQ JS
 ```
 
 ## Deploy (Cloudflare Pages — project `macgie-homepage`)
@@ -47,20 +38,16 @@ python3 scripts/postprocess-import.py
 ./scripts/deploy.sh prod       # PRODUCTION       → macgie-homepage.pages.dev → macgie.com
 ```
 
-- **Sandbox** is the vibe surface — deploy here first, look at it, then promote
-  to prod. Production stays untouched until you run `prod`.
-- No build step — just uploads `public/` via `wrangler`. Requires wrangler auth
-  (OAuth or `CLOUDFLARE_API_TOKEN`).
-- In a Claude Code session, just say **"sandbox đi"** / **"deploy homepage"** —
-  the `deploy-homepage-web` skill runs the sandbox deploy for you.
-
-`macgie.com` + `www.macgie.com` are attached as custom domains on the
-`macgie-homepage` project (proxied CNAMEs → `macgie-homepage.pages.dev`). Email
-DNS (MX / SPF / DKIM / DMARC) is independent — don't touch it.
+- **Sandbox first**, then promote to `prod`. No build step — uploads `public/`
+  via `wrangler` (needs auth). In a Claude Code session, "sandbox đi" runs it.
+- `macgie.com` + `www` are custom domains on the project (proxied CNAMEs →
+  `macgie-homepage.pages.dev`). Email DNS (MX/SPF/DKIM/DMARC) is separate — don't touch.
 
 ## Local preview
 
 ```bash
 cd public && python3 -m http.server 8799   # → http://localhost:8799
-# needs internet: the design-canvas runtime pulls React/Babel from unpkg
 ```
+
+> Local `http.server` is single-threaded; Lighthouse misreports it. Trust the
+> deployed / preview URL numbers, not localhost.

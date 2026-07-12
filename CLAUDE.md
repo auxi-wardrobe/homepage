@@ -1,117 +1,113 @@
 # homepage — Macgie Landing Site (CLAUDE.md)
 
 > Marketing / landing website for **Macgie** (personal-wardrobe + AI outfit
-> recommender). Submodule of the `wardrobe_project` umbrella, alongside `auxi`
-> (mobile), `auxi-web`, and `wardrobe-backend`. This file is authoritative for
-> anything done inside `homepage/`.
+> recommender). Live at **macgie.com**. Submodule of the `wardrobe_project`
+> umbrella, alongside `auxi` (mobile), `auxi-web`, and `wardrobe-backend`.
+> This file is authoritative for anything done inside `homepage/`.
 
 ## What this is
 
-A **faithful mirror of a Claude Design project** — the project
-**"Macgie design home page"** (`e0ce1eb4-0493-4f29-b99a-08288e1be2f9`) on
-claude.ai/design. It is a **5-page marketing site** (home, features, pricing,
-journal, article).
+A **static, hand-optimized 5-page marketing site** (home, features, pricing,
+journal, article) — **plain HTML + CSS, no client-side framework/runtime.**
 
-The pages render via the Claude **design-canvas runtime**: each page is an
-`.dc.html` document wrapped in `<x-dc>` that `support.js` renders with React
-(React + ReactDOM + Babel are loaded from **unpkg** at view time), and
-`<image-slot>` images are hydrated from the shared `.image-slots.state.json`
-sidecar. **This is not hand-written HTML — do not hand-edit page bodies.**
-Edit the design in claude.ai/design and re-import (see below).
+The visual design comes from the Claude Design project **"Macgie design home
+page"** (`e0ce1eb4-0493-4f29-b99a-08288e1be2f9`). That project renders via a
+heavy client runtime (unpkg React + in-browser Babel + a base64 image sidecar),
+which is fine for a design tool but terrible for a real site (Lighthouse perf
+~62, LCP ~9s). So we **flatten** it: pre-render each page to static HTML, strip
+the runtime, and optimize. Result: **Lighthouse ≈ perf 100 / a11y 100 / SEO 92 /
+best-practices 100**, LCP ~1.2s.
 
-> Previous versions of this site were a hand-built plain-static site from Figma.
-> That is gone — the current site is the design-canvas mirror described here.
+> Earlier this repo shipped the raw canvas mirror. It's now the flattened static
+> build described here. The Claude Design project stays the visual source of
+> truth — re-flatten when the design changes (see below).
 
 ## Layout
 
 ```
 homepage/
-├── public/                       # ← THE DEPLOYABLE SITE. This is all that ships.
-│   ├── index.html                # home  (renamed from "Macgie Home.dc.html")
-│   ├── features.html             # /features
-│   ├── pricing.html              # /pricing
-│   ├── journal.html              # /journal
-│   ├── article.html              # /article
-│   ├── 404.html                  # branded not-found (generated, self-contained)
-│   ├── support.js                # design-canvas runtime (loads React/Babel from unpkg)
-│   ├── image-slot.js             # <image-slot> web component
-│   ├── .image-slots.state.json   # image data for every slot (base64), shared by all pages
-│   ├── _ds/                       # bundled design system (tokens, fonts, styles, _ds_bundle.js)
-│   ├── assets/                    # brand, feature, garments, icons, journal, testimonials
-│   ├── screenshots/ · uploads/    # in-app screenshots + uploaded imagery
-│   └── *.svg · *.png              # loose brand/decorative assets
-├── scripts/
-│   ├── deploy.sh                 # Cloudflare Pages deploy (sandbox / prod)
-│   └── postprocess-import.py     # turns a fresh export into the deployable site
-├── README.md
-└── CLAUDE.md                     # this file
+├── public/                       # ← THE DEPLOYABLE SITE (static)
+│   ├── index.html · features.html · pricing.html · journal.html · article.html
+│   ├── 404.html
+│   ├── app.js                    # tiny progressive-enhancement JS (mobile menu, FAQ accordion)
+│   ├── robots.txt · sitemap.xml
+│   ├── img/                       # slot images extracted from the design, as webp
+│   ├── _ds/…/assets/fonts/*.woff2 # self-hosted fonts (woff2); @font-face is INLINED in each page
+│   └── assets/ · *.svg            # optimized webp imagery + brand svgs
+└── scripts/
+    ├── deploy.sh                 # Cloudflare Pages deploy (sandbox / prod)
+    ├── postprocess-import.py     # step 1: clean URLs + titles/meta/favicon on a fresh export
+    ├── flatten-static.py         # step 3: pre-rendered DOM -> static (strip runtime, slots->img, SEO head)
+    └── finalize-static.py        # step 4: inject FAQ answers + wire mobile-menu/FAQ JS
 ```
 
-Only `public/` is uploaded on deploy. Never put deployable content outside it.
+## Updating the site (re-flatten from the design)
 
-## Updating the site (round-trip through the design tool)
+Design edits happen in **claude.ai/design**; then re-run the flatten pipeline:
 
-Do **not** edit the `.dc.html` bodies by hand. To change the site:
+```bash
+# 1. export the project ZIP from claude.ai/design, unzip into public/, then:
+python3 scripts/postprocess-import.py          # clean URLs + head meta
 
-1. Edit the design in **claude.ai/design** → project "Macgie design home page".
-2. **Export the project as a ZIP** (··· menu → Download).
-3. Replace `public/` with the export and post-process it:
-   ```bash
-   rm -rf public/* public/.image-slots.state.json public/.thumbnail
-   unzip "Macgie design home page.zip" -d public
-   python3 scripts/postprocess-import.py     # clean URLs, titles/meta/favicon, 404
-   ```
-4. Deploy: `./scripts/deploy.sh sandbox` → verify → `./scripts/deploy.sh prod`.
+# 2. pre-render each page with a headless browser (resolves the runtime):
+#    (serve public/ on a port, then for each page)
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --dump-dom \
+  --virtual-time-budget=25000 http://127.0.0.1:PORT/index.html > /tmp/index_rendered.html
 
-`postprocess-import.py` is the **only** transform layered on the raw export:
-clean URLs (`/features`, `/pricing`, `/journal`, `/article`), per-page
-`<title>` + meta description + Open Graph + SVG favicon, and the branded
-`404.html`. Keep all edits in that script so re-imports stay reproducible.
+# 3. flatten pre-rendered -> static (strip scripts, <image-slot> -> optimized <img>, SEO head)
+python3 scripts/flatten-static.py /tmp/index_rendered.html public/index.html index public
 
-## Design system
+# 4. inject FAQ answers + wire mobile-menu/FAQ JS
+python3 scripts/finalize-static.py
 
-Comes bundled in `public/_ds/` (tokens + fonts + `styles.css`) straight from
-the design project — **the tokens are the source of truth**, don't invent new
-values. Register: **Fraunces** (editorial display serif) + **Inter** (body) for
-the marketing surface; warm paper / near-black ink / terracotta accent. Fonts
-ship bundled (Poppins/Inter/Roboto TTF) with Fraunces via Google Fonts.
+# 5. optimize: slot images -> webp (cwebp), heavy asset PNGs -> sized webp,
+#    fonts TTF -> woff2 (fonttools), inline token CSS, preload the LCP font.
+```
+
+Then deploy (below). The pipeline is intentionally scriptable so re-imports stay
+faithful; keep any hand-edits inside these scripts, not in the generated HTML.
+
+## Performance rules (don't regress these)
+
+- **No client framework/runtime.** Content ships in the initial HTML.
+- **Critical CSS is inlined** into each page `<head>` (the `_ds` token CSS +
+  page style). No render-blocking external stylesheets.
+- **Fonts self-hosted as woff2**, `font-display: swap`; the LCP font
+  (Poppins-Bold) + Inter-Regular are `<link rel="preload">`ed. No Google Fonts.
+- **All raster images are sized webp** with `width`/`height` + `loading="lazy"`
+  (hero is `eager` + `fetchpriority=high` + preloaded).
+- **SEO:** per-page `<title>`/meta/canonical, `lang="en"`, JSON-LD, Open Graph,
+  `sitemap.xml`, `robots.txt`.
+
+> **Known SEO note:** Cloudflare injects a `Content-Signal:` block into
+> `robots.txt` at the edge (its Content Signals default). Lighthouse flags it as
+> an unknown directive (SEO 92 instead of 100). It does **not** hurt real Google
+> SEO. To get 100, disable Content Signals for the zone in the Cloudflare
+> dashboard.
 
 ## Deploy (Cloudflare Pages — project `macgie-homepage`)
 
-Use the **`deploy-homepage-web`** skill (umbrella `.claude/skills/`), or directly:
-
 ```bash
 ./scripts/deploy.sh          # SANDBOX  → sandbox.macgie-homepage.pages.dev  (default)
-./scripts/deploy.sh prod     # PROD     → macgie-homepage.pages.dev
+./scripts/deploy.sh prod     # PROD     → macgie-homepage.pages.dev → macgie.com
 ```
 
-- **Sandbox first.** It's the vibe surface; production is untouched until you
-  explicitly run `prod`. Say "sandbox đi" / "deploy homepage" in a session and
-  the skill runs the sandbox deploy.
-- Deploy is **preview-first and NEVER touches git** — it just uploads `public/`.
-  Committing source + bumping the umbrella submodule pointer are separate steps.
+- **Sandbox first** to vibe-check; production is untouched until you run `prod`.
+  Deploy is preview-first and never touches git — it just uploads `public/`.
 - Needs `wrangler` auth (`wrangler whoami`, Pages write). No build step.
+- **Custom domain:** `macgie.com` + `www.macgie.com` are attached to the
+  `macgie-homepage` project (proxied CNAMEs → `macgie-homepage.pages.dev`).
+  Email DNS (MX / SPF / DKIM / DMARC / `send` / `tracking`) is independent —
+  **don't touch it.**
 
-## Custom domain — `macgie.com`
+## Verifying
 
-`macgie.com` (+ `www.macgie.com`) are attached as **custom domains** on the
-`macgie-homepage` Pages project. DNS lives in the same Cloudflare account
-(zone `0b09f0c7aa95d76501e70668389c7232`): both web records are **proxied
-CNAMEs → `macgie-homepage.pages.dev`**. A `prod` deploy updates the live site
-automatically.
+```bash
+cd public && python3 -m http.server 8799          # local preview
+# Lighthouse (real numbers vary run-to-run; take a median of 3):
+npx lighthouse@12 https://macgie.com/ --form-factor=mobile --screenEmulation.mobile=true
+```
 
-- **Do NOT touch the email/verification DNS** — the MX (Google Workspace),
-  SPF / DKIM / DMARC TXT, and `send.` / `tracking.` records must stay as-is or
-  mail breaks. Only the apex + `www` web records point at Pages.
-- The site previously ran on Vercel; DNS was repointed to Cloudflare Pages.
-
-## Conventions & don'ts
-
-- **Don't hand-edit `.dc.html` page bodies** — round-trip through claude.ai/design.
-- **Don't hand-edit `.image-slots.state.json`** — it's generated image data.
-- Keep post-export edits inside `postprocess-import.py`.
-- Verify locally before deploy: `cd public && python3 -m http.server 8799`
-  (needs internet — the runtime pulls React/Babel from unpkg).
-- **Known tradeoff:** the mirror renders client-side via unpkg React + in-browser
-  Babel, so it's heavier / less SEO-optimal than static HTML. If speed/SEO
-  becomes a priority, flatten the export to plain static HTML in a future pass.
+Local `python -m http.server` is single-threaded and Lighthouse's Lantern
+simulation misreports it badly — trust the deployed-URL / preview-URL numbers,
+not localhost.

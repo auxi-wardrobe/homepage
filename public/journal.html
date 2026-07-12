@@ -1,23 +1,198 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html lang="en"><head>
+<style>
+/* ============================================================
+   Auxi — Webfonts
+   App faces (bundled, from the React Native app): Poppins, Inter, Roboto.
+   Marketing display face: Fraunces (loaded from Google Fonts — the marketing
+   site ships @fontsource/fraunces; CDN is faithful to that).
+   ============================================================ */
+
+@font-face {
+  font-family: 'Poppins';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Poppins-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Poppins-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Poppins-SemiBold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Poppins-Bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Inter-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Inter-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Inter-SemiBold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Roboto-Regular.woff2') format('woff2');
+}
+
+
+/* ============================================================
+   Auxi — Color tokens
+   Source of truth: auxi mobile app theme.ds (theme.ts), extracted from
+   Auxi.fig. A warm, paper-toned neutral palette does the heavy lifting;
+   ink near-black carries text + primary actions; functional accents are
+   used sparingly. The marketing web surface adds an editorial paper/ink/
+   terracotta palette (auxi-web global.css).
+   ============================================================ */
+
+:root {
+  /* ---- Ink & neutrals (text · actions · strokes) ---- */
+  --auxi-ink: #1d1f23;        /* primary text · primary button */
+  --auxi-slate: #272a32;      /* deep surfaces · scrims */
+  --auxi-black: #070707;      /* control fills (radio dot) */
+  --auxi-on-variant: #49454f; /* secondary text (MD3 on-surface-variant) */
+  --auxi-warm-700: #5b5550;   /* strokes · warm gray */
+  --auxi-warm-500: #6f6a63;   /* muted labels · hints */
+  --auxi-gray-500: #717171;   /* neutral gray */
+
+  /* ---- Surfaces — warm paper (backgrounds · cards · sheets) ---- */
+  --auxi-white: #ffffff;       /* app canvas */
+  --auxi-surface: #fcfcfd;     /* dialogs · sheets */
+  --auxi-surface-2: #f7f7f8;   /* subtle fills */
+  --auxi-cream: #f2efec;       /* primary warm surface · cards */
+  --auxi-warm-100: #eee6df;    /* dividers · hairlines · caption pills */
+  --auxi-tan: #e0d2c4;         /* warm accent surface · insight pills */
+  --auxi-tan-stroke: #c6bcb1;  /* borders on tan · inactive dots */
+  --auxi-placeholder: #d9d9d9; /* image placeholders */
+  --auxi-cool-100: #e3e3ec;    /* cool surface · icon chips */
+
+  /* ---- Functional accents (state · feedback) ---- */
+  --auxi-teal: #16a085;   /* switch active · success */
+  --auxi-green: #039855;  /* selected radio · confirm */
+  --auxi-danger: #bb251a; /* destructive actions */
+  --auxi-info: #1465b4;   /* informational text */
+  --auxi-ai: #822be6;     /* AI-sparkle accent (self-visualisation) */
+  /* raw red #ff0000 is flagged OFF-SYSTEM — never use in new work */
+
+  /* ---- Hairlines & scrims ---- */
+  --auxi-line: rgba(29, 31, 35, 0.10);   /* default hairline border */
+  --auxi-line-2: rgba(29, 31, 35, 0.06); /* faint inner divider */
+  --auxi-hairline: #eee6df;              /* warm list divider */
+  --auxi-divider-on-dark: rgba(242, 239, 236, 0.1); /* hairline on ink */
+  --auxi-scrim-dialog: rgba(25, 27, 34, 0.3);  /* centered dialog backdrop */
+  --auxi-scrim-overlay: rgba(38, 36, 33, 0.7); /* guidance overlay backdrop */
+
+  /* ---- Semantic aliases (use these in product code) ---- */
+  --text-primary: var(--auxi-ink);
+  --text-secondary: var(--auxi-on-variant);
+  --text-muted: var(--auxi-warm-500);
+  --text-inverse: var(--auxi-cream);
+  --text-danger: var(--auxi-danger);
+
+  --surface-canvas: var(--auxi-white);
+  --surface-card: var(--auxi-cream);
+  --surface-sheet: var(--auxi-surface);
+  --surface-accent: var(--auxi-tan);
+  --surface-dark: var(--auxi-ink);
+
+  --border-default: var(--auxi-line);
+  --border-strong: var(--auxi-ink);
+
+  --action-primary-bg: var(--auxi-ink);
+  --action-primary-fg: var(--auxi-cream);
+
+  /* ============================================================
+     Marketing web — editorial palette (auxi-web)
+     ============================================================ */
+  --auxi-paper: #faf7f2;     /* warm off-white page */
+  --auxi-mk-ink: #14110f;    /* near-black editorial ink */
+  --auxi-ash: #6f6a63;       /* muted body text */
+  --auxi-accent: #b5532a;    /* terracotta accent */
+  --auxi-mk-hairline: #e6e1d8;
+}
+
+</style><style>
+    .sc-placeholder{background:color-mix(in srgb,currentColor 8%,transparent);
+      border:1px solid color-mix(in srgb,currentColor 50%,transparent);
+      border-radius:2px;box-sizing:border-box;overflow:hidden}
+    @keyframes sc-shine{0%{background-position:100% 50%}100%{background-position:0% 50%}}
+    html.sc-dc-streaming .sc-placeholder,
+    html.sc-dc-streaming .sc-interp.sc-missing{position:relative;
+      background:color-mix(in srgb,currentColor 5%,transparent);
+      border-color:transparent}
+    html.sc-dc-streaming .sc-placeholder::before,
+    html.sc-dc-streaming .sc-interp.sc-missing::before{content:'';
+      position:absolute;inset:0;pointer-events:none;
+      background:linear-gradient(90deg,rgba(217,119,87,0) 25%,rgba(247,225,211,.95) 37%,rgba(217,119,87,0) 63%);
+      background-size:400% 100%;animation:sc-shine 1.4s ease infinite}
+    html.sc-dc-streaming .sc-placeholder:nth-child(n+9 of .sc-placeholder)::before,
+    html.sc-dc-streaming .sc-interp.sc-missing:nth-child(n+9 of .sc-interp.sc-missing)::before{animation:none;
+      background:color-mix(in srgb,currentColor 8%,transparent)}
+    .sc-placeholder-error{padding:4px 8px;font:11px/1.4 ui-monospace,monospace;
+      color:color-mix(in srgb,currentColor 70%,transparent);word-break:break-word}
+    .sc-interp.sc-missing{display:inline-block;width:2em;height:1em;overflow:hidden;
+      vertical-align:text-bottom;background:rgba(255,255,255,.3);border:1px solid rgba(0,0,0,.5);
+      border-radius:2px;box-sizing:border-box;color:transparent;
+      user-select:none}
+    .sc-interp.sc-unresolved{font-family:ui-monospace,monospace;font-size:.85em;
+      color:color-mix(in srgb,currentColor 50%,transparent);
+      background:color-mix(in srgb,currentColor 10%,transparent);border-radius:3px;
+      padding:0 3px}
+    .sc-host.sc-has-error{position:relative}
+    .sc-logic-error{position:absolute;top:8px;left:8px;z-index:2147483647;max-width:60ch;
+      padding:6px 10px;background:#b00020;color:#fff;font:12px/1.4 ui-monospace,monospace;
+      border-radius:4px;white-space:pre-wrap;pointer-events:none}
+    /* Mirrors PRINT_BASELINE_CSS in apps/web deck-stage-export.ts — keep both
+       in sync until dc-runtime regains a build step. */
+    @media print {
+      @page { margin: 0.5cm; }
+      figure, table { break-inside: avoid; }
+      #dc-root, #dc-root > .sc-host { height: auto; }
+      *, *::before, *::after {
+        print-color-adjust: exact; -webkit-print-color-adjust: exact;
+        backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+        animation-delay: -99s !important; animation-duration: .001s !important;
+        animation-iteration-count: 1 !important; animation-fill-mode: both !important;
+        animation-play-state: running !important; transition-duration: 0s !important;
+      }
+    }
+  </style>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
-</head>
-<body>
-<x-dc>
-<helmet>
-<title>Journal — Macgie</title>
-<meta name="description" content="Notes on dressing with less friction — capsules, color, packing and getting more out of the wardrobe you own.">
-<link rel="icon" type="image/svg+xml" href="/assets/brand/macgie.svg">
-<meta property="og:title" content="Journal — Macgie">
-<meta property="og:description" content="Notes on dressing with less friction — capsules, color, packing and getting more out of the wardrobe you own.">
-<meta property="og:type" content="website">
-<link rel="stylesheet" href="_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/tokens/fonts.css">
-<link rel="stylesheet" href="_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/tokens/colors.css">
-<script src="_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/_ds_bundle.js"></script>
-<style>
+<style>x-dc{display:none!important}</style>
+<title>Journal — Macgie</title><meta name="description" content="Notes on dressing with less friction — capsules, color, packing and getting more out of the wardrobe you own."><link rel="icon" type="image/svg+xml" href="/assets/brand/macgie.svg"><meta property="og:title" content="Journal — Macgie"><meta property="og:description" content="Notes on dressing with less friction — capsules, color, packing and getting more out of the wardrobe you own."><meta property="og:type" content="website"><style>
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; scroll-padding-top: 88px; }
   html, body { margin: 0; }
@@ -48,213 +223,160 @@
     h1 { font-size: 32px !important; line-height: 1.18 !important; }
     h2 { font-size: 30px !important; line-height: 1.24 !important; }
   }
-</style>
-</helmet>
-
-<div id="top" style="width:100%">
-
-<!-- announcement -->
+</style><link rel="canonical" href="https://macgie.com/journal">
+<meta property="og:url" content="https://macgie.com/journal">
+<meta property="og:image" content="https://macgie.com/img/hero-p2.webp">
+<meta name="twitter:card" content="summary_large_image">
 
 
-<!-- header -->
-<header style="position:sticky;top:0;z-index:60;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);border-bottom:1px solid rgba(29,31,35,.07)">
-  <div style="max-width:1200px;margin:0 auto;padding:0 40px;height:66px;display:flex;align-items:center;justify-content:space-between">
-    <a href="/" style="display:flex;align-items:center;gap:9px">
-      <img src="./m-lg-mrfpjcc9.svg" width="26" height="27" alt="Macgie">
-      <span style="font-family:'Poppins',sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.02em">Macgie</span>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://macgie.com/#org", "name": "Macgie", "url": "https://macgie.com/", "logo": "https://macgie.com/assets/brand/macgie.svg"}, {"@type": "WebSite", "@id": "https://macgie.com/#site", "url": "https://macgie.com/", "name": "Macgie", "publisher": {"@id": "https://macgie.com/#org"}}, {"@type": "SoftwareApplication", "name": "Macgie", "applicationCategory": "LifestyleApplication", "operatingSystem": "iOS", "description": "AI outfit recommendations built from the clothes you already own.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}]}</script>
+<style>#m-nav{position:fixed;top:0;left:0;right:0;bottom:0;z-index:200;background:#faf7f2;display:none;flex-direction:column;gap:4px;padding:84px 24px 32px;font-family:Inter,system-ui,sans-serif}#m-nav.open{display:flex}#m-nav a{color:#14110f;text-decoration:none;font-size:20px;font-weight:600;padding:14px 0;border-bottom:1px solid #e6e1d8}</style></head>
+<body>
+<div id="dc-root"><div class="sc-host" data-sc-name="journal"><div id="top" style="width: 100%;"><header style="position: sticky; top: 0px; z-index: 60; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(29, 31, 35, 0.07);">
+  <div style="max-width: 1200px; margin: 0px auto; padding: 0px 40px; height: 66px; display: flex; align-items: center; justify-content: space-between;">
+    <a href="/" style="display: flex; align-items: center; gap: 9px;">
+      <img src="./m-lg-mrfpjcc9.svg" width="26" height="27" alt="">
+      <span style="font-family: Poppins, sans-serif; font-weight: 700; font-size: 20px; letter-spacing: -0.02em;">Macgie</span>
     </a>
-    <nav style="display:flex;align-items:center;gap:34px;font-family:'Inter',sans-serif;font-size:14px;font-weight:500">
+    <nav style="display: flex; align-items: center; gap: 34px; font-family: Inter, sans-serif; font-size: 14px; font-weight: 500;">
       <a class="navlink" href="/#sample">Why sample wardrobe</a>
       <a class="navlink" href="/features">Features</a>
       <a class="navlink" href="/pricing">Pricing</a>
       <a class="navlink-active" href="#top">Journal</a>
     </nav>
-    <a class="store-badge" href="#cta" style="display:inline-flex;align-items:center;gap:9px;background:#111214;color:#fff;border-radius:11px;padding:8px 15px">
+    <a class="store-badge" href="#cta" style="display: inline-flex; align-items: center; gap: 9px; background: rgb(17, 18, 20); color: rgb(255, 255, 255); border-radius: 11px; padding: 8px 15px;">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M16.5 1.8c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.8-1.4zM19 17.3c-.5 1.2-.8 1.7-1.4 2.7-.9 1.4-2.2 3.2-3.8 3.2-1.4 0-1.8-.9-3.7-.9s-2.3.9-3.7.9c-1.6 0-2.8-1.6-3.7-3C-.1 16.7-.6 11 1.6 8.2c1-1.3 2.5-2 4-2 1.5 0 2.5.9 3.7.9 1.2 0 1.9-.9 3.7-.9 1.3 0 2.7.7 3.7 2-3.2 1.8-2.7 6.4.6 7.1z"></path></svg>
-      <span style="line-height:1.05"><span style="display:block;font-size:8.5px;opacity:.85">Download on the</span><span style="font-size:13.5px;font-weight:600">App Store</span></span>
+      <span style="line-height: 1.05;"><span style="display: block; font-size: 8.5px; opacity: 0.85;">Download on the</span><span style="font-size: 13.5px; font-weight: 600;">App Store</span></span>
     </a>
-    <button class="hamburger" onClick="{{ toggleMenu }}" aria-label="Menu" style="flex:none;background:none;border:none;padding:8px;margin:-8px -8px -8px 0;cursor:pointer;align-items:center;justify-content:center;color:#1d1f23">
-      <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#1d1f23" stroke-width="1.9" stroke-linecap="round"></path></svg></sc-if>
-      <sc-if value="{{ menuClosed }}" hint-placeholder-val="{{ true }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="#1d1f23" stroke-width="1.9" stroke-linecap="round"></path></svg></sc-if>
+    <button class="hamburger" aria-label="Menu" style="flex: 0 0 auto; background: none; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; padding: 8px; margin: -8px -8px -8px 0px; cursor: pointer; align-items: center; justify-content: center; color: rgb(29, 31, 35);">
+      
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="#1d1f23" stroke-width="1.9" stroke-linecap="round"></path></svg>
     </button>
-  </div>
-</header>
+  </div></header><section style="max-width: 900px; margin: 0px auto; padding: 73px 40px 0px; text-align: center;">
+  <div style="font-family: Poppins, sans-serif; font-weight: 300; font-size: 16px; letter-spacing: 0.14px; text-transform: uppercase; color: rgb(38, 38, 38);">The Macgie Journal</div>
+  <h1 style="font-family: Poppins, sans-serif; font-weight: 800; font-size: 48px; line-height: 64px; color: rgb(23, 24, 28); margin: 12px 0px 0px;">Dress easier. Live lighter.</h1>
+  <p style="font-family: Poppins, sans-serif; font-weight: 300; font-size: 16px; line-height: 28px; color: rgb(38, 38, 38); max-width: 802px; margin: 12px auto 0px;">Warm, practical writing on building a wardrobe you actually wear — capsule closets, effortless packing, color that just works, and the quiet confidence of always knowing what to put on.</p></section><section style="max-width: 1170px; margin: 0px auto; padding: 38px 40px 0px; display: flex; flex-direction: column; align-items: center;">
+  <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;">
+    
+      <span class="chip" style="font-family: Inter, sans-serif; font-size: 14px; font-weight: 500; padding: 9px 20px; border-radius: 100px; background: rgb(74, 70, 64); color: rgb(255, 255, 255);"><span class="sc-interp">All</span></span>
+    
+      <span class="chip" style="font-family: Inter, sans-serif; font-size: 14px; font-weight: 500; padding: 9px 20px; border-radius: 100px; background: rgb(230, 221, 210); color: rgb(74, 70, 64);"><span class="sc-interp">Getting Dressed</span></span>
+    
+      <span class="chip" style="font-family: Inter, sans-serif; font-size: 14px; font-weight: 500; padding: 9px 20px; border-radius: 100px; background: rgb(230, 221, 210); color: rgb(74, 70, 64);"><span class="sc-interp">Wardrobe Psychology</span></span>
+    
+      <span class="chip" style="font-family: Inter, sans-serif; font-size: 14px; font-weight: 500; padding: 9px 20px; border-radius: 100px; background: rgb(230, 221, 210); color: rgb(74, 70, 64);"><span class="sc-interp">Wardrobe Systems</span></span>
+    
+      <span class="chip" style="font-family: Inter, sans-serif; font-size: 14px; font-weight: 500; padding: 9px 20px; border-radius: 100px; background: rgb(230, 221, 210); color: rgb(74, 70, 64);"><span class="sc-interp">Style Fundamentals</span></span>
+    
+      <span class="chip" style="font-family: Inter, sans-serif; font-size: 14px; font-weight: 500; padding: 9px 20px; border-radius: 100px; background: rgb(230, 221, 210); color: rgb(74, 70, 64);"><span class="sc-interp">Mindful Shopping</span></span>
+    
+  </div></section><section style="max-width: 1170px; margin: 0px auto; padding: 40px 40px 88px; display: flex; flex-direction: column; gap: 40px;">
 
-<sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
-<div class="mobile-menu" style="position:fixed;inset:0;background:#fff;z-index:55;flex-direction:column;align-items:center;justify-content:center;padding:96px 24px 48px;overflow-y:auto">
-  <nav style="display:flex;flex-direction:column;align-items:center;gap:40px;font-family:'Poppins',sans-serif;font-size:27px;font-weight:600;letter-spacing:-0.01em">
-    <a class="navlink" href="/#sample">Why sample wardrobe</a>
-    <a class="navlink" href="/features">Features</a>
-    <a class="navlink" href="/pricing">Pricing</a>
-    <a class="navlink-active" onClick="{{ closeMenu }}" href="#top">Journal</a>
-  </nav>
-  <a class="store-badge" onClick="{{ closeMenu }}" href="#cta" style="margin-top:56px;display:inline-flex;align-items:center;gap:9px;background:#111214;color:#fff;border-radius:11px;padding:11px 18px">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M16.5 1.8c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.8-1.4zM19 17.3c-.5 1.2-.8 1.7-1.4 2.7-.9 1.4-2.2 3.2-3.8 3.2-1.4 0-1.8-.9-3.7-.9s-2.3.9-3.7.9c-1.6 0-2.8-1.6-3.7-3C-.1 16.7-.6 11 1.6 8.2c1-1.3 2.5-2 4-2 1.5 0 2.5.9 3.7.9 1.2 0 1.9-.9 3.7-.9 1.3 0 2.7.7 3.7 2-3.2 1.8-2.7 6.4.6 7.1z"></path></svg>
-    <span style="line-height:1.05"><span style="display:block;font-size:9px;opacity:.85">Download on the</span><span style="font-size:15px;font-weight:600">App Store</span></span>
-  </a>
-</div>
-</sc-if>
-
-<!-- HERO -->
-<section style="max-width:900px;margin:0 auto;padding:73px 40px 0;text-align:center">
-  <div style="font-family: 'Poppins',sans-serif; font-weight: 300; font-size: 16px; letter-spacing: 0.14px; text-transform: uppercase; color: #262626">The Macgie Journal</div>
-  <h1 style="font-family:'Poppins',sans-serif;font-weight:800;font-size:48px;line-height:64px;color:#17181c;margin:12px 0 0">Dress easier. Live lighter.</h1>
-  <p style="font-family:'Poppins',sans-serif;font-weight:300;font-size:16px;line-height:28px;color:#262626;max-width:802px;margin:12px auto 0">Warm, practical writing on building a wardrobe you actually wear — capsule closets, effortless packing, color that just works, and the quiet confidence of always knowing what to put on.</p>
-</section>
-
-<!-- CHIPS -->
-<section style="max-width:1170px;margin:0 auto;padding:38px 40px 0;display:flex;flex-direction:column;align-items:center">
-  <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center">
-    <sc-for list="{{ chips }}" as="c" hint-placeholder-count="6">
-      <span class="chip" onClick="{{ c.select }}" style="font-family:'Inter',sans-serif;font-size:14px;font-weight:500;padding:9px 20px;border-radius:100px;background:{{ c.bg }};color:{{ c.fg }}">{{ c.label }}</span>
-    </sc-for>
-  </div>
-</section>
-
-<!-- POSTS -->
-<section style="max-width:1170px;margin:0 auto;padding:40px 40px 88px;display:flex;flex-direction:column;gap:40px">
-
-  <!-- Featured -->
-  <sc-if value="{{ showFeatured }}" hint-placeholder-val="{{ true }}">
-  <a class="post" href="/article" style="display:grid;grid-template-columns:2fr 1fr;gap:32px;align-items:stretch">
-    <div style="border-radius:24px;overflow:hidden;background:#f2f4f7;height:427px"><div class="pimg" style="width:100%;height:100%;background:url(assets/journal/capsule.png) center/cover no-repeat"></div></div>
-    <div style="display:flex;flex-direction:column;gap:16px;justify-content:center">
-      <div style="font-family:'Poppins',sans-serif;font-weight:400;font-size:15px;color:#6f6a63">Getting Dressed</div>
-      <div class="ptitle" style="font-family:'Poppins',sans-serif;font-weight:700;font-size:28px;line-height:1.18;color:#17181c">How to Build a Capsule Wardrobe (2026 Guide)</div>
-      <p style="font-family:'Poppins',sans-serif;font-weight:400;font-size:16px;line-height:28px;color:#262626;margin:0">Thirty pieces, endless outfits. A step-by-step method for editing down to a wardrobe where everything works together — and how Macgie shows you the gaps and combinations you'd never spot on the rail.</p>
-      <div style="font-family:'Poppins',sans-serif;font-weight:400;font-size:14px;color:#6f6a63;display:flex;gap:16px;flex-wrap:wrap">
+  
+  
+  <a class="post" href="/article" style="display: grid; grid-template-columns: 2fr 1fr; gap: 32px; align-items: stretch;">
+    <div style="border-radius: 24px; overflow: hidden; background: rgb(242, 244, 247); height: 427px;"><div class="pimg" style="width: 100%; height: 100%; background: url(&quot;assets/journal/capsule.png&quot;) center center / cover no-repeat;"></div></div>
+    <div style="display: flex; flex-direction: column; gap: 16px; justify-content: center;">
+      <div style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 15px; color: rgb(111, 106, 99);">Getting Dressed</div>
+      <div class="ptitle" style="font-family: Poppins, sans-serif; font-weight: 700; font-size: 28px; line-height: 1.18; color: rgb(23, 24, 28);">How to Build a Capsule Wardrobe (2026 Guide)</div>
+      <p style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 16px; line-height: 28px; color: rgb(38, 38, 38); margin: 0px;">Thirty pieces, endless outfits. A step-by-step method for editing down to a wardrobe where everything works together — and how Macgie shows you the gaps and combinations you'd never spot on the rail.</p>
+      <div style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 14px; color: rgb(111, 106, 99); display: flex; gap: 16px; flex-wrap: wrap;">
         <span>Elise Tran</span><span>June 18, 2026</span><span>9 min read</span>
       </div>
     </div>
   </a>
-  </sc-if>
+  
 
-  <!-- Two half-width -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px">
-    <sc-for list="{{ halfPosts }}" as="p" hint-placeholder-count="2">
-      <a class="post" href="/article" style="display:flex;flex-direction:column;gap:16px">
-        <div style="border-radius:24px;overflow:hidden;background:#f2f4f7;height:318px"><div class="pimg" style="width:100%;height:100%;background:url({{ p.img }}) center/cover no-repeat"></div></div>
-        <div style="padding:0 12px">
-          <div style="font-family:'Poppins',sans-serif;font-weight:400;font-size:15px;color:#6f6a63">{{ p.cat }}</div>
-          <div class="ptitle" style="font-family:'Poppins',sans-serif;font-weight:700;font-size:24px;line-height:1.15;color:#17181c;margin-top:10px">{{ p.title }}</div>
-          <p style="font-family:'Poppins',sans-serif;font-weight:400;font-size:16px;line-height:28px;color:#262626;margin:10px 0 0">{{ p.desc }}</p>
-          <div style="font-family:'Poppins',sans-serif;font-weight:400;font-size:14px;color:#6f6a63;display:flex;gap:16px;margin-top:16px;flex-wrap:wrap"><span>Elise Tran</span><span>June 18, 2026</span><span>9 min read</span></div>
+  
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+    
+      <a class="post" href="/article" style="display: flex; flex-direction: column; gap: 16px;">
+        <div style="border-radius: 24px; overflow: hidden; background: rgb(242, 244, 247); height: 318px;"><div class="pimg" style="width: 100%; height: 100%; background: url(&quot;assets/journal/color.png&quot;) center center / cover no-repeat;"></div></div>
+        <div style="padding: 0px 12px;">
+          <div style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 15px; color: rgb(111, 106, 99);"><span class="sc-interp">Style Fundamentals</span></div>
+          <div class="ptitle" style="font-family: Poppins, sans-serif; font-weight: 700; font-size: 24px; line-height: 1.15; color: rgb(23, 24, 28); margin-top: 10px;"><span class="sc-interp">Color Theory for Getting Dressed</span></div>
+          <p style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 16px; line-height: 28px; color: rgb(38, 38, 38); margin: 10px 0px 0px;"><span class="sc-interp">Warm, cool, neutral and the 3-color rule — the small amount of theory that makes everything match.</span></p>
+          <div style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 14px; color: rgb(111, 106, 99); display: flex; gap: 16px; margin-top: 16px; flex-wrap: wrap;"><span>Elise Tran</span><span>June 18, 2026</span><span>9 min read</span></div>
         </div>
       </a>
-    </sc-for>
-  </div>
-
-  <!-- Three third-width -->
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px">
-    <sc-for list="{{ thirdPosts }}" as="p" hint-placeholder-count="3">
-      <a class="post" href="/article" style="display:flex;flex-direction:column;gap:16px">
-        <div style="border-radius:24px;overflow:hidden;background:#f2f4f7;height:204px"><div class="pimg" style="width:100%;height:100%;background:url({{ p.img }}) center/cover no-repeat"></div></div>
-        <div style="padding:0 12px">
-          <div style="font-family:'Poppins',sans-serif;font-weight:400;font-size:15px;color:#6f6a63">{{ p.cat }}</div>
-          <div class="ptitle" style="font-family:'Poppins',sans-serif;font-weight:700;font-size:20px;line-height:1.18;color:#17181c;margin-top:10px">{{ p.title }}</div>
-          <p style="font-family:'Poppins',sans-serif;font-weight:400;font-size:15px;line-height:26px;color:#262626;margin:10px 0 0">{{ p.desc }}</p>
-          <div style="font-family:'Poppins',sans-serif;font-weight:400;font-size:14px;color:#6f6a63;display:flex;gap:16px;margin-top:16px;flex-wrap:wrap"><span>Elise Tran</span><span>June 18, 2026</span><span>9 min read</span></div>
+    
+      <a class="post" href="/article" style="display: flex; flex-direction: column; gap: 16px;">
+        <div style="border-radius: 24px; overflow: hidden; background: rgb(242, 244, 247); height: 318px;"><div class="pimg" style="width: 100%; height: 100%; background: url(&quot;assets/journal/pack.png&quot;) center center / cover no-repeat;"></div></div>
+        <div style="padding: 0px 12px;">
+          <div style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 15px; color: rgb(111, 106, 99);"><span class="sc-interp">Style Fundamentals</span></div>
+          <div class="ptitle" style="font-family: Poppins, sans-serif; font-weight: 700; font-size: 24px; line-height: 1.15; color: rgb(23, 24, 28); margin-top: 10px;"><span class="sc-interp">Pack Two Weeks in a Carry-On</span></div>
+          <p style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 16px; line-height: 28px; color: rgb(38, 38, 38); margin: 10px 0px 0px;"><span class="sc-interp">The mix-and-match method that fits fourteen days into one bag — and how Travel Mode builds it for you.</span></p>
+          <div style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 14px; color: rgb(111, 106, 99); display: flex; gap: 16px; margin-top: 16px; flex-wrap: wrap;"><span>Elise Tran</span><span>June 18, 2026</span><span>9 min read</span></div>
         </div>
       </a>
-    </sc-for>
-  </div>
-
-  <sc-if value="{{ showEmpty }}" hint-placeholder-val="{{ false }}">
-    <div style="text-align:center;padding:60px 0;font-family:'Poppins',sans-serif;font-weight:400;font-size:16px;color:#9e968e">No stories in this category yet — check back soon.</div>
-  </sc-if>
-</section>
-
-<!-- SECTION 8 — dark CTA -->
-<section id="cta" style="background:radial-gradient(691px 118px at 50% 74%,#282c35 16%,#141518 100%);padding:132px 0;text-align:center">
-  <div style="max-width:794px;margin:0 auto;padding:0 40px;display:flex;flex-direction:column;align-items:center;gap:44px">
-    <svg width="54" height="23" viewBox="0 0 54 23" fill="none"><ellipse cx="11" cy="12" rx="10.7" ry="10.8" fill="#fff"></ellipse><ellipse id="hpL" cx="15.5" cy="14" rx="2.6" ry="4.3" fill="#000"></ellipse><ellipse cx="44" cy="11.5" rx="8.8" ry="10.9" fill="#fff"></ellipse><ellipse id="hpR" cx="43.5" cy="15" rx="2.6" ry="4.5" fill="#000"></ellipse></svg>
-    <h2 style="font-family:'Poppins',sans-serif;font-weight:800;font-size:48px;line-height:64px;color:#f2efec;margin:0">You already own enough.<br><span style="background:radial-gradient(70.29% 95.24% at 84.34% 31.98%,#FDC146 0%,#FF4567 58.49%,#6B4CCD 100%);-webkit-background-clip:text;background-clip:text;color:transparent">Macgie</span> just helps you see it.</h2>
     
   </div>
-</section>
 
-<!-- FOOTER -->
-<footer style="background:#fff;padding:56px 0 40px;border-top:1px solid rgba(29,31,35,.08)">
-  <div style="max-width:1120px;margin:0 auto;padding:0 40px;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px">
+  
+  <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px;">
+    
+      <a class="post" href="/article" style="display: flex; flex-direction: column; gap: 16px;">
+        <div style="border-radius: 24px; overflow: hidden; background: rgb(242, 244, 247); height: 204px;"><div class="pimg" style="width: 100%; height: 100%; background: url(&quot;assets/journal/triangle.png&quot;) center center / cover no-repeat;"></div></div>
+        <div style="padding: 0px 12px;">
+          <div style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 15px; color: rgb(111, 106, 99);"><span class="sc-interp">Style Fundamentals</span></div>
+          <div class="ptitle" style="font-family: Poppins, sans-serif; font-weight: 700; font-size: 20px; line-height: 1.18; color: rgb(23, 24, 28); margin-top: 10px;"><span class="sc-interp">Triangle body shape – Complete Style Guide</span></div>
+          <p style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 15px; line-height: 26px; color: rgb(38, 38, 38); margin: 10px 0px 0px;"><span class="sc-interp">Triangle body shape, also known as the “pear body shape”, is one of the most common body types out there!</span></p>
+          <div style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 14px; color: rgb(111, 106, 99); display: flex; gap: 16px; margin-top: 16px; flex-wrap: wrap;"><span>Elise Tran</span><span>June 18, 2026</span><span>9 min read</span></div>
+        </div>
+      </a>
+    
+      <a class="post" href="/article" style="display: flex; flex-direction: column; gap: 16px;">
+        <div style="border-radius: 24px; overflow: hidden; background: rgb(242, 244, 247); height: 204px;"><div class="pimg" style="width: 100%; height: 100%; background: url(&quot;assets/journal/rectangle.png&quot;) center center / cover no-repeat;"></div></div>
+        <div style="padding: 0px 12px;">
+          <div style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 15px; color: rgb(111, 106, 99);"><span class="sc-interp">Style Fundamentals</span></div>
+          <div class="ptitle" style="font-family: Poppins, sans-serif; font-weight: 700; font-size: 20px; line-height: 1.18; color: rgb(23, 24, 28); margin-top: 10px;"><span class="sc-interp">Rectangle Body Shape: Complete Style Guide</span></div>
+          <p style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 15px; line-height: 26px; color: rgb(38, 38, 38); margin: 10px 0px 0px;"><span class="sc-interp">Did you know that rectangle body shape is one of the most popular among the runway models?</span></p>
+          <div style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 14px; color: rgb(111, 106, 99); display: flex; gap: 16px; margin-top: 16px; flex-wrap: wrap;"><span>Elise Tran</span><span>June 18, 2026</span><span>9 min read</span></div>
+        </div>
+      </a>
+    
+      <a class="post" href="/article" style="display: flex; flex-direction: column; gap: 16px;">
+        <div style="border-radius: 24px; overflow: hidden; background: rgb(242, 244, 247); height: 204px;"><div class="pimg" style="width: 100%; height: 100%; background: url(&quot;assets/journal/closet.png&quot;) center center / cover no-repeat;"></div></div>
+        <div style="padding: 0px 12px;">
+          <div style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 15px; color: rgb(111, 106, 99);"><span class="sc-interp">Wardrobe Systems</span></div>
+          <div class="ptitle" style="font-family: Poppins, sans-serif; font-weight: 700; font-size: 20px; line-height: 1.18; color: rgb(23, 24, 28); margin-top: 10px;"><span class="sc-interp">A wardrobe organization system that actually sticks</span></div>
+          <p style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 15px; line-height: 26px; color: rgb(38, 38, 38); margin: 10px 0px 0px;"><span class="sc-interp">Most closet systems fail because they fight your habits. This one works with them instead.</span></p>
+          <div style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 14px; color: rgb(111, 106, 99); display: flex; gap: 16px; margin-top: 16px; flex-wrap: wrap;"><span>Elise Tran</span><span>June 18, 2026</span><span>9 min read</span></div>
+        </div>
+      </a>
+    
+  </div>
+
+  </section><section id="cta" style="background: radial-gradient(691px 118px at 50% 74%, rgb(40, 44, 53) 16%, rgb(20, 21, 24) 100%); padding: 132px 0px; text-align: center;">
+  <div style="max-width: 794px; margin: 0px auto; padding: 0px 40px; display: flex; flex-direction: column; align-items: center; gap: 44px;">
+    <svg width="54" height="23" viewBox="0 0 54 23" fill="none"><ellipse cx="11" cy="12" rx="10.7" ry="10.8" fill="#fff"></ellipse><ellipse id="hpL" cx="15.5" cy="14" rx="2.6" ry="4.3" fill="#000"></ellipse><ellipse cx="44" cy="11.5" rx="8.8" ry="10.9" fill="#fff"></ellipse><ellipse id="hpR" cx="43.5" cy="15" rx="2.6" ry="4.5" fill="#000"></ellipse></svg>
+    <h2 style="font-family: Poppins, sans-serif; font-weight: 800; font-size: 48px; line-height: 64px; color: rgb(242, 239, 236); margin: 0px;">You already own enough.<br><span style="background: radial-gradient(70.29% 95.24% at 84.34% 31.98%, rgb(253, 193, 70) 0%, rgb(255, 69, 103) 58.49%, rgb(107, 76, 205) 100%) text; color: transparent;">Macgie</span> just helps you see it.</h2>
+    
+  </div></section><footer style="background: rgb(255, 255, 255); padding: 56px 0px 40px; border-top: 1px solid rgba(29, 31, 35, 0.08);">
+  <div style="max-width: 1120px; margin: 0px auto; padding: 0px 40px; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px;">
     <div>
-      <div style="display:flex;align-items:center;gap:9px"><img src="assets/brand/macgie.svg" width="26" height="27" alt="Macgie"><span style="font-family:'Poppins',sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.02em">Macgie</span></div>
-      <p style="font-family:'Inter',sans-serif;font-size:13.5px;color:#6f6a63;margin:14px 0 18px;max-width:220px">Get dressed with more clarity, less pressure.</p>
-      <a class="store-badge" href="#cta" style="display:inline-flex;align-items:center;gap:9px;background:#111214;color:#fff;border-radius:11px;padding:8px 15px">
+      <div style="display: flex; align-items: center; gap: 9px;"><img src="assets/brand/macgie.svg" width="26" height="27" alt=""><span style="font-family: Poppins, sans-serif; font-weight: 700; font-size: 20px; letter-spacing: -0.02em;">Macgie</span></div>
+      <p style="font-family: Inter, sans-serif; font-size: 13.5px; color: rgb(111, 106, 99); margin: 14px 0px 18px; max-width: 220px;">Get dressed with more clarity, less pressure.</p>
+      <a class="store-badge" href="#cta" style="display: inline-flex; align-items: center; gap: 9px; background: rgb(17, 18, 20); color: rgb(255, 255, 255); border-radius: 11px; padding: 8px 15px;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M16.5 1.8c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.8-1.4zM19 17.3c-.5 1.2-.8 1.7-1.4 2.7-.9 1.4-2.2 3.2-3.8 3.2-1.4 0-1.8-.9-3.7-.9s-2.3.9-3.7.9c-1.6 0-2.8-1.6-3.7-3C-.1 16.7-.6 11 1.6 8.2c1-1.3 2.5-2 4-2 1.5 0 2.5.9 3.7.9 1.2 0 1.9-.9 3.7-.9 1.3 0 2.7.7 3.7 2-3.2 1.8-2.7 6.4.6 7.1z"></path></svg>
-        <span style="line-height:1.05"><span style="display:block;font-size:8.5px;opacity:.85">Download on the</span><span style="font-size:13.5px;font-weight:600">App Store</span></span>
+        <span style="line-height: 1.05;"><span style="display: block; font-size: 8.5px; opacity: 0.85;">Download on the</span><span style="font-size: 13.5px; font-weight: 600;">App Store</span></span>
       </a>
     </div>
     <div>
-      <div style="font-family:'Poppins',sans-serif;font-weight:600;font-size:13px;color:#1d1f23;margin-bottom:14px">Product</div>
-      <div style="display:flex;flex-direction:column;gap:10px;font-family:'Inter',sans-serif;font-size:13.5px"><a class="navlink" href="/features">Features</a><a class="navlink" href="/pricing">Pricing</a><a class="navlink" href="/#how">Changelog</a></div>
+      <div style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 13px; color: rgb(29, 31, 35); margin-bottom: 14px;">Product</div>
+      <div style="display: flex; flex-direction: column; gap: 10px; font-family: Inter, sans-serif; font-size: 13.5px;"><a class="navlink" href="/features">Features</a><a class="navlink" href="/pricing">Pricing</a><a class="navlink" href="/#how">Changelog</a></div>
     </div>
     <div>
-      <div style="font-family:'Poppins',sans-serif;font-weight:600;font-size:13px;color:#1d1f23;margin-bottom:14px">Resources</div>
-      <div style="display:flex;flex-direction:column;gap:10px;font-family:'Inter',sans-serif;font-size:13.5px"><a class="navlink" href="#top">Blog</a><a class="navlink" href="/pricing#faq">Help Center</a><a class="navlink" href="#top">Community</a></div>
+      <div style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 13px; color: rgb(29, 31, 35); margin-bottom: 14px;">Resources</div>
+      <div style="display: flex; flex-direction: column; gap: 10px; font-family: Inter, sans-serif; font-size: 13.5px;"><a class="navlink" href="#top">Blog</a><a class="navlink" href="/pricing#faq">Help Center</a><a class="navlink" href="#top">Community</a></div>
     </div>
     <div>
-      <div style="font-family:'Poppins',sans-serif;font-weight:600;font-size:13px;color:#1d1f23;margin-bottom:14px">Legal</div>
-      <div style="display:flex;flex-direction:column;gap:10px;font-family:'Inter',sans-serif;font-size:13.5px"><a class="navlink" href="#top">Privacy</a><a class="navlink" href="#top">Terms</a></div>
+      <div style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 13px; color: rgb(29, 31, 35); margin-bottom: 14px;">Legal</div>
+      <div style="display: flex; flex-direction: column; gap: 10px; font-family: Inter, sans-serif; font-size: 13.5px;"><a class="navlink" href="#top">Privacy</a><a class="navlink" href="#top">Terms</a></div>
     </div>
   </div>
-  <div style="max-width:1120px;margin:36px auto 0;padding:20px 40px 0;border-top:1px solid rgba(29,31,35,.08);font-family:'Inter',sans-serif;font-size:12.5px;color:#9e968e">© 2026 Macgie, Inc. All rights reserved.</div>
-</footer>
+  <div style="max-width: 1120px; margin: 36px auto 0px; padding: 20px 40px 0px; border-top: 1px solid rgba(29, 31, 35, 0.08); font-family: Inter, sans-serif; font-size: 12.5px; color: rgb(111, 106, 99);">© 2026 Macgie, Inc. All rights reserved.</div></footer></div></div></div>
 
-</div>
-</x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1400,&quot;height&quot;:900}}">
-class Component extends DCLogic {
-  state = { cat: "All", menuOpen: false };
-  cats = ["All", "Getting Dressed", "Wardrobe Psychology", "Wardrobe Systems", "Style Fundamentals", "Mindful Shopping"];
-  featured = { cat: "Getting Dressed" };
-  posts = [
-    { size: "half", cat: "Style Fundamentals", title: "Color Theory for Getting Dressed", desc: "Warm, cool, neutral and the 3-color rule — the small amount of theory that makes everything match.", img: "assets/journal/color.png" },
-    { size: "half", cat: "Style Fundamentals", title: "Pack Two Weeks in a Carry-On", desc: "The mix-and-match method that fits fourteen days into one bag — and how Travel Mode builds it for you.", img: "assets/journal/pack.png" },
-    { size: "third", cat: "Style Fundamentals", title: "Triangle body shape – Complete Style Guide", desc: "Triangle body shape, also known as the \u201cpear body shape\u201d, is one of the most common body types out there!", img: "assets/journal/triangle.png" },
-    { size: "third", cat: "Style Fundamentals", title: "Rectangle Body Shape: Complete Style Guide", desc: "Did you know that rectangle body shape is one of the most popular among the runway models?", img: "assets/journal/rectangle.png" },
-    { size: "third", cat: "Wardrobe Systems", title: "A wardrobe organization system that actually sticks", desc: "Most closet systems fail because they fight your habits. This one works with them instead.", img: "assets/journal/closet.png" },
-  ];
-  componentDidMount() {
-    this._eyeMove = (e) => {
-      ["hpL", "hpR"].forEach((id) => {
-        const el = document.getElementById(id);
-        if (!el) return;
-        const r = el.getBoundingClientRect();
-        const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-        let dx = e.clientX - cx, dy = e.clientY - cy;
-        const d = Math.hypot(dx, dy) || 1;
-        const m = 2.2;
-        el.setAttribute("transform", `translate(${(dx / d * m).toFixed(2)} ${(dy / d * m).toFixed(2)})`);
-      });
-    };
-    window.addEventListener("mousemove", this._eyeMove);
-  }
-  componentWillUnmount() {
-    if (this._eyeMove) window.removeEventListener("mousemove", this._eyeMove);
-  }
-  match(c) { return this.state.cat === "All" || this.state.cat === c; }
-  renderVals() {
-    const cat = this.state.cat;
-    const visible = this.posts.filter(p => this.match(p.cat));
-    const showFeatured = this.match(this.featured.cat);
-    return {
-      menuOpen: this.state.menuOpen,
-      menuClosed: !this.state.menuOpen,
-      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
-      closeMenu: () => this.setState({ menuOpen: false }),
-      chips: this.cats.map(label => ({
-        label,
-        bg: cat === label ? "#4a4640" : "#e6ddd2",
-        fg: cat === label ? "#ffffff" : "#4a4640",
-        select: () => this.setState({ cat: label }),
-      })),
-      showFeatured,
-      halfPosts: visible.filter(p => p.size === "half"),
-      thirdPosts: visible.filter(p => p.size === "third"),
-      showEmpty: !showFeatured && visible.length === 0,
-    };
-  }
-}
-</script>
-</body>
-</html>
+
+
+<script src="app.js" defer></script></body></html>
