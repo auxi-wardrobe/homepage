@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://macgie.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://macgie.com/features</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://macgie.com/pricing</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://macgie.com/journal</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://macgie.com/article</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://macgie.com/</loc></url>
+  <url><loc>https://macgie.com/features</loc></url>
+  <url><loc>https://macgie.com/pricing</loc></url>
+  <url><loc>https://macgie.com/journal</loc></url>
+  <url><loc>https://macgie.com/journal/triangle-body-shape-style-guide</loc></url>
+  <url><loc>https://macgie.com/journal/rectangle-body-shape-style-guide</loc></url>
+  <url><loc>https://macgie.com/journal/how-to-build-a-capsule-wardrobe</loc></url>
 </urlset>
