@@ -1,0 +1,75 @@
+name: Auto-publish journal
+
+# Rebuilds the static journal from Strapi and deploys to Cloudflare Pages.
+# Content lives in Strapi; this keeps the live static site in sync.
+#
+# Triggers:
+#   - manual "Run workflow" button (workflow_dispatch)
+#   - every 30 min as a safety net (schedule)
+# It only commits + deploys when Strapi content actually changed (git diff on
+# public/), so idle runs cost almost nothing and never spam commits.
+#
+# Requires two repo secrets:
+#   CLOUDFLARE_API_TOKEN  — a token with "Cloudflare Pages: Edit" permission
+#   CLOUDFLARE_ACCOUNT_ID — the account id
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/30 * * * *'
+
+concurrency:
+  group: auto-publish-journal
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require Cloudflare token before doing anything
+        run: |
+          if [ -z "${{ secrets.CLOUDFLARE_API_TOKEN }}" ]; then
+            echo "::error::CLOUDFLARE_API_TOKEN secret not set yet — auto-publish is idle. Add it in repo Settings → Secrets."
+            exit 1
+          fi
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install cwebp (image encoder used by the build)
+        run: sudo apt-get update && sudo apt-get install -y webp
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build journal from Strapi
+        run: npm run build:journal
+
+      - name: Commit regenerated pages if content changed
+        id: changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/journal.html public/journal public/img/journal public/sitemap.xml
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No content change — nothing to deploy."
+          else
+            git commit -m "chore(journal): auto-publish from Strapi [skip ci]"
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Deploy to Cloudflare Pages (only when changed)
+        if: steps.changes.outputs.changed == 'true'
+        run: npx --yes wrangler@3 pages deploy public --project-name=macgie-homepage --branch=main --commit-dirty=true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
