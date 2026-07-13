@@ -67,7 +67,8 @@ export function renderArticle(a, all, template) {
     publisher: { '@type': 'Organization', name: 'Macgie', logo: { '@type': 'ImageObject', url: 'https://macgie.com/assets/brand/macgie.svg' } },
     mainEntityOfPage: canonical,
   });
-  const related = all.filter((x) => x.slug !== a.slug).slice(0, 3).map(relatedCard).join('\n');
+  const relatedCards = all.filter((x) => x.slug !== a.slug).slice(0, 3).map(relatedCard).join('\n');
+  const related = `<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:40px;">${relatedCards}</div>`;
   return template
     .replaceAll('{{TITLE}}', title)
     .replaceAll('{{DESC}}', desc)
