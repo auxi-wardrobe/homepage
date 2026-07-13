@@ -1,0 +1,10 @@
+{
+  "name": "macgie-homepage",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:journal": "node scripts/build-journal.mjs",
+    "publish": "node scripts/build-journal.mjs && ./scripts/deploy.sh prod"
+  },
+  "dependencies": { "marked": "^12.0.0" }
+}
