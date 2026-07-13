@@ -28,6 +28,33 @@ best-practices 100**, LCP ~1.2s.
 > build described here. The Claude Design project stays the visual source of
 > truth — re-flatten when the design changes (see below).
 
+## Journal CMS (Strapi → static build)
+
+The **journal** is the one section NOT flattened from the design — it's driven by
+a **Strapi CMS** so posts can be managed without editing HTML. The site stays
+100% static: Strapi is read **only at build time**, never by the visitor.
+
+- **Edit content:** Strapi admin at `https://strapi-production-12be.up.railway.app/admin`
+  (Railway project `wardrobe-backend`, service `strapi`). Collection: **Article**
+  (title, slug, excerpt, category, cover, author, displayDate, readingTime,
+  Markdown body, featured, SEO overrides). Draft & Publish is on — only
+  **published** posts are built.
+- **Publish to the site:** `cd homepage && npm run publish`
+  (= `node scripts/build-journal.mjs && ./scripts/deploy.sh prod`). The build
+  fetches published articles, downloads + re-encodes covers to sized webp under
+  `public/img/journal/`, and regenerates `public/journal.html` +
+  `public/journal/<slug>.html` + `sitemap.xml` from `scripts/templates/*.html`.
+- **Build modules:** `scripts/lib/strapi.mjs` (fetch + v5 normalize) ·
+  `scripts/lib/images.mjs` (cwebp) · `scripts/lib/render.mjs` (templating).
+  One build-time dep: `marked`. Never ships to `public/`.
+- **Strapi source** lives outside this repo at `~/dev/macgie-strapi` (Railway
+  Strapi template + the `article` type + a bootstrap that auto-grants Public read
+  and seeded the original posts). Redeploy it with `railway up --service strapi`.
+- **Media persistence:** a Railway volume is mounted at `/app/public/uploads` on
+  the strapi service — uploads survive redeploys. Don't remove it.
+- **TODO (not built):** auto-publish via a Strapi webhook → CI rebuild. For now
+  publishing is the one manual `npm run publish`.
+
 ## Layout
 
 ```
