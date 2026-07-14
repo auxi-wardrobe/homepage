@@ -17,3 +17,19 @@
     rowEl.addEventListener('click',function(){ a.style.display=(a.style.display==='none')?'block':'none'; });
   });
 })();
+(function(){
+  var bar=document.querySelector('[data-filter-bar]');
+  if(!bar) return;
+  var pills=bar.querySelectorAll('[data-filter]');
+  var posts=document.querySelectorAll('[data-post]');
+  bar.addEventListener('click',function(e){
+    var pill=e.target.closest('[data-filter]');
+    if(!pill) return;
+    var f=pill.getAttribute('data-filter');
+    for(var i=0;i<pills.length;i++){ pills[i].classList.toggle('is-active',pills[i]===pill); }
+    for(var j=0;j<posts.length;j++){
+      var cat=posts[j].getAttribute('data-category');
+      posts[j].classList.toggle('is-hidden',!(f==='*'||cat===f));
+    }
+  });
+})();

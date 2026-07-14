@@ -25,7 +25,7 @@ function featuredCard(a) {
 }
 
 function gridCard(a, h = 318) {
-  return `<a class="post" href="/journal/${escapeHtml(a.slug)}" style="display: flex; flex-direction: column; gap: 16px;">
+  return `<a class="post" data-post data-category="${escapeHtml(a.category)}" href="/journal/${escapeHtml(a.slug)}" style="display: flex; flex-direction: column; gap: 16px;">
   <div style="border-radius: 24px; overflow: hidden; background: rgb(242, 244, 247); height: ${h}px;"><img class="pimg" src="${a.img.src}" width="${a.img.width}" height="${a.img.height}" alt="${escapeHtml(a.cover.alt)}" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>
   <div>
     <div style="font-family: Poppins, sans-serif; font-weight: 300; font-size: 12px; letter-spacing: .12px; text-transform: uppercase; color: rgb(107,76,205);">${escapeHtml(a.category)}</div>
@@ -35,13 +35,31 @@ function gridCard(a, h = 318) {
   </div></a>`;
 }
 
+function pillBar(categories) {
+  const chip = (label, filter, active) =>
+    `<button type="button" class="jchip${active ? ' is-active' : ''}" data-filter="${escapeHtml(filter)}">${escapeHtml(label)}</button>`;
+  const chips = [chip('All', '*', true), ...categories.map((c) => chip(c, c, false))].join('');
+  return `<section style="max-width: 1170px; margin: 0px auto; padding: 38px 40px 0px; display: flex; flex-direction: column; align-items: center;">
+  <style>
+    .jchip { font-family: Inter, sans-serif; font-size: 14px; font-weight: 500; padding: 9px 20px; border-radius: 100px; border: 0; cursor: pointer; background: rgb(230,221,210); color: rgb(74,70,64); transition: background .15s ease, color .15s ease; }
+    .jchip:hover { background: rgb(219,208,194); }
+    .jchip.is-active { background: rgb(74,70,64); color: #fff; }
+    .is-hidden { display: none !important; }
+  </style>
+  <div data-filter-bar style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;">${chips}</div>
+</section>`;
+}
+
 export function renderIndex(articles, template) {
   const featured = articles.find((a) => a.featured) || articles[0];
   const rest = articles.filter((a) => a !== featured);
+  const categories = [...new Set(articles.map((a) => a.category).filter(Boolean))];
   const cards =
-    `<section style="max-width: 1170px; margin: 0px auto; padding: 38px 40px 0px; display: flex; flex-direction: column; align-items: center;"><div style="width:100%;">${featured ? featuredCard(featured) : ''}</div></section>` +
+    `<section data-post data-category="${escapeHtml((featured && featured.category) || '')}" style="max-width: 1170px; margin: 0px auto; padding: 38px 40px 0px; display: flex; flex-direction: column; align-items: center;"><div style="width:100%;">${featured ? featuredCard(featured) : ''}</div></section>` +
     `<section style="max-width: 1170px; margin: 0px auto; padding: 40px 40px 88px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;">${rest.map((a) => gridCard(a)).join('\n')}</section>`;
-  return template.replace('<!--JOURNAL_CARDS-->', cards);
+  return template
+    .replace('<!--CATEGORY_PILLS-->', pillBar(categories))
+    .replace('<!--JOURNAL_CARDS-->', cards);
 }
 
 import { marked } from 'marked';
