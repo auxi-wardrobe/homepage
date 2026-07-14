@@ -44,6 +44,15 @@ a **Strapi CMS** so posts can be managed without editing HTML. The site stays
   content from Strapi and deploys it to the stable staging URL
   **`https://sandbox.macgie-homepage.pages.dev`** (production untouched). Use this
   to eyeball the whole site, then promote with `npm run publish`.
+- **Draft preview (Strapi "Open preview" button):** in the Article editor, click
+  **Open preview** → opens `/preview?documentId=…&status=draft&secret=…` (the
+  static `public/preview.html`) in a new tab, rendering the **draft** before it's
+  published. It client-side-fetches a **secret-gated** Strapi route
+  (`/api/preview-article/:id`, gated by `PREVIEW_SECRET`) so drafts aren't public.
+  Configured in the Strapi source's `config/admin.js` + `config/middlewares.js`
+  (CORS). Strapi CE = button/new-tab only (the paid Growth/Ent Live-Preview iframe
+  isn't available). This page is `noindex` and intentionally client-rendered
+  (preview-only, not part of the public perf story).
 - **Publish to the live site:** `cd homepage && npm run publish`
   (= `node scripts/build-journal.mjs && ./scripts/deploy.sh prod`). The build
   fetches published articles, downloads + re-encodes covers to sized webp under
