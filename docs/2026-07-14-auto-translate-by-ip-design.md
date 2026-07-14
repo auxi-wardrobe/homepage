@@ -19,8 +19,8 @@ visitor→server round-trip, Lighthouse untouched.
 | Languages | `en` (default, at `/`) + `vi` (at `/vi/`) |
 | Detection | Cloudflare edge country via **`/cdn-cgi/trace`** (same-origin, no key, no external call) |
 | Routing | Client-side redirect + sticky `lang` cookie + manual switcher |
-| Translation | **Auto machine-translate at build** via **Gemini** (`gemini-2.0-flash`), cached |
-| Engine key | Reuse backend's `GOOGLE_STUDIO_KEY` (Google AI Studio / Gemini), wired as a GitHub Actions secret |
+| Translation | **Auto machine-translate at build**, cached. Provider-aware engine: **OpenAI `gpt-4o-mini`** primary (backend's funded key), **Gemini** fallback. (Gemini alone hit a free-tier 429, hence OpenAI-first.) |
+| Engine key | Reuse backend's `OPENAI_API_KEY` (+ `GOOGLE_STUDIO_KEY` fallback), wired as GitHub Actions secrets on the homepage repo |
 | Scope | Whole site — marketing pages (`index`, `features`, `pricing`, `404`) + journal (index + every article) |
 | Canonical host | `https://beta.macgie.com` (also **fixes the existing bug** where canonical/sitemap point at the 404ing apex `macgie.com`) |
 
