@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Preview — Macgie Journal</title>
+<style>
+  @font-face { font-family: Poppins; font-weight: 400; font-display: swap;
+    src: url("/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Poppins-Regular.woff2") format("woff2"); }
+  @font-face { font-family: Poppins; font-weight: 700; font-display: swap;
+    src: url("/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Poppins-Bold.woff2") format("woff2"); }
+  @font-face { font-family: Poppins; font-weight: 800; font-display: swap;
+    src: url("/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Poppins-Bold.woff2") format("woff2"); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { background: #fff; color: #262626; font-family: Poppins, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  .pv-banner { background: #6B4CCD; color: #fff; font-size: 13px; font-weight: 600; text-align: center; padding: 8px 16px; position: sticky; top: 0; z-index: 10; }
+  .pv-banner b { text-transform: uppercase; letter-spacing: .06em; }
+  .pv-head { max-width: 760px; margin: 0 auto; padding: 48px 24px 8px; text-align: center; }
+  .pv-kicker { font-weight: 300; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #6B4CCD; }
+  .pv-title { font-weight: 800; font-size: 44px; line-height: 1.15; color: #17181c; margin: 12px 0 0; }
+  .pv-byline { font-weight: 300; font-size: 15px; color: #262626; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
+  .pv-cover { max-width: 760px; margin: 24px auto 0; padding: 0 24px; }
+  .pv-cover img { width: 100%; height: auto; border-radius: 20px; display: block; }
+  .prose { max-width: 680px; margin: 32px auto 96px; padding: 0 24px; }
+  .prose p { font-weight: 400; font-size: 19px; line-height: 33px; color: #262626; margin: 0 0 28px; }
+  .prose h2 { font-weight: 800; font-size: 28px; line-height: 1.2; color: #17181c; margin: 40px 0 16px; }
+  .prose h3 { font-weight: 700; font-size: 22px; color: #17181c; margin: 32px 0 12px; }
+  .prose ul, .prose ol { font-size: 19px; line-height: 33px; color: #262626; padding-left: 24px; margin: 0 0 28px; }
+  .prose a { color: #6B4CCD; text-decoration: underline; }
+  .prose img { max-width: 100%; height: auto; border-radius: 16px; margin: 12px 0 28px; }
+  .prose blockquote { border-left: 3px solid #6B4CCD; margin: 0 0 28px; padding-left: 20px; color: #5a5650; font-style: italic; }
+  .pv-msg { max-width: 680px; margin: 80px auto; padding: 0 24px; text-align: center; color: #6f6a63; font-size: 16px; }
+</style>
+</head>
+<body>
+<div class="pv-banner"><b>Preview</b> — <span id="pv-status">draft</span>, not live. This is how the post will look once published.</div>
+<div id="pv-root"><div class="pv-msg">Loading preview…</div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
+<script>
+(async function () {
+  var STRAPI = "https://strapi-production-12be.up.railway.app";
+  var q = new URLSearchParams(location.search);
+  var documentId = q.get("documentId");
+  var status = q.get("status") === "published" ? "published" : "draft";
+  var secret = q.get("secret") || "";
+  var root = document.getElementById("pv-root");
+  document.getElementById("pv-status").textContent = status;
+
+  function esc(s) { var d = document.createElement("div"); d.textContent = s == null ? "" : String(s); return d.innerHTML; }
+  function fail(msg) { root.innerHTML = '<div class="pv-msg">' + esc(msg) + '</div>'; }
+
+  if (!documentId) return fail("Missing documentId in the preview URL.");
+
+  try {
+    var url = STRAPI + "/api/preview-article/" + encodeURIComponent(documentId) +
+      "?status=" + status + "&secret=" + encodeURIComponent(secret);
+    var res = await fetch(url, { headers: { accept: "application/json" } });
+    if (res.status === 401) return fail("Preview link is invalid or expired (bad secret).");
+    if (res.status === 404) return fail("This article was not found.");
+    if (!res.ok) return fail("Could not load preview (" + res.status + ").");
+
+    var a = (await res.json()).data || {};
+    document.title = (a.title || "Preview") + " — Preview";
+
+    var when = a.displayDate || a.publishedAt || a.updatedAt;
+    var date = when ? new Date(when).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }) : "";
+    var words = (a.body || "").split(/\s+/).filter(Boolean).length;
+    var mins = a.readingTime || Math.max(1, Math.round(words / 200));
+    var coverUrl = a.cover && a.cover.url ? (a.cover.url.indexOf("http") === 0 ? a.cover.url : STRAPI + a.cover.url) : null;
+
+    var html = "";
+    html += '<div class="pv-head">';
+    if (a.category) html += '<div class="pv-kicker">' + esc(a.category) + "</div>";
+    html += '<h1 class="pv-title">' + esc(a.title || "Untitled") + "</h1>";
+    html += '<div class="pv-byline"><span>' + esc(a.author || "The Macgie Team") + "</span>" +
+            (date ? "<span>" + esc(date) + "</span>" : "") + "<span>" + mins + " min read</span></div>";
+    html += "</div>";
+    if (coverUrl) html += '<div class="pv-cover"><img src="' + esc(coverUrl) + '" alt="' + esc(a.title || "") + '"></div>';
+    html += '<div class="prose">' + (window.marked ? window.marked.parse(a.body || "") : esc(a.body || "")) + "</div>";
+    root.innerHTML = html;
+  } catch (e) {
+    fail("Could not reach the CMS to load this preview.");
+  }
+})();
+</script>
+</body>
+</html>
