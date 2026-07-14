@@ -15,6 +15,11 @@ name: Auto-publish journal
 
 on:
   workflow_dispatch:
+    inputs:
+      force:
+        description: 'Deploy even if content did not change (on-demand deploy)'
+        type: boolean
+        default: true
   schedule:
     - cron: '*/30 * * * *'
 
@@ -67,8 +72,8 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Deploy to Cloudflare Pages (only when changed)
-        if: steps.changes.outputs.changed == 'true'
+      - name: Deploy to Cloudflare Pages (on change, or forced)
+        if: steps.changes.outputs.changed == 'true' || github.event.inputs.force == 'true'
         run: npx --yes wrangler@3 pages deploy public --project-name=macgie-homepage --branch=main --commit-dirty=true
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
