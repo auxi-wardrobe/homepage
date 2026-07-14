@@ -88,7 +88,7 @@ async function translateDoc(html, { enPath }) {
 
   await pool(jobs);
 
-  // internal links -> /vi (sync)
+  // internal page links -> /vi (sync)
   for (const a of root.querySelectorAll('a[href]')) {
     const href = a.getAttribute('href');
     if (href && href[0] === '/' && href[1] !== '/' && !href.startsWith('/vi/') && !ASSET_HREF.test(href)) {
@@ -96,7 +96,23 @@ async function translateDoc(html, { enPath }) {
     }
   }
 
-  return doctype + root.toString();
+  // VI pages live one level deep (/vi/…), so RELATIVE asset paths (src="img/x",
+  // "./x", "assets/x") would resolve to /vi/img/x and 404. Root-absolutize them.
+  const absUrl = (u) => (!u || /^(https?:|\/\/|\/|#|data:|mailto:|tel:)/.test(u) ? u : '/' + u.replace(/^\.\//, ''));
+  for (const el of root.querySelectorAll('[src]')) el.setAttribute('src', absUrl(el.getAttribute('src')));
+  for (const el of root.querySelectorAll('[poster]')) el.setAttribute('poster', absUrl(el.getAttribute('poster')));
+  for (const el of root.querySelectorAll('link[href]')) el.setAttribute('href', absUrl(el.getAttribute('href')));
+  for (const el of root.querySelectorAll('[srcset]')) {
+    el.setAttribute('srcset', el.getAttribute('srcset').split(',').map((part) => {
+      const seg = part.trim().split(/\s+/); seg[0] = absUrl(seg[0]); return seg.join(' ');
+    }).join(', '));
+  }
+
+  // relative url(...) inside CSS (background-image, fonts) -> absolute
+  return (doctype + root.toString()).replace(
+    /url\((['"]?)(?!https?:|\/\/|\/|data:|#)([^)'"]+)\1\)/g,
+    (_m, q, u) => `url(${q}/${u.replace(/^\.\//, '')}${q})`,
+  );
 }
 
 // ---- public API ----
