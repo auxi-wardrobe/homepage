@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "build:journal": "node scripts/build-journal.mjs",
+    "preview": "node scripts/build-journal.mjs && ./scripts/deploy.sh sandbox",
     "publish": "node scripts/build-journal.mjs && ./scripts/deploy.sh prod"
   },
   "dependencies": { "marked": "^12.0.0" }

@@ -39,7 +39,12 @@ a **Strapi CMS** so posts can be managed without editing HTML. The site stays
   (title, slug, excerpt, category, cover, author, displayDate, readingTime,
   Markdown body, featured, SEO overrides). Draft & Publish is on — only
   **published** posts are built.
-- **Publish to the site:** `cd homepage && npm run publish`
+- **Preview (staging) before going live:** `cd homepage && npm run preview`
+  (= `build-journal.mjs && deploy.sh sandbox`). Builds the latest published
+  content from Strapi and deploys it to the stable staging URL
+  **`https://sandbox.macgie-homepage.pages.dev`** (production untouched). Use this
+  to eyeball the whole site, then promote with `npm run publish`.
+- **Publish to the live site:** `cd homepage && npm run publish`
   (= `node scripts/build-journal.mjs && ./scripts/deploy.sh prod`). The build
   fetches published articles, downloads + re-encodes covers to sized webp under
   `public/img/journal/`, and regenerates `public/journal.html` +
