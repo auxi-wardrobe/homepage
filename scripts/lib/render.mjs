@@ -1,4 +1,6 @@
 // Render the journal index + article pages from templates + Strapi articles.
+import { SITE_URL, toVi } from './i18n-inject.mjs';
+
 export function escapeHtml(s = '') {
   return String(s).replace(/[&<>"']/g, (c) => (
     { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -101,9 +103,8 @@ export function renderArticle(a, all, template) {
 }
 
 export function renderSitemap(articles, staticPaths) {
-  const urls = [
-    ...staticPaths.map((p) => `https://macgie.com${p}`),
-    ...articles.map((a) => `https://macgie.com/journal/${a.slug}`),
-  ];
+  const paths = [...staticPaths, ...articles.map((a) => `/journal/${a.slug}`)];
+  // both locales for every path
+  const urls = paths.flatMap((p) => [SITE_URL + p, SITE_URL + toVi(p)]);
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `  <url><loc>${u}</loc></url>`).join('\n')}\n</urlset>\n`;
 }

@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="vi"><head>
+<style>
+/* ============================================================
+   Auxi — Webfonts
+   App faces (bundled, from the React Native app): Poppins, Inter, Roboto.
+   Marketing display face: Fraunces (loaded from Google Fonts — the marketing
+   site ships @fontsource/fraunces; CDN is faithful to that).
+   ============================================================ */
+
+@font-face {
+  font-family: 'Poppins';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Poppins-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Poppins-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Poppins-SemiBold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Poppins-Bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Inter-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Inter-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Inter-SemiBold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Roboto-Regular.woff2') format('woff2');
+}
+
+
+/* ============================================================
+   Auxi — Color tokens
+   Source of truth: auxi mobile app theme.ds (theme.ts), extracted from
+   Auxi.fig. A warm, paper-toned neutral palette does the heavy lifting;
+   ink near-black carries text + primary actions; functional accents are
+   used sparingly. The marketing web surface adds an editorial paper/ink/
+   terracotta palette (auxi-web global.css).
+   ============================================================ */
+
+:root {
+  /* ---- Ink & neutrals (text · actions · strokes) ---- */
+  --auxi-ink: #1d1f23;        /* primary text · primary button */
+  --auxi-slate: #272a32;      /* deep surfaces · scrims */
+  --auxi-black: #070707;      /* control fills (radio dot) */
+  --auxi-on-variant: #49454f; /* secondary text (MD3 on-surface-variant) */
+  --auxi-warm-700: #5b5550;   /* strokes · warm gray */
+  --auxi-warm-500: #6f6a63;   /* muted labels · hints */
+  --auxi-gray-500: #717171;   /* neutral gray */
+
+  /* ---- Surfaces — warm paper (backgrounds · cards · sheets) ---- */
+  --auxi-white: #ffffff;       /* app canvas */
+  --auxi-surface: #fcfcfd;     /* dialogs · sheets */
+  --auxi-surface-2: #f7f7f8;   /* subtle fills */
+  --auxi-cream: #f2efec;       /* primary warm surface · cards */
+  --auxi-warm-100: #eee6df;    /* dividers · hairlines · caption pills */
+  --auxi-tan: #e0d2c4;         /* warm accent surface · insight pills */
+  --auxi-tan-stroke: #c6bcb1;  /* borders on tan · inactive dots */
+  --auxi-placeholder: #d9d9d9; /* image placeholders */
+  --auxi-cool-100: #e3e3ec;    /* cool surface · icon chips */
+
+  /* ---- Functional accents (state · feedback) ---- */
+  --auxi-teal: #16a085;   /* switch active · success */
+  --auxi-green: #039855;  /* selected radio · confirm */
+  --auxi-danger: #bb251a; /* destructive actions */
+  --auxi-info: #1465b4;   /* informational text */
+  --auxi-ai: #822be6;     /* AI-sparkle accent (self-visualisation) */
+  /* raw red #ff0000 is flagged OFF-SYSTEM — never use in new work */
+
+  /* ---- Hairlines & scrims ---- */
+  --auxi-line: rgba(29, 31, 35, 0.10);   /* default hairline border */
+  --auxi-line-2: rgba(29, 31, 35, 0.06); /* faint inner divider */
+  --auxi-hairline: #eee6df;              /* warm list divider */
+  --auxi-divider-on-dark: rgba(242, 239, 236, 0.1); /* hairline on ink */
+  --auxi-scrim-dialog: rgba(25, 27, 34, 0.3);  /* centered dialog backdrop */
+  --auxi-scrim-overlay: rgba(38, 36, 33, 0.7); /* guidance overlay backdrop */
+
+  /* ---- Semantic aliases (use these in product code) ---- */
+  --text-primary: var(--auxi-ink);
+  --text-secondary: var(--auxi-on-variant);
+  --text-muted: var(--auxi-warm-500);
+  --text-inverse: var(--auxi-cream);
+  --text-danger: var(--auxi-danger);
+
+  --surface-canvas: var(--auxi-white);
+  --surface-card: var(--auxi-cream);
+  --surface-sheet: var(--auxi-surface);
+  --surface-accent: var(--auxi-tan);
+  --surface-dark: var(--auxi-ink);
+
+  --border-default: var(--auxi-line);
+  --border-strong: var(--auxi-ink);
+
+  --action-primary-bg: var(--auxi-ink);
+  --action-primary-fg: var(--auxi-cream);
+
+  /* ============================================================
+     Marketing web — editorial palette (auxi-web)
+     ============================================================ */
+  --auxi-paper: #faf7f2;     /* warm off-white page */
+  --auxi-mk-ink: #14110f;    /* near-black editorial ink */
+  --auxi-ash: #6f6a63;       /* muted body text */
+  --auxi-accent: #b5532a;    /* terracotta accent */
+  --auxi-mk-hairline: #e6e1d8;
+}
+
+</style><style>
+    .sc-placeholder{background:color-mix(in srgb,currentColor 8%,transparent);
+      border:1px solid color-mix(in srgb,currentColor 50%,transparent);
+      border-radius:2px;box-sizing:border-box;overflow:hidden}
+    @keyframes sc-shine{0%{background-position:100% 50%}100%{background-position:0% 50%}}
+    html.sc-dc-streaming .sc-placeholder,
+    html.sc-dc-streaming .sc-interp.sc-missing{position:relative;
+      background:color-mix(in srgb,currentColor 5%,transparent);
+      border-color:transparent}
+    html.sc-dc-streaming .sc-placeholder::before,
+    html.sc-dc-streaming .sc-interp.sc-missing::before{content:'';
+      position:absolute;inset:0;pointer-events:none;
+      background:linear-gradient(90deg,rgba(217,119,87,0) 25%,rgba(247,225,211,.95) 37%,rgba(217,119,87,0) 63%);
+      background-size:400% 100%;animation:sc-shine 1.4s ease infinite}
+    html.sc-dc-streaming .sc-placeholder:nth-child(n+9 of .sc-placeholder)::before,
+    html.sc-dc-streaming .sc-interp.sc-missing:nth-child(n+9 of .sc-interp.sc-missing)::before{animation:none;
+      background:color-mix(in srgb,currentColor 8%,transparent)}
+    .sc-placeholder-error{padding:4px 8px;font:11px/1.4 ui-monospace,monospace;
+      color:color-mix(in srgb,currentColor 70%,transparent);word-break:break-word}
+    .sc-interp.sc-missing{display:inline-block;width:2em;height:1em;overflow:hidden;
+      vertical-align:text-bottom;background:rgba(255,255,255,.3);border:1px solid rgba(0,0,0,.5);
+      border-radius:2px;box-sizing:border-box;color:transparent;
+      user-select:none}
+    .sc-interp.sc-unresolved{font-family:ui-monospace,monospace;font-size:.85em;
+      color:color-mix(in srgb,currentColor 50%,transparent);
+      background:color-mix(in srgb,currentColor 10%,transparent);border-radius:3px;
+      padding:0 3px}
+    .sc-host.sc-has-error{position:relative}
+    .sc-logic-error{position:absolute;top:8px;left:8px;z-index:2147483647;max-width:60ch;
+      padding:6px 10px;background:#b00020;color:#fff;font:12px/1.4 ui-monospace,monospace;
+      border-radius:4px;white-space:pre-wrap;pointer-events:none}
+    /* Mirrors PRINT_BASELINE_CSS in apps/web deck-stage-export.ts — keep both
+       in sync until dc-runtime regains a build step. */
+    @media print {
+      @page { margin: 0.5cm; }
+      figure, table { break-inside: avoid; }
+      #dc-root, #dc-root > .sc-host { height: auto; }
+      *, *::before, *::after {
+        print-color-adjust: exact; -webkit-print-color-adjust: exact;
+        backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+        animation-delay: -99s !important; animation-duration: .001s !important;
+        animation-iteration-count: 1 !important; animation-fill-mode: both !important;
+        animation-play-state: running !important; transition-duration: 0s !important;
+      }
+    }
+  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>x-dc{display:none!important}</style>
+<title>Bạn Không Cần Nhiều Quần Áo Hơn — Chỉ Cần Những Phom Dáng Tốt Hơn — Macgie</title><meta name="description" content="Nhiều người tin rằng giải pháp để trông đẹp hơn là mua thêm quần áo. Một chiếc áo khoác mới. Một đôi giày thể thao khác. Một chiếc áo nữa với sắc xanh hơi khác. Nhưng sự thật thường đơn giản hơn nhiều:"><link rel="icon" type="image/svg+xml" href="/assets/brand/macgie.svg"><meta property="og:title" content="Bạn Không Cần Nhiều Quần Áo Hơn — Chỉ Cần Những Phom Dáng Tốt Hơn"><meta property="og:description" content="Nhiều người tin rằng giải pháp để trông đẹp hơn là mua thêm quần áo. Một chiếc áo khoác mới. Một đôi giày thể thao khác. Một chiếc áo nữa với sắc xanh hơi khác. Nhưng sự thật thường đơn giản hơn nhiều:"><meta property="og:type" content="website"><style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+  html, body { margin: 0; }
+  body { background: #ffffff; color: #262626; font-family: 'Poppins', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: #262626; text-decoration: none; }
+  a.navlink { color: #5b5550; transition: color .15s ease; }
+  a.navlink:hover { color: #1d1f23; }
+  a.navlink-active { color: #1d1f23; font-weight: 500; }
+  .store-badge { transition: transform .15s ease, opacity .15s ease; }
+  .store-badge:hover { transform: translateY(-1px); opacity: .92; }
+  .backlink { transition: gap .15s ease; }
+  .backlink:hover { gap: 12px; }
+  .post { cursor: pointer; }
+  .post .pimg { transition: transform .4s ease; }
+  .post:hover .pimg { transform: scale(1.04); }
+  .post .ptitle { transition: color .15s ease; }
+  .post:hover .ptitle { color: #6B4CCD; }
+  .hamburger { display: none; }
+  .mobile-menu { display: none; }
+  @media (max-width: 820px) {
+    header nav { display: none !important; }
+    header > div > a.store-badge { display: none !important; }
+    header .hamburger { display: inline-flex !important; }
+    .mobile-menu { display: flex !important; }
+    header > div { padding-left: 20px !important; padding-right: 20px !important; }
+    section [style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
+    footer > div:first-child { grid-template-columns: 1fr 1fr !important; }
+    h1 { font-size: 32px !important; line-height: 1.18 !important; }
+    h2 { font-size: 30px !important; line-height: 1.24 !important; }
+  }
+</style><link rel="canonical" href="https://beta.macgie.com/vi/journal/you-don-t-need-more-clothes-just-better-silhouettes">
+<meta property="og:url" content="https://beta.macgie.com/vi/journal/you-don-t-need-more-clothes-just-better-silhouettes">
+<meta property="og:image" content="https://beta.macgie.com/img/journal/you-don-t-need-more-clothes-just-better-silhouettes.webp">
+<meta name="twitter:card" content="summary_large_image">
+
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"You Don't Need More Clothes — Just Better Silhouettes","description":"Many people believe the solution to looking better is buying more clothes. A new jacket. Another pair of sneakers. One more shirt in a slightly different shade of blue. But the truth is often much simpler:","image":"https://beta.macgie.com/img/journal/you-don-t-need-more-clothes-just-better-silhouettes.webp","author":{"@type":"Person","name":"The Macgie Team"},"datePublished":"2026-07-14T09:10:13.418Z","publisher":{"@type":"Organization","name":"Macgie","logo":{"@type":"ImageObject","url":"https://beta.macgie.com/assets/brand/macgie.svg"}},"mainEntityOfPage":"https://beta.macgie.com/journal/you-don-t-need-more-clothes-just-better-silhouettes"}</script>
+<style>#m-nav{position:fixed;top:0;left:0;right:0;bottom:0;z-index:200;background:#faf7f2;display:none;flex-direction:column;gap:4px;padding:84px 24px 32px;font-family:Inter,system-ui,sans-serif}#m-nav.open{display:flex}#m-nav a{color:#14110f;text-decoration:none;font-size:20px;font-weight:600;padding:14px 0;border-bottom:1px solid #e6e1d8}.prose { max-width: 680px; margin: 0 auto; }
+.prose p { font-family: Poppins, sans-serif; font-weight: 400; font-size: 19px; line-height: 33px; color: rgb(38,38,38); margin: 0 0 28px; }
+.prose h2 { font-family: Poppins, sans-serif; font-weight: 800; font-size: 28px; line-height: 1.2; color: rgb(23,24,28); margin: 40px 0 16px; }
+.prose h3 { font-family: Poppins, sans-serif; font-weight: 700; font-size: 22px; color: rgb(23,24,28); margin: 32px 0 12px; }
+.prose ul, .prose ol { font-family: Poppins, sans-serif; font-size: 19px; line-height: 33px; color: rgb(38,38,38); padding-left: 24px; margin: 0 0 28px; }
+.prose a { color: rgb(107,76,205); text-decoration: underline; }
+.prose img { max-width: 100%; height: auto; border-radius: 16px; margin: 12px 0 28px; }
+.prose blockquote { border-left: 3px solid rgb(107,76,205); margin: 0 0 28px; padding-left: 20px; color: rgb(90,86,80); font-style: italic; }
+</style><!--i18n-head-->
+<link rel="alternate" hreflang="en" href="https://beta.macgie.com/journal/you-don-t-need-more-clothes-just-better-silhouettes">
+<link rel="alternate" hreflang="vi" href="https://beta.macgie.com/vi/journal/you-don-t-need-more-clothes-just-better-silhouettes">
+<link rel="alternate" hreflang="x-default" href="https://beta.macgie.com/journal/you-don-t-need-more-clothes-just-better-silhouettes">
+<script>(function(){
+var p=location.pathname,q=location.search+location.hash;
+if(p.indexOf('/preview')===0)return;
+function isVi(x){return x==='/vi'||x.indexOf('/vi/')===0;}
+function toVi(x){return isVi(x)?x:'/vi'+(x==='/'?'/':x);}
+function toEn(x){if(x==='/vi'||x==='/vi/')return '/';if(x.indexOf('/vi/')===0)return x.slice(3)||'/';return x;}
+function ck(){var m=document.cookie.match(/(?:^|;\s*)lang=([^;]+)/);return m?m[1]:'';}
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[data-lang]');if(a){document.cookie='lang='+a.getAttribute('data-lang')+';path=/;max-age=31536000;samesite=lax';}});
+var want=ck();
+if(want==='vi'){if(!isVi(p))location.replace(toVi(p)+q);return;}
+if(want==='en'){if(isVi(p))location.replace(toEn(p)+q);return;}
+fetch('/cdn-cgi/trace').then(function(r){return r.text();}).then(function(t){
+var loc=(t.match(/loc=([A-Z]+)/)||[])[1]||'';
+if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if(!isVi(p))location.replace(toVi(p)+q);}
+}).catch(function(){});
+})();</script>
+<!--/i18n-head-->
+</head>
+<body>
+<div id="dc-root"><div class="sc-host" data-sc-name="article"><div id="top" style="width: 100%;"><header style="position: sticky; top: 0px; z-index: 60; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(29, 31, 35, 0.07);">
+  <div style="max-width: 1200px; margin: 0px auto; padding: 0px 40px; height: 66px; display: flex; align-items: center; justify-content: space-between;">
+    <a href="/vi/" style="display: flex; align-items: center; gap: 9px;">
+      <img src="/m-lg-mrfpjcc9.svg" width="26" height="27" alt="">
+      <span style="font-family: Poppins, sans-serif; font-weight: 700; font-size: 20px; letter-spacing: -0.02em;">Macgie</span>
+    </a>
+    <nav style="display: flex; align-items: center; gap: 34px; font-family: Inter, sans-serif; font-size: 14px; font-weight: 500;">
+      <a class="navlink" href="/vi/#sample">Tại sao tủ đồ mẫu</a>
+      <a class="navlink" href="/vi/features">Tính năng</a>
+      <a class="navlink" href="/vi/pricing">Giá cả</a>
+      <a class="navlink-active" href="/vi/journal">Nhật ký</a>
+    <!--i18n-sw--><div class="lang-switch" style="display:inline-flex;align-items:center;gap:1px;"><a href="/journal/you-don-t-need-more-clothes-just-better-silhouettes" data-lang="en" style="padding:3px 8px;border-radius:7px;text-decoration:none;font-family:Inter,sans-serif;font-size:13px;font-weight:600;line-height:1;color:rgb(154,149,141);">EN</a><a href="/vi/journal/you-don-t-need-more-clothes-just-better-silhouettes" data-lang="vi" style="padding:3px 8px;border-radius:7px;text-decoration:none;font-family:Inter,sans-serif;font-size:13px;font-weight:600;line-height:1;color:rgb(29,31,35);background:rgba(29,31,35,0.07);">VI</a></div><!--/i18n-sw--></nav>
+    <a class="store-badge" href="#cta" style="display: inline-flex; align-items: center; gap: 9px; background: rgb(17, 18, 20); color: rgb(255, 255, 255); border-radius: 11px; padding: 8px 15px;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M16.5 1.8c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.8-1.4zM19 17.3c-.5 1.2-.8 1.7-1.4 2.7-.9 1.4-2.2 3.2-3.8 3.2-1.4 0-1.8-.9-3.7-.9s-2.3.9-3.7.9c-1.6 0-2.8-1.6-3.7-3C-.1 16.7-.6 11 1.6 8.2c1-1.3 2.5-2 4-2 1.5 0 2.5.9 3.7.9 1.2 0 1.9-.9 3.7-.9 1.3 0 2.7.7 3.7 2-3.2 1.8-2.7 6.4.6 7.1z"></path></svg>
+      <span style="line-height: 1.05;"><span style="display: block; font-size: 8.5px; opacity: 0.85;">Tải xuống trên</span><span style="font-size: 13.5px; font-weight: 600;">Cửa hàng ứng dụng</span></span>
+    </a>
+    <button class="hamburger" aria-label="Thực đơn" style="flex: 0 0 auto; background: none; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; padding: 8px; margin: -8px -8px -8px 0px; cursor: pointer; align-items: center; justify-content: center; color: rgb(29, 31, 35);">
+      
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="#1d1f23" stroke-width="1.9" stroke-linecap="round"></path></svg>
+    </button>
+  </div></header><section style="background: rgb(240, 240, 240); padding: 64px 0px;">
+  <div style="max-width: 854px; margin: 0px auto; padding: 0px 40px; text-align: center; display: flex; flex-direction: column; gap: 12px; align-items: center;">
+    <div style="font-family: Poppins, sans-serif; font-weight: 300; font-size: 16px; color: rgb(38, 38, 38);">Quản lý tủ đồ</div>
+    <h1 style="font-family: Poppins, sans-serif; font-weight: 800; font-size: 48px; line-height: 64px; color: rgb(23, 24, 28); margin: 0px;">Bạn không cần nhiều quần áo hơn — chỉ cần những kiểu dáng đẹp hơn.</h1>
+    <div style="font-family: Poppins, sans-serif; font-weight: 300; font-size: 16px; color: rgb(38, 38, 38); display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;"><span>Đội ngũ Macgie</span><span>14 tháng 7, 2026</span><span>Đọc trong 3 phút</span></div>
+  </div></section><article style="max-width: 760px; margin: 0px auto; padding: 40px 40px 96px;">
+  <a class="backlink" href="/vi/journal" style="display: inline-flex; align-items: center; gap: 8px; font-family: Poppins, sans-serif; font-weight: 400; font-size: 16px; color: rgb(38, 38, 38); margin-bottom: 36px;">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="#262626" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    Quay lại Nhật ký
+  </a>
+
+  <div class="prose"><p>Nhiều người tin rằng giải pháp để trông đẹp hơn là mua nhiều quần áo hơn.</p>
+<p>Một chiếc áo khoác mới.  
+Một đôi giày thể thao nữa.  
+Một chiếc áo sơ mi nữa với tông màu xanh hơi khác.</p>
+<p>Nhưng sự thật thường đơn giản hơn nhiều:</p>
+<p>Có lẽ bạn không cần thêm quần áo.  
+Bạn cần những dáng vẻ tốt hơn.</p>
+<h2>Tại Sao Một Số Trang Phục Trông Đắt Tiền — Ngay Cả Khi Chúng Không Phải</h2>
+<p>Khi nhìn một người ăn mặc phong cách từ bên kia đường, chúng ta không chú ý đến chất liệu đầu tiên.</p>
+<p>Chúng tôi nhận thấy hình dáng.</p>
+<p>Não há texto para traduzir. <strong>hình dáng</strong> — hình dáng mà trang phục của bạn tạo ra tổng thể.</p>
+<p>Một dáng vẻ tuyệt vời có thể khiến một chiếc áo phông trắng cơ bản và quần jeans trông có chủ đích và hiện đại.</p>
+<p>Một dáng vẻ kém có thể khiến những món đồ thiết kế đắt tiền trở nên vụng về và lỗi thời.</p>
+<h2>Silhouette là gì?</h2>
+<p>Một hình dáng là đường viền hình ảnh của trang phục của bạn.</p>
+<p>Suy nghĩ về những sự kết hợp này:</p>
+<ul>
+<li>Áo sơ mi ôm + quần jeans bó</li>
+<li>Áo sơ mi thoải mái + quần tây ống thẳng</li>
+<li>Áo khoác oversized + quần âu</li>
+<li>Áo croptop + quần cạp cao</li>
+</ul>
+<p>Mỗi bộ trang phục tạo ra một ấn tượng hoàn toàn khác nhau mặc dù sử dụng những món đồ đơn giản.</p>
+<p>Hình dáng cho mọi người biết phong cách của bạn có cảm giác:</p>
+<ul>
+<li>Sắc nét và chuyên nghiệp</li>
+<li>Thư giãn và tự nhiên</li>
+<li>Sáng tạo và biểu cảm</li>
+<li>Tối giản và tinh tế</li>
+</ul>
+<h2>Sai lầm lớn nhất: Mua sắm thay vì định hình</h2>
+<p>Nhiều tủ đồ thất bại không phải vì thiếu lựa chọn mà vì mỗi món đồ thuộc về một ngôn ngữ hình ảnh khác nhau.</p>
+<p>Áo sơ mi ôm vừa.  
+Quần cargo rộng.  
+Giày sneaker cồng kềnh.  
+Áo khoác cropped.</p>
+<p>Từng món đồ có thể rất tuyệt.</p>
+<p>Cùng nhau họ chiến đấu với nhau.</p>
+<p>Thay vì hỏi:</p>
+<p><em>"Tôi nên mua gì tiếp theo?"</em></p>
+<p>Hãy thử hỏi:</p>
+<p><em>"Tôi đang cố gắng tạo ra hình dáng nào?"</em></p>
+<h2>Bắt đầu với hình dáng, sau đó xây dựng trang phục</h2>
+<p>Quy trình mặc đồ đơn giản trông như thế này:</p>
+<h3>Xác định ngữ cảnh</h3>
+<p>Bạn đang đi đâu?</p>
+<ul>
+<li>Làm việc</li>
+<li>Cà phê với bạn bè</li>
+<li>Đêm hẹn hò</li>
+<li>Việc vặt cuối tuần</li>
+</ul>
+<h3>2. Chọn dáng trang phục</h3>
+<p>Đầu tiên hãy quyết định hình dáng.</p>
+<p>Trang chủ  
+Tủ đồ của tôi  
+Trang phục của tôi  
+Khám phá  
+Tạo tủ đồ  
+Thêm trang phục  
+Chỉnh sửa trang phục  
+Xóa trang phục  
+Lưu tủ đồ  
+Chia sẻ tủ đồ  
+Cài đặt  
+Hướng dẫn  
+Trợ giúp  
+Đăng nhập  
+Đăng ký  
+Tìm kiếm  
+Yêu thích  
+Lịch sử  
+Thông báo  
+Tài khoản  
+Đăng xuất  
+Chỉnh sửa hồ sơ  
+Thay đổi mật khẩu  
+Xem tủ đồ  
+Tạo trang phục mới  
+Xem trang phục  
+Xem chi tiết  
+Thêm vào yêu thích  
+Xóa khỏi yêu thích  
+Lưu thay đổi  
+Hủy  
+Xác nhận  
+Tìm kiếm trang phục  
+Lọc theo  
+Sắp xếp theo  
+Màu sắc  
+Kích thước  
+Loại trang phục  
+Chọn tủ đồ  
+Tạo mới  
+Tủ đồ capsule  
+Gợi ý trang phục  
+Phong cách của bạn  
+Tạo phong cách mới  
+Khám phá phong cách  
+Tìm kiếm phong cách  
+Thêm phong cách  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Chia sẻ phong cách  
+Thêm vào tủ đồ  
+Xem tất cả  
+Tải lên hình ảnh  
+Chọn hình ảnh  
+Chỉnh sửa hình ảnh  
+Xóa hình ảnh  
+Lưu hình ảnh  
+Xem hình ảnh  
+Tạo bộ sưu tập  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Chia sẻ bộ sưu tập  
+Tạo danh sách  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Chia sẻ danh sách  
+Tạo sự kiện  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Chia sẻ sự kiện  
+Tạo ghi chú  
+Xem ghi chú  
+Chỉnh sửa ghi chú  
+Xóa ghi chú  
+Lưu ghi chú  
+Chia sẻ ghi chú  
+Khám phá xu hướng  
+Theo dõi xu hướng  
+Tạo xu hướng mới  
+Xem xu hướng  
+Chỉnh sửa xu hướng  
+Xóa xu hướng  
+Lưu xu hướng  
+Chia sẻ xu hướng  
+Tìm kiếm xu hướng  
+Tạo thông báo  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Chia sẻ thông báo  
+Tạo tài khoản mới  
+Xem tài khoản  
+Chỉnh sửa tài khoản  
+Xóa tài khoản  
+Lưu tài khoản  
+Chia sẻ tài khoản  
+Xem tất cả tủ đồ  
+Xem tất cả trang phục  
+Xem tất cả phong cách  
+Xem tất cả bộ sưu tập  
+Xem tất cả danh sách  
+Xem tất cả sự kiện  
+Xem tất cả ghi chú  
+Xem tất cả xu hướng  
+Xem tất cả thông báo  
+Xem tất cả tài khoản  
+Tìm kiếm tủ đồ  
+Tìm kiếm trang phục  
+Tìm kiếm phong cách  
+Tìm kiếm bộ sưu tập  
+Tìm kiếm danh sách  
+Tìm kiếm sự kiện  
+Tìm kiếm ghi chú  
+Tìm kiếm xu hướng  
+Tìm kiếm thông báo  
+Tìm kiếm tài khoản  
+Tạo mới tủ đồ  
+Tạo mới trang phục  
+Tạo mới phong cách  
+Tạo mới bộ sưu tập  
+Tạo mới danh sách  
+Tạo mới sự kiện  
+Tạo mới ghi chú  
+Tạo mới xu hướng  
+Tạo mới thông báo  
+Tạo mới tài khoản</p>
+<ul>
+<li>Cắt may tinh tế và sắc sảo</li>
+<li>Thư giãn và hiện đại</li>
+<li>Cổ điển và vượt thời gian</li>
+<li>Thời trang tiên tiến và rộng rãi</li>
+</ul>
+<h3>Cân bằng tỷ lệ</h3>
+<p>Đây là nơi phong cách bắt đầu hình thành.</p>
+<p>Tủ đồ của tôi  
+Trang phục của tôi  
+Tạo tủ đồ mới  
+Thêm trang phục  
+Xóa trang phục  
+Chỉnh sửa trang phục  
+Xem tủ đồ  
+Chia sẻ tủ đồ  
+Lưu tủ đồ  
+Tìm kiếm trang phục  
+Gợi ý trang phục  
+Tạo trang phục mới  
+Xem gợi ý  
+Cá nhân hóa tủ đồ  
+Cài đặt  
+Hỗ trợ  
+Đăng xuất  
+Đăng nhập  
+Đăng ký  
+Tìm hiểu thêm  
+Khám phá  
+Thời trang  
+Phong cách  
+Tủ đồ capsule  
+Mẹo phối đồ  
+Thay đổi phong cách  
+Cập nhật tủ đồ  
+Lịch sử trang phục  
+Thống kê tủ đồ  
+Tạo danh sách yêu thích  
+Chọn trang phục  
+Đánh giá trang phục  
+Xem chi tiết  
+Thêm vào yêu thích  
+Xóa khỏi yêu thích  
+Xem tất cả  
+Lưu thay đổi  
+Hủy bỏ  
+Xác nhận  
+Chọn kích thước  
+Chọn màu sắc  
+Thêm vào giỏ hàng  
+Mua ngay  
+Xem giỏ hàng  
+Tiến hành thanh toán  
+Thông tin giao hàng  
+Phương thức thanh toán  
+Xác nhận đơn hàng  
+Theo dõi đơn hàng  
+Trả hàng  
+Liên hệ với chúng tôi  
+Chính sách bảo mật  
+Điều khoản dịch vụ  
+Giới thiệu về Macgie  
+Tải ứng dụng  
+Cập nhật ứng dụng  
+Khám phá phong cách mới  
+Tạo phong cách riêng  
+Tham gia cộng đồng  
+Chia sẻ trải nghiệm  
+Nhận thông báo  
+Đăng ký nhận tin tức  
+Khám phá bộ sưu tập  
+Tìm kiếm theo phong cách  
+Tìm kiếm theo mùa  
+Tìm kiếm theo sự kiện  
+Tìm kiếm theo xu hướng  
+Tìm kiếm theo thương hiệu  
+Tìm kiếm theo giá  
+Tìm kiếm theo kích thước  
+Tìm kiếm theo màu sắc  
+Tìm kiếm theo loại trang phục  
+Tìm kiếm theo chất liệu  
+Tìm kiếm theo kiểu dáng  
+Tìm kiếm theo độ tuổi  
+Tìm kiếm theo giới tính  
+Tìm kiếm theo phong cách sống  
+Tìm kiếm theo hoạt động  
+Tìm kiếm theo dịp  
+Tìm kiếm theo thời tiết  
+Tìm kiếm theo xu hướng hiện tại  
+Tìm kiếm theo bộ sưu tập  
+Tìm kiếm theo nhà thiết kế  
+Tìm kiếm theo thương hiệu yêu thích  
+Tìm kiếm theo trang phục nổi bật  
+Tìm kiếm theo trang phục mới nhất  
+Tìm kiếm theo trang phục giảm giá  
+Tìm kiếm theo trang phục bán chạy  
+Tìm kiếm theo trang phục được yêu thích  
+Tìm kiếm theo trang phục được đề xuất  
+Tìm kiếm theo trang phục theo mùa  
+Tìm kiếm theo trang phục theo sự kiện  
+Tìm kiếm theo trang phục theo phong cách  
+Tìm kiếm theo trang phục theo chất liệu  
+Tìm kiếm theo trang phục theo kiểu dáng  
+Tìm kiếm theo trang phục theo độ tuổi  
+Tìm kiếm theo trang phục theo giới tính  
+Tìm kiếm theo trang phục theo phong cách sống  
+Tìm kiếm theo trang phục theo hoạt động  
+Tìm kiếm theo trang phục theo dịp  
+Tìm kiếm theo trang phục theo thời tiết  
+Tìm kiếm theo trang phục theo xu hướng hiện tại  
+Tìm kiếm theo trang phục theo bộ sưu tập  
+Tìm kiếm theo trang phục theo nhà thiết kế  
+Tìm kiếm theo trang phục theo thương hiệu yêu thích  
+Tìm kiếm theo trang phục theo trang phục nổi bật  
+Tìm kiếm theo trang phục theo trang phục mới nhất  
+Tìm kiếm theo trang phục theo trang phục giảm giá  
+Tìm kiếm theo trang phục theo trang phục bán chạy  
+Tìm kiếm theo trang phục theo trang phục được yêu thích  
+Tìm kiếm theo trang phục theo trang phục được đề xuất  
+Tìm kiếm theo trang phục theo trang phục theo mùa  
+Tìm kiếm theo trang phục theo trang phục theo sự kiện  
+Tìm kiếm theo trang phục theo trang phục theo phong cách  
+Tìm kiếm theo trang phục theo trang phục theo chất liệu  
+Tìm kiếm theo trang phục theo trang phục theo kiểu dáng  
+Tìm kiếm theo trang phục theo trang phục theo độ tuổi  
+Tìm kiếm theo trang phục theo trang phục theo giới tính  
+Tìm kiếm theo trang phục theo trang phục theo phong cách sống  
+Tìm kiếm theo trang phục theo trang phục theo hoạt động  
+Tìm kiếm theo trang phục theo trang phục theo dịp  
+Tìm kiếm theo trang phục theo trang phục theo thời tiết  
+Tìm kiếm theo trang phục theo trang phục theo xu hướng hiện tại  
+Tìm kiếm theo trang phục theo trang phục theo bộ sưu tập  
+Tìm kiếm theo trang phục theo trang phục theo nhà thiết kế  
+Tìm kiếm theo trang phục theo trang phục theo thương hiệu yêu thích  
+Tìm kiếm theo trang phục theo trang phục theo trang phục nổi bật  
+Tìm kiếm theo trang phục theo trang phục theo trang phục mới nhất  
+Tìm kiếm theo trang phục theo trang phục theo trang phục giảm giá  
+Tìm kiếm theo trang phục theo trang phục theo trang phục bán chạy  
+Tìm kiếm theo trang phục theo trang phục theo trang phục được yêu thích  
+Tìm kiếm theo trang phục theo trang phục theo trang phục được đề xuất  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo mùa  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo sự kiện  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo phong cách  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo chất liệu  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo kiểu dáng  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo độ tuổi  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo giới tính  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo phong cách sống  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo hoạt động  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo dịp  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo thời tiết  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo xu hướng hiện tại  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo bộ sưu tập  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo nhà thiết kế  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo thương hiệu yêu thích  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục nổi bật  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục mới nhất  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục giảm giá  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục bán chạy  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục được yêu thích  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục được đề xuất  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo mùa  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo sự kiện  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo phong cách  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo chất liệu  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo kiểu dáng  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo độ tuổi  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo giới tính  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo phong cách sống  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo hoạt động  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo dịp  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo thời tiết  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo xu hướng hiện tại  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo bộ sưu tập  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo nhà thiết kế  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo thương hiệu yêu thích  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục nổi bật  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục mới nhất  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục giảm giá  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục bán chạy  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục được yêu thích  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục được đề xuất  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo mùa  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo sự kiện  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo phong cách  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo chất liệu  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo kiểu dáng  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo độ tuổi  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo giới tính  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo phong cách sống  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo hoạt động  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo dịp  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo thời tiết  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo xu hướng hiện tại  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo bộ sưu tập  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo nhà thiết kế  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo thương hiệu yêu thích  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục nổi bật  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục mới nhất  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục giảm giá  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục bán chạy  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục được yêu thích  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục được đề xuất  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo mùa  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo sự kiện  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo phong cách  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo chất liệu  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo kiểu dáng  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo độ tuổi  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo giới tính  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo phong cách sống  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo hoạt động  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo dịp  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo thời tiết  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo xu hướng hiện tại  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo bộ sưu tập  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo nhà thiết kế  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo thương hiệu yêu thích  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục nổi bật  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục mới nhất  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục giảm giá  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục bán chạy  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục được yêu thích  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục được đề xuất  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo mùa  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo sự kiện  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo phong cách  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo chất liệu  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo kiểu dáng  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo độ tuổi  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo giới tính  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo phong cách sống  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo hoạt động  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo dịp  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo thời tiết  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo xu hướng hiện tại  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo bộ sưu tập  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo nhà thiết kế  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo thương hiệu yêu thích  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục nổi bật  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục mới nhất  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục giảm giá  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục bán chạy  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục được yêu thích  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục được đề xuất  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo mùa  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo sự kiện  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo phong cách  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo chất liệu  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo kiểu dáng  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo độ tuổi  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo giới tính  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo phong cách sống  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo hoạt động  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo dịp  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo thời tiết  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo xu hướng hiện tại  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo bộ sưu tập  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo nhà thiết kế  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo thương hiệu yêu thích  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục nổi bật  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục mới nhất  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục giảm giá  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục bán chạy  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục được yêu thích  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục được đề xuất  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo mùa  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo sự kiện  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo phong cách  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo chất liệu  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo kiểu dáng  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo độ tuổi  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo giới tính  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo phong cách sống  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo hoạt động  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo dịp  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo thời tiết  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo xu hướng hiện tại  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo bộ sưu tập  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo nhà thiết kế  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo thương hiệu yêu thích  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục nổi bật  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục mới nhất  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục giảm giá  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục bán chạy  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục được yêu thích  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục được đề xuất  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo mùa  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo sự kiện  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo phong cách  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo chất liệu  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo kiểu dáng  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo độ tuổi  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo giới tính  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo phong cách sống  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo hoạt động  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo dịp  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo thời tiết  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo xu hướng hiện tại  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo bộ sưu tập  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo nhà thiết kế  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo thương hiệu yêu thích  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục nổi bật  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục mới nhất  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục giảm giá  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục bán chạy  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục được yêu thích  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục được đề xuất  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo mùa  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo sự kiện  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo phong cách  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo chất liệu  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo kiểu dáng  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo độ tuổi  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo giới tính  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo phong cách sống  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo hoạt động  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo dịp  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo thời tiết  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo xu hướng hiện tại  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo bộ sưu tập  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo nhà thiết kế  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo thương hiệu yêu thích  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục nổi bật  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục mới nhất  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục giảm giá  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục bán chạy  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục được yêu thích  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục được đề xuất  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo mùa  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo sự kiện  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo phong cách  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo chất liệu  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo kiểu dáng  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo độ tuổi  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo giới tính  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo phong cách sống  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo hoạt động  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo dịp  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo thời tiết  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo xu hướng hiện tại  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo bộ sưu tập  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo nhà thiết kế  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo thương hiệu yêu thích  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục nổi bật  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục mới nhất  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục giảm giá  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục bán chạy  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục được yêu thích  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục được đề xuất  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo mùa  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo sự kiện  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo phong cách  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo chất liệu  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo kiểu dáng  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo độ tuổi  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo giới tính  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo phong cách sống  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo hoạt động  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo dịp  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo thời tiết  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo xu hướng hiện tại  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo bộ sưu tập  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo nhà thiết kế  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo thương hiệu yêu thích  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục nổi bật  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục mới nhất  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục giảm giá  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục bán chạy  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục được yêu thích  
+Tìm kiếm theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục theo trang phục được đề xuất</p>
+<ul>
+<li>Áo rộng + quần thẳng</li>
+<li>Áo ôm + quần rộng</li>
+<li>Áo khoác ngắn hơn + quần cao cấp hơn</li>
+</ul>
+<h3>Thêm màu sắc và kết cấu</h3>
+<p>Chỉ sau khi hình dáng hoạt động tốt, bạn mới nên nghĩ đến màu sắc và chất liệu.</p>
+<h2>Một Quy Tắc Hữu Ích</h2>
+<p>Nếu trang phục của bạn vẫn trông đẹp như một bóng đen, thì hình dáng có lẽ đang hoạt động tốt.</p>
+<p>Đây là lý do nhiều nhà tạo mẫu đánh giá trang phục từ xa hoặc qua gương trước khi tập trung vào các chi tiết.</p>
+<p>Hình dáng cần phải hoạt động trước khi các chi tiết phát huy tác dụng.</p>
+<h2>Xây dựng tủ đồ dựa trên hình dáng, không phải xu hướng</h2>
+<p>Xu hướng đến rồi đi.</p>
+<p>Hình dáng bền lâu hơn.</p>
+<p>Một tủ đồ được xây dựng xung quanh một vài kiểu dáng nhất quán là:</p>
+<ul>
+<li>Dễ dàng phối hợp và kết hợp</li>
+<li>Đa năng hơn</li>
+<li>Hơn cả vượt thời gian</li>
+<li>Ít tốn kém hơn để duy trì</li>
+</ul>
+<p>Trớ trêu thay, việc mua ít quần áo hơn thường làm cho việc chọn trang phục trở nên dễ dàng hơn.</p>
+<p>Bởi vì phong cách không phải là có nhiều lựa chọn hơn.</p>
+<p>Đó là về việc đưa ra những quyết định tốt hơn.</p>
+<h2>Suy nghĩ cuối cùng</h2>
+<p>Lần tới khi bạn cảm thấy tủ đồ của mình không hiệu quả, hãy kiềm chế cơn thèm mua sắm ngay lập tức.</p>
+<p>Đứng trước gương và hỏi:</p>
+<p><em>"Đây là vấn đề về trang phục hay vấn đề về dáng người?"</em></p>
+<p>Thường thì, câu trả lời sẽ khiến bạn bất ngờ.</p>
+</div></article><section style="background: rgb(240, 240, 240); padding: 64px 0px;">
+  <div style="max-width: 1170px; margin: 0px auto; padding: 0px 40px;">
+    <div style="text-align: center;">
+      <div style="font-family: Poppins, sans-serif; font-weight: 300; font-size: 16px; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(38, 38, 38);">Tiếp tục đọc</div>
+      <h2 style="font-family: Poppins, sans-serif; font-weight: 800; font-size: 48px; line-height: 64px; color: rgb(23, 24, 28); margin: 12px 0px 0px;">Liên quan từ Tạp chí</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:40px;"><a class="post" href="/vi/journal/triangle-body-shape-style-guide" style="display:flex;flex-direction:column;gap:12px;">
+    <div style="border-radius:20px;overflow:hidden;background:rgb(242,244,247);height:180px;"><img class="pimg" src="/img/journal/triangle-body-shape-style-guide.webp" width="1110" height="632" alt="Mặc cho hình dáng cơ thể vuông: Không phải là về đường cong, mà là về cấu trúc" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>
+    <div class="ptitle" style="font-family:Poppins,sans-serif;font-weight:700;font-size:18px;line-height:1.2;color:rgb(23,24,28);">Mặc cho hình dáng cơ thể hình vuông: Không phải là về đường cong, mà là về cấu trúc</div>
+  </a>
+<a class="post" href="/vi/journal/the-surprising-truth-having-fewer-clothes-can-make-you-dress-better" style="display:flex;flex-direction:column;gap:12px;">
+    <div style="border-radius:20px;overflow:hidden;background:rgb(242,244,247);height:180px;"><img class="pimg" src="/img/journal/the-surprising-truth-having-fewer-clothes-can-make-you-dress-better.webp" width="1024" height="683" alt="Sự thật bất ngờ: Có ít quần áo hơn có thể giúp bạn ăn mặc đẹp hơn" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>
+    <div class="ptitle" style="font-family:Poppins,sans-serif;font-weight:700;font-size:18px;line-height:1.2;color:rgb(23,24,28);">Sự thật bất ngờ: Có ít quần áo hơn có thể giúp bạn ăn mặc đẹp hơn</div>
+  </a>
+<a class="post" href="/vi/journal/business-casual-capsule-wardrobe-dress-smart-without-overthinking-it" style="display:flex;flex-direction:column;gap:12px;">
+    <div style="border-radius:20px;overflow:hidden;background:rgb(242,244,247);height:180px;"><img class="pimg" src="/img/journal/business-casual-capsule-wardrobe-dress-smart-without-overthinking-it.webp" width="1200" height="800" alt="Tủ Đồ Capsule Thời Trang Công Sở: Ăn Mặc Thông Minh Mà Không Cần Suy Nghĩ Quá Nhiều" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>
+    <div class="ptitle" style="font-family:Poppins,sans-serif;font-weight:700;font-size:18px;line-height:1.2;color:rgb(23,24,28);">Tủ Đồ Capsule Thời Trang Công Sở: Ăn Mặc Thông Minh Mà Không Cần Suy Nghĩ Quá Nhiều</div>
+  </a></div>
+  </div></section><section id="cta" style="background: radial-gradient(691px 118px at 50% 74%, rgb(40, 44, 53) 16%, rgb(20, 21, 24) 100%); padding: 132px 0px; text-align: center;">
+  <div style="max-width: 794px; margin: 0px auto; padding: 0px 40px; display: flex; flex-direction: column; align-items: center; gap: 44px;">
+    <svg width="54" height="23" viewBox="0 0 54 23" fill="none"><ellipse cx="11" cy="12" rx="10.7" ry="10.8" fill="#fff"></ellipse><ellipse cx="15.5" cy="14" rx="2.6" ry="4.3" fill="#000"></ellipse><ellipse cx="44" cy="11.5" rx="8.8" ry="10.9" fill="#fff"></ellipse><ellipse cx="43.5" cy="15" rx="2.6" ry="4.5" fill="#000"></ellipse></svg>
+    <h2 style="font-family: Poppins, sans-serif; font-weight: 800; font-size: 48px; line-height: 64px; color: rgb(242, 239, 236); margin: 0px;">Bạn đã sở hữu đủ rồi.<br>Macgie chỉ giúp bạn nhìn thấy điều đó.</h2>
+    <a class="store-badge" href="#top" style="display: inline-flex; align-items: center; gap: 10px; background: rgb(255, 255, 255); color: rgb(17, 17, 17); border-radius: 13px; padding: 12px 22px;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="#111"><path d="M16.5 1.8c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.8-1.4zM19 17.3c-.5 1.2-.8 1.7-1.4 2.7-.9 1.4-2.2 3.2-3.8 3.2-1.4 0-1.8-.9-3.7-.9s-2.3.9-3.7.9c-1.6 0-2.8-1.6-3.7-3C-.1 16.7-.6 11 1.6 8.2c1-1.3 2.5-2 4-2 1.5 0 2.5.9 3.7.9 1.2 0 1.9-.9 3.7-.9 1.3 0 2.7.7 3.7 2-3.2 1.8-2.7 6.4.6 7.1z"></path></svg>
+      <span style="line-height: 1.1;"><span style="display: block; font-size: 10px; opacity: 0.7;">Tải xuống trên</span><span style="font-size: 17px; font-weight: 700;">Cửa hàng ứng dụng</span></span>
+    </a>
+  </div></section><footer style="background: rgb(255, 255, 255); padding: 56px 0px 40px; border-top: 1px solid rgba(29, 31, 35, 0.08);">
+  <div style="max-width: 1120px; margin: 0px auto; padding: 0px 40px; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px;">
+    <div>
+      <div style="display: flex; align-items: center; gap: 9px;"><img src="/assets/brand/macgie.svg" width="26" height="27" alt=""><span style="font-family: Poppins, sans-serif; font-weight: 700; font-size: 20px; letter-spacing: -0.02em;">Macgie</span></div>
+      <p style="font-family: Inter, sans-serif; font-size: 13.5px; color: rgb(111, 106, 99); margin: 14px 0px 18px; max-width: 220px;">Mặc đồ với sự rõ ràng hơn, áp lực ít hơn.</p>
+      <a class="store-badge" href="#cta" style="display: inline-flex; align-items: center; gap: 9px; background: rgb(17, 18, 20); color: rgb(255, 255, 255); border-radius: 11px; padding: 8px 15px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M16.5 1.8c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.8-1.4zM19 17.3c-.5 1.2-.8 1.7-1.4 2.7-.9 1.4-2.2 3.2-3.8 3.2-1.4 0-1.8-.9-3.7-.9s-2.3.9-3.7.9c-1.6 0-2.8-1.6-3.7-3C-.1 16.7-.6 11 1.6 8.2c1-1.3 2.5-2 4-2 1.5 0 2.5.9 3.7.9 1.2 0 1.9-.9 3.7-.9 1.3 0 2.7.7 3.7 2-3.2 1.8-2.7 6.4.6 7.1z"></path></svg>
+        <span style="line-height: 1.05;"><span style="display: block; font-size: 8.5px; opacity: 0.85;">Tải xuống trên</span><span style="font-size: 13.5px; font-weight: 600;">Cửa hàng ứng dụng</span></span>
+      </a>
+    </div>
+    <div>
+      <div style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 13px; color: rgb(29, 31, 35); margin-bottom: 14px;">Sản phẩm</div>
+      <div style="display: flex; flex-direction: column; gap: 10px; font-family: Inter, sans-serif; font-size: 13.5px;"><a class="navlink" href="/vi/features">Tính năng</a><a class="navlink" href="/vi/pricing">Giá cả</a><a class="navlink" href="/vi/#how">Nhật ký thay đổi</a></div>
+    </div>
+    <div>
+      <div style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 13px; color: rgb(29, 31, 35); margin-bottom: 14px;">Tài nguyên</div>
+      <div style="display: flex; flex-direction: column; gap: 10px; font-family: Inter, sans-serif; font-size: 13.5px;"><a class="navlink" href="/vi/journal">Blog</a><a class="navlink" href="/vi/pricing#faq">Trung tâm trợ giúp</a><a class="navlink" href="#top">Cộng đồng</a></div>
+    </div>
+    <div>
+      <div style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 13px; color: rgb(29, 31, 35); margin-bottom: 14px;">Pháp lý</div>
+      <div style="display: flex; flex-direction: column; gap: 10px; font-family: Inter, sans-serif; font-size: 13.5px;"><a class="navlink" href="#top">Quyền riêng tư</a><a class="navlink" href="#top">Điều khoản</a></div>
+    </div>
+  </div>
+  <div style="max-width: 1120px; margin: 36px auto 0px; padding: 20px 40px 0px; border-top: 1px solid rgba(29, 31, 35, 0.08); font-family: Inter, sans-serif; font-size: 12.5px; color: rgb(111, 106, 99);">© 2026 Macgie, Inc. Bảo lưu mọi quyền.</div></footer></div></div></div>
+
+
+
+<script src="/app.js?v=2" defer></script></body></html>

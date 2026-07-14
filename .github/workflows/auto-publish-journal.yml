@@ -54,15 +54,20 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build journal from Strapi
+      - name: Build journal from Strapi (EN + auto-translated VI)
         run: npm run build:journal
+        env:
+          # Machine-translation engine (build time only). If unset, /vi falls back
+          # to EN text and the build still succeeds.
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GOOGLE_STUDIO_KEY: ${{ secrets.GOOGLE_STUDIO_KEY }}
 
       - name: Commit regenerated pages if content changed
         id: changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/journal.html public/journal public/img/journal public/sitemap.xml
+          git add public/journal.html public/journal public/vi/journal.html public/vi/journal public/img/journal public/sitemap.xml scripts/i18n/vi-cache.json
           if git diff --cached --quiet; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "No content change — nothing to deploy."

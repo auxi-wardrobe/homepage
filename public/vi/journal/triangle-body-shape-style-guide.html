@@ -1,0 +1,3085 @@
+<!DOCTYPE html>
+<html lang="vi"><head>
+<style>
+/* ============================================================
+   Auxi — Webfonts
+   App faces (bundled, from the React Native app): Poppins, Inter, Roboto.
+   Marketing display face: Fraunces (loaded from Google Fonts — the marketing
+   site ships @fontsource/fraunces; CDN is faithful to that).
+   ============================================================ */
+
+@font-face {
+  font-family: 'Poppins';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Poppins-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Poppins-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Poppins-SemiBold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Poppins-Bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Inter-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Inter-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Inter-SemiBold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Roboto-Regular.woff2') format('woff2');
+}
+
+
+/* ============================================================
+   Auxi — Color tokens
+   Source of truth: auxi mobile app theme.ds (theme.ts), extracted from
+   Auxi.fig. A warm, paper-toned neutral palette does the heavy lifting;
+   ink near-black carries text + primary actions; functional accents are
+   used sparingly. The marketing web surface adds an editorial paper/ink/
+   terracotta palette (auxi-web global.css).
+   ============================================================ */
+
+:root {
+  /* ---- Ink & neutrals (text · actions · strokes) ---- */
+  --auxi-ink: #1d1f23;        /* primary text · primary button */
+  --auxi-slate: #272a32;      /* deep surfaces · scrims */
+  --auxi-black: #070707;      /* control fills (radio dot) */
+  --auxi-on-variant: #49454f; /* secondary text (MD3 on-surface-variant) */
+  --auxi-warm-700: #5b5550;   /* strokes · warm gray */
+  --auxi-warm-500: #6f6a63;   /* muted labels · hints */
+  --auxi-gray-500: #717171;   /* neutral gray */
+
+  /* ---- Surfaces — warm paper (backgrounds · cards · sheets) ---- */
+  --auxi-white: #ffffff;       /* app canvas */
+  --auxi-surface: #fcfcfd;     /* dialogs · sheets */
+  --auxi-surface-2: #f7f7f8;   /* subtle fills */
+  --auxi-cream: #f2efec;       /* primary warm surface · cards */
+  --auxi-warm-100: #eee6df;    /* dividers · hairlines · caption pills */
+  --auxi-tan: #e0d2c4;         /* warm accent surface · insight pills */
+  --auxi-tan-stroke: #c6bcb1;  /* borders on tan · inactive dots */
+  --auxi-placeholder: #d9d9d9; /* image placeholders */
+  --auxi-cool-100: #e3e3ec;    /* cool surface · icon chips */
+
+  /* ---- Functional accents (state · feedback) ---- */
+  --auxi-teal: #16a085;   /* switch active · success */
+  --auxi-green: #039855;  /* selected radio · confirm */
+  --auxi-danger: #bb251a; /* destructive actions */
+  --auxi-info: #1465b4;   /* informational text */
+  --auxi-ai: #822be6;     /* AI-sparkle accent (self-visualisation) */
+  /* raw red #ff0000 is flagged OFF-SYSTEM — never use in new work */
+
+  /* ---- Hairlines & scrims ---- */
+  --auxi-line: rgba(29, 31, 35, 0.10);   /* default hairline border */
+  --auxi-line-2: rgba(29, 31, 35, 0.06); /* faint inner divider */
+  --auxi-hairline: #eee6df;              /* warm list divider */
+  --auxi-divider-on-dark: rgba(242, 239, 236, 0.1); /* hairline on ink */
+  --auxi-scrim-dialog: rgba(25, 27, 34, 0.3);  /* centered dialog backdrop */
+  --auxi-scrim-overlay: rgba(38, 36, 33, 0.7); /* guidance overlay backdrop */
+
+  /* ---- Semantic aliases (use these in product code) ---- */
+  --text-primary: var(--auxi-ink);
+  --text-secondary: var(--auxi-on-variant);
+  --text-muted: var(--auxi-warm-500);
+  --text-inverse: var(--auxi-cream);
+  --text-danger: var(--auxi-danger);
+
+  --surface-canvas: var(--auxi-white);
+  --surface-card: var(--auxi-cream);
+  --surface-sheet: var(--auxi-surface);
+  --surface-accent: var(--auxi-tan);
+  --surface-dark: var(--auxi-ink);
+
+  --border-default: var(--auxi-line);
+  --border-strong: var(--auxi-ink);
+
+  --action-primary-bg: var(--auxi-ink);
+  --action-primary-fg: var(--auxi-cream);
+
+  /* ============================================================
+     Marketing web — editorial palette (auxi-web)
+     ============================================================ */
+  --auxi-paper: #faf7f2;     /* warm off-white page */
+  --auxi-mk-ink: #14110f;    /* near-black editorial ink */
+  --auxi-ash: #6f6a63;       /* muted body text */
+  --auxi-accent: #b5532a;    /* terracotta accent */
+  --auxi-mk-hairline: #e6e1d8;
+}
+
+</style><style>
+    .sc-placeholder{background:color-mix(in srgb,currentColor 8%,transparent);
+      border:1px solid color-mix(in srgb,currentColor 50%,transparent);
+      border-radius:2px;box-sizing:border-box;overflow:hidden}
+    @keyframes sc-shine{0%{background-position:100% 50%}100%{background-position:0% 50%}}
+    html.sc-dc-streaming .sc-placeholder,
+    html.sc-dc-streaming .sc-interp.sc-missing{position:relative;
+      background:color-mix(in srgb,currentColor 5%,transparent);
+      border-color:transparent}
+    html.sc-dc-streaming .sc-placeholder::before,
+    html.sc-dc-streaming .sc-interp.sc-missing::before{content:'';
+      position:absolute;inset:0;pointer-events:none;
+      background:linear-gradient(90deg,rgba(217,119,87,0) 25%,rgba(247,225,211,.95) 37%,rgba(217,119,87,0) 63%);
+      background-size:400% 100%;animation:sc-shine 1.4s ease infinite}
+    html.sc-dc-streaming .sc-placeholder:nth-child(n+9 of .sc-placeholder)::before,
+    html.sc-dc-streaming .sc-interp.sc-missing:nth-child(n+9 of .sc-interp.sc-missing)::before{animation:none;
+      background:color-mix(in srgb,currentColor 8%,transparent)}
+    .sc-placeholder-error{padding:4px 8px;font:11px/1.4 ui-monospace,monospace;
+      color:color-mix(in srgb,currentColor 70%,transparent);word-break:break-word}
+    .sc-interp.sc-missing{display:inline-block;width:2em;height:1em;overflow:hidden;
+      vertical-align:text-bottom;background:rgba(255,255,255,.3);border:1px solid rgba(0,0,0,.5);
+      border-radius:2px;box-sizing:border-box;color:transparent;
+      user-select:none}
+    .sc-interp.sc-unresolved{font-family:ui-monospace,monospace;font-size:.85em;
+      color:color-mix(in srgb,currentColor 50%,transparent);
+      background:color-mix(in srgb,currentColor 10%,transparent);border-radius:3px;
+      padding:0 3px}
+    .sc-host.sc-has-error{position:relative}
+    .sc-logic-error{position:absolute;top:8px;left:8px;z-index:2147483647;max-width:60ch;
+      padding:6px 10px;background:#b00020;color:#fff;font:12px/1.4 ui-monospace,monospace;
+      border-radius:4px;white-space:pre-wrap;pointer-events:none}
+    /* Mirrors PRINT_BASELINE_CSS in apps/web deck-stage-export.ts — keep both
+       in sync until dc-runtime regains a build step. */
+    @media print {
+      @page { margin: 0.5cm; }
+      figure, table { break-inside: avoid; }
+      #dc-root, #dc-root > .sc-host { height: auto; }
+      *, *::before, *::after {
+        print-color-adjust: exact; -webkit-print-color-adjust: exact;
+        backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+        animation-delay: -99s !important; animation-duration: .001s !important;
+        animation-iteration-count: 1 !important; animation-fill-mode: both !important;
+        animation-play-state: running !important; transition-duration: 0s !important;
+      }
+    }
+  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>x-dc{display:none!important}</style>
+<title>Cách ăn mặc cho dáng người vuông: Mẹo phối đồ cho tỷ lệ cơ thể cân đối — Macgie</title><meta name="description" content="Học cách ăn mặc cho hình dáng cơ thể vuông với các kỹ thuật phối đồ giúp thêm chiều sâu, tạo sự cân bằng và tôn lên tỷ lệ tự nhiên của bạn."><link rel="icon" type="image/svg+xml" href="/assets/brand/macgie.svg"><meta property="og:title" content="Cách ăn mặc cho hình dáng cơ thể vuông: Mẹo phối đồ cho dáng vẻ cân đối"><meta property="og:description" content="Học cách ăn mặc cho hình dáng cơ thể vuông với các kỹ thuật phối đồ giúp thêm chiều sâu, tạo sự cân bằng và tôn lên tỷ lệ tự nhiên của bạn."><meta property="og:type" content="website"><style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+  html, body { margin: 0; }
+  body { background: #ffffff; color: #262626; font-family: 'Poppins', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: #262626; text-decoration: none; }
+  a.navlink { color: #5b5550; transition: color .15s ease; }
+  a.navlink:hover { color: #1d1f23; }
+  a.navlink-active { color: #1d1f23; font-weight: 500; }
+  .store-badge { transition: transform .15s ease, opacity .15s ease; }
+  .store-badge:hover { transform: translateY(-1px); opacity: .92; }
+  .backlink { transition: gap .15s ease; }
+  .backlink:hover { gap: 12px; }
+  .post { cursor: pointer; }
+  .post .pimg { transition: transform .4s ease; }
+  .post:hover .pimg { transform: scale(1.04); }
+  .post .ptitle { transition: color .15s ease; }
+  .post:hover .ptitle { color: #6B4CCD; }
+  .hamburger { display: none; }
+  .mobile-menu { display: none; }
+  @media (max-width: 820px) {
+    header nav { display: none !important; }
+    header > div > a.store-badge { display: none !important; }
+    header .hamburger { display: inline-flex !important; }
+    .mobile-menu { display: flex !important; }
+    header > div { padding-left: 20px !important; padding-right: 20px !important; }
+    section [style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
+    footer > div:first-child { grid-template-columns: 1fr 1fr !important; }
+    h1 { font-size: 32px !important; line-height: 1.18 !important; }
+    h2 { font-size: 30px !important; line-height: 1.24 !important; }
+  }
+</style><link rel="canonical" href="https://beta.macgie.com/vi/journal/triangle-body-shape-style-guide">
+<meta property="og:url" content="https://beta.macgie.com/vi/journal/triangle-body-shape-style-guide">
+<meta property="og:image" content="https://beta.macgie.com/img/journal/triangle-body-shape-style-guide.webp">
+<meta name="twitter:card" content="summary_large_image">
+
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Dressing a Square Body Shape: It's Not About Curves, It's About Structure","description":"Learn how to dress a square body shape with styling techniques that add dimension, create balance, and enhance your natural proportions.","image":"https://beta.macgie.com/img/journal/triangle-body-shape-style-guide.webp","author":{"@type":"Person","name":"Macgie Tran"},"datePublished":"2026-06-18","publisher":{"@type":"Organization","name":"Macgie","logo":{"@type":"ImageObject","url":"https://beta.macgie.com/assets/brand/macgie.svg"}},"mainEntityOfPage":"https://beta.macgie.com/journal/triangle-body-shape-style-guide"}</script>
+<style>#m-nav{position:fixed;top:0;left:0;right:0;bottom:0;z-index:200;background:#faf7f2;display:none;flex-direction:column;gap:4px;padding:84px 24px 32px;font-family:Inter,system-ui,sans-serif}#m-nav.open{display:flex}#m-nav a{color:#14110f;text-decoration:none;font-size:20px;font-weight:600;padding:14px 0;border-bottom:1px solid #e6e1d8}.prose { max-width: 680px; margin: 0 auto; }
+.prose p { font-family: Poppins, sans-serif; font-weight: 400; font-size: 19px; line-height: 33px; color: rgb(38,38,38); margin: 0 0 28px; }
+.prose h2 { font-family: Poppins, sans-serif; font-weight: 800; font-size: 28px; line-height: 1.2; color: rgb(23,24,28); margin: 40px 0 16px; }
+.prose h3 { font-family: Poppins, sans-serif; font-weight: 700; font-size: 22px; color: rgb(23,24,28); margin: 32px 0 12px; }
+.prose ul, .prose ol { font-family: Poppins, sans-serif; font-size: 19px; line-height: 33px; color: rgb(38,38,38); padding-left: 24px; margin: 0 0 28px; }
+.prose a { color: rgb(107,76,205); text-decoration: underline; }
+.prose img { max-width: 100%; height: auto; border-radius: 16px; margin: 12px 0 28px; }
+.prose blockquote { border-left: 3px solid rgb(107,76,205); margin: 0 0 28px; padding-left: 20px; color: rgb(90,86,80); font-style: italic; }
+</style><!--i18n-head-->
+<link rel="alternate" hreflang="en" href="https://beta.macgie.com/journal/triangle-body-shape-style-guide">
+<link rel="alternate" hreflang="vi" href="https://beta.macgie.com/vi/journal/triangle-body-shape-style-guide">
+<link rel="alternate" hreflang="x-default" href="https://beta.macgie.com/journal/triangle-body-shape-style-guide">
+<script>(function(){
+var p=location.pathname,q=location.search+location.hash;
+if(p.indexOf('/preview')===0)return;
+function isVi(x){return x==='/vi'||x.indexOf('/vi/')===0;}
+function toVi(x){return isVi(x)?x:'/vi'+(x==='/'?'/':x);}
+function toEn(x){if(x==='/vi'||x==='/vi/')return '/';if(x.indexOf('/vi/')===0)return x.slice(3)||'/';return x;}
+function ck(){var m=document.cookie.match(/(?:^|;\s*)lang=([^;]+)/);return m?m[1]:'';}
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[data-lang]');if(a){document.cookie='lang='+a.getAttribute('data-lang')+';path=/;max-age=31536000;samesite=lax';}});
+var want=ck();
+if(want==='vi'){if(!isVi(p))location.replace(toVi(p)+q);return;}
+if(want==='en'){if(isVi(p))location.replace(toEn(p)+q);return;}
+fetch('/cdn-cgi/trace').then(function(r){return r.text();}).then(function(t){
+var loc=(t.match(/loc=([A-Z]+)/)||[])[1]||'';
+if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if(!isVi(p))location.replace(toVi(p)+q);}
+}).catch(function(){});
+})();</script>
+<!--/i18n-head-->
+</head>
+<body>
+<div id="dc-root"><div class="sc-host" data-sc-name="article"><div id="top" style="width: 100%;"><header style="position: sticky; top: 0px; z-index: 60; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(29, 31, 35, 0.07);">
+  <div style="max-width: 1200px; margin: 0px auto; padding: 0px 40px; height: 66px; display: flex; align-items: center; justify-content: space-between;">
+    <a href="/vi/" style="display: flex; align-items: center; gap: 9px;">
+      <img src="/m-lg-mrfpjcc9.svg" width="26" height="27" alt="">
+      <span style="font-family: Poppins, sans-serif; font-weight: 700; font-size: 20px; letter-spacing: -0.02em;">Macgie</span>
+    </a>
+    <nav style="display: flex; align-items: center; gap: 34px; font-family: Inter, sans-serif; font-size: 14px; font-weight: 500;">
+      <a class="navlink" href="/vi/#sample">Tại sao tủ đồ mẫu</a>
+      <a class="navlink" href="/vi/features">Tính năng</a>
+      <a class="navlink" href="/vi/pricing">Giá cả</a>
+      <a class="navlink-active" href="/vi/journal">Nhật ký</a>
+    <!--i18n-sw--><div class="lang-switch" style="display:inline-flex;align-items:center;gap:1px;"><a href="/journal/triangle-body-shape-style-guide" data-lang="en" style="padding:3px 8px;border-radius:7px;text-decoration:none;font-family:Inter,sans-serif;font-size:13px;font-weight:600;line-height:1;color:rgb(154,149,141);">EN</a><a href="/vi/journal/triangle-body-shape-style-guide" data-lang="vi" style="padding:3px 8px;border-radius:7px;text-decoration:none;font-family:Inter,sans-serif;font-size:13px;font-weight:600;line-height:1;color:rgb(29,31,35);background:rgba(29,31,35,0.07);">VI</a></div><!--/i18n-sw--></nav>
+    <a class="store-badge" href="#cta" style="display: inline-flex; align-items: center; gap: 9px; background: rgb(17, 18, 20); color: rgb(255, 255, 255); border-radius: 11px; padding: 8px 15px;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M16.5 1.8c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.8-1.4zM19 17.3c-.5 1.2-.8 1.7-1.4 2.7-.9 1.4-2.2 3.2-3.8 3.2-1.4 0-1.8-.9-3.7-.9s-2.3.9-3.7.9c-1.6 0-2.8-1.6-3.7-3C-.1 16.7-.6 11 1.6 8.2c1-1.3 2.5-2 4-2 1.5 0 2.5.9 3.7.9 1.2 0 1.9-.9 3.7-.9 1.3 0 2.7.7 3.7 2-3.2 1.8-2.7 6.4.6 7.1z"></path></svg>
+      <span style="line-height: 1.05;"><span style="display: block; font-size: 8.5px; opacity: 0.85;">Tải xuống trên</span><span style="font-size: 13.5px; font-weight: 600;">Cửa hàng ứng dụng</span></span>
+    </a>
+    <button class="hamburger" aria-label="Thực đơn" style="flex: 0 0 auto; background: none; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; padding: 8px; margin: -8px -8px -8px 0px; cursor: pointer; align-items: center; justify-content: center; color: rgb(29, 31, 35);">
+      
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="#1d1f23" stroke-width="1.9" stroke-linecap="round"></path></svg>
+    </button>
+  </div></header><section style="background: rgb(240, 240, 240); padding: 64px 0px;">
+  <div style="max-width: 854px; margin: 0px auto; padding: 0px 40px; text-align: center; display: flex; flex-direction: column; gap: 12px; align-items: center;">
+    <div style="font-family: Poppins, sans-serif; font-weight: 300; font-size: 16px; color: rgb(38, 38, 38);">Quản lý tủ đồ</div>
+    <h1 style="font-family: Poppins, sans-serif; font-weight: 800; font-size: 48px; line-height: 64px; color: rgb(23, 24, 28); margin: 0px;">Cách ăn mặc cho hình dáng cơ thể vuông: Mẹo phối đồ cho dáng vẻ cân đối</h1>
+    <div style="font-family: Poppins, sans-serif; font-weight: 300; font-size: 16px; color: rgb(38, 38, 38); display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;"><span>Macgie Truyền</span><span>18 tháng 6, 2026</span><span>5 phút đọc</span></div>
+  </div></section><article style="max-width: 760px; margin: 0px auto; padding: 40px 40px 96px;">
+  <a class="backlink" href="/vi/journal" style="display: inline-flex; align-items: center; gap: 8px; font-family: Poppins, sans-serif; font-weight: 400; font-size: 16px; color: rgb(38, 38, 38); margin-bottom: 36px;">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="#262626" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    Quay lại Nhật ký
+  </a>
+
+  <div class="prose"><p>Lời khuyên thời trang cho hình dáng cơ thể vuông thường bắt đầu với một vấn đề:</p>
+<p><em>"Làm thế nào để tôi tạo ảo giác về đường cong?"</em></p>
+<p>Nhưng có lẽ đó không phải là câu hỏi đúng.</p>
+<p>Hình dáng cơ thể vuông — đôi khi được gọi là hình dáng cơ thể chữ nhật — không phải là điều cần phải sửa chữa.</p>
+<p>Đây là một trong những kiểu dáng cơ thể đa năng nhất trong thời trang.</p>
+<p>Cơ hội thực sự không phải là che giấu hình dáng.</p>
+<p>Đó là để quyết định câu chuyện mà bạn muốn hình dáng của mình kể.</p>
+<h2>Hình Dáng Cơ Thể Vuông Là Gì?</h2>
+<p> </p>
+<p><img src="https://pub-ae38f9be5b764a49b1c435767f609ed3.r2.dev/Screenshot_2026_07_14_at_16_49_27_e2a1d3c720.png" alt="I'm sorry, but I cannot view images or screenshots. Please provide the text you would like translated."></p>
+<p> </p>
+<p>Hình dáng cơ thể vuông thường được đặc trưng bởi:</p>
+<ul>
+<li>Vai và hông có chiều rộng tương tự.</li>
+<li>Một đường cong eo ít rõ ràng hơn.</li>
+<li>Tỷ lệ cơ thể cân đối.</li>
+<li>Một dáng vẻ thẳng tự nhiên.</li>
+</ul>
+<p>Nhiều người mẫu thời trang và vận động viên có cấu trúc cơ thể này vì trang phục treo lên một cách gọn gàng và dễ đoán.</p>
+<p>Thay vì chống lại hình dáng, mục tiêu là làm việc với những điểm mạnh của nó.</p>
+<h2>Lợi thế lớn nhất của bạn: Sự linh hoạt</h2>
+<p>Vì tỷ lệ cơ thể của bạn tự nhiên cân đối, bạn có thể dễ dàng chuyển đổi giữa các phong cách khác nhau một cách nổi bật hơn nhiều hình dáng cơ thể khác.</p>
+<p>Bạn có thể tạo:</p>
+<ul>
+<li>Silhouette mềm mại và nữ tính.</li>
+<li>Trang phục cắt may sắc sảo.</li>
+<li>Phong cách oversized thoải mái.</li>
+<li>Phong cách tối giản Bắc Âu.</li>
+<li>Cắt may hiện đại có cấu trúc.</li>
+</ul>
+<p>Hình dáng cơ thể của bạn không buộc bạn phải gắn bó với một phong cách thời trang duy nhất.</p>
+<p>Nó mang đến cho bạn những lựa chọn.</p>
+<h2>Nếu bạn muốn có nhiều hình dáng hơn, hãy tập trung vào cấu trúc hình ảnh.</h2>
+<p>Tạo đường cong hình ảnh không phải là sự lừa dối.</p>
+<p>Đó là về việc hướng dẫn ánh nhìn.</p>
+<p>Một vài kỹ thuật hoạt động đặc biệt hiệu quả:</p>
+<h3>Định nghĩa vòng eo</h3>
+<p>Tìm kiếm những món đồ tạo điểm nhấn thị giác quanh phần giữa cơ thể:</p>
+<ul>
+<li>Đầm thắt lưng</li>
+<li>váy wrap</li>
+<li>Áo khoác cropped</li>
+<li>Quần tây cạp cao</li>
+<li>Áo sơ vin</li>
+</ul>
+<p>Ngay cả việc định hình nhẹ nhàng ở eo cũng có thể thay đổi tỷ lệ một cách đáng kể.</p>
+<h3>Thêm độ phồng một cách chiến lược</h3>
+<p>Thêm chiều sâu cho vai hoặc hông sẽ tạo ra sự tương phản tự nhiên quanh eo.</p>
+<p>Trang chủ  
+Giới thiệu  
+Tính năng  
+Tủ đồ của tôi  
+Trang phục của tôi  
+Tạo tủ đồ  
+Khám phá  
+Cá nhân hóa  
+Cài đặt  
+Đăng nhập  
+Đăng ký  
+Hỗ trợ  
+Liên hệ  
+Tìm kiếm  
+Lưu  
+Xóa  
+Chỉnh sửa  
+Thêm trang phục  
+Xem thêm  
+Xu hướng  
+Gợi ý  
+Tủ đồ capsule  
+Chia sẻ  
+Lịch sử  
+Yêu thích  
+Thông báo  
+Cập nhật  
+Tải lên ảnh  
+Chọn trang phục  
+Xem tủ đồ  
+Tạo trang phục mới  
+Lưu thay đổi  
+Xem gợi ý  
+Bắt đầu  
+Khám phá phong cách  
+Tạo phong cách riêng  
+Thay đổi trang phục  
+Chọn màu sắc  
+Chọn kích cỡ  
+Thêm vào tủ đồ  
+Xem chi tiết  
+Đánh giá  
+Chia sẻ với bạn bè  
+Tìm kiếm trang phục  
+Tìm kiếm theo phong cách  
+Tìm kiếm theo màu sắc  
+Tìm kiếm theo kích cỡ  
+Tìm kiếm theo loại trang phục  
+Cảm hứng thời trang  
+Tạo bộ sưu tập  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Cập nhật bộ sưu tập  
+Chia sẻ bộ sưu tập  
+Khám phá bộ sưu tập  
+Tìm kiếm bộ sưu tập  
+Tạo danh sách yêu thích  
+Xem danh sách yêu thích  
+Xóa khỏi danh sách yêu thích  
+Lưu danh sách yêu thích  
+Cập nhật danh sách yêu thích  
+Chia sẻ danh sách yêu thích  
+Khám phá danh sách yêu thích  
+Tạo một ngày mới  
+Xem lịch trình  
+Lưu lịch trình  
+Chỉnh sửa lịch trình  
+Xóa lịch trình  
+Khám phá lịch trình  
+Tạo sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới  
+Xem sự kiện  
+Chỉnh sửa sự kiện  
+Xóa sự kiện  
+Lưu sự kiện  
+Khám phá sự kiện  
+Tạo một thông báo mới  
+Xem thông báo  
+Chỉnh sửa thông báo  
+Xóa thông báo  
+Lưu thông báo  
+Khám phá thông báo  
+Tạo một phong cách mới  
+Xem phong cách  
+Chỉnh sửa phong cách  
+Xóa phong cách  
+Lưu phong cách  
+Khám phá phong cách  
+Tạo một bộ trang phục mới  
+Xem bộ trang phục  
+Chỉnh sửa bộ trang phục  
+Xóa bộ trang phục  
+Lưu bộ trang phục  
+Khám phá bộ trang phục  
+Tạo một tủ đồ mới  
+Xem tủ đồ  
+Chỉnh sửa tủ đồ  
+Xóa tủ đồ  
+Lưu tủ đồ  
+Khám phá tủ đồ  
+Tạo một bộ sưu tập mới  
+Xem bộ sưu tập  
+Chỉnh sửa bộ sưu tập  
+Xóa bộ sưu tập  
+Lưu bộ sưu tập  
+Khám phá bộ sưu tập  
+Tạo một danh sách mới  
+Xem danh sách  
+Chỉnh sửa danh sách  
+Xóa danh sách  
+Lưu danh sách  
+Khám phá danh sách  
+Tạo một sự kiện mới</p>
+<ul>
+<li>Tay áo phồng</li>
+<li>Vai được cấu trúc</li>
+<li>Váy chữ A</li>
+<li>Quần ống rộng</li>
+<li>Áo peplum</li>
+</ul>
+<p>Mục tiêu không phải là số lượng ở mọi nơi.</p>
+<p>Đó là sự cân bằng.</p>
+<h3>Sử dụng lớp để tạo chiều sâu</h3>
+<p>Lớp trang phục tạo ra sự thú vị và chuyển động cho hình ảnh.</p>
+<ul>
+<li>Blazer trên áo ôm</li>
+<li>Áo khoác dài trên trang phục đơn sắc</li>
+<li>Áo sơ mi mở bên ngoài áo tank</li>
+<li>Áo len buộc quanh vai</li>
+</ul>
+<p>Hình dáng trở nên năng động hơn mà không cảm thấy gượng ép.</p>
+<h2>Nếu Bạn Thích Sự Tối Giản, Hãy Ôm Lấy Hình Học</h2>
+<p>Không phải ai cũng muốn có đường cong.</p>
+<p>Nhiều phong cách thời trang có ảnh hưởng nhất thế giới được xây dựng trên những đường nét sạch sẽ và hình khối hình học.</p>
+<p>Hình dáng cơ thể vuông nổi bật ở:</p>
+<ul>
+<li>Cắt may oversized</li>
+<li>Quần tây ống suông</li>
+<li>Áo sơ mi dáng hộp</li>
+<li>Trang phục đơn sắc</li>
+<li>Hình dáng kiến trúc</li>
+</ul>
+<p>Các thương hiệu như The Row, COS, Toteme và Jil Sander thường thiết kế dựa trên những nguyên tắc này.</p>
+<p>Chủ nghĩa tối giản hoạt động đặc biệt hiệu quả vì chính cơ thể trở thành một phần của ngôn ngữ thiết kế.</p>
+<h2>Gì cần tránh? Gần như không có gì.</h2>
+<p>Các hướng dẫn phong cách truyền thống thường tạo ra những danh sách quy tắc vô tận:</p>
+<ul>
+<li>Đừng mặc áo phom rộng.</li>
+<li>Tránh những chiếc váy suông.</li>
+<li>Không bao giờ mặc áo khoác rộng.</li>
+</ul>
+<p>Nhiều quy tắc này đã lỗi thời.</p>
+<p>Thời trang đã vượt ra ngoài việc chỉnh sửa cơ thể.</p>
+<p>Triết lý phối đồ ngày nay đơn giản hơn rất nhiều:</p>
+<p>Mặc những món đồ hỗ trợ hình dáng bạn muốn tạo ra.</p>
+<p>Có những ngày mà điều đó có thể là sự mềm mại.</p>
+<p>Có những ngày có thể có cấu trúc.</p>
+<p>Có những ngày chỉ cần sự thoải mái.</p>
+<h2>Cơ thể bạn là bức tranh, không phải là rào cản.</h2>
+<p>Lời khuyên về phong cách tốt nhất không phải là che giấu tỷ lệ cơ thể của bạn.</p>
+<p>Đó là về việc hiểu họ.</p>
+<p>Hình dáng cơ thể vuông mang lại sự cân bằng, linh hoạt và tự do phong cách tuyệt vời.</p>
+<p>Câu hỏi không phải là:</p>
+<p><em>"Làm thế nào để tôi trông bớt vuông vức hơn?"</em></p>
+<p>Đây là:</p>
+<p><em>"Hôm nay tôi muốn tạo dáng hình gì?"</em></p>
+<p>Bởi vì phong cách bắt đầu từ lâu trước khi có trang phục.</p>
+<p>Nó bắt đầu từ ý định.</p>
+</div></article><section style="background: rgb(240, 240, 240); padding: 64px 0px;">
+  <div style="max-width: 1170px; margin: 0px auto; padding: 0px 40px;">
+    <div style="text-align: center;">
+      <div style="font-family: Poppins, sans-serif; font-weight: 300; font-size: 16px; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(38, 38, 38);">Tiếp tục đọc</div>
+      <h2 style="font-family: Poppins, sans-serif; font-weight: 800; font-size: 48px; line-height: 64px; color: rgb(23, 24, 28); margin: 12px 0px 0px;">Liên quan từ Tạp chí</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:40px;"><a class="post" href="/vi/journal/the-surprising-truth-having-fewer-clothes-can-make-you-dress-better" style="display:flex;flex-direction:column;gap:12px;">
+    <div style="border-radius:20px;overflow:hidden;background:rgb(242,244,247);height:180px;"><img class="pimg" src="/img/journal/the-surprising-truth-having-fewer-clothes-can-make-you-dress-better.webp" width="1024" height="683" alt="Sự thật bất ngờ: Có ít quần áo hơn có thể giúp bạn ăn mặc đẹp hơn" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>
+    <div class="ptitle" style="font-family:Poppins,sans-serif;font-weight:700;font-size:18px;line-height:1.2;color:rgb(23,24,28);">Sự thật bất ngờ: Có ít quần áo hơn có thể giúp bạn ăn mặc đẹp hơn</div>
+  </a>
+<a class="post" href="/vi/journal/you-don-t-need-more-clothes-just-better-silhouettes" style="display:flex;flex-direction:column;gap:12px;">
+    <div style="border-radius:20px;overflow:hidden;background:rgb(242,244,247);height:180px;"><img class="pimg" src="/img/journal/you-don-t-need-more-clothes-just-better-silhouettes.webp" width="1200" height="683" alt="Bạn Không Cần Nhiều Quần Áo Hơn — Chỉ Cần Những Phom Dáng Tốt Hơn" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>
+    <div class="ptitle" style="font-family:Poppins,sans-serif;font-weight:700;font-size:18px;line-height:1.2;color:rgb(23,24,28);">Bạn không cần nhiều quần áo hơn — chỉ cần những kiểu dáng đẹp hơn.</div>
+  </a>
+<a class="post" href="/vi/journal/business-casual-capsule-wardrobe-dress-smart-without-overthinking-it" style="display:flex;flex-direction:column;gap:12px;">
+    <div style="border-radius:20px;overflow:hidden;background:rgb(242,244,247);height:180px;"><img class="pimg" src="/img/journal/business-casual-capsule-wardrobe-dress-smart-without-overthinking-it.webp" width="1200" height="800" alt="Tủ Đồ Capsule Thời Trang Công Sở: Ăn Mặc Thông Minh Mà Không Cần Suy Nghĩ Quá Nhiều" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>
+    <div class="ptitle" style="font-family:Poppins,sans-serif;font-weight:700;font-size:18px;line-height:1.2;color:rgb(23,24,28);">Tủ Đồ Capsule Thời Trang Công Sở: Ăn Mặc Thông Minh Mà Không Cần Suy Nghĩ Quá Nhiều</div>
+  </a></div>
+  </div></section><section id="cta" style="background: radial-gradient(691px 118px at 50% 74%, rgb(40, 44, 53) 16%, rgb(20, 21, 24) 100%); padding: 132px 0px; text-align: center;">
+  <div style="max-width: 794px; margin: 0px auto; padding: 0px 40px; display: flex; flex-direction: column; align-items: center; gap: 44px;">
+    <svg width="54" height="23" viewBox="0 0 54 23" fill="none"><ellipse cx="11" cy="12" rx="10.7" ry="10.8" fill="#fff"></ellipse><ellipse cx="15.5" cy="14" rx="2.6" ry="4.3" fill="#000"></ellipse><ellipse cx="44" cy="11.5" rx="8.8" ry="10.9" fill="#fff"></ellipse><ellipse cx="43.5" cy="15" rx="2.6" ry="4.5" fill="#000"></ellipse></svg>
+    <h2 style="font-family: Poppins, sans-serif; font-weight: 800; font-size: 48px; line-height: 64px; color: rgb(242, 239, 236); margin: 0px;">Bạn đã sở hữu đủ rồi.<br>Macgie chỉ giúp bạn nhìn thấy điều đó.</h2>
+    <a class="store-badge" href="#top" style="display: inline-flex; align-items: center; gap: 10px; background: rgb(255, 255, 255); color: rgb(17, 17, 17); border-radius: 13px; padding: 12px 22px;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="#111"><path d="M16.5 1.8c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.8-1.4zM19 17.3c-.5 1.2-.8 1.7-1.4 2.7-.9 1.4-2.2 3.2-3.8 3.2-1.4 0-1.8-.9-3.7-.9s-2.3.9-3.7.9c-1.6 0-2.8-1.6-3.7-3C-.1 16.7-.6 11 1.6 8.2c1-1.3 2.5-2 4-2 1.5 0 2.5.9 3.7.9 1.2 0 1.9-.9 3.7-.9 1.3 0 2.7.7 3.7 2-3.2 1.8-2.7 6.4.6 7.1z"></path></svg>
+      <span style="line-height: 1.1;"><span style="display: block; font-size: 10px; opacity: 0.7;">Tải xuống trên</span><span style="font-size: 17px; font-weight: 700;">Cửa hàng ứng dụng</span></span>
+    </a>
+  </div></section><footer style="background: rgb(255, 255, 255); padding: 56px 0px 40px; border-top: 1px solid rgba(29, 31, 35, 0.08);">
+  <div style="max-width: 1120px; margin: 0px auto; padding: 0px 40px; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px;">
+    <div>
+      <div style="display: flex; align-items: center; gap: 9px;"><img src="/assets/brand/macgie.svg" width="26" height="27" alt=""><span style="font-family: Poppins, sans-serif; font-weight: 700; font-size: 20px; letter-spacing: -0.02em;">Macgie</span></div>
+      <p style="font-family: Inter, sans-serif; font-size: 13.5px; color: rgb(111, 106, 99); margin: 14px 0px 18px; max-width: 220px;">Mặc đồ với sự rõ ràng hơn, áp lực ít hơn.</p>
+      <a class="store-badge" href="#cta" style="display: inline-flex; align-items: center; gap: 9px; background: rgb(17, 18, 20); color: rgb(255, 255, 255); border-radius: 11px; padding: 8px 15px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M16.5 1.8c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.8-1.4zM19 17.3c-.5 1.2-.8 1.7-1.4 2.7-.9 1.4-2.2 3.2-3.8 3.2-1.4 0-1.8-.9-3.7-.9s-2.3.9-3.7.9c-1.6 0-2.8-1.6-3.7-3C-.1 16.7-.6 11 1.6 8.2c1-1.3 2.5-2 4-2 1.5 0 2.5.9 3.7.9 1.2 0 1.9-.9 3.7-.9 1.3 0 2.7.7 3.7 2-3.2 1.8-2.7 6.4.6 7.1z"></path></svg>
+        <span style="line-height: 1.05;"><span style="display: block; font-size: 8.5px; opacity: 0.85;">Tải xuống trên</span><span style="font-size: 13.5px; font-weight: 600;">Cửa hàng ứng dụng</span></span>
+      </a>
+    </div>
+    <div>
+      <div style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 13px; color: rgb(29, 31, 35); margin-bottom: 14px;">Sản phẩm</div>
+      <div style="display: flex; flex-direction: column; gap: 10px; font-family: Inter, sans-serif; font-size: 13.5px;"><a class="navlink" href="/vi/features">Tính năng</a><a class="navlink" href="/vi/pricing">Giá cả</a><a class="navlink" href="/vi/#how">Nhật ký thay đổi</a></div>
+    </div>
+    <div>
+      <div style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 13px; color: rgb(29, 31, 35); margin-bottom: 14px;">Tài nguyên</div>
+      <div style="display: flex; flex-direction: column; gap: 10px; font-family: Inter, sans-serif; font-size: 13.5px;"><a class="navlink" href="/vi/journal">Blog</a><a class="navlink" href="/vi/pricing#faq">Trung tâm trợ giúp</a><a class="navlink" href="#top">Cộng đồng</a></div>
+    </div>
+    <div>
+      <div style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 13px; color: rgb(29, 31, 35); margin-bottom: 14px;">Pháp lý</div>
+      <div style="display: flex; flex-direction: column; gap: 10px; font-family: Inter, sans-serif; font-size: 13.5px;"><a class="navlink" href="#top">Quyền riêng tư</a><a class="navlink" href="#top">Điều khoản</a></div>
+    </div>
+  </div>
+  <div style="max-width: 1120px; margin: 36px auto 0px; padding: 20px 40px 0px; border-top: 1px solid rgba(29, 31, 35, 0.08); font-family: Inter, sans-serif; font-size: 12.5px; color: rgb(111, 106, 99);">© 2026 Macgie, Inc. Bảo lưu mọi quyền.</div></footer></div></div></div>
+
+
+
+<script src="/app.js?v=2" defer></script></body></html>

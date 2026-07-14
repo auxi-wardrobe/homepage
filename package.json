@@ -4,8 +4,13 @@
   "type": "module",
   "scripts": {
     "build:journal": "node scripts/build-journal.mjs",
+    "build:i18n": "node scripts/build-i18n-pages.mjs",
+    "build:site": "node scripts/build-i18n-pages.mjs && node scripts/build-journal.mjs",
     "preview": "node scripts/build-journal.mjs && ./scripts/deploy.sh sandbox",
     "publish": "node scripts/build-journal.mjs && ./scripts/deploy.sh prod"
   },
-  "dependencies": { "marked": "^12.0.0" }
+  "dependencies": {
+    "marked": "^12.0.0",
+    "node-html-parser": "^9.0.0"
+  }
 }
