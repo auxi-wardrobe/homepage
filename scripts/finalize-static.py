@@ -4,7 +4,10 @@ import re, glob, os
 
 PUB = "/Users/nguyenminhduc/dev/wardrobe_project/homepage/public"
 
-mirror = open(os.path.join(PUB, "pricing.html"), encoding="utf-8").read()
+# The FAQ block lived on the pricing page, which was removed from the site.
+# Guard the read so a re-flatten without a pricing page no-ops cleanly instead of crashing.
+_mirror_path = os.path.join(PUB, "pricing.html")
+mirror = open(_mirror_path, encoding="utf-8").read() if os.path.exists(_mirror_path) else ""
 faq = re.findall(r'\{\s*q:\s*"((?:[^"\\]|\\.)*)"\s*,\s*a:\s*"((?:[^"\\]|\\.)*)"\s*\}', mirror)
 faq = [(q, a.encode().decode('unicode_escape')) for q, a in faq]
 print("recovered FAQ pairs:", len(faq))

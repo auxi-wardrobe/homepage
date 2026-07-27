@@ -7,7 +7,7 @@ import re, sys, json, os
 from PIL import Image
 
 CANON = {"index":"https://macgie.com/","features":"https://macgie.com/features",
-         "pricing":"https://macgie.com/pricing","journal":"https://macgie.com/journal",
+         "journal":"https://macgie.com/journal",
          "article":"https://macgie.com/article"}
 
 # per-slot: alt, fit override, eager(bool)

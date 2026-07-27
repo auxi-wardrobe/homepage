@@ -35,6 +35,7 @@ pnpm-debug.log*
 .playwright-mcp/
 .superpowers/
 .ruff_cache/
+__pycache__/
 
 # Scratch QA screenshots at repo root (deployable images live in public/)
 /*.png

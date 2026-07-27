@@ -20,7 +20,7 @@ To update the site:
 
 What this script does (the only edits we layer on top of the raw export):
   1. Rewrites cross-page links "Macgie X.dc.html" -> clean paths (/features, ...).
-  2. Renames the .dc.html files to clean names (index/features/pricing/journal/article).
+  2. Renames the .dc.html files to clean names (index/features/journal/article).
   3. Injects <title> + meta description + Open Graph tags + an SVG favicon into
      each page's <helmet> block.
   4. Writes a branded, self-contained 404.html.
@@ -50,12 +50,6 @@ PAGES = {
         "Outfit Canvas, scheduler, instant visualization, auto background removal "
         "and more — one app that knows your closet, calendar and weather.",
     ),
-    "Macgie Pricing.dc.html": (
-        "pricing.html",
-        "Pricing — Macgie",
-        "Everything you need to get dressed easier is free. Macgie+ is $3.33/month "
-        "when you want more — cancel anytime.",
-    ),
     "Macgie Journal.dc.html": (
         "journal.html",
         "Journal — Macgie",
@@ -74,7 +68,6 @@ LINK_REWRITES = {
     "Macgie Home.dc.html": "/",
     "Macgie Feature.dc.html": "/features",
     "Macgie Journal.dc.html": "/journal",
-    "Macgie Pricing.dc.html": "/pricing",
     "Macgie Article.dc.html": "/article",
 }
 

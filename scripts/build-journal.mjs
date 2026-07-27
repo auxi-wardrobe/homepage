@@ -54,7 +54,7 @@ for (const a of articles) {
 }
 console.log(`✓ ${articles.length} article pages (en + vi)`);
 
-const staticPaths = ['/', '/features', '/pricing', '/journal'];
+const staticPaths = ['/', '/features', '/journal'];
 await writeFile(join(pub, 'sitemap.xml'), renderSitemap(articles, staticPaths));
 flushCache();
 console.log('✓ sitemap (both locales) + translation cache');

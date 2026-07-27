@@ -1,4 +1,4 @@
-// Localize the hand-authored marketing pages (home / features / pricing / 404).
+// Localize the hand-authored marketing pages (home / features / 404).
 // Runs on demand when marketing copy changes — NOT in the cron (the cron only
 // rebuilds the Strapi journal). Writes the EN page back in place (adds i18n
 // chrome + host fix) and emits the VI mirror under public/vi/. Idempotent.
@@ -14,7 +14,6 @@ const pub = join(root, 'public');
 const PAGES = [
   { file: 'index.html', enPath: '/' },
   { file: 'features.html', enPath: '/features' },
-  { file: 'pricing.html', enPath: '/pricing' },
   { file: '404.html', enPath: '/404' },
 ];
 
