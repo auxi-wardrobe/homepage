@@ -66,7 +66,7 @@ export function headInjection(enPath) {
 /** The EN|VI switcher. `locale` is the current page's locale; `enPath` its EN path. */
 export function switcherHtml(locale, enPath) {
   const base =
-    'padding:3px 8px;border-radius:7px;text-decoration:none;font-family:Inter,sans-serif;font-size:13px;font-weight:600;line-height:1;';
+    'padding:3px 8px;border-radius:7px;text-decoration:none;font-family:Geist,sans-serif;font-size:13px;font-weight:600;line-height:1;';
   const on = 'color:rgb(29,31,35);background:rgba(29,31,35,0.07);';
   const off = 'color:rgb(154,149,141);';
   const a = (lang, href, label) =>

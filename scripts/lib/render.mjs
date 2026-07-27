@@ -47,7 +47,7 @@ function pillBar(categories) {
   const chips = [chip('All', '*', true), ...categories.map((c) => chip(c, c, false))].join('');
   return `<section style="max-width: 1170px; margin: 0px auto; padding: 38px 40px 0px; display: flex; flex-direction: column; align-items: center;">
   <style>
-    .jchip { font-family: Inter, sans-serif; font-size: 14px; font-weight: 500; padding: 9px 20px; border-radius: 100px; border: 0; cursor: pointer; background: rgb(230,221,210); color: rgb(74,70,64); transition: background .15s ease, color .15s ease; }
+    .jchip { font-family: Geist, sans-serif; font-size: 14px; font-weight: 500; padding: 9px 20px; border-radius: 100px; border: 0; cursor: pointer; background: rgb(230,221,210); color: rgb(74,70,64); transition: background .15s ease, color .15s ease; }
     .jchip:hover { background: rgb(219,208,194); }
     .jchip.is-active { background: rgb(74,70,64); color: #fff; }
     .is-hidden { display: none !important; }

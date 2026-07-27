@@ -49,7 +49,7 @@ open(os.path.join(PUB, "app.js"), "w", encoding="utf-8").write(APP_JS)
 
 MOBILE_CSS = ("<style>#m-nav{position:fixed;top:0;left:0;right:0;bottom:0;z-index:200;"
               "background:#faf7f2;display:none;flex-direction:column;gap:4px;padding:84px 24px 32px;"
-              "font-family:Inter,system-ui,sans-serif}#m-nav.open{display:flex}"
+              "font-family:Geist,system-ui,sans-serif}#m-nav.open{display:flex}"
               "#m-nav a{color:#14110f;text-decoration:none;font-size:20px;font-weight:600;"
               "padding:14px 0;border-bottom:1px solid #e6e1d8}</style>")
 

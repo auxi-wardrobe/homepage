@@ -106,7 +106,7 @@ def not_found_html():
 {font_link}
 <style>
   html,body{{margin:0;height:100%}}
-  body{{background:#faf7f2;color:#14110f;font-family:'Inter',system-ui,sans-serif;
+  body{{background:#faf7f2;color:#14110f;font-family:'Geist',system-ui,sans-serif;
        display:flex;align-items:center;justify-content:center;text-align:center;padding:24px}}
   .wrap{{max-width:420px}}
   img{{width:56px;height:auto;margin-bottom:24px}}
