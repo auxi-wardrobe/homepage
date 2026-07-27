@@ -51,9 +51,16 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
 }).catch(function(){});
 })();</script>`;
 
-/** Everything that goes in <head>: hreflang + the geo-redirect script. */
+// Google Analytics 4 (gtag.js) — site-wide measurement (id G-BV41NVY90Z). Placed at
+// the END of the head-chrome block so a returning visitor's SYNCHRONOUS locale
+// redirect (see REDIRECT_SCRIPT) aborts the page before GA fires on the wrong-locale
+// URL. (A first-time VN visitor still double-counts once — that redirect is async.)
+// Lives inside the idempotent <!--i18n-head--> markers, so rebuilds never duplicate it.
+const GA4 = `<!-- Google Analytics (GA4) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-BV41NVY90Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-BV41NVY90Z');</script>`;
+
+/** Everything that goes in <head>: hreflang + geo-redirect script + GA4. */
 export function headInjection(enPath) {
-  return hreflangTags(enPath) + '\n' + REDIRECT_SCRIPT;
+  return hreflangTags(enPath) + '\n' + REDIRECT_SCRIPT + '\n' + GA4;
 }
 
 /** The EN|VI switcher. `locale` is the current page's locale; `enPath` its EN path. */
