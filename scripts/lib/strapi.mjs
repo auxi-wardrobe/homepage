@@ -26,8 +26,13 @@ function normalize(entry, base) {
   };
 }
 
-export async function fetchArticles({ baseUrl = STRAPI_URL, token = process.env.STRAPI_TOKEN } = {}) {
-  const url = `${baseUrl}/api/articles?populate=cover&sort=publishedAt:desc&pagination[pageSize]=100`;
+export async function fetchArticles({ baseUrl = STRAPI_URL, token = process.env.STRAPI_TOKEN, locale } = {}) {
+  // `locale` selects the authored language (Strapi i18n). Omit for the default
+  // locale (en). `?locale=vi` returns only posts that have a VI localization —
+  // they share the same documentId as their EN counterpart, so the build matches
+  // EN<->VI by documentId.
+  const localeParam = locale ? `&locale=${encodeURIComponent(locale)}` : '';
+  const url = `${baseUrl}/api/articles?populate=cover&sort=publishedAt:desc&pagination[pageSize]=100${localeParam}`;
   const headers = token ? { Authorization: `Bearer ${token}` } : {};
   const res = await fetch(url, { headers });
   if (!res.ok) throw new Error(`Strapi ${res.status}: ${await res.text()}`);

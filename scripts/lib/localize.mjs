@@ -57,32 +57,38 @@ async function pool(thunks, limit = 8) {
   await Promise.all(Array.from({ length: Math.min(limit, thunks.length) }, worker));
 }
 
-async function translateDoc(html, { enPath }) {
+// Parse a page, optionally machine-translate its text/attrs, and ALWAYS rewrite
+// internal links -> /vi + absolutize relative asset paths (VI pages live one
+// level deep). `translate:false` is used for human-authored VI pages whose text
+// is already Vietnamese — they still need the link/asset rewrites, just no MT.
+async function rewriteDoc(html, { enPath, translate = true }) {
   const dm = html.match(/^\s*<!doctype[^>]*>/i);
   const doctype = dm ? dm[0] : '';
   const root = parse(dm ? html.slice(dm[0].length) : html, { comment: true });
 
   const jobs = [];
 
-  // text nodes
-  const nodes = [];
-  collectTextNodes(root, nodes, false);
-  for (const tn of nodes) {
-    const m = tn.rawText.match(/^(\s*)([\s\S]*?)(\s*)$/);
-    const core = m[2];
-    if (!HAS_LETTER.test(core) || BRAND_ONLY.test(core.trim())) continue;
-    jobs.push(async () => { tn.rawText = m[1] + esc(await tr(core)) + m[3]; });
-  }
+  if (translate) {
+    // text nodes
+    const nodes = [];
+    collectTextNodes(root, nodes, false);
+    for (const tn of nodes) {
+      const m = tn.rawText.match(/^(\s*)([\s\S]*?)(\s*)$/);
+      const core = m[2];
+      if (!HAS_LETTER.test(core) || BRAND_ONLY.test(core.trim())) continue;
+      jobs.push(async () => { tn.rawText = m[1] + esc(await tr(core)) + m[3]; });
+    }
 
-  // translatable attributes
-  for (const el of root.querySelectorAll('meta[name="description"], meta[property="og:title"], meta[property="og:description"]')) {
-    const c = el.getAttribute('content');
-    if (c && HAS_LETTER.test(c)) jobs.push(async () => el.setAttribute('content', await tr(c)));
-  }
-  for (const el of root.querySelectorAll('[alt], [aria-label], [placeholder]')) {
-    for (const attr of ['alt', 'aria-label', 'placeholder']) {
-      const v = el.getAttribute(attr);
-      if (v && HAS_LETTER.test(v)) jobs.push(async () => el.setAttribute(attr, await tr(v)));
+    // translatable attributes
+    for (const el of root.querySelectorAll('meta[name="description"], meta[property="og:title"], meta[property="og:description"]')) {
+      const c = el.getAttribute('content');
+      if (c && HAS_LETTER.test(c)) jobs.push(async () => el.setAttribute('content', await tr(c)));
+    }
+    for (const el of root.querySelectorAll('[alt], [aria-label], [placeholder]')) {
+      for (const attr of ['alt', 'aria-label', 'placeholder']) {
+        const v = el.getAttribute(attr);
+        if (v && HAS_LETTER.test(v)) jobs.push(async () => el.setAttribute(attr, await tr(v)));
+      }
     }
   }
 
@@ -123,7 +129,18 @@ export function localizeEn(html, { enPath }) {
 
 export async function localizeToVi(html, { enPath }) {
   html = stripChrome(html);
-  html = await translateDoc(html, { enPath });
+  html = await rewriteDoc(html, { enPath, translate: true });
+  html = html.replaceAll('https://macgie.com', SITE_URL);
+  return injectChrome(html, { locale: 'vi', enPath });
+}
+
+// VI page whose content is ALREADY Vietnamese (human-authored in Strapi):
+// apply only the VI chrome + internal-link/asset rewrites — NO machine
+// translation. Used by the journal build for posts that have an authored VI
+// localization; un-authored posts still fall back to localizeToVi (auto-MT).
+export async function localizeViChrome(html, { enPath }) {
+  html = stripChrome(html);
+  html = await rewriteDoc(html, { enPath, translate: false });
   html = html.replaceAll('https://macgie.com', SITE_URL);
   return injectChrome(html, { locale: 'vi', enPath });
 }
