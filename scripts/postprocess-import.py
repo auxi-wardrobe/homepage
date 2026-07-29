@@ -139,6 +139,8 @@ def not_found_html():
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Page not found — Macgie</title>
+<meta name="description" content="This page doesn't exist. Head back to Macgie and let your closet finally work for you.">
+<meta name="robots" content="noindex, follow">
 <link rel="icon" type="image/svg+xml" href="/assets/brand/macgie.svg">
 {font_link}
 <style>

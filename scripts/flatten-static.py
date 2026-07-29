@@ -151,22 +151,37 @@ def img_dims(path):
         with Image.open(path) as im: return im.size
     except Exception: return (None, None)
 
+# Policy/legal pages are documents, not the product. Describing them with the
+# SoftwareApplication node — which carries an Offer at price 0 — is inaccurate
+# structured data on a page that sells nothing.
+LEGAL_SLUGS = {"privacy", "terms", "ai-policy", "subscription"}
+# The design ships a standalone article demo. It duplicates real journal posts
+# and nothing links to it, so keep it reachable but out of the index.
+NOINDEX_SLUGS = {"article"}
+
+
 def build_seo(slug):
     url = CANON.get(slug, "https://macgie.com/")
     hero = '<link rel="preload" as="image" href="/img/hero-p2.webp" fetchpriority="high">\n' if slug=="index" else ""
-    ld = {"@context":"https://schema.org","@graph":[
-        {"@type":"Organization","@id":"https://macgie.com/#org","name":"Macgie",
-         "url":"https://macgie.com/","logo":"https://macgie.com/assets/brand/macgie.svg"},
-        {"@type":"WebSite","@id":"https://macgie.com/#site","url":"https://macgie.com/",
-         "name":"Macgie","publisher":{"@id":"https://macgie.com/#org"}},
-        {"@type":"SoftwareApplication","name":"Macgie","applicationCategory":"LifestyleApplication",
-         "operatingSystem":"iOS","description":"AI outfit recommendations built from the clothes you already own.",
-         "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}]}
+    org = {"@type":"Organization","@id":"https://macgie.com/#org","name":"Macgie",
+           "url":"https://macgie.com/","logo":"https://macgie.com/assets/brand/macgie.svg"}
+    site = {"@type":"WebSite","@id":"https://macgie.com/#site","url":"https://macgie.com/",
+            "name":"Macgie","publisher":{"@id":"https://macgie.com/#org"}}
+    if slug in LEGAL_SLUGS:
+        main = {"@type":"WebPage","@id":url + "#page","url":url,
+                "isPartOf":{"@id":"https://macgie.com/#site"},
+                "publisher":{"@id":"https://macgie.com/#org"}}
+    else:
+        main = {"@type":"SoftwareApplication","name":"Macgie","applicationCategory":"LifestyleApplication",
+                "operatingSystem":"iOS","description":"AI outfit recommendations built from the clothes you already own.",
+                "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+    ld = {"@context":"https://schema.org","@graph":[org, site, main]}
+    robots = '<meta name="robots" content="noindex, follow">\n' if slug in NOINDEX_SLUGS else ""
     return (f'<link rel="canonical" href="{url}">\n<meta property="og:url" content="{url}">\n'
       '<meta property="og:image" content="https://macgie.com/img/hero-p2.webp">\n'
       '<meta name="twitter:card" content="summary_large_image">\n'
       # No Google Fonts preconnect: every face is self-hosted from /_ds.
-      + hero + '<script type="application/ld+json">' + json.dumps(ld) + '</script>\n')
+      + robots + hero + '<script type="application/ld+json">' + json.dumps(ld) + '</script>\n')
 
 def repl_slot(m, pubdir):
     tag = m.group(0)

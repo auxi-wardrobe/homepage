@@ -63,6 +63,17 @@ for (const dir of [join(pub, 'journal'), join(pub, 'vi', 'journal')]) {
     }
   }
 }
+// …and their covers. Unpublishing a post used to leave its webp behind forever;
+// they are invisible but still ship on every deploy.
+const imgDir = join(pub, 'img', 'journal');
+for (const f of await readdir(imgDir).catch(() => [])) {
+  if (!f.endsWith('.webp')) continue;
+  const slug = f.replace(/-card\.webp$/, '').replace(/\.webp$/, '');
+  if (!validSlugs.has(slug)) {
+    await rm(join(imgDir, f));
+    console.log(`  removed stale img/journal/${f}`);
+  }
+}
 
 console.log(`i18n: translation ${hasKey() ? `ON (${provider()})` : 'OFF — /vi falls back to EN text'}`);
 
