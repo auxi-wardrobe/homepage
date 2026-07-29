@@ -13,8 +13,9 @@
 
 ## What this is
 
-A **static, hand-optimized 5-page marketing site** (home, features, pricing,
-journal, article) — **plain HTML + CSS, no client-side framework/runtime.**
+A **static, hand-optimized marketing site** — home, features, journal, article,
+plus the legal/policy set (privacy, terms, ai-policy, subscription) —
+**plain HTML + CSS, no client-side framework/runtime.**
 
 The visual design comes from the Claude Design project **"Macgie design home
 page"** (`e0ce1eb4-0493-4f29-b99a-08288e1be2f9`). That project renders via a
@@ -74,42 +75,69 @@ a **Strapi CMS** so posts can be managed without editing HTML. The site stays
 ```
 homepage/
 ├── public/                       # ← THE DEPLOYABLE SITE (static)
-│   ├── index.html · features.html · pricing.html · journal.html · article.html
+│   ├── index.html · features.html · journal.html · article.html
+│   ├── privacy.html · terms.html · ai-policy.html · subscription.html   # legal set (EN-only)
 │   ├── 404.html
-│   ├── app.js                    # tiny progressive-enhancement JS (mobile menu, FAQ accordion)
+│   ├── app.js                    # tiny progressive-enhancement JS (mobile menu, feature carousel, FAQ accordion)
 │   ├── robots.txt · sitemap.xml
 │   ├── img/                       # slot images extracted from the design, as webp
 │   ├── _ds/…/assets/fonts/*.woff2 # self-hosted fonts (woff2); @font-face is INLINED in each page
 │   └── assets/ · *.svg            # optimized webp imagery + brand svgs
 └── scripts/
     ├── deploy.sh                 # Cloudflare Pages deploy (sandbox / prod)
-    ├── postprocess-import.py     # step 1: clean URLs + titles/meta/favicon on a fresh export
-    ├── flatten-static.py         # step 3: pre-rendered DOM -> static (strip runtime, slots->img, SEO head)
-    └── finalize-static.py        # step 4: inject FAQ answers + wire mobile-menu/FAQ JS
+    ├── postprocess-import.py     # step 2: clean URLs + titles/meta/favicon on a fresh export
+    ├── seed-vi-cache.mjs         # step 1: fold the export's hand-authored VI copy into the translation cache
+    ├── flatten-static.py         # step 4: pre-rendered DOM -> static (strip runtime, slots->webp, inline tokens, SEO head)
+    └── finalize-static.py        # step 5: strip the dead lang pill + wire mobile-menu/carousel/FAQ JS
 ```
 
 ## Updating the site (re-flatten from the design)
 
-Design edits happen in **claude.ai/design**; then re-run the flatten pipeline:
+Design edits happen in **claude.ai/design**. Unzip the export into a **scratch
+dir** — do NOT wipe `public/`, which also holds build outputs the export doesn't
+carry (Strapi `journal/`, the `vi/` mirrors, optimized `img/`). Overlay the
+repo's `img/`, `assets/` and `_ds/` onto the scratch dir so pre-render resolves
+real images, then:
 
 ```bash
-# 1. export the project ZIP from claude.ai/design, unzip into public/, then:
-python3 scripts/postprocess-import.py          # clean URLs + head meta
+EXPORT=/tmp/macgie-export        # unzipped design export (+ overlaid public/ assets)
 
-# 2. pre-render each page with a headless browser (resolves the runtime):
-#    (serve public/ on a port, then for each page)
+# 1. fold the design's hand-authored Vietnamese into the translation cache.
+#    The CEO writes VI in the design tool; it beats machine translation.
+node scripts/seed-vi-cache.mjs "$EXPORT" --overwrite
+
+# 2. clean URLs + head meta (writes into the scratch dir, not public/)
+python3 scripts/postprocess-import.py "$EXPORT"
+
+# 3. pre-render each page with a headless browser (resolves the runtime):
+#    (serve $EXPORT on a port, then for each page)
 "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --dump-dom \
   --virtual-time-budget=25000 http://127.0.0.1:PORT/index.html > /tmp/index_rendered.html
 
-# 3. flatten pre-rendered -> static (strip scripts, <image-slot> -> optimized <img>, SEO head)
+# 4. flatten pre-rendered -> static. Handles the whole optimize pass: strips
+#    scripts + Google Fonts, <image-slot> and PNG/JPG -> sized webp with
+#    width/height/lazy/alt, inlines the _ds token CSS, adds the SEO head.
 python3 scripts/flatten-static.py /tmp/index_rendered.html public/index.html index public
 
-# 4. inject FAQ answers + wire mobile-menu/FAQ JS
-python3 scripts/finalize-static.py
+# 5. strip the design's dead EN/VI pill + wire mobile-menu / carousel / FAQ JS
+python3 scripts/finalize-static.py public/index.html public/features.html …
 
-# 5. optimize: slot images -> webp (cwebp), heavy asset PNGs -> sized webp,
-#    fonts TTF -> woff2 (fonttools), inline token CSS, preload the LCP font.
+# 6. regenerate the /vi mirrors, the Strapi journal, and sitemap.xml
+npm run build:site
 ```
+
+**New raster assets** still need a one-time `cwebp` conversion before step 4 —
+`flatten-static.py` only swaps to a `.webp` that already exists on disk (a
+missing one is left alone rather than turned into a broken image). Renames go in
+its `IMG_ALIASES`, and any image the design ships without alt text goes in
+`IMG_ALT`.
+
+**Legal pages are English-only.** `EN_ONLY_HREF` in `scripts/lib/localize.mjs`
+keeps links to `/privacy`, `/terms`, `/ai-policy` and `/subscription` pointing at
+the EN URL even from a `/vi` page, and `enOnlyPaths` in `build-journal.mjs` keeps
+`/vi/…` variants out of `sitemap.xml`. Machine-translating legal copy would put
+unreviewed Vietnamese terms in front of users — if VI legal pages are ever
+wanted, have them human-authored.
 
 Then deploy (below). The pipeline is intentionally scriptable so re-imports stay
 faithful; keep any hand-edits inside these scripts, not in the generated HTML.

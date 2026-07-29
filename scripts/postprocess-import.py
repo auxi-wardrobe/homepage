@@ -20,7 +20,7 @@ To update the site:
 
 What this script does (the only edits we layer on top of the raw export):
   1. Rewrites cross-page links "Macgie X.dc.html" -> clean paths (/features, ...).
-  2. Renames the .dc.html files to clean names (index/features/pricing/journal/article).
+  2. Renames the .dc.html files to clean names (index/features/journal/article).
   3. Injects <title> + meta description + Open Graph tags + an SVG favicon into
      each page's <helmet> block.
   4. Writes a branded, self-contained 404.html.
@@ -34,7 +34,14 @@ import os
 import sys
 import glob
 
-PUB = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "public"))
+# Target directory. Defaults to public/, but takes an explicit path so a fresh
+# export can be staged in a scratch dir instead of wiping public/ — which now
+# also holds build outputs the export doesn't carry (Strapi journal/, vi/
+# mirrors, optimized img/). Usage: postprocess-import.py [target-dir]
+PUB = os.path.abspath(
+    sys.argv[1] if len(sys.argv) > 1
+    else os.path.join(os.path.dirname(__file__), "..", "public")
+)
 
 # source .dc.html  ->  (clean filename, <title>, meta description)
 PAGES = {
@@ -50,12 +57,6 @@ PAGES = {
         "Outfit Canvas, scheduler, instant visualization, auto background removal "
         "and more — one app that knows your closet, calendar and weather.",
     ),
-    "Macgie Pricing.dc.html": (
-        "pricing.html",
-        "Pricing — Macgie",
-        "Everything you need to get dressed easier is free. Macgie+ is $3.33/month "
-        "when you want more — cancel anytime.",
-    ),
     "Macgie Journal.dc.html": (
         "journal.html",
         "Journal — Macgie",
@@ -67,6 +68,32 @@ PAGES = {
         "Journal — Macgie",
         "Notes on dressing with less friction, from the Macgie team.",
     ),
+    # Legal / policy set. Authored in the design project (not hand-written here)
+    # so the site chrome stays in sync with the marketing pages.
+    "Macgie Privacy.dc.html": (
+        "privacy.html",
+        "Privacy Policy — Macgie",
+        "How Macgie collects, uses, shares and protects your information across "
+        "the wardrobe and AI styling features.",
+    ),
+    "Macgie Terms.dc.html": (
+        "terms.html",
+        "Terms of Service — Macgie",
+        "The terms that govern your access to and use of the Macgie app, "
+        "website and related services.",
+    ),
+    "Macgie AI Policy.dc.html": (
+        "ai-policy.html",
+        "AI & Image Processing Policy — Macgie",
+        "How Macgie uses artificial intelligence and processes your clothing and "
+        "personal images to power AI See on Me and AI Stylist.",
+    ),
+    "Macgie Subscription.dc.html": (
+        "subscription.html",
+        "Subscription & Refund Policy — Macgie",
+        "How Macgie Premium billing, automatic renewal, cancellation and refunds "
+        "work on the App Store and on the web.",
+    ),
 }
 
 # substring -> clean path. Also covers "Macgie Home.dc.html#how" -> "/#how".
@@ -74,8 +101,11 @@ LINK_REWRITES = {
     "Macgie Home.dc.html": "/",
     "Macgie Feature.dc.html": "/features",
     "Macgie Journal.dc.html": "/journal",
-    "Macgie Pricing.dc.html": "/pricing",
     "Macgie Article.dc.html": "/article",
+    "Macgie Privacy.dc.html": "/privacy",
+    "Macgie Terms.dc.html": "/terms",
+    "Macgie AI Policy.dc.html": "/ai-policy",
+    "Macgie Subscription.dc.html": "/subscription",
 }
 
 
@@ -109,11 +139,13 @@ def not_found_html():
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Page not found — Macgie</title>
+<meta name="description" content="This page doesn't exist. Head back to Macgie and let your closet finally work for you.">
+<meta name="robots" content="noindex, follow">
 <link rel="icon" type="image/svg+xml" href="/assets/brand/macgie.svg">
 {font_link}
 <style>
   html,body{{margin:0;height:100%}}
-  body{{background:#faf7f2;color:#14110f;font-family:'Inter',system-ui,sans-serif;
+  body{{background:#faf7f2;color:#14110f;font-family:'Geist',system-ui,sans-serif;
        display:flex;align-items:center;justify-content:center;text-align:center;padding:24px}}
   .wrap{{max-width:420px}}
   img{{width:56px;height:auto;margin-bottom:24px}}
