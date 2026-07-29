@@ -34,7 +34,14 @@ import os
 import sys
 import glob
 
-PUB = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "public"))
+# Target directory. Defaults to public/, but takes an explicit path so a fresh
+# export can be staged in a scratch dir instead of wiping public/ — which now
+# also holds build outputs the export doesn't carry (Strapi journal/, vi/
+# mirrors, optimized img/). Usage: postprocess-import.py [target-dir]
+PUB = os.path.abspath(
+    sys.argv[1] if len(sys.argv) > 1
+    else os.path.join(os.path.dirname(__file__), "..", "public")
+)
 
 # source .dc.html  ->  (clean filename, <title>, meta description)
 PAGES = {
@@ -61,6 +68,32 @@ PAGES = {
         "Journal — Macgie",
         "Notes on dressing with less friction, from the Macgie team.",
     ),
+    # Legal / policy set. Authored in the design project (not hand-written here)
+    # so the site chrome stays in sync with the marketing pages.
+    "Macgie Privacy.dc.html": (
+        "privacy.html",
+        "Privacy Policy — Macgie",
+        "How Macgie collects, uses, shares and protects your information across "
+        "the wardrobe and AI styling features.",
+    ),
+    "Macgie Terms.dc.html": (
+        "terms.html",
+        "Terms of Service — Macgie",
+        "The terms that govern your access to and use of the Macgie app, "
+        "website and related services.",
+    ),
+    "Macgie AI Policy.dc.html": (
+        "ai-policy.html",
+        "AI & Image Processing Policy — Macgie",
+        "How Macgie uses artificial intelligence and processes your clothing and "
+        "personal images to power AI See on Me and AI Stylist.",
+    ),
+    "Macgie Subscription.dc.html": (
+        "subscription.html",
+        "Subscription & Refund Policy — Macgie",
+        "How Macgie Premium billing, automatic renewal, cancellation and refunds "
+        "work on the App Store and on the web.",
+    ),
 }
 
 # substring -> clean path. Also covers "Macgie Home.dc.html#how" -> "/#how".
@@ -69,6 +102,10 @@ LINK_REWRITES = {
     "Macgie Feature.dc.html": "/features",
     "Macgie Journal.dc.html": "/journal",
     "Macgie Article.dc.html": "/article",
+    "Macgie Privacy.dc.html": "/privacy",
+    "Macgie Terms.dc.html": "/terms",
+    "Macgie AI Policy.dc.html": "/ai-policy",
+    "Macgie Subscription.dc.html": "/subscription",
 }
 
 

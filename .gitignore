@@ -39,3 +39,8 @@ __pycache__/
 
 # Scratch QA screenshots at repo root (deployable images live in public/)
 /*.png
+/*.jpeg
+
+# Claude Design export archives (~32MB each). The flatten pipeline unzips them
+# into a scratch dir; the design project itself is the source of truth.
+/*.zip

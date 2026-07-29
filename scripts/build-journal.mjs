@@ -1,4 +1,5 @@
 import { readFile, writeFile, mkdir, readdir, rm } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { fetchArticles } from './lib/strapi.mjs';
@@ -33,8 +34,19 @@ const viList = articles.map((a) => {
   return vi ? { ...a, title: vi.title, excerpt: vi.excerpt, _viAuthored: true } : a;
 });
 
-const indexTpl = await readFile(join(root, 'scripts/templates/journal-index.html'), 'utf8');
-const articleTpl = await readFile(join(root, 'scripts/templates/article.html'), 'utf8');
+// Stamp the templates' /app.js reference with that file's content hash.
+// public/_headers asks for max-age=0 on /app.js but the zone actually serves
+// max-age=14400, so a returning visitor can sit on a 4-hour-old app.js and lose
+// whatever interaction we just fixed. A hashed URL sidesteps any cache TTL and
+// only changes when app.js really changes.
+const appJsV = createHash('md5')
+  .update(await readFile(join(pub, 'app.js'), 'utf8').catch(() => ''))
+  .digest('hex')
+  .slice(0, 8);
+const stampAppJs = (tpl) => tpl.replace(/(src="\.?\/?app\.js)(\?[^"]*)?"/g, `$1?v=${appJsV}"`);
+
+const indexTpl = stampAppJs(await readFile(join(root, 'scripts/templates/journal-index.html'), 'utf8'));
+const articleTpl = stampAppJs(await readFile(join(root, 'scripts/templates/article.html'), 'utf8'));
 await mkdir(join(pub, 'journal'), { recursive: true });
 await mkdir(join(pub, 'vi', 'journal'), { recursive: true });
 
@@ -84,6 +96,8 @@ for (const a of articles) {
 console.log(`✓ ${articles.length} article pages (en + vi; ${authoredCount} authored VI, ${articles.length - authoredCount} auto-translated)`);
 
 const staticPaths = ['/', '/features', '/journal'];
-await writeFile(join(pub, 'sitemap.xml'), renderSitemap(articles, staticPaths));
+// Legal/policy pages are English-only — no /vi mirror (see EN_ONLY_HREF in lib/localize.mjs).
+const enOnlyPaths = ['/privacy', '/terms', '/ai-policy', '/subscription'];
+await writeFile(join(pub, 'sitemap.xml'), renderSitemap(articles, staticPaths, enOnlyPaths));
 flushCache();
 console.log('✓ sitemap (both locales) + translation cache');

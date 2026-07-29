@@ -12,16 +12,29 @@ const SKIP_TAGS = new Set(['SCRIPT', 'STYLE', 'NOSCRIPT', 'SVG', 'CODE', 'PRE', 
 const HAS_LETTER = /[A-Za-zÀ-ÿ]/;
 const BRAND_ONLY = /^(macgie)$/i;
 const ASSET_HREF = /^\/(assets|img|_ds|app\.js|sitemap\.xml|favicon)|\.(svg|png|jpe?g|webp|gif|css|js|xml|ico)(\?|#|$)/i;
+// Legal/policy pages ship English-only — machine-translating them would put
+// unreviewed Vietnamese legal text in front of users. Links to them must stay
+// on the EN URL even from a /vi page, otherwise they'd 404 at /vi/privacy.
+const EN_ONLY_HREF = /^\/(privacy|terms|ai-policy|subscription)(\/|\?|#|$)/i;
 
+// Idempotent escape. The text we get back from the parser is ALREADY escaped
+// source ("AI &amp; Image"), so a blanket &->&amp; double-escapes it and the
+// entity renders literally. Only escape a bare & — one that doesn't already
+// start an entity.
 function esc(s) {
-  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  return s
+    .replace(/&(?!#\d+;|#x[0-9a-fA-F]+;|[a-zA-Z][a-zA-Z0-9]*;)/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
 }
 
 // ---- chrome strip/inject (string-level, marker-bounded) ----
 function stripChrome(html) {
+  // Consume the trailing newline too — injectChrome writes `${head}\n</head>`,
+  // so leaving it behind makes every rebuild append one more blank line.
   return html
-    .replace(/<!--i18n-head-->[\s\S]*?<!--\/i18n-head-->/g, '')
-    .replace(/<!--i18n-sw-->[\s\S]*?<!--\/i18n-sw-->/g, '');
+    .replace(/<!--i18n-head-->[\s\S]*?<!--\/i18n-head-->\n?/g, '')
+    .replace(/<!--i18n-sw-->[\s\S]*?<!--\/i18n-sw-->\n?/g, '');
 }
 
 function injectChrome(html, { locale, enPath }) {
@@ -97,7 +110,8 @@ async function rewriteDoc(html, { enPath, translate = true }) {
   // internal page links -> /vi (sync)
   for (const a of root.querySelectorAll('a[href]')) {
     const href = a.getAttribute('href');
-    if (href && href[0] === '/' && href[1] !== '/' && !href.startsWith('/vi/') && !ASSET_HREF.test(href)) {
+    if (href && href[0] === '/' && href[1] !== '/' && !href.startsWith('/vi/')
+        && !ASSET_HREF.test(href) && !EN_ONLY_HREF.test(href)) {
       a.setAttribute('href', toVi(href));
     }
   }

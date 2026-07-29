@@ -31,8 +31,9 @@ function featuredCard(a) {
 
 function gridCard(a, h = 318) {
   const nt = a._viAuthored ? ' data-no-translate' : '';
+  const im = a.img.card || a.img; // ~337px slot — don't ship the 1200px hero file
   return `<a class="post" data-post data-category="${escapeHtml(a.category)}" href="/journal/${escapeHtml(a.slug)}" style="display: flex; flex-direction: column; gap: 16px;">
-  <div style="border-radius: 24px; overflow: hidden; background: rgb(242, 244, 247); height: ${h}px;"><img class="pimg" src="${a.img.src}" width="${a.img.width}" height="${a.img.height}" alt="${escapeHtml(a.cover.alt)}" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>
+  <div style="border-radius: 24px; overflow: hidden; background: rgb(242, 244, 247); height: ${h}px;"><img class="pimg" src="${im.src}" width="${im.width}" height="${im.height}" alt="${escapeHtml(a.cover.alt)}" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>
   <div>
     <div style="font-family: Poppins, sans-serif; font-weight: 300; font-size: 12px; letter-spacing: .12px; text-transform: uppercase; color: rgb(107,76,205);">${escapeHtml(a.category)}</div>
     <div class="ptitle"${nt} style="font-family: Poppins, sans-serif; font-weight: 700; font-size: 20px; line-height: 1.18; color: rgb(23,24,28); margin-top: 10px;">${escapeHtml(a.title)}</div>
@@ -73,8 +74,9 @@ import { marked } from 'marked';
 function readMinPublic(a) { return a.readingTime || Math.max(1, Math.round(a.body.split(/\s+/).length / 200)); }
 
 function relatedCard(a) {
+  const im = a.img.card || a.img; // 180px-tall slot — the card derivative is plenty
   return `<a class="post" href="/journal/${escapeHtml(a.slug)}" style="display:flex;flex-direction:column;gap:12px;">
-    <div style="border-radius:20px;overflow:hidden;background:rgb(242,244,247);height:180px;"><img class="pimg" src="${a.img.src}" width="${a.img.width}" height="${a.img.height}" alt="${escapeHtml(a.cover.alt)}" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>
+    <div style="border-radius:20px;overflow:hidden;background:rgb(242,244,247);height:180px;"><img class="pimg" src="${im.src}" width="${im.width}" height="${im.height}" alt="${escapeHtml(a.cover.alt)}" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>
     <div class="ptitle" style="font-family:Poppins,sans-serif;font-weight:700;font-size:18px;line-height:1.2;color:rgb(23,24,28);">${escapeHtml(a.title)}</div>
   </a>`;
 }
@@ -106,9 +108,13 @@ export function renderArticle(a, all, template) {
     .replace('<!--RELATED-->', related);
 }
 
-export function renderSitemap(articles, staticPaths) {
+export function renderSitemap(articles, staticPaths, enOnlyPaths = []) {
   const paths = [...staticPaths, ...articles.map((a) => `/journal/${a.slug}`)];
-  // both locales for every path
-  const urls = paths.flatMap((p) => [SITE_URL + p, SITE_URL + toVi(p)]);
+  // both locales for every path — except the EN-only ones (legal/policy pages
+  // have no /vi mirror, so emitting one would advertise a 404 to crawlers)
+  const urls = [
+    ...paths.flatMap((p) => [SITE_URL + p, SITE_URL + toVi(p)]),
+    ...enOnlyPaths.map((p) => SITE_URL + p),
+  ];
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `  <url><loc>${u}</loc></url>`).join('\n')}\n</urlset>\n`;
 }

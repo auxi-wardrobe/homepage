@@ -2,7 +2,7 @@
 // inline geo-redirect script, and the EN|VI switcher. Used by BOTH the journal
 // renderer and the marketing-page translator so behaviour is identical everywhere.
 
-export const SITE_URL = (process.env.SITE_URL || 'https://beta.macgie.com').replace(/\/$/, '');
+export const SITE_URL = (process.env.SITE_URL || 'https://macgie.com').replace(/\/$/, '');
 export const LOCALES = ['en', 'vi'];
 
 /** '/x' -> '/vi/x' ; '/' -> '/vi/' ; already-vi paths are returned unchanged. */

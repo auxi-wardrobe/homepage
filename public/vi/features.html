@@ -38,6 +38,38 @@
 }
 
 @font-face {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Inter-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Inter';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Inter-Medium.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Inter';
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Inter-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Roboto-Regular.woff2') format('woff2');
+}
+
+
+
+@font-face {
   font-family: 'Geist';
   font-weight: 100 900;
   font-style: normal;
@@ -62,15 +94,6 @@
   unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
 }
 
-@font-face {
-  font-family: 'Roboto';
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Roboto-Regular.woff2') format('woff2');
-}
-
-
 /* ============================================================
    Auxi — Color tokens
    Source of truth: auxi mobile app theme.ds (theme.ts), extracted from
@@ -87,7 +110,7 @@
   --auxi-black: #070707;      /* control fills (radio dot) */
   --auxi-on-variant: #49454f; /* secondary text (MD3 on-surface-variant) */
   --auxi-warm-700: #5b5550;   /* strokes · warm gray */
-  --auxi-warm-500: #6f6a63;   /* muted labels · hints */
+  --auxi-warm-500: #9e968e;   /* muted labels · hints */
   --auxi-gray-500: #717171;   /* neutral gray */
 
   /* ---- Surfaces — warm paper (backgrounds · cards · sheets) ---- */
@@ -199,7 +222,7 @@
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; scroll-padding-top: 88px; }
   html, body { margin: 0; }
-  body { background: #ffffff; color: #262626; font-family: 'Poppins', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  body { background: #ffffff; color: #262626; font-family: 'Geist', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
   a { color: #262626; text-decoration: none; }
   a.navlink { color: #5b5550; transition: color .15s ease; }
   a.navlink:hover { color: #1d1f23; }
@@ -225,21 +248,17 @@
     h2 { font-size: 30px !important; line-height: 1.24 !important; }
     .detailgrid > div { flex-direction: column !important; }
     .detailgrid > div > div:first-child { width: 100% !important; }
+    .howcat-row { flex-direction: column !important; }
   }
-</style><link rel="canonical" href="https://beta.macgie.com/vi/features">
-<meta property="og:url" content="https://beta.macgie.com/vi/features">
-<meta property="og:image" content="https://beta.macgie.com/img/hero-p2.webp">
+</style><link rel="canonical" href="https://macgie.com/vi/features">
+<meta property="og:url" content="https://macgie.com/vi/features">
+<meta property="og:image" content="https://macgie.com/img/hero-p2.webp">
 <meta name="twitter:card" content="summary_large_image">
-
-
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://beta.macgie.com/#org", "name": "Macgie", "url": "https://beta.macgie.com/", "logo": "https://beta.macgie.com/assets/brand/macgie.svg"}, {"@type": "WebSite", "@id": "https://beta.macgie.com/#site", "url": "https://beta.macgie.com/", "name": "Macgie", "publisher": {"@id": "https://beta.macgie.com/#org"}}, {"@type": "SoftwareApplication", "name": "Macgie", "applicationCategory": "LifestyleApplication", "operatingSystem": "iOS", "description": "AI outfit recommendations built from the clothes you already own.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}]}</script>
-<style>#m-nav{position:fixed;top:0;left:0;right:0;bottom:0;z-index:200;background:#faf7f2;display:none;flex-direction:column;gap:4px;padding:84px 24px 32px;font-family:Geist,system-ui,sans-serif}#m-nav.open{display:flex}#m-nav a{color:#14110f;text-decoration:none;font-size:20px;font-weight:600;padding:14px 0;border-bottom:1px solid #e6e1d8}</style>
-
-
-<!--i18n-head-->
-<link rel="alternate" hreflang="en" href="https://beta.macgie.com/features">
-<link rel="alternate" hreflang="vi" href="https://beta.macgie.com/vi/features">
-<link rel="alternate" hreflang="x-default" href="https://beta.macgie.com/features">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://macgie.com/#org", "name": "Macgie", "url": "https://macgie.com/", "logo": "https://macgie.com/assets/brand/macgie.svg"}, {"@type": "WebSite", "@id": "https://macgie.com/#site", "url": "https://macgie.com/", "name": "Macgie", "publisher": {"@id": "https://macgie.com/#org"}}, {"@type": "SoftwareApplication", "name": "Macgie", "applicationCategory": "LifestyleApplication", "operatingSystem": "iOS", "description": "AI outfit recommendations built from the clothes you already own.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}]}</script>
+<style>#m-nav{position:fixed;top:0;left:0;right:0;bottom:0;z-index:200;background:#faf7f2;display:none;flex-direction:column;gap:4px;padding:84px 24px 32px;font-family:Geist,system-ui,sans-serif}#m-nav.open{display:flex}#m-nav a{color:#14110f;text-decoration:none;font-size:20px;font-weight:600;padding:14px 0;border-bottom:1px solid #e6e1d8}</style><!--i18n-head-->
+<link rel="alternate" hreflang="en" href="https://macgie.com/features">
+<link rel="alternate" hreflang="vi" href="https://macgie.com/vi/features">
+<link rel="alternate" hreflang="x-default" href="https://macgie.com/features">
 <script>(function(){
 var p=location.pathname,q=location.search+location.hash;
 if(p.indexOf('/preview')===0)return;
@@ -263,163 +282,181 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
 <div id="dc-root"><div class="sc-host" data-sc-name="features"><div id="top" style="width: 100%;"><header style="position: sticky; top: 0px; z-index: 60; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(29, 31, 35, 0.07);">
   <div style="max-width: 1200px; margin: 0px auto; padding: 0px 40px; height: 66px; display: flex; align-items: center; justify-content: space-between;">
     <a href="/vi/" style="display: flex; align-items: center; gap: 9px;">
-      <img src="/m-lg-mrfpjcc9.svg" width="26" height="27" alt>
-      <span style="font-family: Poppins, sans-serif; font-weight: 700; font-size: 20px; letter-spacing: -0.02em;">Macgie</span>
+      <img src="/m-lg-mrfpjcc9.svg" width="26" height="27" alt="Macgie">
+      <span style="font-family: Geist, sans-serif; font-weight: 700; font-size: 20px; letter-spacing: -0.02em;">Macgie</span>
     </a>
     <nav style="display: flex; align-items: center; gap: 34px; font-family: Geist, sans-serif; font-size: 14px; font-weight: 500;">
-      <a class="navlink" href="/vi/#sample">Tại sao tủ đồ mẫu</a>
+      <a class="navlink" href="/vi/#sample">Vì sao có tủ đồ mẫu</a>
       <a class="navlink-active" href="#top">Tính năng</a>
-      
       <a class="navlink" href="/vi/journal">Nhật ký</a>
     <!--i18n-sw--><div class="lang-switch" style="display:inline-flex;align-items:center;gap:1px;"><a href="/features" data-lang="en" style="padding:3px 8px;border-radius:7px;text-decoration:none;font-family:Geist,sans-serif;font-size:13px;font-weight:600;line-height:1;color:rgb(154,149,141);">EN</a><a href="/vi/features" data-lang="vi" style="padding:3px 8px;border-radius:7px;text-decoration:none;font-family:Geist,sans-serif;font-size:13px;font-weight:600;line-height:1;color:rgb(29,31,35);background:rgba(29,31,35,0.07);">VI</a></div><!--/i18n-sw--></nav>
     <a class="store-badge" href="#cta" style="display: inline-flex; align-items: center; gap: 9px; background: rgb(17, 18, 20); color: rgb(255, 255, 255); border-radius: 11px; padding: 8px 15px;">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M16.5 1.8c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.8-1.4zM19 17.3c-.5 1.2-.8 1.7-1.4 2.7-.9 1.4-2.2 3.2-3.8 3.2-1.4 0-1.8-.9-3.7-.9s-2.3.9-3.7.9c-1.6 0-2.8-1.6-3.7-3C-.1 16.7-.6 11 1.6 8.2c1-1.3 2.5-2 4-2 1.5 0 2.5.9 3.7.9 1.2 0 1.9-.9 3.7-.9 1.3 0 2.7.7 3.7 2-3.2 1.8-2.7 6.4.6 7.1z"></path></svg>
-      <span style="line-height: 1.05;"><span style="display: block; font-size: 8.5px; opacity: 0.85;">Tải xuống trên</span><span style="font-size: 13.5px; font-weight: 600;">Cửa hàng ứng dụng</span></span>
+      <span style="line-height: 1.05;"><span style="display: block; font-size: 8.5px; opacity: 0.85;">Tải về trên</span><span style="font-size: 13.5px; font-weight: 600;">Cửa hàng ứng dụng</span></span>
     </a>
     <button class="hamburger" aria-label="Thực đơn" style="flex: 0 0 auto; background: none; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; padding: 8px; margin: -8px -8px -8px 0px; cursor: pointer; align-items: center; justify-content: center; color: rgb(29, 31, 35);">
       
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="#1d1f23" stroke-width="1.9" stroke-linecap="round"></path></svg>
     </button>
   </div></header><section style="max-width: 900px; margin: 0px auto; padding: 88px 40px 0px; text-align: center;">
-  <div style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 16px; color: rgb(38, 38, 38); text-transform: uppercase; letter-spacing: 0.16em;">TÍNH NĂNG</div>
-  <h1 style="font-family: Poppins, sans-serif; font-weight: 800; font-size: 48px; line-height: 64px; color: rgb(23, 24, 28); margin: 12px 0px 0px;">Tất cả những gì bạn cần để không bao giờ phải suy nghĩ về việc mặc gì.</h1>
-  <p style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 16px; line-height: 28px; color: rgb(38, 38, 38); max-width: 542px; margin: 12px auto 0px;">Một ứng dụng biết tủ đồ, lịch trình và thời tiết của bạn — để bạn không phải suy nghĩ mỗi sáng.</p></section><section style="max-width: 1120px; margin: 0px auto; padding: 64px 40px 0px;">
+  <div style="font-family: Geist, sans-serif; font-weight: 400; font-size: 16px; color: rgb(38, 38, 38); text-transform: uppercase; letter-spacing: 0.16em;">TÍNH NĂNG</div>
+  <h1 style="font-family: Geist, sans-serif; font-weight: 800; font-size: 48px; line-height: 64px; color: rgb(23, 24, 28); margin: 12px 0px 0px;">Mọi thứ bạn cần để không bao giờ phải nghĩ hôm nay mặc gì</h1>
+  <p style="font-family: Geist, sans-serif; font-weight: 400; font-size: 16px; line-height: 28px; color: rgb(38, 38, 38); max-width: 542px; margin: 12px auto 0px;">Một ứng dụng hiểu tủ đồ, lịch và thời tiết của bạn — để mỗi sáng bạn không phải cân nhắc nữa.</p></section><section style="max-width: 1120px; margin: 0px auto; padding: 64px 40px 0px;">
   <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;">
     <div class="feat-card" style="border: 1px solid rgba(29, 31, 35, 0.09); border-radius: 16px; padding: 26px 24px;">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="3.5" width="7" height="7" rx="1.8" stroke="#1d1f23" stroke-width="1.7"></rect><rect x="13.5" y="3.5" width="7" height="7" rx="1.8" stroke="#1d1f23" stroke-width="1.7"></rect><rect x="3.5" y="13.5" width="7" height="7" rx="1.8" stroke="#1d1f23" stroke-width="1.7"></rect><rect x="13.5" y="13.5" width="7" height="7" rx="1.8" stroke="#1d1f23" stroke-width="1.7"></rect></svg>
-      <h3 style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 16px; margin: 16px 0px 7px;">Bảng Trang Phục</h3>
-      <p style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 14px; line-height: 1.55; color: rgb(111, 106, 99); margin: 0px;">Thử nghiệm ý tưởng mà không cần thử đồ.</p>
+      <h3 style="font-family: Geist, sans-serif; font-weight: 600; font-size: 16px; margin: 16px 0px 7px;">Bàn phối đồ</h3>
+      <p style="font-family: Geist, sans-serif; font-weight: 400; font-size: 14px; line-height: 1.55; color: rgb(111, 106, 99); margin: 0px;">Thử ý tưởng mà không cần mặc thử.</p>
     </div>
     <div class="feat-card" style="border: 1px solid rgba(29, 31, 35, 0.09); border-radius: 16px; padding: 26px 24px;">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5" width="17" height="15" rx="2.4" stroke="#1d1f23" stroke-width="1.7"></rect><path d="M3.5 9h17M8 3.5v3M16 3.5v3" stroke="#1d1f23" stroke-width="1.7" stroke-linecap="round"></path><path d="M11 13l1 1 2.2-2.4" stroke="#1d1f23" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-      <h3 style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 16px; margin: 16px 0px 7px;">Lịch trình Trang Phục</h3>
-      <p style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 14px; line-height: 1.55; color: rgb(111, 106, 99); margin: 0px;">Lên kế hoạch cho tuần tới. Giảm bớt mệt mỏi khi ra quyết định mỗi sáng.</p>
+      <h3 style="font-family: Geist, sans-serif; font-weight: 600; font-size: 16px; margin: 16px 0px 7px;">Lịch phối đồ</h3>
+      <p style="font-family: Geist, sans-serif; font-weight: 400; font-size: 14px; line-height: 1.55; color: rgb(111, 106, 99); margin: 0px;">Lên kế hoạch cả tuần. Giảm mệt mỏi lựa chọn mỗi sáng.</p>
     </div>
     <div class="feat-card" style="border: 1px solid rgba(29, 31, 35, 0.09); border-radius: 16px; padding: 26px 24px;">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 3.5l1.9 4.6L18.5 10l-4.6 1.9L12 16.5l-1.9-4.6L5.5 10l4.6-1.9L12 3.5z" fill="#822be6"></path><path d="M18.5 15l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9.9-2.1z" fill="#822be6"></path></svg>
-      <h3 style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 16px; margin: 16px 0px 7px;">Hình ảnh ngay lập tức</h3>
-      <p style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 14px; line-height: 1.55; color: rgb(111, 106, 99); margin: 0px;">Xem trang phục trên người bạn trước khi mặc. Xem trước màu sắc và sự kết hợp chỉ trong vài giây.</p>
+      <h3 style="font-family: Geist, sans-serif; font-weight: 600; font-size: 16px; margin: 16px 0px 7px;">Hình dung tức thì</h3>
+      <p style="font-family: Geist, sans-serif; font-weight: 400; font-size: 14px; line-height: 1.55; color: rgb(111, 106, 99); margin: 0px;">Xem bộ đồ trên người bạn trước khi mặc. Xem trước màu sắc và cách phối trong vài giây.</p>
     </div>
     <div class="feat-card" style="border: 1px solid rgba(29, 31, 35, 0.09); border-radius: 16px; padding: 26px 24px;">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M8 3.5H5A1.5 1.5 0 0 0 3.5 5v3M16 3.5h3A1.5 1.5 0 0 1 20.5 5v3M20.5 16v3a1.5 1.5 0 0 1-1.5 1.5h-3M8 20.5H5A1.5 1.5 0 0 1 3.5 19v-3" stroke="#1d1f23" stroke-width="1.7" stroke-linecap="round"></path><circle cx="12" cy="12" r="3" stroke="#1d1f23" stroke-width="1.7"></circle></svg>
-      <h3 style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 16px; margin: 16px 0px 7px;">Gợi ý Trang Phục Ngay Lập Tức</h3>
-      <p style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 14px; line-height: 1.55; color: rgb(111, 106, 99); margin: 0px;">Nhận ý tưởng trang phục dựa trên thời tiết, dịp và tủ đồ của bạn.</p>
+      <h3 style="font-family: Geist, sans-serif; font-weight: 600; font-size: 16px; margin: 16px 0px 7px;">Gợi ý trang phục tức thì</h3>
+      <p style="font-family: Geist, sans-serif; font-weight: 400; font-size: 14px; line-height: 1.55; color: rgb(111, 106, 99); margin: 0px;">Nhận ý tưởng trang phục theo thời tiết, dịp và tủ đồ của bạn.</p>
     </div>
     <div class="feat-card" style="border: 1px solid rgba(29, 31, 35, 0.09); border-radius: 16px; padding: 26px 24px;">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M6 8l6-3.5L18 8v9a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 17V8z" stroke="#1d1f23" stroke-width="1.7" stroke-linejoin="round"></path><path d="M6 8l-2.2-1.3M18 8l2.2-1.3M12 4.5V9" stroke="#1d1f23" stroke-width="1.7" stroke-linecap="round"></path></svg>
-      <h3 style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 16px; margin: 16px 0px 7px;">Tủ đồ mẫu sẵn sàng sử dụng</h3>
-      <p style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 14px; line-height: 1.55; color: rgb(111, 106, 99); margin: 0px;">Trải nghiệm ứng dụng ngay lập tức. Không có màn hình trống.</p>
+      <h3 style="font-family: Geist, sans-serif; font-weight: 600; font-size: 16px; margin: 16px 0px 7px;">Tủ đồ mẫu dùng ngay</h3>
+      <p style="font-family: Geist, sans-serif; font-weight: 400; font-size: 14px; line-height: 1.55; color: rgb(111, 106, 99); margin: 0px;">Trải nghiệm ứng dụng ngay lập tức. Không màn hình trống.</p>
     </div>
     <div class="feat-card" style="border: 1px solid rgba(29, 31, 35, 0.09); border-radius: 16px; padding: 26px 24px;">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="7" cy="7" r="2.6" stroke="#1d1f23" stroke-width="1.7"></circle><circle cx="17" cy="17" r="2.6" stroke="#1d1f23" stroke-width="1.7"></circle><path d="M9 9l9 9M15 6l3 0 0 3M9 18l-3 0 0-3" stroke="#1d1f23" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-      <h3 style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 16px; margin: 16px 0px 7px;">Tự động xóa nền</h3>
-      <p style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 14px; line-height: 1.55; color: rgb(111, 106, 99); margin: 0px;">Chỉ cần tải lên. Macgie tự động xóa phông nền.</p>
+      <h3 style="font-family: Geist, sans-serif; font-weight: 600; font-size: 16px; margin: 16px 0px 7px;">Tự động xóa nền</h3>
+      <p style="font-family: Geist, sans-serif; font-weight: 400; font-size: 14px; line-height: 1.55; color: rgb(111, 106, 99); margin: 0px;">Chỉ cần tải lên. Macgie tự động xóa nền.</p>
     </div>
     <div class="feat-card" style="border: 1px solid rgba(29, 31, 35, 0.09); border-radius: 16px; padding: 26px 24px;">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M9 4.5l1.3 3.2L13.5 9l-3.2 1.3L9 13.5l-1.3-3.2L4.5 9l3.2-1.3L9 4.5z" fill="#1d1f23"></path><path d="M17 12l.9 2.1 2.1.9-2.1.9L17 18l-.9-2.1L14 15l2.1-.9L17 12z" fill="#1d1f23"></path></svg>
-      <h3 style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 16px; margin: 16px 0px 7px;">Ảnh sạch, rõ ràng</h3>
-      <p style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 14px; line-height: 1.55; color: rgb(111, 106, 99); margin: 0px;">Món đồ của bạn, luôn đẹp nhất - tự động.</p>
+      <h3 style="font-family: Geist, sans-serif; font-weight: 600; font-size: 16px; margin: 16px 0px 7px;">Ảnh sạch, rõ nét</h3>
+      <p style="font-family: Geist, sans-serif; font-weight: 400; font-size: 14px; line-height: 1.55; color: rgb(111, 106, 99); margin: 0px;">Món đồ của bạn, đẹp nhất — tự động.</p>
     </div>
     <div class="feat-card" style="border: 1px solid rgba(29, 31, 35, 0.09); border-radius: 16px; padding: 26px 24px;">
       <div style="display: flex; align-items: center; gap: 8px;">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M6 8V6.5A2.5 2.5 0 0 1 8.5 4h7A2.5 2.5 0 0 1 18 6.5V8M4.5 8h15A1.5 1.5 0 0 1 21 9.5V18a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18V9.5A1.5 1.5 0 0 1 4.5 8zM12 8v11.5" stroke="#1d1f23" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-        <span style="font-family: Poppins, sans-serif; font-size: 11px; font-weight: 400; color: rgb(29, 31, 35); background: rgb(76, 244, 211); border-radius: 12px; padding: 4px 12px;">sắp ra mắt</span>
       </div>
-      <h3 style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 16px; margin: 16px 0px 7px;">Đóng gói du lịch</h3>
-      <p style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 14px; line-height: 1.55; color: rgb(111, 106, 99); margin: 0px;">Biết nên mang gì trước khi mở vali.</p>
+      <h3 style="font-family: Geist, sans-serif; font-weight: 600; font-size: 16px; margin: 16px 0px 7px;">Phối quanh món này</h3>
+      <p style="font-family: Geist, sans-serif; font-weight: 400; font-size: 14px; line-height: 1.55; color: rgb(111, 106, 99); margin: 0px;">Bắt đầu với một món bạn yêu thích, Macgie sẽ tạo ý tưởng phối đồ mới quanh nó từ tủ đồ của bạn.</p>
     </div>
     <div class="feat-card" style="border: 1px solid rgba(29, 31, 35, 0.09); border-radius: 16px; padding: 26px 24px;">
       <div style="display: flex; align-items: center; gap: 8px;">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M4 20V10M9.3 20V5M14.6 20v-7M20 20V8" stroke="#1d1f23" stroke-width="1.9" stroke-linecap="round"></path></svg>
-        <span style="font-family: Poppins, sans-serif; font-size: 11px; font-weight: 400; color: rgb(29, 31, 35); background: rgb(76, 244, 211); border-radius: 12px; padding: 4px 12px;">sắp ra mắt</span>
+        <span style="font-family: Geist, sans-serif; font-size: 11px; font-weight: 400; color: rgb(29, 31, 35); background: rgb(76, 244, 211); border-radius: 12px; padding: 4px 12px;">sắp ra mắt</span>
       </div>
-      <h3 style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 16px; margin: 16px 0px 7px;">Thông tin tủ đồ</h3>
-      <p style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 14px; line-height: 1.55; color: rgb(111, 106, 99); margin: 0px;">Xem chi phí mỗi lần mặc, những món đồ yêu thích nhất và 80% bạn chưa bao giờ chạm tới.</p>
+      <h3 style="font-family: Geist, sans-serif; font-weight: 600; font-size: 16px; margin: 16px 0px 7px;">Thống kê tủ đồ</h3>
+      <p style="font-family: Geist, sans-serif; font-weight: 400; font-size: 14px; line-height: 1.55; color: rgb(111, 106, 99); margin: 0px;">Xem chi phí mỗi lần mặc, món được yêu thích nhất và 80% bạn chẳng bao giờ đụng tới.</p>
     </div>
   </div></section><section style="max-width: 1226px; margin: 0px auto; padding: 60px 40px 0px;">
   <div class="detailgrid" style="display: grid; gap: 60px;">
     
     <div style="display: flex; gap: 32px; align-items: flex-start;">
-      <div style="width: 285px; height: 352px; border-radius: 24px; background: rgb(242, 244, 247); flex: 0 0 auto; display: flex; align-items: center; justify-content: center; overflow: hidden;"><img src="/assets/feature/recommend.webp" style="width: 137px; height: 278px; object-fit: cover;" alt="Xem trước tính năng ứng dụng Macgie"></div>
+      <div style="width: 285px; height: 352px; border-radius: 24px; background: rgb(242, 244, 247); flex: 0 0 auto; display: flex; align-items: center; justify-content: center; overflow: hidden;"><img alt="Xem trước tính năng ứng dụng Macgie" src="/assets/feature/recommend.webp" width="1100" height="2237" loading="lazy" decoding="async" style="width: 137px; height: 278px; object-fit: cover;"></div>
       <div style="flex: 1 1 0%; display: flex; flex-direction: column; gap: 20px;">
-        <h3 style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 24px; line-height: 1.1; color: rgb(23, 24, 28); margin: 0px;">Gợi ý thực sự hiểu bạn.</h3>
-        <p style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 16px; line-height: 28px; color: rgb(38, 38, 38); margin: 0px;">Macgie không phải là một trình tạo trang phục ngẫu nhiên. Nó đọc hiểu ngày của bạn: thời tiết, lịch trình, dịp, và đưa ra những bộ trang phục đã phù hợp với nó.</p>
+        <h3 style="font-family: Geist, sans-serif; font-weight: 600; font-size: 24px; line-height: 1.1; color: rgb(23, 24, 28); margin: 0px;">Gợi ý thực sự hiểu bạn.</h3>
+        <p style="font-family: Geist, sans-serif; font-weight: 400; font-size: 16px; line-height: 28px; color: rgb(38, 38, 38); margin: 0px;">Macgie không phải máy tạo đồ ngẫu nhiên. Nó đọc ngày của bạn: thời tiết, lịch, dịp — và đưa cho bạn những bộ đồ đã hợp sẵn.</p>
       </div>
     </div>
     
     <div style="display: flex; gap: 32px; align-items: flex-start;">
-      <div style="width: 285px; height: 352px; border-radius: 24px; background: rgb(242, 244, 247); flex: 0 0 auto; overflow: hidden;"><img src="/seeonme-2-mrfvxkkw.png" style="width: 100%; height: 100%; object-fit: cover;" alt></div>
+      <div style="width: 285px; height: 352px; border-radius: 24px; background: rgb(242, 244, 247); flex: 0 0 auto; overflow: hidden;"><img alt src="/seeonme-2-mrfvxkkw.webp" width="285" height="352" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;"></div>
       <div style="flex: 1 1 0%; display: flex; flex-direction: column; gap: 20px;">
-        <h3 style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 24px; line-height: 1.1; color: rgb(23, 24, 28); margin: 0px;">Xem nó trên bạn trước khi mặc.</h3>
-        <p style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 16px; line-height: 28px; color: rgb(38, 38, 38); margin: 0px;">— màu sắc, kiểu dáng, tổng thể trang phục. Không còn phải do dự trước gương nữa.</p>
+        <h3 style="font-family: Geist, sans-serif; font-weight: 600; font-size: 24px; line-height: 1.1; color: rgb(23, 24, 28); margin: 0px;">Thấy nó trên người bạn trước khi mặc.</h3>
+        <p style="font-family: Geist, sans-serif; font-weight: 400; font-size: 16px; line-height: 28px; color: rgb(38, 38, 38); margin: 0px;">— màu sắc, dáng đồ, tổng thể. Không còn phân vân trước gương.</p>
       </div>
     </div>
     
     <div style="display: flex; gap: 32px; align-items: flex-start;">
-      <div style="width: 285px; height: 352px; border-radius: 24px; background: rgb(242, 244, 247); flex: 0 0 auto; display: flex; align-items: center; justify-content: center; overflow: hidden;"><img src="/assets/feature/closet.webp" style="width: 137px; height: 278px; object-fit: cover;" alt="Xem trước tính năng ứng dụng Macgie"></div>
+      <div style="width: 285px; height: 352px; border-radius: 24px; background: rgb(242, 244, 247); flex: 0 0 auto; display: flex; align-items: center; justify-content: center; overflow: hidden;"><img alt="Xem trước tính năng ứng dụng Macgie" src="/assets/feature/closet.webp" width="1100" height="2236" loading="lazy" decoding="async" style="width: 137px; height: 278px; object-fit: cover;"></div>
       <div style="flex: 1 1 0%; display: flex; flex-direction: column; gap: 20px;">
-        <h3 style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 24px; line-height: 1.1; color: rgb(23, 24, 28); margin: 0px;">Tủ đồ của bạn, cuối cùng cũng được hiện ra.</h3>
-        <p style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 16px; line-height: 28px; color: rgb(38, 38, 38); margin: 0px;">Nhập trong vài giây, Macgie tự động sắp xếp mọi thứ. Hầu hết mọi người tái khám phá một nửa những gì họ sở hữu.</p>
+        <h3 style="font-family: Geist, sans-serif; font-weight: 600; font-size: 24px; line-height: 1.1; color: rgb(23, 24, 28); margin: 0px;">Cả tủ đồ của bạn, cuối cùng cũng hiện rõ.</h3>
+        <p style="font-family: Geist, sans-serif; font-weight: 400; font-size: 16px; line-height: 28px; color: rgb(38, 38, 38); margin: 0px;">Nhập trong vài giây, Macgie tự sắp xếp mọi thứ. Hầu hết mọi người tìm lại được nửa số đồ mình có.</p>
       </div>
     </div>
     
     <div style="display: flex; gap: 32px; align-items: flex-start;">
-      <div style="width: 285px; height: 352px; border-radius: 24px; background: rgb(242, 244, 247); flex: 0 0 auto; overflow: hidden;"><img src="/assets/feature/pack.webp" style="width: 100%; height: 100%; object-fit: cover;" alt="Xem trước tính năng ứng dụng Macgie"></div>
+      <div style="width: 285px; height: 352px; border-radius: 24px; background: rgb(242, 244, 247); flex: 0 0 auto; overflow: hidden;"><img alt="Xem trước tính năng ứng dụng Macgie" src="/assets/feature/pack.webp" width="1100" height="707" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;"></div>
       <div style="flex: 1 1 0%; display: flex; flex-direction: column; gap: 16px;">
-        <h3 style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 24px; line-height: 1.1; color: rgb(23, 24, 28); margin: 0px;">Đóng gói một tủ đồ capsule, không phải toàn bộ tủ đồ của bạn</h3>
-        <span style="align-self: flex-start; font-family: Poppins, sans-serif; font-size: 12px; font-weight: 400; color: rgb(29, 31, 35); background: rgb(76, 244, 211); border-radius: 12px; padding: 4px 12px;">sắp ra mắt</span>
-        <p style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 16px; line-height: 28px; color: rgb(38, 38, 38); margin: 0px;">Hãy cho Macgie biết bạn sẽ đi đâu và trong bao lâu. Nó sẽ tạo ra một tủ đồ capsule phù hợp với túi của bạn: mặc tất cả những gì bạn đóng gói, không quên bất cứ thứ gì bạn cần.</p>
+        <h3 style="font-family: Geist, sans-serif; font-weight: 600; font-size: 24px; line-height: 1.1; color: rgb(23, 24, 28); margin: 0px;">Đóng gói một tủ đồ capsule, không phải toàn bộ tủ đồ của bạn</h3>
+        <span style="align-self: flex-start; font-family: Geist, sans-serif; font-size: 12px; font-weight: 400; color: rgb(29, 31, 35); background: rgb(76, 244, 211); border-radius: 12px; padding: 4px 12px;">sắp ra mắt</span>
+        <p style="font-family: Geist, sans-serif; font-weight: 400; font-size: 16px; line-height: 28px; color: rgb(38, 38, 38); margin: 0px;">Hãy cho Macgie biết bạn sẽ đi đâu và trong bao lâu. Nó sẽ tạo ra một tủ đồ capsule phù hợp với túi của bạn: mặc tất cả những gì bạn đóng gói, không quên bất cứ thứ gì bạn cần.</p>
       </div>
     </div>
   </div></section><section style="max-width: 1120px; margin: 0px auto; padding: 100px 40px 0px; text-align: center;">
-  <div style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 12px; color: rgb(111, 106, 99); letter-spacing: 0.16em;">Cách hoạt động</div>
-  <div style="display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 12px;">
-    <svg width="30" height="30" viewBox="0 0 24 24" fill="#1d1f23" style="flex: 0 0 auto; opacity: 0.85;"><ellipse cx="6.5" cy="11" rx="2" ry="2.6"></ellipse><ellipse cx="11" cy="8.5" rx="2" ry="2.7"></ellipse><ellipse cx="15.5" cy="9.2" rx="1.9" ry="2.6"></ellipse><path d="M11 12.5c2.4 0 4 1.7 4 3.4 0 1.4-1.3 1.8-2.6 1.6-.5-.1-1.3-.1-1.9 0-1.3.2-2.7-.2-2.7-1.6 0-1.7 1.7-3.4 3.2-3.4z"></path></svg>
-    <h2 style="font-family: Poppins, sans-serif; font-weight: 800; font-size: 48px; line-height: 64px; color: rgb(23, 24, 28); margin: 0px;">Ba bước để có một tủ đồ biết suy nghĩ cùng bạn.</h2>
+  <div style="font-family: Geist, sans-serif; font-weight: 600; font-size: 12px; color: rgb(158, 150, 142); letter-spacing: 0.16em;">Cách hoạt động</div>
+  <div class="howcat-row" style="display: flex; align-items: center; justify-content: center; gap: 0px; margin-top: 12px;">
+    <svg role="img" aria-label="Macgie" style="flex: 0 0 auto; width: 98px; height: 109px;" width="88" height="130" viewBox="0 0 88 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_4604_1349)">
+<path d="M48.5082 9.02734C49.3879 9.14471 50.1769 9.40779 50.7502 10.138C52.4146 12.2581 52.8078 12.4655 53.8248 14.9149C54.9923 17.7268 55.2054 16.5928 55.9718 19.5419C56.0539 19.9688 56.3952 20.7224 56.3981 21.1126C57.0495 22.8636 57.4903 23.1791 59.5656 22.8858C60.0146 22.8224 61.0146 22.8819 61.5111 22.8636C61.8933 22.8495 62.6383 22.9563 62.9811 22.7838C63.8844 22.7838 65.5152 20.4412 65.5152 20.4412C65.5152 20.4412 67.6221 16.5406 68.0339 15.3775C68.2472 14.7751 68.5292 14.2119 68.7815 13.6256C70.1604 9.40792 73.5044 8.6224 75.16 13.3165C75.3775 13.933 75.8808 14.7973 76.1065 15.4529C77.5823 19.72 78.5514 18.7 79.4006 23.1273C79.5281 23.7923 79.4453 24.611 79.5144 25.2944C79.7461 27.8732 79.6013 30.4888 79.4876 33.0724C79.4 34.0615 79.1434 35.0196 79.1255 36.0162C79.1093 36.9114 79.4671 37.7565 79.6006 38.6292C79.8243 40.0928 79.9496 41.7351 79.7261 43.1987C79.6307 43.8229 79.4108 44.5124 79.2645 45.1286C80.303 44.9729 87.3148 43.9503 87.5123 45.0704C87.4138 45.2738 87.4482 45.2911 87.2848 45.3747C86.7658 45.3488 85.6594 45.1084 85.2441 45.1459C83.5835 45.2952 80.5976 45.486 79.0242 45.9258C78.5953 46.4821 78.1905 47.4395 78.151 48.1509C78.1491 48.1854 78.1877 48.3543 78.2327 48.3618C81.119 48.8334 84.1872 48.5676 86.9774 49.6058C87.3224 49.7343 87.8382 49.8831 88 50.2381L87.9901 50.3984C87.6591 50.6226 86.865 50.2128 86.4908 50.0785C84.5372 49.3775 82.4635 49.3291 80.4114 49.2029C79.5735 49.1516 78.5735 49.0524 77.7327 49.1031C77.0261 49.8612 76.4012 50.6002 75.6707 51.3732C76.4577 51.7352 77.5071 51.8689 78.353 52.0868C80.1887 52.5606 82.092 53.1232 83.6649 54.2104C83.9281 54.3925 84.8071 54.8387 84.5892 55.2088C84.4181 55.278 84.3952 55.2791 84.2106 55.2693C83.7472 55.0261 83.3286 54.7407 82.8737 54.5067C81.2673 53.6812 79.5505 53.1284 77.815 52.6413C76.9964 52.4119 75.9872 52.2684 75.1357 52.0476C73.9389 52.6459 72.9473 53.4864 71.614 54.0818C70.5826 54.543 68.8098 54.9015 67.9698 55.3742C67.9488 61.1017 65.99 67.2618 68.9925 74.7466C69.3847 76.5175 68.5798 77.6018 68.9925 79.4009C69.7678 82.5679 66.1787 85.7739 65.99 89.0273H37.1391C37.6595 86.7827 37.7439 84.7386 38.173 82.5245C38.6051 80.7624 39.2457 78.984 39.8879 77.2853C40.1677 76.5451 40.6013 75.4412 40.9844 74.7466C42.51 71.982 43.8177 69.1125 45.3546 66.3514C45.7634 65.617 45.9809 64.5754 46.3196 63.7954C47.1521 61.76 48.0354 59.7834 48.7861 57.7146C49.1951 56.5882 49.6108 55.8267 49.8283 54.5862C49.3726 54.1522 47.9314 53.6149 47.2656 53.2621C46.2681 52.7341 45.4312 51.9732 44.4176 51.5911C42.7528 52.141 41.0617 52.7826 39.552 53.6605C39.3079 53.8028 39.0597 53.9424 38.8136 54.0807C38.1339 54.4548 37.443 54.8082 36.7417 55.1402C36.4183 55.297 35.9414 55.6411 35.6157 55.531C35.5823 55.4042 35.5844 55.3713 35.6548 55.2497C35.8337 54.9407 39.4168 52.7168 39.9379 52.4828C41.1746 51.9277 42.6119 51.6147 43.7557 50.8953C43.1936 50.3459 42.4297 49.1343 41.6273 49.2127C39.0625 49.4623 36.6076 49.879 34.1172 50.546C33.9343 50.595 33.613 50.5719 33.4578 50.4468C33.4451 50.3275 33.4375 50.3062 33.5221 50.2082C33.9758 49.6836 40.3795 48.6685 41.4882 48.4333C40.8775 47.409 40.614 46.7449 40.1351 45.6837C37.8158 45.7165 35.8762 45.739 33.5999 46.2988C33.437 46.3385 33.163 46.2815 33.0209 46.1783C32.6772 45.1586 36.6728 45.1286 37.2457 45.1315C38.148 45.1355 39.0357 45.0571 39.9301 45.0352C39.0233 43.0234 38.9115 41.6573 39.261 39.4576C39.3218 39.0748 39.6133 37.8447 39.5585 37.5576C39.2598 35.9909 39.111 34.5999 39.034 33.0014C38.9137 30.5026 38.7723 28.0225 39.2377 25.5433C39.4986 24.1921 39.5 23 40.3808 21.2525C41.2616 19.5049 44.0289 15.6781 45.3847 12.9596C46.1672 11.3906 46.8172 9.86214 48.5082 9.02734Z" fill="black"></path>
+<path d="M42.1364 70.4571C42.8836 66.9595 46.3082 60.8894 47.9271 58.2916L49.6566 54.0273H63.5467C63.9826 57.0687 65.8223 64.7925 67.9144 69.5066C70.5296 75.3993 69.4088 81.0929 69.4088 84.4743C69.4088 88.5785 68.288 90.6061 70.5296 98.0195C72.7711 105.433 66.2332 109.044 66.9804 109.615C67.7276 110.185 69.4088 111.896 69.4088 114.367C69.4088 116.838 65.2993 114.367 62.4973 116.078C59.6954 117.788 42.1364 115.697 39.5213 114.367C37.0198 113.094 38.1074 111.126 35.9179 106.798C34.4245 105.537 32.107 103.305 29.1284 104.778C27.3278 105.668 26.7127 107.167 27.1153 108.759C27.5179 110.351 27.9205 110.75 29.531 111.148C31.1414 111.546 31.9467 110.75 33.1545 110.75C34.3623 110.75 36.3754 110.75 37.1806 113.935C37.5219 115.284 36.3754 117.518 34.3623 117.916C32.2363 118.336 27.9205 117.518 25.5049 116.323C23.0892 115.129 21.4786 111.944 21.076 109.615C20.6734 107.285 21.8497 102.964 25.1021 101.195C29.3393 98.8904 32.2387 99.7829 34.2697 100.45C34.1061 96.215 35.1009 91.6178 35.5985 89.4656C36.3457 86.2342 38.7741 83.9531 39.5213 81.8622C40.2684 79.7713 41.2024 74.829 42.1364 70.4571Z" fill="black"></path>
+<path d="M61.5439 85.0195C61.7453 80.5991 62.029 74.9682 64.8965 71.2018C68.4809 66.4937 72.2623 59.6513 76.1071 60.7361C79.9518 61.821 84.5007 60.8377 84.9154 57.9185C85.3157 55.1008 83.8797 54.6697 81.7124 53.8931L81.174 53.4872C80.8391 53.1553 80.4841 52.7445 80.1108 52.6856C79.2015 52.5421 78.5845 53.2195 77.4861 53.3135C72.5547 53.7355 61.1542 60.8073 57.45 68.0342C54.4867 73.8158 55.3871 80.4409 50.3564 85.6634L61.5439 85.0195Z" fill="black"></path>
+<path d="M53.3794 36.0027L53.6607 36.0001C55.1621 35.9935 55.8938 36.2691 57.025 37.1457C58.2336 38.0819 58.9637 40.2791 59 41.6176C58.9184 42.9837 58.7397 44.5816 57.5275 45.5556C55.7933 46.9493 54.7803 47.0141 52.5814 46.9983C49.0187 46.8763 46.38 43.9486 47.1272 40.8815C47.8069 38.0921 50.0434 36.1007 53.3794 36.0027Z" fill="white"></path>
+<path id="hpL" d="M54.3488 37.0215C56.0441 36.7559 56.0628 39.0246 55.9697 40.046C55.8753 41.0803 55.6443 41.6642 54.5857 42C52.5262 41.3992 52.5001 37.875 54.3488 37.0215Z" fill="black"></path>
+<path d="M69.4059 36.0331C69.6681 36.0143 69.9014 36.0472 70.1484 36.0513C72.7877 36.0968 74.1969 37.7383 74.8 39.7624C74.9566 40.2881 74.9287 40.8098 74.9602 41.3563C75.0325 42.6163 75.103 43.8641 74.2371 44.9641C73.3416 46.1366 72.2442 46.6638 70.6601 46.9669C66.9798 47.3894 65.4849 45.5552 65.06 42.7352C64.6548 40.0462 66.3253 36.9788 69.4059 36.0331Z" fill="white"></path>
+<path id="hpR" d="M70.3488 38.0215C72.0441 37.7559 72.0628 40.0246 71.9697 41.046C71.8753 42.0803 71.6443 42.6642 70.5857 43C68.5262 42.3992 68.5001 38.875 70.3488 38.0215Z" fill="black"></path>
+<path d="M62.0617 43.0364C62.6169 43.0085 63.1778 43.0061 63.7341 43L64 43.6638C63.6049 43.7949 63.1768 43.8829 62.7674 43.9763L62.7098 44C62.2631 43.9593 61.1277 43.7609 61 43.3161L61.1071 43.1863C61.3891 43.0231 61.7227 43.0461 62.0617 43.0364Z" fill="white"></path>
+<path d="M62 52.5667C63.808 51.8295 69.1976 50.5422 69.8317 51.2169C71.1455 52.6145 64.4106 53.6725 62 52.5667Z" fill="white"></path>
+<path d="M46.6301 29.3953L46.4166 29.2646C46.29 29.4712 46.107 29.8044 45.9664 30.1389C45.8961 30.306 45.8339 30.4795 45.7955 30.6413C45.7587 30.7963 45.736 30.9709 45.7737 31.1252L46.0167 31.0666L46.2597 31.008C46.2506 30.9705 46.2508 30.8899 46.2822 30.7576C46.312 30.6322 46.3633 30.4863 46.4277 30.3332C46.5563 30.0273 46.7267 29.7167 46.8435 29.5261L46.6301 29.3953ZM46.0167 31.0666L45.7737 31.1252C45.807 31.262 45.9018 31.3652 45.9888 31.4369C46.0807 31.5126 46.1944 31.5781 46.3145 31.6331C46.555 31.7434 46.8542 31.8267 47.1411 31.8614C47.4195 31.895 47.7287 31.8881 47.9645 31.7767C48.0883 31.7183 48.2038 31.6249 48.2715 31.4835C48.3392 31.3418 48.3439 31.1831 48.3047 31.0224L48.0617 31.081L47.8186 31.1396C47.8379 31.2187 47.8262 31.2544 47.8199 31.2674C47.8136 31.2806 47.7978 31.3023 47.7499 31.3249C47.6424 31.3757 47.4476 31.3952 47.2002 31.3653C46.9613 31.3364 46.7127 31.2662 46.5223 31.179C46.4269 31.1353 46.3544 31.091 46.3066 31.0516C46.2539 31.0082 46.2556 30.9911 46.2597 31.008L46.0167 31.0666ZM48.0617 31.081L48.3047 31.0224C48.1799 30.5106 47.9492 30.1355 47.8299 29.8803C47.767 29.7458 47.7353 29.6489 47.7299 29.5636C47.725 29.487 47.7404 29.4031 47.8075 29.2935L47.5941 29.1628L47.3807 29.032C47.2652 29.2204 47.2186 29.4053 47.2306 29.5943C47.2421 29.7748 47.3063 29.9404 47.3767 30.091C47.524 30.4062 47.7096 30.6923 47.8186 31.1396L48.0617 31.081Z" fill="white"></path>
+<path d="M78.2039 39.4618L78.4173 39.331C78.5439 39.5376 78.727 39.8708 78.8676 40.2053C78.9379 40.3724 79.0001 40.5459 79.0385 40.7077C79.0753 40.8627 79.098 41.0373 79.0603 41.1916L78.8173 41.133L78.5743 41.0744C78.5834 41.0369 78.5832 40.9563 78.5518 40.824C78.522 40.6986 78.4707 40.5527 78.4063 40.3996C78.2777 40.0937 78.1073 39.7831 77.9905 39.5925L78.2039 39.4618ZM78.8173 41.133L79.0603 41.1916C79.027 41.3284 78.9322 41.4316 78.8452 41.5033C78.7533 41.579 78.6396 41.6445 78.5195 41.6995C78.279 41.8098 77.9798 41.8931 77.6928 41.9278C77.4144 41.9614 77.1053 41.9545 76.8695 41.8431C76.7457 41.7847 76.6301 41.6914 76.5625 41.5499C76.4948 41.4082 76.4901 41.2495 76.5293 41.0888L76.7723 41.1474L77.0154 41.206C76.9961 41.2851 77.0078 41.3208 77.0141 41.3338C77.0204 41.347 77.0362 41.3687 77.0841 41.3913C77.1916 41.4421 77.3863 41.4616 77.6338 41.4317C77.8727 41.4028 78.1213 41.3326 78.3117 41.2454C78.4071 41.2017 78.4796 41.1574 78.5274 41.118C78.58 41.0746 78.5784 41.0575 78.5743 41.0744L78.8173 41.133ZM76.7723 41.1474L76.5293 41.0888C76.654 40.577 76.8848 40.2019 77.0041 39.9467C77.067 39.8122 77.0987 39.7153 77.1041 39.6301C77.109 39.5534 77.0936 39.4695 77.0265 39.3599L77.2399 39.2292L77.4533 39.0984C77.5688 39.2868 77.6154 39.4717 77.6034 39.6607C77.5919 39.8412 77.5277 40.0068 77.4573 40.1574C77.3099 40.4726 77.1244 40.7587 77.0154 41.206L76.7723 41.1474Z" fill="white"></path>
+<path d="M66.4742 54.4994C65.6494 54.005 64.8247 53.3458 64 53.0162L68.9483 52.0273C69.4982 52.5218 70.4329 53.7084 69.7731 54.4994C68.9483 55.4883 67.0573 54.849 66.4742 54.4994Z" fill="#E386F3"></path>
+</g>
+<defs>
+<clipPath id="clip0_4604_1349">
+<rect width="88" height="130" fill="white"></rect>
+</clipPath>
+</defs>
+</svg>
+    <h2 style="font-family: Geist, sans-serif; font-weight: 800; font-size: 48px; line-height: 64px; color: rgb(23, 24, 28); margin: 0px;">Ba bước tới một tủ đồ biết nghĩ cùng bạn.</h2>
   </div>
   <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 88px; text-align: center;">
     <div>
-      <h3 style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 20px; color: rgb(23, 24, 28); margin: 0px 0px 12px;">Thêm tủ đồ của bạn</h3>
-      <p style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 15px; line-height: 26px; color: rgb(111, 106, 99); margin: 0px;">Chụp một bức ảnh, dán một liên kết, hoặc nhập một ảnh chụp màn hình. Macgie sẽ xóa nền và tự động gán thẻ cho từng món đồ — hoặc bắt đầu ngay lập tức với tủ đồ mẫu của chúng tôi.</p>
+      <h3 style="font-family: Geist, sans-serif; font-weight: 600; font-size: 20px; color: rgb(23, 24, 28); margin: 0px 0px 12px;">Thêm tủ đồ của bạn</h3>
+      <p style="font-family: Geist, sans-serif; font-weight: 400; font-size: 15px; line-height: 26px; color: rgb(111, 106, 99); margin: 0px;">Chụp ảnh, dán liên kết hoặc nhập ảnh chụp màn hình. Macgie xóa nền và gắn thẻ từng món tự động — hoặc bắt đầu ngay với tủ đồ mẫu.</p>
     </div>
     <div>
-      <h3 style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 20px; color: rgb(23, 24, 28); margin: 0px 0px 12px;">Khám phá gợi ý của chúng tôi</h3>
-      <p style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 15px; line-height: 26px; color: rgb(111, 106, 99); margin: 0px;">Đánh giá một vài trang phục và tiếp tục tuần của bạn. Macgie nghiên cứu những gì bạn mặc, yêu thích và bỏ qua — xây dựng một mô hình riêng về gu thẩm mỹ của bạn ngày càng tinh tế hơn.</p>
+      <h3 style="font-family: Geist, sans-serif; font-weight: 600; font-size: 20px; color: rgb(23, 24, 28); margin: 0px 0px 12px;">Khám phá gợi ý của chúng tôi</h3>
+      <p style="font-family: Geist, sans-serif; font-weight: 400; font-size: 15px; line-height: 26px; color: rgb(111, 106, 99); margin: 0px;">Đánh giá vài bộ đồ rồi tiếp tục tuần của bạn. Macgie quan sát bạn mặc gì, thích gì và bỏ qua gì — xây một mô hình gu riêng ngày càng chính xác.</p>
     </div>
     <div>
-      <h3 style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 20px; color: rgb(23, 24, 28); margin: 0px 0px 12px;">Mặc đồ chỉ trong vài giây</h3>
-      <p style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 15px; line-height: 26px; color: rgb(111, 106, 99); margin: 0px;">Mở ứng dụng để xem các trang phục được chọn cho thời tiết hôm nay, lịch trình của bạn và tâm trạng của bạn — được hình dung, giải thích và sẵn sàng để mặc.</p>
+      <h3 style="font-family: Geist, sans-serif; font-weight: 600; font-size: 20px; color: rgb(23, 24, 28); margin: 0px 0px 12px;">Mặc đẹp trong vài giây</h3>
+      <p style="font-family: Geist, sans-serif; font-weight: 400; font-size: 15px; line-height: 26px; color: rgb(111, 106, 99); margin: 0px;">Mở ứng dụng là có sẵn bộ đồ chọn theo thời tiết hôm nay, lịch và tâm trạng của bạn — hình dung sẵn, giải thích rõ, sẵn sàng mặc.</p>
     </div>
   </div></section><section id="cta" style="margin-top: 100px; background: radial-gradient(691px 118px at 50% 74%, rgb(40, 44, 53) 16%, rgb(20, 21, 24) 100%); padding: 132px 0px; text-align: center;">
   <div style="max-width: 794px; margin: 0px auto; padding: 0px 40px; display: flex; flex-direction: column; align-items: center; gap: 44px;">
     <svg width="54" height="23" viewBox="0 0 54 23" fill="none"><ellipse cx="11" cy="12" rx="10.7" ry="10.8" fill="#fff"></ellipse><ellipse cx="15.5" cy="14" rx="2.6" ry="4.3" fill="#000"></ellipse><ellipse cx="44" cy="11.5" rx="8.8" ry="10.9" fill="#fff"></ellipse><ellipse cx="43.5" cy="15" rx="2.6" ry="4.5" fill="#000"></ellipse></svg>
-    <h2 style="font-family: Poppins, sans-serif; font-weight: 800; font-size: 48px; line-height: 64px; color: rgb(242, 239, 236); margin: 0px;">Bạn đã sở hữu đủ rồi.<br><span style="background: radial-gradient(70.29% 95.24% at 84.34% 31.98%, rgb(253, 193, 70) 0%, rgb(255, 69, 103) 58.49%, rgb(107, 76, 205) 100%) text; color: transparent;">Macgie</span> chỉ giúp bạn nhìn thấy nó.</h2>
+    <h2 style="font-family: Geist, sans-serif; font-weight: 800; font-size: 48px; line-height: 64px; color: rgb(242, 239, 236); margin: 0px;">Bạn đã sở hữu đủ rồi.<br><span style="background: radial-gradient(70.29% 95.24% at 84.34% 31.98%, rgb(253, 193, 70) 0%, rgb(255, 69, 103) 58.49%, rgb(107, 76, 205) 100%) text; color: transparent;">Macgie</span> chỉ giúp bạn nhìn thấy nó.</h2>
     
   </div></section><footer style="background: rgb(255, 255, 255); padding: 56px 0px 40px; border-top: 1px solid rgba(29, 31, 35, 0.08);">
   <div style="max-width: 1120px; margin: 0px auto; padding: 0px 40px; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px;">
     <div>
-      <div style="display: flex; align-items: center; gap: 9px;"><img src="/assets/brand/macgie.svg" width="26" height="27" alt><span style="font-family: Poppins, sans-serif; font-weight: 700; font-size: 20px; letter-spacing: -0.02em;">Macgie</span></div>
-      <p style="font-family: Geist, sans-serif; font-size: 13.5px; color: rgb(111, 106, 99); margin: 14px 0px 18px; max-width: 220px;">Mặc đồ với sự rõ ràng hơn, áp lực ít hơn.</p>
+      <div style="display: flex; align-items: center; gap: 9px;"><img src="/assets/brand/macgie.svg" width="26" height="27" alt="Macgie"><span style="font-family: Geist, sans-serif; font-weight: 700; font-size: 20px; letter-spacing: -0.02em;">Macgie</span></div>
+      <p style="font-family: Geist, sans-serif; font-size: 13.5px; color: rgb(111, 106, 99); margin: 14px 0px 18px; max-width: 220px;">Mặc đẹp rõ ràng hơn, ít áp lực hơn.</p>
       <a class="store-badge" href="#cta" style="display: inline-flex; align-items: center; gap: 9px; background: rgb(17, 18, 20); color: rgb(255, 255, 255); border-radius: 11px; padding: 8px 15px;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M16.5 1.8c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.8-1.4zM19 17.3c-.5 1.2-.8 1.7-1.4 2.7-.9 1.4-2.2 3.2-3.8 3.2-1.4 0-1.8-.9-3.7-.9s-2.3.9-3.7.9c-1.6 0-2.8-1.6-3.7-3C-.1 16.7-.6 11 1.6 8.2c1-1.3 2.5-2 4-2 1.5 0 2.5.9 3.7.9 1.2 0 1.9-.9 3.7-.9 1.3 0 2.7.7 3.7 2-3.2 1.8-2.7 6.4.6 7.1z"></path></svg>
-        <span style="line-height: 1.05;"><span style="display: block; font-size: 8.5px; opacity: 0.85;">Tải xuống trên</span><span style="font-size: 13.5px; font-weight: 600;">Cửa hàng ứng dụng</span></span>
+        <span style="line-height: 1.05;"><span style="display: block; font-size: 8.5px; opacity: 0.85;">Tải về trên</span><span style="font-size: 13.5px; font-weight: 600;">Cửa hàng ứng dụng</span></span>
       </a>
     </div>
     <div>
-      <div style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 13px; color: rgb(29, 31, 35); margin-bottom: 14px;">Sản phẩm</div>
+      <div style="font-family: Geist, sans-serif; font-weight: 600; font-size: 13px; color: rgb(29, 31, 35); margin-bottom: 14px;">Sản phẩm</div>
       <div style="display: flex; flex-direction: column; gap: 10px; font-family: Geist, sans-serif; font-size: 13.5px;"><a class="navlink" href="#top">Tính năng</a><a class="navlink" href="/vi/#how">Nhật ký thay đổi</a></div>
     </div>
     <div>
-      <div style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 13px; color: rgb(29, 31, 35); margin-bottom: 14px;">Tài nguyên</div>
-      <div style="display: flex; flex-direction: column; gap: 10px; font-family: Geist, sans-serif; font-size: 13.5px;"><a class="navlink" href="/vi/journal">Blog</a><a class="navlink" href="#top">Cộng đồng</a></div>
+      <div style="font-family: Geist, sans-serif; font-weight: 600; font-size: 13px; color: rgb(29, 31, 35); margin-bottom: 14px;">Tài nguyên</div>
+      <div style="display: flex; flex-direction: column; gap: 10px; font-family: Geist, sans-serif; font-size: 13.5px;"><a class="navlink" href="/vi/journal">Blog</a><a class="navlink" href="/vi/">Trung tâm trợ giúp</a><a class="navlink" href="#top">Cộng đồng</a></div>
     </div>
     <div>
-      <div style="font-family: Poppins, sans-serif; font-weight: 600; font-size: 13px; color: rgb(29, 31, 35); margin-bottom: 14px;">Pháp lý</div>
-      <div style="display: flex; flex-direction: column; gap: 10px; font-family: Geist, sans-serif; font-size: 13.5px;"><a class="navlink" href="#top">Quyền riêng tư</a><a class="navlink" href="#top">Điều khoản</a></div>
+      <div style="font-family: Geist, sans-serif; font-weight: 600; font-size: 13px; color: rgb(29, 31, 35); margin-bottom: 14px;">Pháp lý</div>
+      <div style="display: flex; flex-direction: column; gap: 10px; font-family: Geist, sans-serif; font-size: 13.5px;"><a class="navlink" href="/privacy">Quyền riêng tư</a><a class="navlink" href="/terms">Điều khoản</a><a class="navlink" href="/ai-policy">AI &amp; Image Processing</a><a class="navlink" href="/subscription">Subscription &amp; Refund</a></div>
     </div>
   </div>
-  <div style="max-width: 1120px; margin: 36px auto 0px; padding: 20px 40px 0px; border-top: 1px solid rgba(29, 31, 35, 0.08); font-family: Geist, sans-serif; font-size: 12.5px; color: rgb(111, 106, 99);">© 2026 Macgie, Inc. Bảo lưu mọi quyền.</div></footer></div></div></div>
+  <div style="max-width: 1120px; margin: 36px auto 0px; padding: 20px 40px 0px; border-top: 1px solid rgba(29, 31, 35, 0.08); font-family: Geist, sans-serif; font-size: 12.5px; color: rgb(158, 150, 142);">© 2026 Macgie, Inc. Bảo lưu mọi quyền.</div></footer></div></div></div>
 
 
 
-<script src="/app.js" defer></script></body></html>
+<script src="/app.js?v=c1803a89" defer></script></body></html>
