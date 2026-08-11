@@ -5,14 +5,13 @@
 > (mobile), `auxi-web`, and `wardrobe-backend`. This file is authoritative for
 > anything done inside `homepage/`.
 >
-> **Currently served at `beta.macgie.com`** (staging). `macgie.com` is still on
-> the old Vercel site — that's a leftover from when the App Store CTAs were
-> premature. **The app is now live on the App Store**
-> (`https://apps.apple.com/app/id6766749757`, wired into every "Download on the
-> App Store" button as of Aug 2026), so `macgie.com` is ready to move back:
-> re-add `macgie.com`+`www` as Pages custom domains on the `macgie-homepage`
-> project and repoint their DNS to `macgie-homepage.pages.dev` (apex + `www`
-> CNAME). That's a Cloudflare dashboard/DNS change outside this repo — do it
+> **Served at `macgie.com` (apex, live since 2026-07-29) and `beta.macgie.com`
+> (staging).** `www.macgie.com` is still pending — still on the old Vercel site,
+> not yet added as a custom domain on the `macgie-homepage` Cloudflare Pages
+> project. Move it the same way the apex was done: add `www.macgie.com` as a
+> custom domain on `macgie-homepage` in the Cloudflare dashboard (Workers &
+> Pages → macgie-homepage → Custom domains) — the dashboard auto-creates the
+> DNS record. That's a Cloudflare dashboard change outside this repo — do it
 > manually, then update the "Custom domain" note below.
 
 ## What this is
@@ -174,12 +173,12 @@ faithful; keep any hand-edits inside these scripts, not in the generated HTML.
 - **Sandbox first** to vibe-check; production is untouched until you run `prod`.
   Deploy is preview-first and never touches git — it just uploads `public/`.
 - Needs `wrangler` auth (`wrangler whoami`, Pages write). No build step.
-- **Custom domain:** currently **`beta.macgie.com`** is attached to the
-  `macgie-homepage` project (proxied CNAME → `macgie-homepage.pages.dev`).
-  `macgie.com`/`www` are still on the old Vercel site (apex `A 76.76.21.21`,
-  `www` CNAME `cname.vercel-dns.com`) — pending manual move back now that the
-  app is on the App Store, see the note at the top. Email DNS (MX / SPF /
-  DKIM / DMARC / `send` / `tracking`) is independent — **don't touch it.**
+- **Custom domain:** **`beta.macgie.com`** and **`macgie.com`** (apex, live
+  since 2026-07-29) are both attached to the `macgie-homepage` project.
+  **`www.macgie.com`** is still on the old Vercel site (CNAME
+  `cname.vercel-dns.com`) — pending manual move, see the note at the top.
+  Email DNS (MX / SPF / DKIM / DMARC / `send` / `tracking`) is independent —
+  **don't touch it.**
 
 ## Verifying
 
