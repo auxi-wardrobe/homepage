@@ -2,10 +2,26 @@
   var btn=document.querySelector('.hamburger'), nav=document.querySelector('header nav');
   if(btn&&nav){
     var p=document.createElement('nav'); p.id='m-nav'; p.setAttribute('aria-label','Mobile menu');
-    p.innerHTML=nav.innerHTML; document.body.appendChild(p);
+    p.innerHTML=nav.innerHTML;
+    var logoLink=document.querySelector('header a');
+    var homeLink=document.createElement('a');
+    homeLink.className='navlink'; homeLink.href=logoLink?logoLink.getAttribute('href'):'/'; homeLink.textContent='Home';
+    p.insertBefore(homeLink, p.firstChild);
+    var closeBtn=document.createElement('button');
+    closeBtn.type='button'; closeBtn.className='m-close'; closeBtn.setAttribute('aria-label','Close menu');
+    closeBtn.innerHTML='<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg>';
+    p.insertBefore(closeBtn, p.firstChild);
+    var headerBadge=document.querySelector('header .store-badge');
+    if(headerBadge){
+      var mBadge=headerBadge.cloneNode(true);
+      mBadge.classList.add('m-store-badge');
+      p.appendChild(mBadge);
+    }
+    document.body.appendChild(p);
     var open=false;
     function set(o){open=o;p.classList.toggle('open',o);btn.setAttribute('aria-expanded',o);document.documentElement.style.overflow=o?'hidden':'';}
     btn.addEventListener('click',function(){set(!open);});
+    closeBtn.addEventListener('click',function(){set(false);});
     p.addEventListener('click',function(e){if(e.target.closest('a'))set(false);});
   }
   // Language dropdown (EN / VI / FR-soon). The header nav and the cloned mobile
