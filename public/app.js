@@ -8,6 +8,33 @@
     btn.addEventListener('click',function(){set(!open);});
     p.addEventListener('click',function(e){if(e.target.closest('a'))set(false);});
   }
+  // Language dropdown (EN / VI / FR-soon). The header nav and the cloned mobile
+  // nav above each carry their own .lang-switch-btn + .lang-switch-menu pair —
+  // wire each independently so opening one doesn't affect the other.
+  var langBtns=Array.prototype.slice.call(document.querySelectorAll('.lang-switch-btn'));
+  if(langBtns.length){
+    var closeAll=function(except){
+      langBtns.forEach(function(b){
+        if(b===except)return;
+        b.setAttribute('aria-expanded','false');
+        var m=b.nextElementSibling;
+        if(m)m.style.display='none';
+      });
+    };
+    langBtns.forEach(function(btn){
+      var menu=btn.nextElementSibling;
+      if(!menu)return;
+      btn.addEventListener('click',function(e){
+        e.stopPropagation();
+        var wasOpen=btn.getAttribute('aria-expanded')==='true';
+        closeAll(btn);
+        btn.setAttribute('aria-expanded',String(!wasOpen));
+        menu.style.display=wasOpen?'none':'block';
+      });
+    });
+    document.addEventListener('click',function(){closeAll();});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAll();});
+  }
   // Cat eyes follow the cursor. The design does this in its canvas runtime
   // (componentDidMount -> _eyeMove), which flattening strips, leaving the cats
   // staring blankly. Same maths as the original; #hpL/#hpR/#scL/#scR already
