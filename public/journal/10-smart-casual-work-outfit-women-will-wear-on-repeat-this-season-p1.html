@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<style>
+/* ============================================================
+   Auxi — Webfonts
+   App faces (bundled, from the React Native app): Poppins, Inter, Roboto.
+   Marketing display face: Fraunces (loaded from Google Fonts — the marketing
+   site ships @fontsource/fraunces; CDN is faithful to that).
+   ============================================================ */
+
+
+@font-face {
+  font-family: 'Geist';
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Geist-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Geist';
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Geist-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Geist';
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Geist-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+
+
+
+/* ============================================================
+   Auxi — Color tokens
+   Source of truth: auxi mobile app theme.ds (theme.ts), extracted from
+   Auxi.fig. A warm, paper-toned neutral palette does the heavy lifting;
+   ink near-black carries text + primary actions; functional accents are
+   used sparingly. The marketing web surface adds an editorial paper/ink/
+   terracotta palette (auxi-web global.css).
+   ============================================================ */
+
+:root {
+  /* ---- Ink & neutrals (text · actions · strokes) ---- */
+  --auxi-ink: #1d1f23;        /* primary text · primary button */
+  --auxi-slate: #272a32;      /* deep surfaces · scrims */
+  --auxi-black: #070707;      /* control fills (radio dot) */
+  --auxi-on-variant: #49454f; /* secondary text (MD3 on-surface-variant) */
+  --auxi-warm-700: #5b5550;   /* strokes · warm gray */
+  --auxi-warm-500: #6f6a63;   /* muted labels · hints */
+  --auxi-gray-500: #717171;   /* neutral gray */
+
+  /* ---- Surfaces — warm paper (backgrounds · cards · sheets) ---- */
+  --auxi-white: #ffffff;       /* app canvas */
+  --auxi-surface: #fcfcfd;     /* dialogs · sheets */
+  --auxi-surface-2: #f7f7f8;   /* subtle fills */
+  --auxi-cream: #f2efec;       /* primary warm surface · cards */
+  --auxi-warm-100: #eee6df;    /* dividers · hairlines · caption pills */
+  --auxi-tan: #e0d2c4;         /* warm accent surface · insight pills */
+  --auxi-tan-stroke: #c6bcb1;  /* borders on tan · inactive dots */
+  --auxi-placeholder: #d9d9d9; /* image placeholders */
+  --auxi-cool-100: #e3e3ec;    /* cool surface · icon chips */
+
+  /* ---- Functional accents (state · feedback) ---- */
+  --auxi-teal: #16a085;   /* switch active · success */
+  --auxi-green: #039855;  /* selected radio · confirm */
+  --auxi-danger: #bb251a; /* destructive actions */
+  --auxi-info: #1465b4;   /* informational text */
+  --auxi-ai: #822be6;     /* AI-sparkle accent (self-visualisation) */
+  /* raw red #ff0000 is flagged OFF-SYSTEM — never use in new work */
+
+  /* ---- Hairlines & scrims ---- */
+  --auxi-line: rgba(29, 31, 35, 0.10);   /* default hairline border */
+  --auxi-line-2: rgba(29, 31, 35, 0.06); /* faint inner divider */
+  --auxi-hairline: #eee6df;              /* warm list divider */
+  --auxi-divider-on-dark: rgba(242, 239, 236, 0.1); /* hairline on ink */
+  --auxi-scrim-dialog: rgba(25, 27, 34, 0.3);  /* centered dialog backdrop */
+  --auxi-scrim-overlay: rgba(38, 36, 33, 0.7); /* guidance overlay backdrop */
+
+  /* ---- Semantic aliases (use these in product code) ---- */
+  --text-primary: var(--auxi-ink);
+  --text-secondary: var(--auxi-on-variant);
+  --text-muted: var(--auxi-warm-500);
+  --text-inverse: var(--auxi-cream);
+  --text-danger: var(--auxi-danger);
+
+  --surface-canvas: var(--auxi-white);
+  --surface-card: var(--auxi-cream);
+  --surface-sheet: var(--auxi-surface);
+  --surface-accent: var(--auxi-tan);
+  --surface-dark: var(--auxi-ink);
+
+  --border-default: var(--auxi-line);
+  --border-strong: var(--auxi-ink);
+
+  --action-primary-bg: var(--auxi-ink);
+  --action-primary-fg: var(--auxi-cream);
+
+  /* ============================================================
+     Marketing web — editorial palette (auxi-web)
+     ============================================================ */
+  --auxi-paper: #faf7f2;     /* warm off-white page */
+  --auxi-mk-ink: #14110f;    /* near-black editorial ink */
+  --auxi-ash: #6f6a63;       /* muted body text */
+  --auxi-accent: #b5532a;    /* terracotta accent */
+  --auxi-mk-hairline: #e6e1d8;
+}
+
+</style><style>
+    .sc-placeholder{background:color-mix(in srgb,currentColor 8%,transparent);
+      border:1px solid color-mix(in srgb,currentColor 50%,transparent);
+      border-radius:2px;box-sizing:border-box;overflow:hidden}
+    @keyframes sc-shine{0%{background-position:100% 50%}100%{background-position:0% 50%}}
+    html.sc-dc-streaming .sc-placeholder,
+    html.sc-dc-streaming .sc-interp.sc-missing{position:relative;
+      background:color-mix(in srgb,currentColor 5%,transparent);
+      border-color:transparent}
+    html.sc-dc-streaming .sc-placeholder::before,
+    html.sc-dc-streaming .sc-interp.sc-missing::before{content:'';
+      position:absolute;inset:0;pointer-events:none;
+      background:linear-gradient(90deg,rgba(217,119,87,0) 25%,rgba(247,225,211,.95) 37%,rgba(217,119,87,0) 63%);
+      background-size:400% 100%;animation:sc-shine 1.4s ease infinite}
+    html.sc-dc-streaming .sc-placeholder:nth-child(n+9 of .sc-placeholder)::before,
+    html.sc-dc-streaming .sc-interp.sc-missing:nth-child(n+9 of .sc-interp.sc-missing)::before{animation:none;
+      background:color-mix(in srgb,currentColor 8%,transparent)}
+    .sc-placeholder-error{padding:4px 8px;font:11px/1.4 ui-monospace,monospace;
+      color:color-mix(in srgb,currentColor 70%,transparent);word-break:break-word}
+    .sc-interp.sc-missing{display:inline-block;width:2em;height:1em;overflow:hidden;
+      vertical-align:text-bottom;background:rgba(255,255,255,.3);border:1px solid rgba(0,0,0,.5);
+      border-radius:2px;box-sizing:border-box;color:transparent;
+      user-select:none}
+    .sc-interp.sc-unresolved{font-family:ui-monospace,monospace;font-size:.85em;
+      color:color-mix(in srgb,currentColor 50%,transparent);
+      background:color-mix(in srgb,currentColor 10%,transparent);border-radius:3px;
+      padding:0 3px}
+    .sc-host.sc-has-error{position:relative}
+    .sc-logic-error{position:absolute;top:8px;left:8px;z-index:2147483647;max-width:60ch;
+      padding:6px 10px;background:#b00020;color:#fff;font:12px/1.4 ui-monospace,monospace;
+      border-radius:4px;white-space:pre-wrap;pointer-events:none}
+    /* Mirrors PRINT_BASELINE_CSS in apps/web deck-stage-export.ts — keep both
+       in sync until dc-runtime regains a build step. */
+    @media print {
+      @page { margin: 0.5cm; }
+      figure, table { break-inside: avoid; }
+      #dc-root, #dc-root > .sc-host { height: auto; }
+      *, *::before, *::after {
+        print-color-adjust: exact; -webkit-print-color-adjust: exact;
+        backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+        animation-delay: -99s !important; animation-duration: .001s !important;
+        animation-iteration-count: 1 !important; animation-fill-mode: both !important;
+        animation-play-state: running !important; transition-duration: 0s !important;
+      }
+    }
+  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>x-dc{display:none!important}</style>
+<title>10 Smart Casual Work Outfit Women Will Wear on Repeat This Season (p1) — Macgie</title><meta name="description" content="You want outfits that look polished on Zoom, still impress in the office, and feel comfy enough for your commute. These 10 smart casual looks do all three—without trying too hard. Expect timeless pieces with modern twists, smart silhouettes, and styling moves that make every outfit feel intentional."><link rel="icon" type="image/svg+xml" href="/assets/brand/macgie.svg"><meta property="og:title" content="10 Smart Casual Work Outfit Women Will Wear on Repeat This Season (p1)"><meta property="og:description" content="You want outfits that look polished on Zoom, still impress in the office, and feel comfy enough for your commute. These 10 smart casual looks do all three—without trying too hard. Expect timeless pieces with modern twists, smart silhouettes, and styling moves that make every outfit feel intentional."><meta property="og:type" content="website"><style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+  html, body { margin: 0; }
+  body { background: #ffffff; color: #262626; font-family: 'Geist', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: #262626; text-decoration: none; }
+  a.navlink { color: #5b5550; transition: color .15s ease; }
+  a.navlink:hover { color: #1d1f23; }
+  a.navlink-active { color: #1d1f23; font-weight: 500; }
+  .store-badge { transition: transform .15s ease, opacity .15s ease; }
+  .store-badge:hover { transform: translateY(-1px); opacity: .92; }
+  .backlink { transition: gap .15s ease; }
+  .backlink:hover { gap: 12px; }
+  .post { cursor: pointer; }
+  .post .pimg { transition: transform .4s ease; }
+  .post:hover .pimg { transform: scale(1.04); }
+  .post .ptitle { transition: color .15s ease; }
+  .post:hover .ptitle { color: #6B4CCD; }
+  .hamburger { display: none; }
+  .mobile-menu { display: none; }
+  @media (max-width: 820px) {
+    header nav { display: none !important; }
+    header > div > a.store-badge { display: none !important; }
+    header .hamburger { display: inline-flex !important; }
+    .mobile-menu { display: flex !important; }
+    header > div { padding-left: 20px !important; padding-right: 20px !important; }
+    section [style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
+    footer > div:first-child { grid-template-columns: 1fr 1fr !important; }
+    h1 { font-size: 32px !important; line-height: 1.18 !important; }
+    h2 { font-size: 30px !important; line-height: 1.24 !important; }
+  }
+</style><link rel="canonical" href="https://macgie.com/journal/10-smart-casual-work-outfit-women-will-wear-on-repeat-this-season-p1">
+<meta property="og:url" content="https://macgie.com/journal/10-smart-casual-work-outfit-women-will-wear-on-repeat-this-season-p1">
+<meta property="og:image" content="https://macgie.com/img/journal/10-smart-casual-work-outfit-women-will-wear-on-repeat-this-season-p1.webp">
+<meta name="twitter:card" content="summary_large_image">
+
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"10 Smart Casual Work Outfit Women Will Wear on Repeat This Season (p1)","description":"You want outfits that look polished on Zoom, still impress in the office, and feel comfy enough for your commute. These 10 smart casual looks do all three—without trying too hard. Expect timeless pieces with modern twists, smart silhouettes, and styling moves that make every outfit feel intentional.","image":"https://macgie.com/img/journal/10-smart-casual-work-outfit-women-will-wear-on-repeat-this-season-p1.webp","author":{"@type":"Person","name":"Macgie Tran"},"datePublished":"2026-08-17T04:13:57.554Z","publisher":{"@type":"Organization","name":"Macgie","logo":{"@type":"ImageObject","url":"https://macgie.com/assets/brand/macgie.svg"}},"mainEntityOfPage":"https://macgie.com/journal/10-smart-casual-work-outfit-women-will-wear-on-repeat-this-season-p1"}</script>
+<style>#m-nav{position:fixed;top:0;left:0;right:0;bottom:0;z-index:200;background:#faf7f2;display:none;flex-direction:column;gap:4px;padding:84px 24px 32px;font-family:Geist,system-ui,sans-serif}#m-nav.open{display:flex}#m-nav a{color:#14110f;text-decoration:none;font-size:20px;font-weight:600;padding:14px 0;border-bottom:1px solid #e6e1d8}#m-nav .m-close{position:absolute;top:24px;right:20px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:none;border:0;padding:0;color:#14110f;cursor:pointer}#m-nav .m-store-badge{width:100%;justify-content:center;margin-top:24px;border-bottom:none}.prose { max-width: 680px; margin: 0 auto; }
+.prose p { font-family: Geist, sans-serif; font-weight: 400; font-size: 19px; line-height: 33px; color: rgb(38,38,38); margin: 0 0 28px; }
+.prose h2 { font-family: Geist, sans-serif; font-weight: 800; font-size: 28px; line-height: 1.2; color: rgb(23,24,28); margin: 40px 0 16px; }
+.prose h3 { font-family: Geist, sans-serif; font-weight: 700; font-size: 22px; color: rgb(23,24,28); margin: 32px 0 12px; }
+.prose ul, .prose ol { font-family: Geist, sans-serif; font-size: 19px; line-height: 33px; color: rgb(38,38,38); padding-left: 24px; margin: 0 0 28px; }
+.prose a { color: rgb(107,76,205); text-decoration: underline; }
+.prose img { max-width: 100%; height: auto; border-radius: 16px; margin: 12px 0 28px; }
+.prose blockquote { border-left: 3px solid rgb(107,76,205); margin: 0 0 28px; padding-left: 20px; color: rgb(90,86,80); font-style: italic; }
+</style><!--i18n-head-->
+<link rel="alternate" hreflang="en" href="https://macgie.com/journal/10-smart-casual-work-outfit-women-will-wear-on-repeat-this-season-p1">
+<link rel="alternate" hreflang="vi" href="https://macgie.com/vi/journal/10-smart-casual-work-outfit-women-will-wear-on-repeat-this-season-p1">
+<link rel="alternate" hreflang="x-default" href="https://macgie.com/journal/10-smart-casual-work-outfit-women-will-wear-on-repeat-this-season-p1">
+<script>(function(){
+var p=location.pathname,q=location.search+location.hash;
+if(p.indexOf('/preview')===0)return;
+function isVi(x){return x==='/vi'||x.indexOf('/vi/')===0;}
+function toVi(x){return isVi(x)?x:'/vi'+(x==='/'?'/':x);}
+function toEn(x){if(x==='/vi'||x==='/vi/')return '/';if(x.indexOf('/vi/')===0)return x.slice(3)||'/';return x;}
+function ck(){var m=document.cookie.match(/(?:^|;\s*)lang=([^;]+)/);return m?m[1]:'';}
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[data-lang]');if(a){document.cookie='lang='+a.getAttribute('data-lang')+';path=/;max-age=31536000;samesite=lax';}});
+var want=ck();
+if(want==='vi'){if(!isVi(p))location.replace(toVi(p)+q);return;}
+if(want==='en'){if(isVi(p))location.replace(toEn(p)+q);return;}
+fetch('/cdn-cgi/trace').then(function(r){return r.text();}).then(function(t){
+var loc=(t.match(/loc=([A-Z]+)/)||[])[1]||'';
+if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if(!isVi(p))location.replace(toVi(p)+q);}
+}).catch(function(){});
+})();</script>
+<!-- Google Analytics (GA4) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-BV41NVY90Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-BV41NVY90Z');</script>
+<!--/i18n-head-->
+</head>
+<body>
+<div id="dc-root"><div class="sc-host" data-sc-name="article"><div id="top" style="width: 100%;"><header style="position: sticky; top: 0px; z-index: 60; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(29, 31, 35, 0.07);">
+  <div style="max-width: 1200px; margin: 0px auto; padding: 0px 40px; height: 66px; display: flex; align-items: center; justify-content: space-between;">
+    <a href="/" style="display: flex; align-items: center; gap: 9px;">
+      <img src="/m-lg-mrfpjcc9.svg" width="26" height="27" alt="">
+      <span style="font-family: Geist, sans-serif; font-weight: 700; font-size: 20px; letter-spacing: -0.02em;">Macgie</span>
+    </a>
+    <nav style="display: flex; align-items: center; gap: 34px; font-family: Geist, sans-serif; font-size: 14px; font-weight: 500;">
+      <a class="navlink" href="/#sample">Why sample wardrobe</a>
+      <a class="navlink" href="/features">Features</a>
+      
+      <a class="navlink-active" href="/journal">Journal</a>
+    <!--i18n-sw--><div class="lang-switch" style="position:relative;display:inline-block;"><button type="button" class="lang-switch-btn" aria-haspopup="true" aria-expanded="false" style="display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border:none;border-radius:8px;background:rgba(29,31,35,0.07);font-family:Geist,sans-serif;font-size:13px;font-weight:600;line-height:1;color:rgb(29,31,35);cursor:pointer;">EN<svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true" style="margin-left:1px;"><path d="M1.5 3.5L5 7l3.5-3.5" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="lang-switch-menu" role="menu" style="display:none;position:absolute;top:calc(100% + 6px);right:0;min-width:170px;background:#fff;border-radius:10px;box-shadow:0 8px 28px rgba(29,31,35,0.16);padding:6px;z-index:80;"><a href="/journal/10-smart-casual-work-outfit-women-will-wear-on-repeat-this-season-p1" data-lang="en" role="menuitem" style="display:flex;align-items:center;padding:8px 10px;border-radius:7px;border:none;box-sizing:border-box;text-decoration:none;font-family:Geist,sans-serif;font-size:13px;font-weight:600;line-height:1.2;white-space:nowrap;color:rgb(29,31,35);background:rgba(29,31,35,0.07);">English</a><a href="/vi/journal/10-smart-casual-work-outfit-women-will-wear-on-repeat-this-season-p1" data-lang="vi" role="menuitem" style="display:flex;align-items:center;padding:8px 10px;border-radius:7px;border:none;box-sizing:border-box;text-decoration:none;font-family:Geist,sans-serif;font-size:13px;font-weight:600;line-height:1.2;white-space:nowrap;color:rgb(84,88,96);">Tiếng Việt</a><span role="menuitem" aria-disabled="true" style="display:flex;align-items:center;padding:8px 10px;border-radius:7px;border:none;box-sizing:border-box;text-decoration:none;font-family:Geist,sans-serif;font-size:13px;font-weight:600;line-height:1.2;white-space:nowrap;color:rgb(154,149,141);cursor:default;">Français<span style="margin-left:auto;padding-left:10px;font-size:10px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:rgb(154,149,141);">Soon</span></span><span role="menuitem" aria-disabled="true" style="display:flex;align-items:center;padding:8px 10px;border-radius:7px;border:none;box-sizing:border-box;text-decoration:none;font-family:Geist,sans-serif;font-size:13px;font-weight:600;line-height:1.2;white-space:nowrap;color:rgb(154,149,141);cursor:default;">Español<span style="margin-left:auto;padding-left:10px;font-size:10px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:rgb(154,149,141);">Soon</span></span></div></div><!--/i18n-sw--></nav>
+    <a class="store-badge" href="https://apps.apple.com/app/id6766749757" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 9px; background: rgb(17, 18, 20); color: rgb(255, 255, 255); border-radius: 11px; padding: 8px 15px;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M16.5 1.8c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.8-1.4zM19 17.3c-.5 1.2-.8 1.7-1.4 2.7-.9 1.4-2.2 3.2-3.8 3.2-1.4 0-1.8-.9-3.7-.9s-2.3.9-3.7.9c-1.6 0-2.8-1.6-3.7-3C-.1 16.7-.6 11 1.6 8.2c1-1.3 2.5-2 4-2 1.5 0 2.5.9 3.7.9 1.2 0 1.9-.9 3.7-.9 1.3 0 2.7.7 3.7 2-3.2 1.8-2.7 6.4.6 7.1z"></path></svg>
+      <span style="line-height: 1.05;"><span style="display: block; font-size: 8.5px; opacity: 0.85;">Download on the</span><span style="font-size: 13.5px; font-weight: 600;">App Store</span></span>
+    </a>
+    <button class="hamburger" aria-label="Menu" style="flex: 0 0 auto; background: none; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; padding: 8px; margin: -8px -8px -8px 0px; cursor: pointer; align-items: center; justify-content: center; color: rgb(29, 31, 35);">
+      
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="#1d1f23" stroke-width="1.9" stroke-linecap="round"></path></svg>
+    </button>
+  </div></header><section style="background: rgb(240, 240, 240); padding: 64px 0px;">
+  <div style="max-width: 854px; margin: 0px auto; padding: 0px 40px; text-align: center; display: flex; flex-direction: column; gap: 12px; align-items: center;">
+    <div style="font-family: Geist, sans-serif; font-weight: 300; font-size: 16px; color: rgb(38, 38, 38);">Wardrobe Management</div>
+    <h1 style="font-family: Geist, sans-serif; font-weight: 800; font-size: 48px; line-height: 64px; color: rgb(23, 24, 28); margin: 0px;">10 Smart Casual Work Outfit Women Will Wear on Repeat This Season (p1)</h1>
+    <div style="font-family: Geist, sans-serif; font-weight: 300; font-size: 16px; color: rgb(38, 38, 38); display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;"><span>Macgie Tran</span><span>August 17, 2026</span><span>5 min read</span></div>
+  </div></section><article style="max-width: 760px; margin: 0px auto; padding: 40px 40px 96px;">
+  <a class="backlink" href="/journal" style="display: inline-flex; align-items: center; gap: 8px; font-family: Geist, sans-serif; font-weight: 400; font-size: 16px; color: rgb(38, 38, 38); margin-bottom: 36px;">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="#262626" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    Back to Journal
+  </a>
+
+  <div class="prose"><p>We’re talking blazers that mean business, trousers that fit like a dream, and shoes that won’t punish you by 3 p.m. Ready to build a week’s worth (and then some) of go-to outfits you’ll actually be excited to wear? Let’s dive in.</p>
+<h2>1. The Elevated Blazer + Denim Combo That Always Delivers</h2>
+<p> </p>
+<p><img src="https://pub-ae38f9be5b764a49b1c435767f609ed3.r2.dev/Screenshot_2026_08_17_at_11_03_22_bdadf6cf69.png" alt="girl in blazer and denim"></p>
+<p> </p>
+<p>This is the quintessential smart casual uniform: tailored up top, relaxed below. It’s effortless, chic, and perfect for days when you’ve got a brainstorm, a lunch meeting, and a happy-hour debrief. The blazer pulls everything together while the denim keeps it approachable.</p>
+<h3><strong>Outfit Pieces:</strong></h3>
+<ul>
+<li><strong>Structured blazer</strong> in black, navy, or charcoal</li>
+<li><strong>Dark-wash straight-leg jeans</strong> with a clean hem</li>
+<li><strong>Silk or satin blouse</strong> in cream, sand, or soft blush</li>
+<li><strong>Pointed-toe loafers</strong> or low block-heel pumps</li>
+<li><strong>Minimal leather belt</strong> in black or tan</li>
+<li><strong>Delicate gold or silver jewelry</strong> (studs + a slim bracelet)</li>
+<li><strong>Structured tote</strong> or laptop-friendly satchel</li>
+</ul>
+<h3><strong>Styling Tips:</strong></h3>
+<ul>
+<li>Choose a blazer with light shoulder structure and a slightly nipped waist for shape.</li>
+<li>Tuck the blouse and add a thin belt to define your waist and keep the line clean.</li>
+<li>Go for ankle-length jeans that skim the top of your shoe—no bunching.</li>
+<li>Keep jewelry subtle: one ring stack or a single pendant is plenty.</li>
+</ul>
+<p>Wear this for anything from Monday kickoffs to client coffees. Swap the blouse for a fine-knit turtleneck in winter or a breathable shell in summer. If your office leans more formal, trade the denim for tailored trousers for an instant upgrade.</p>
+<h2><strong>2. The Pleated Midi Skirt Set That Moves With You</strong></h2>
+<p><img src="https://pub-ae38f9be5b764a49b1c435767f609ed3.r2.dev/Screenshot_2026_08_17_at_11_05_59_6111d12873.png" alt="girl in midi skirt"></p>
+<p>Feminine, floaty, and shockingly versatile, a pleated midi skirt means business without feeling stiff. Pair it with a fitted top for proportions that flatter and a sneaker or ankle boot depending on your calendar. It’s a quiet statement—polished but playful.</p>
+<h3><strong>Outfit Pieces:</strong></h3>
+<ul>
+<li><strong>Pleated midi skirt</strong> in black, navy, camel, or a subtle print</li>
+<li><strong>Fine-knit fitted sweater</strong> or form-fitting tee</li>
+<li><strong>Classic white leather sneakers</strong> or sleek ankle boots</li>
+<li><strong>Short pendant necklace</strong> or small hoop earrings</li>
+<li><strong>Waist-defining belt</strong> (optional for added structure)</li>
+<li><strong>Crossbody bag</strong> or structured mini tote</li>
+</ul>
+<h3><strong>Styling Tips:</strong></h3>
+<ul>
+<li>Balance volume: fitted on top, flow on bottom. Half-tuck the sweater to show your waist.</li>
+<li>Skirt length should hit mid-calf; anything longer can overwhelm your frame.</li>
+<li>Keep sneakers minimal—no loud logos—so they read smart, not sporty.</li>
+<li>If using a belt, choose a slim one in the same color family as your skirt.</li>
+</ul>
+<p>Perfect for presentations when you want movement and comfort. In colder months, layer sheer tights and add a cropped blazer. For a more fashion-forward spin, try a monochrome look in head-to-toe beige or charcoal.</p>
+<h2><strong>3. The Power Knit Dress That Feels Like Pajamas</strong></h2>
+<p><img src="https://pub-ae38f9be5b764a49b1c435767f609ed3.r2.dev/Screenshot_2026_08_17_at_11_07_58_fb86b857a1.png" alt="girl in knit dress"></p>
+<p> </p>
+<p>A knit dress is the secret weapon of smart casual: one piece, zero overthinking, endless polish. It hugs where it should, skims where it shouldn’t, and looks stunning with boots or loafers. Bonus: it layers beautifully under blazers and trenches.</p>
+<h3><strong>Outfit Pieces:</strong></h3>
+<ul>
+<li><strong>Ribbed knit midi dress</strong> with a crew or mock neck</li>
+<li><strong>Longline blazer</strong> or tailored trench</li>
+<li><strong>Knee-high boots</strong> with a comfortable heel or polished loafers</li>
+<li><strong>Statement watch</strong> and simple stud earrings</li>
+<li><strong>Leather crossbody</strong> or structured shoulder bag</li>
+</ul>
+<h3><strong>Styling Tips:</strong></h3>
+<ul>
+<li>Opt for a midweight knit that doesn’t cling—look for a lined or thicker rib.</li>
+<li>Hem should hit mid-calf; add boots that meet the hem to elongate your leg line.</li>
+<li>If layering, make sure the blazer’s shoulder seams sit perfectly—no slouch.</li>
+<li>Keep accessories sleek: one refined watch can be your hero piece.</li>
+</ul>
+<p>Wear this for key meetings or a full day of desk-to-dinner. In warmer weather, switch boots for slingback flats. If you prefer more structure, add a slim belt to highlight your waist and sharpen the silhouette.</p>
+<h2><strong>4. The Relaxed Trousers + Button-Down You’ll Wear Every Week</strong></h2>
+<p><img src="https://pub-ae38f9be5b764a49b1c435767f609ed3.r2.dev/Screenshot_2026_08_17_at_11_10_14_92b0fff2c4.png" alt="girl in relaxed trousers"></p>
+<p>Think classic button-down, but styled in a way that feels modern and easy. Pair with flowy trousers for drape and movement that reads expensive. It’s approachable but purposeful—great for when you need to look like you’ve got it together (even if you slept through your first alarm).</p>
+<h3><strong>Outfit Pieces:</strong></h3>
+<ul>
+<li><strong>Relaxed, wide-leg trousers</strong> in black, grey, olive, or camel</li>
+<li><strong>Cotton poplin button-down</strong> (white or soft blue)</li>
+<li><strong>Minimalist leather belt</strong> with a subtle buckle</li>
+<li><strong>Pointed-toe mules</strong> or sleek sneakers</li>
+<li><strong>Simple chain necklace</strong> and small hoops</li>
+<li><strong>Top-handle bag</strong> or tote</li>
+</ul>
+<h3><strong>Styling Tips:</strong></h3>
+<ul>
+<li>Do a half-tuck or full tuck for shape; leave the top two buttons open for ease.</li>
+<li>Choose trousers with front pleats and a medium rise for comfort and a long line.</li>
+<li>Steam the shirt—crisp fabric elevates the whole outfit instantly.</li>
+<li>Keep shoes pointed or sleek to offset the relaxed volume of the trouser.</li>
+</ul>
+<p>Ideal for busy days of movement and meetings. Add a cardigan vest or lightweight blazer if the office AC is aggressive. For a softer look, swap the poplin shirt for a silk button-down—same formula, extra polish.</p>
+<h2><strong>5. The Cardigan Suit That’s Quietly Luxe</strong></h2>
+<p><img src="https://pub-ae38f9be5b764a49b1c435767f609ed3.r2.dev/Screenshot_2026_08_17_at_11_12_36_b854e9f4a3.png" alt="girl with cardigan suit"></p>
+<p>Cardigan + matching knit skirt or pants = the comfiest two-piece set that still looks boardroom-ready. It’s understated and elegant, with a low-key designer vibe. When you want to look pulled together without reaching for sharp tailoring, this is your move.</p>
+<h3><strong>Outfit Pieces:</strong></h3>
+<ul>
+<li><strong>Matching knit cardigan</strong> and <strong>knit midi skirt</strong> or <strong>knit trousers</strong></li>
+<li><strong>Sleek camisole</strong> or fitted tee underneath</li>
+<li><strong>Almond-toe heels</strong> or refined ballet flats</li>
+<li><strong>Thin leather belt</strong> (optional over the cardigan)</li>
+<li><strong>Pearl studs</strong> or minimalist earrings</li>
+<li><strong>Structured crossbody</strong> or small tote</li>
+</ul>
+<h3><strong>Styling Tips:</strong></h3>
+<ul>
+<li>Look for compact knits that won’t bag out by lunchtime.</li>
+<li>Wear the cardigan buttoned like a top, or open with a camisole for depth.</li>
+<li>Monochrome shades—cream, camel, charcoal—create that elongated, luxe line.</li>
+<li>Keep hemlines clean and mid-calf for skirts; trousers should skim the top of the shoe.</li>
+</ul>
+<p>Perfect for client-facing days where comfort matters. In cooler months, layer under an oversized wool coat. To change the vibe, swap the knit skirt for tailored pants and keep the cardigan—effortless remixing.</p>
+</div></article><section style="background: rgb(240, 240, 240); padding: 64px 0px;">
+  <div style="max-width: 1170px; margin: 0px auto; padding: 0px 40px;">
+    <div style="text-align: center;">
+      <div style="font-family: Geist, sans-serif; font-weight: 300; font-size: 16px; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(38, 38, 38);">Keep reading</div>
+      <h2 style="font-family: Geist, sans-serif; font-weight: 800; font-size: 48px; line-height: 64px; color: rgb(23, 24, 28); margin: 12px 0px 0px;">Related from the Journal</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:40px;"><a class="post" href="/journal/how-to-choose-the-right-shoes-for-every-outfit-a-simple-guide-for-men" style="display:flex;flex-direction:column;gap:12px;">
+    <div style="border-radius:20px;overflow:hidden;background:rgb(242,244,247);height:180px;"><img class="pimg" src="/img/journal/how-to-choose-the-right-shoes-for-every-outfit-a-simple-guide-for-men-card.webp" width="680" height="352" alt="How to Choose the Right Shoes for Every Outfit: A Simple Guide for Men" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>
+    <div class="ptitle" style="font-family: Geist, sans-serif;font-weight:700;font-size:18px;line-height:1.2;color:rgb(23,24,28);">How to Choose the Right Shoes for Every Outfit: A Simple Guide for Men</div>
+  </a>
+<a class="post" href="/journal/why-some-clothes-make-you-look-tired-even-when-they-re-beautiful" style="display:flex;flex-direction:column;gap:12px;">
+    <div style="border-radius:20px;overflow:hidden;background:rgb(242,244,247);height:180px;"><img class="pimg" src="/img/journal/why-some-clothes-make-you-look-tired-even-when-they-re-beautiful-card.webp" width="680" height="381" alt="Why Some Clothes Make You Look Tired (Even When They&#39;re Beautiful)" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>
+    <div class="ptitle" style="font-family: Geist, sans-serif;font-weight:700;font-size:18px;line-height:1.2;color:rgb(23,24,28);">Why Some Clothes Make You Look Tired (Even When They&#39;re Beautiful)</div>
+  </a>
+<a class="post" href="/journal/why-your-outfit-feels-off-even-when-every-piece-looks-great" style="display:flex;flex-direction:column;gap:12px;">
+    <div style="border-radius:20px;overflow:hidden;background:rgb(242,244,247);height:180px;"><img class="pimg" src="/img/journal/why-your-outfit-feels-off-even-when-every-piece-looks-great-card.webp" width="680" height="453" alt="Why Your Outfit Feels Off (Even When Every Piece Looks Great)" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>
+    <div class="ptitle" style="font-family: Geist, sans-serif;font-weight:700;font-size:18px;line-height:1.2;color:rgb(23,24,28);">Why Your Outfit Feels Off (Even When Every Piece Looks Great)</div>
+  </a></div>
+  </div></section><section id="cta" style="background: radial-gradient(691px 118px at 50% 74%, rgb(40, 44, 53) 16%, rgb(20, 21, 24) 100%); padding: 132px 0px; text-align: center;">
+  <div style="max-width: 794px; margin: 0px auto; padding: 0px 40px; display: flex; flex-direction: column; align-items: center; gap: 44px;">
+    <svg width="54" height="23" viewBox="0 0 54 23" fill="none"><ellipse cx="11" cy="12" rx="10.7" ry="10.8" fill="#fff"></ellipse><ellipse cx="15.5" cy="14" rx="2.6" ry="4.3" fill="#000"></ellipse><ellipse cx="44" cy="11.5" rx="8.8" ry="10.9" fill="#fff"></ellipse><ellipse cx="43.5" cy="15" rx="2.6" ry="4.5" fill="#000"></ellipse></svg>
+    <h2 style="font-family: Geist, sans-serif; font-weight: 800; font-size: 48px; line-height: 64px; color: rgb(242, 239, 236); margin: 0px;">You already own enough.<br>Macgie just helps you see it.</h2>
+    <a class="store-badge" href="https://apps.apple.com/app/id6766749757" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 10px; background: rgb(255, 255, 255); color: rgb(17, 17, 17); border-radius: 13px; padding: 12px 22px;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="#111"><path d="M16.5 1.8c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.8-1.4zM19 17.3c-.5 1.2-.8 1.7-1.4 2.7-.9 1.4-2.2 3.2-3.8 3.2-1.4 0-1.8-.9-3.7-.9s-2.3.9-3.7.9c-1.6 0-2.8-1.6-3.7-3C-.1 16.7-.6 11 1.6 8.2c1-1.3 2.5-2 4-2 1.5 0 2.5.9 3.7.9 1.2 0 1.9-.9 3.7-.9 1.3 0 2.7.7 3.7 2-3.2 1.8-2.7 6.4.6 7.1z"></path></svg>
+      <span style="line-height: 1.1;"><span style="display: block; font-size: 10px; opacity: 0.7;">Download on the</span><span style="font-size: 17px; font-weight: 700;">App Store</span></span>
+    </a>
+  </div></section><footer style="background: rgb(255, 255, 255); padding: 56px 0px 40px; border-top: 1px solid rgba(29, 31, 35, 0.08);">
+  <div style="max-width: 1120px; margin: 0px auto; padding: 0px 40px; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px;">
+    <div>
+      <div style="display: flex; align-items: center; gap: 9px;"><img src="/assets/brand/macgie.svg" width="26" height="27" alt=""><span style="font-family: Geist, sans-serif; font-weight: 700; font-size: 20px; letter-spacing: -0.02em;">Macgie</span></div>
+      <p style="font-family: Geist, sans-serif; font-size: 13.5px; color: rgb(111, 106, 99); margin: 14px 0px 18px; max-width: 220px;">Get dressed with more clarity, less pressure.</p>
+      <a class="store-badge" href="https://apps.apple.com/app/id6766749757" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 9px; background: rgb(17, 18, 20); color: rgb(255, 255, 255); border-radius: 11px; padding: 8px 15px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M16.5 1.8c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.8-1.4zM19 17.3c-.5 1.2-.8 1.7-1.4 2.7-.9 1.4-2.2 3.2-3.8 3.2-1.4 0-1.8-.9-3.7-.9s-2.3.9-3.7.9c-1.6 0-2.8-1.6-3.7-3C-.1 16.7-.6 11 1.6 8.2c1-1.3 2.5-2 4-2 1.5 0 2.5.9 3.7.9 1.2 0 1.9-.9 3.7-.9 1.3 0 2.7.7 3.7 2-3.2 1.8-2.7 6.4.6 7.1z"></path></svg>
+        <span style="line-height: 1.05;"><span style="display: block; font-size: 8.5px; opacity: 0.85;">Download on the</span><span style="font-size: 13.5px; font-weight: 600;">App Store</span></span>
+      </a>
+    </div>
+    <div>
+      <div style="font-family: Geist, sans-serif; font-weight: 600; font-size: 13px; color: rgb(29, 31, 35); margin-bottom: 14px;">Product</div>
+      <div style="display: flex; flex-direction: column; gap: 10px; font-family: Geist, sans-serif; font-size: 13.5px;"><a class="navlink" href="/features">Features</a><a class="navlink" href="/#how">Changelog</a></div>
+    </div>
+    <div>
+      <div style="font-family: Geist, sans-serif; font-weight: 600; font-size: 13px; color: rgb(29, 31, 35); margin-bottom: 14px;">Resources</div>
+      <div style="display: flex; flex-direction: column; gap: 10px; font-family: Geist, sans-serif; font-size: 13.5px;"><a class="navlink" href="/journal">Blog</a><a class="navlink" href="#top">Community</a></div>
+    </div>
+    <div>
+      <div style="font-family: Geist, sans-serif; font-weight: 600; font-size: 13px; color: rgb(29, 31, 35); margin-bottom: 14px;">Legal</div>
+      <div style="display: flex; flex-direction: column; gap: 10px; font-family: Geist, sans-serif; font-size: 13.5px;"><a class="navlink" href="/privacy">Privacy</a><a class="navlink" href="/terms">Terms</a><a class="navlink" href="/ai-policy">AI &amp; Image Processing</a><a class="navlink" href="/subscription">Subscription &amp; Refund</a></div>
+    </div>
+  </div>
+  <div style="max-width: 1120px; margin: 36px auto 0px; padding: 20px 40px 0px; border-top: 1px solid rgba(29, 31, 35, 0.08); font-family: Geist, sans-serif; font-size: 12.5px; color: rgb(111, 106, 99);">© 2026 Macgie, Inc. All rights reserved.</div></footer></div></div></div>
+
+
+
+<script src="/app.js?v=53e5d3fa" defer></script></body></html>

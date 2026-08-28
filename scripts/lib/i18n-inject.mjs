@@ -63,18 +63,47 @@ export function headInjection(enPath) {
   return hreflangTags(enPath) + '\n' + REDIRECT_SCRIPT + '\n' + GA4;
 }
 
-/** The EN|VI switcher. `locale` is the current page's locale; `enPath` its EN path. */
+// Live locales (a page actually exists at this path) vs. announced-but-not-built
+// ones. FR/ES have no translated content yet — see the "Soon" entries below —
+// so they're listed in the dropdown but not wired as real destinations.
+const CURRENT = { en: 'EN', vi: 'VI' };
+
+/**
+ * The language dropdown: a button (current locale's code) that reveals a menu
+ * of language options, text-only (no flag icons — a flag maps to a country,
+ * not a language, and doesn't reliably represent one: English isn't the UK's
+ * alone, Spanish isn't Spain's alone). Pure inline styles (no page stylesheet
+ * dependency, matches how the rest of this chrome is injected) — app.js wires
+ * the open/close behavior (`.lang-switch-btn` / `.lang-switch-menu`), the same
+ * progressive-enhancement pattern used for the mobile menu and FAQ accordion.
+ * `locale` is the current page's locale; `enPath` its EN path.
+ */
 export function switcherHtml(locale, enPath) {
-  const base =
-    'padding:3px 8px;border-radius:7px;text-decoration:none;font-family:Geist,sans-serif;font-size:13px;font-weight:600;line-height:1;';
+  const cur = CURRENT[locale] || CURRENT.en;
+  const itemBase =
+    'display:flex;align-items:center;padding:8px 10px;border-radius:7px;border:none;' +
+    'box-sizing:border-box;text-decoration:none;font-family:Geist,sans-serif;font-size:13px;' +
+    'font-weight:600;line-height:1.2;white-space:nowrap;';
   const on = 'color:rgb(29,31,35);background:rgba(29,31,35,0.07);';
-  const off = 'color:rgb(154,149,141);';
-  const a = (lang, href, label) =>
-    `<a href="${href}" data-lang="${lang}" style="${base}${locale === lang ? on : off}">${label}</a>`;
+  const off = 'color:rgb(84,88,96);';
+  const soon = 'color:rgb(154,149,141);cursor:default;';
+  const item = (lang, href, label) =>
+    `<a href="${href}" data-lang="${lang}" role="menuitem" style="${itemBase}${locale === lang ? on : off}">${label}</a>`;
+  const soonItem = (label) =>
+    `<span role="menuitem" aria-disabled="true" style="${itemBase}${soon}">${label}` +
+    `<span style="margin-left:auto;padding-left:10px;font-size:10px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:rgb(154,149,141);">Soon</span></span>`;
   return (
-    `<div class="lang-switch" style="display:inline-flex;align-items:center;gap:1px;">` +
-    a('en', enPath, 'EN') +
-    a('vi', toVi(enPath), 'VI') +
+    `<div class="lang-switch" style="position:relative;display:inline-block;">` +
+    `<button type="button" class="lang-switch-btn" aria-haspopup="true" aria-expanded="false" style="display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border:none;border-radius:8px;background:rgba(29,31,35,0.07);font-family:Geist,sans-serif;font-size:13px;font-weight:600;line-height:1;color:rgb(29,31,35);cursor:pointer;">` +
+    cur +
+    `<svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true" style="margin-left:1px;"><path d="M1.5 3.5L5 7l3.5-3.5" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>` +
+    `</button>` +
+    `<div class="lang-switch-menu" role="menu" style="display:none;position:absolute;top:calc(100% + 6px);right:0;min-width:170px;background:#fff;border-radius:10px;box-shadow:0 8px 28px rgba(29,31,35,0.16);padding:6px;z-index:80;">` +
+    item('en', enPath, 'English') +
+    item('vi', toVi(enPath), 'Tiếng Việt') +
+    soonItem('Français') +
+    soonItem('Español') +
+    `</div>` +
     `</div>`
   );
 }

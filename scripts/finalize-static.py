@@ -34,11 +34,54 @@ APP_JS = r"""(function(){
   var btn=document.querySelector('.hamburger'), nav=document.querySelector('header nav');
   if(btn&&nav){
     var p=document.createElement('nav'); p.id='m-nav'; p.setAttribute('aria-label','Mobile menu');
-    p.innerHTML=nav.innerHTML; document.body.appendChild(p);
+    p.innerHTML=nav.innerHTML;
+    var logoLink=document.querySelector('header a');
+    var homeLink=document.createElement('a');
+    homeLink.className='navlink'; homeLink.href=logoLink?logoLink.getAttribute('href'):'/'; homeLink.textContent='Home';
+    p.insertBefore(homeLink, p.firstChild);
+    var closeBtn=document.createElement('button');
+    closeBtn.type='button'; closeBtn.className='m-close'; closeBtn.setAttribute('aria-label','Close menu');
+    closeBtn.innerHTML='<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg>';
+    p.insertBefore(closeBtn, p.firstChild);
+    var headerBadge=document.querySelector('header .store-badge');
+    if(headerBadge){
+      var mBadge=headerBadge.cloneNode(true);
+      mBadge.classList.add('m-store-badge');
+      p.appendChild(mBadge);
+    }
+    document.body.appendChild(p);
     var open=false;
     function set(o){open=o;p.classList.toggle('open',o);btn.setAttribute('aria-expanded',o);document.documentElement.style.overflow=o?'hidden':'';}
     btn.addEventListener('click',function(){set(!open);});
+    closeBtn.addEventListener('click',function(){set(false);});
     p.addEventListener('click',function(e){if(e.target.closest('a'))set(false);});
+  }
+  // Language dropdown (EN / VI / FR-soon). The header nav and the cloned mobile
+  // nav above each carry their own .lang-switch-btn + .lang-switch-menu pair —
+  // wire each independently so opening one doesn't affect the other.
+  var langBtns=Array.prototype.slice.call(document.querySelectorAll('.lang-switch-btn'));
+  if(langBtns.length){
+    var closeAll=function(except){
+      langBtns.forEach(function(b){
+        if(b===except)return;
+        b.setAttribute('aria-expanded','false');
+        var m=b.nextElementSibling;
+        if(m)m.style.display='none';
+      });
+    };
+    langBtns.forEach(function(btn){
+      var menu=btn.nextElementSibling;
+      if(!menu)return;
+      btn.addEventListener('click',function(e){
+        e.stopPropagation();
+        var wasOpen=btn.getAttribute('aria-expanded')==='true';
+        closeAll(btn);
+        btn.setAttribute('aria-expanded',String(!wasOpen));
+        menu.style.display=wasOpen?'none':'block';
+      });
+    });
+    document.addEventListener('click',function(){closeAll();});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAll();});
   }
   // Cat eyes follow the cursor. The design does this in its canvas runtime
   // (componentDidMount -> _eyeMove), which flattening strips, leaving the cats
@@ -161,7 +204,12 @@ MOBILE_CSS = ("<style>#m-nav{position:fixed;top:0;left:0;right:0;bottom:0;z-inde
               "background:#faf7f2;display:none;flex-direction:column;gap:4px;padding:84px 24px 32px;"
               "font-family:Geist,system-ui,sans-serif}#m-nav.open{display:flex}"
               "#m-nav a{color:#14110f;text-decoration:none;font-size:20px;font-weight:600;"
-              "padding:14px 0;border-bottom:1px solid #e6e1d8}</style>")
+              "padding:14px 0;border-bottom:1px solid #e6e1d8}"
+              "#m-nav .m-close{position:absolute;top:24px;right:20px;width:40px;height:40px;"
+              "display:flex;align-items:center;justify-content:center;background:none;border:0;"
+              "padding:0;color:#14110f;cursor:pointer}"
+              "#m-nav .m-store-badge{width:100%;justify-content:center;margin-top:24px;"
+              "border-bottom:none}</style>")
 
 # The design ships its own EN/VI pill driven by a client-side dictionary. This
 # site translates at BUILD time instead (scripts/lib/localize.mjs emits /vi/…

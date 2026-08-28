@@ -2,11 +2,54 @@
   var btn=document.querySelector('.hamburger'), nav=document.querySelector('header nav');
   if(btn&&nav){
     var p=document.createElement('nav'); p.id='m-nav'; p.setAttribute('aria-label','Mobile menu');
-    p.innerHTML=nav.innerHTML; document.body.appendChild(p);
+    p.innerHTML=nav.innerHTML;
+    var logoLink=document.querySelector('header a');
+    var homeLink=document.createElement('a');
+    homeLink.className='navlink'; homeLink.href=logoLink?logoLink.getAttribute('href'):'/'; homeLink.textContent='Home';
+    p.insertBefore(homeLink, p.firstChild);
+    var closeBtn=document.createElement('button');
+    closeBtn.type='button'; closeBtn.className='m-close'; closeBtn.setAttribute('aria-label','Close menu');
+    closeBtn.innerHTML='<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg>';
+    p.insertBefore(closeBtn, p.firstChild);
+    var headerBadge=document.querySelector('header .store-badge');
+    if(headerBadge){
+      var mBadge=headerBadge.cloneNode(true);
+      mBadge.classList.add('m-store-badge');
+      p.appendChild(mBadge);
+    }
+    document.body.appendChild(p);
     var open=false;
     function set(o){open=o;p.classList.toggle('open',o);btn.setAttribute('aria-expanded',o);document.documentElement.style.overflow=o?'hidden':'';}
     btn.addEventListener('click',function(){set(!open);});
+    closeBtn.addEventListener('click',function(){set(false);});
     p.addEventListener('click',function(e){if(e.target.closest('a'))set(false);});
+  }
+  // Language dropdown (EN / VI / FR-soon). The header nav and the cloned mobile
+  // nav above each carry their own .lang-switch-btn + .lang-switch-menu pair —
+  // wire each independently so opening one doesn't affect the other.
+  var langBtns=Array.prototype.slice.call(document.querySelectorAll('.lang-switch-btn'));
+  if(langBtns.length){
+    var closeAll=function(except){
+      langBtns.forEach(function(b){
+        if(b===except)return;
+        b.setAttribute('aria-expanded','false');
+        var m=b.nextElementSibling;
+        if(m)m.style.display='none';
+      });
+    };
+    langBtns.forEach(function(btn){
+      var menu=btn.nextElementSibling;
+      if(!menu)return;
+      btn.addEventListener('click',function(e){
+        e.stopPropagation();
+        var wasOpen=btn.getAttribute('aria-expanded')==='true';
+        closeAll(btn);
+        btn.setAttribute('aria-expanded',String(!wasOpen));
+        menu.style.display=wasOpen?'none':'block';
+      });
+    });
+    document.addEventListener('click',function(){closeAll();});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAll();});
   }
   // Cat eyes follow the cursor. The design does this in its canvas runtime
   // (componentDidMount -> _eyeMove), which flattening strips, leaving the cats

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="vi"><head>
+<style>
+/* ============================================================
+   Auxi — Webfonts
+   App faces (bundled, from the React Native app): Poppins, Inter, Roboto.
+   Marketing display face: Fraunces (loaded from Google Fonts — the marketing
+   site ships @fontsource/fraunces; CDN is faithful to that).
+   ============================================================ */
+
+
+@font-face {
+  font-family: 'Geist';
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Geist-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Geist';
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Geist-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Geist';
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/Geist-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+
+
+
+/* ============================================================
+   Auxi — Color tokens
+   Source of truth: auxi mobile app theme.ds (theme.ts), extracted from
+   Auxi.fig. A warm, paper-toned neutral palette does the heavy lifting;
+   ink near-black carries text + primary actions; functional accents are
+   used sparingly. The marketing web surface adds an editorial paper/ink/
+   terracotta palette (auxi-web global.css).
+   ============================================================ */
+
+:root {
+  /* ---- Ink & neutrals (text · actions · strokes) ---- */
+  --auxi-ink: #1d1f23;        /* primary text · primary button */
+  --auxi-slate: #272a32;      /* deep surfaces · scrims */
+  --auxi-black: #070707;      /* control fills (radio dot) */
+  --auxi-on-variant: #49454f; /* secondary text (MD3 on-surface-variant) */
+  --auxi-warm-700: #5b5550;   /* strokes · warm gray */
+  --auxi-warm-500: #6f6a63;   /* muted labels · hints */
+  --auxi-gray-500: #717171;   /* neutral gray */
+
+  /* ---- Surfaces — warm paper (backgrounds · cards · sheets) ---- */
+  --auxi-white: #ffffff;       /* app canvas */
+  --auxi-surface: #fcfcfd;     /* dialogs · sheets */
+  --auxi-surface-2: #f7f7f8;   /* subtle fills */
+  --auxi-cream: #f2efec;       /* primary warm surface · cards */
+  --auxi-warm-100: #eee6df;    /* dividers · hairlines · caption pills */
+  --auxi-tan: #e0d2c4;         /* warm accent surface · insight pills */
+  --auxi-tan-stroke: #c6bcb1;  /* borders on tan · inactive dots */
+  --auxi-placeholder: #d9d9d9; /* image placeholders */
+  --auxi-cool-100: #e3e3ec;    /* cool surface · icon chips */
+
+  /* ---- Functional accents (state · feedback) ---- */
+  --auxi-teal: #16a085;   /* switch active · success */
+  --auxi-green: #039855;  /* selected radio · confirm */
+  --auxi-danger: #bb251a; /* destructive actions */
+  --auxi-info: #1465b4;   /* informational text */
+  --auxi-ai: #822be6;     /* AI-sparkle accent (self-visualisation) */
+  /* raw red #ff0000 is flagged OFF-SYSTEM — never use in new work */
+
+  /* ---- Hairlines & scrims ---- */
+  --auxi-line: rgba(29, 31, 35, 0.10);   /* default hairline border */
+  --auxi-line-2: rgba(29, 31, 35, 0.06); /* faint inner divider */
+  --auxi-hairline: #eee6df;              /* warm list divider */
+  --auxi-divider-on-dark: rgba(242, 239, 236, 0.1); /* hairline on ink */
+  --auxi-scrim-dialog: rgba(25, 27, 34, 0.3);  /* centered dialog backdrop */
+  --auxi-scrim-overlay: rgba(38, 36, 33, 0.7); /* guidance overlay backdrop */
+
+  /* ---- Semantic aliases (use these in product code) ---- */
+  --text-primary: var(--auxi-ink);
+  --text-secondary: var(--auxi-on-variant);
+  --text-muted: var(--auxi-warm-500);
+  --text-inverse: var(--auxi-cream);
+  --text-danger: var(--auxi-danger);
+
+  --surface-canvas: var(--auxi-white);
+  --surface-card: var(--auxi-cream);
+  --surface-sheet: var(--auxi-surface);
+  --surface-accent: var(--auxi-tan);
+  --surface-dark: var(--auxi-ink);
+
+  --border-default: var(--auxi-line);
+  --border-strong: var(--auxi-ink);
+
+  --action-primary-bg: var(--auxi-ink);
+  --action-primary-fg: var(--auxi-cream);
+
+  /* ============================================================
+     Marketing web — editorial palette (auxi-web)
+     ============================================================ */
+  --auxi-paper: #faf7f2;     /* warm off-white page */
+  --auxi-mk-ink: #14110f;    /* near-black editorial ink */
+  --auxi-ash: #6f6a63;       /* muted body text */
+  --auxi-accent: #b5532a;    /* terracotta accent */
+  --auxi-mk-hairline: #e6e1d8;
+}
+
+</style><style>
+    .sc-placeholder{background:color-mix(in srgb,currentColor 8%,transparent);
+      border:1px solid color-mix(in srgb,currentColor 50%,transparent);
+      border-radius:2px;box-sizing:border-box;overflow:hidden}
+    @keyframes sc-shine{0%{background-position:100% 50%}100%{background-position:0% 50%}}
+    html.sc-dc-streaming .sc-placeholder,
+    html.sc-dc-streaming .sc-interp.sc-missing{position:relative;
+      background:color-mix(in srgb,currentColor 5%,transparent);
+      border-color:transparent}
+    html.sc-dc-streaming .sc-placeholder::before,
+    html.sc-dc-streaming .sc-interp.sc-missing::before{content:'';
+      position:absolute;inset:0;pointer-events:none;
+      background:linear-gradient(90deg,rgba(217,119,87,0) 25%,rgba(247,225,211,.95) 37%,rgba(217,119,87,0) 63%);
+      background-size:400% 100%;animation:sc-shine 1.4s ease infinite}
+    html.sc-dc-streaming .sc-placeholder:nth-child(n+9 of .sc-placeholder)::before,
+    html.sc-dc-streaming .sc-interp.sc-missing:nth-child(n+9 of .sc-interp.sc-missing)::before{animation:none;
+      background:color-mix(in srgb,currentColor 8%,transparent)}
+    .sc-placeholder-error{padding:4px 8px;font:11px/1.4 ui-monospace,monospace;
+      color:color-mix(in srgb,currentColor 70%,transparent);word-break:break-word}
+    .sc-interp.sc-missing{display:inline-block;width:2em;height:1em;overflow:hidden;
+      vertical-align:text-bottom;background:rgba(255,255,255,.3);border:1px solid rgba(0,0,0,.5);
+      border-radius:2px;box-sizing:border-box;color:transparent;
+      user-select:none}
+    .sc-interp.sc-unresolved{font-family:ui-monospace,monospace;font-size:.85em;
+      color:color-mix(in srgb,currentColor 50%,transparent);
+      background:color-mix(in srgb,currentColor 10%,transparent);border-radius:3px;
+      padding:0 3px}
+    .sc-host.sc-has-error{position:relative}
+    .sc-logic-error{position:absolute;top:8px;left:8px;z-index:2147483647;max-width:60ch;
+      padding:6px 10px;background:#b00020;color:#fff;font:12px/1.4 ui-monospace,monospace;
+      border-radius:4px;white-space:pre-wrap;pointer-events:none}
+    /* Mirrors PRINT_BASELINE_CSS in apps/web deck-stage-export.ts — keep both
+       in sync until dc-runtime regains a build step. */
+    @media print {
+      @page { margin: 0.5cm; }
+      figure, table { break-inside: avoid; }
+      #dc-root, #dc-root > .sc-host { height: auto; }
+      *, *::before, *::after {
+        print-color-adjust: exact; -webkit-print-color-adjust: exact;
+        backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+        animation-delay: -99s !important; animation-duration: .001s !important;
+        animation-iteration-count: 1 !important; animation-fill-mode: both !important;
+        animation-play-state: running !important; transition-duration: 0s !important;
+      }
+    }
+  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>x-dc{display:none!important}</style>
+<title>10 Trang Phục Công Sở Thông Minh Nữ Sẽ Được Mặc Lặp Lại Trong Mùa Này — Macgie</title><meta name="description" content="Chúng ta đang nói về những chiếc blazer mang tính chuyên nghiệp, quần tây vừa vặn như mơ, và giày dép không làm bạn đau chân vào lúc 3 giờ chiều. Sẵn sàng để xây dựng một tuần trang phục (và hơn thế nữa) mà bạn thực sự háo hức mặc? Hãy cùng khám phá."><link rel="icon" type="image/svg+xml" href="/assets/brand/macgie.svg"><meta property="og:title" content="10 Trang Phục Công Sở Thông Minh Nữ Sẽ Được Mặc Liên Tục Mùa Này"><meta property="og:description" content="Chúng ta đang nói về những chiếc blazer mang tính chuyên nghiệp, quần tây vừa vặn như mơ, và giày dép không làm bạn đau chân vào lúc 3 giờ chiều. Sẵn sàng để xây dựng một tuần trang phục (và hơn thế nữa) mà bạn thực sự háo hức mặc? Hãy cùng khám phá."><meta property="og:type" content="website"><style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+  html, body { margin: 0; }
+  body { background: #ffffff; color: #262626; font-family: 'Geist', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: #262626; text-decoration: none; }
+  a.navlink { color: #5b5550; transition: color .15s ease; }
+  a.navlink:hover { color: #1d1f23; }
+  a.navlink-active { color: #1d1f23; font-weight: 500; }
+  .store-badge { transition: transform .15s ease, opacity .15s ease; }
+  .store-badge:hover { transform: translateY(-1px); opacity: .92; }
+  .backlink { transition: gap .15s ease; }
+  .backlink:hover { gap: 12px; }
+  .post { cursor: pointer; }
+  .post .pimg { transition: transform .4s ease; }
+  .post:hover .pimg { transform: scale(1.04); }
+  .post .ptitle { transition: color .15s ease; }
+  .post:hover .ptitle { color: #6B4CCD; }
+  .hamburger { display: none; }
+  .mobile-menu { display: none; }
+  @media (max-width: 820px) {
+    header nav { display: none !important; }
+    header > div > a.store-badge { display: none !important; }
+    header .hamburger { display: inline-flex !important; }
+    .mobile-menu { display: flex !important; }
+    header > div { padding-left: 20px !important; padding-right: 20px !important; }
+    section [style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
+    footer > div:first-child { grid-template-columns: 1fr 1fr !important; }
+    h1 { font-size: 32px !important; line-height: 1.18 !important; }
+    h2 { font-size: 30px !important; line-height: 1.24 !important; }
+  }
+</style><link rel="canonical" href="https://macgie.com/vi/journal/10-smart-casual-work-outfit-women-will-wear-on-repeat-this-season-p2">
+<meta property="og:url" content="https://macgie.com/vi/journal/10-smart-casual-work-outfit-women-will-wear-on-repeat-this-season-p2">
+<meta property="og:image" content="https://macgie.com/img/journal/10-smart-casual-work-outfit-women-will-wear-on-repeat-this-season-p2.webp">
+<meta name="twitter:card" content="summary_large_image">
+
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"10 Smart Casual Work Outfit Women Will Wear on Repeat This Season (p2)","description":"We’re talking blazers that mean business, trousers that fit like a dream, and shoes that won’t punish you by 3 p.m. Ready to build a week’s worth (and then some) of go-to outfits you’ll actually be excited to wear? Let’s dive in.","image":"https://macgie.com/img/journal/10-smart-casual-work-outfit-women-will-wear-on-repeat-this-season-p2.webp","author":{"@type":"Person","name":"Macgie Tran"},"datePublished":"2026-08-25","publisher":{"@type":"Organization","name":"Macgie","logo":{"@type":"ImageObject","url":"https://macgie.com/assets/brand/macgie.svg"}},"mainEntityOfPage":"https://macgie.com/journal/10-smart-casual-work-outfit-women-will-wear-on-repeat-this-season-p2"}</script>
+<style>#m-nav{position:fixed;top:0;left:0;right:0;bottom:0;z-index:200;background:#faf7f2;display:none;flex-direction:column;gap:4px;padding:84px 24px 32px;font-family:Geist,system-ui,sans-serif}#m-nav.open{display:flex}#m-nav a{color:#14110f;text-decoration:none;font-size:20px;font-weight:600;padding:14px 0;border-bottom:1px solid #e6e1d8}#m-nav .m-close{position:absolute;top:24px;right:20px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:none;border:0;padding:0;color:#14110f;cursor:pointer}#m-nav .m-store-badge{width:100%;justify-content:center;margin-top:24px;border-bottom:none}.prose { max-width: 680px; margin: 0 auto; }
+.prose p { font-family: Geist, sans-serif; font-weight: 400; font-size: 19px; line-height: 33px; color: rgb(38,38,38); margin: 0 0 28px; }
+.prose h2 { font-family: Geist, sans-serif; font-weight: 800; font-size: 28px; line-height: 1.2; color: rgb(23,24,28); margin: 40px 0 16px; }
+.prose h3 { font-family: Geist, sans-serif; font-weight: 700; font-size: 22px; color: rgb(23,24,28); margin: 32px 0 12px; }
+.prose ul, .prose ol { font-family: Geist, sans-serif; font-size: 19px; line-height: 33px; color: rgb(38,38,38); padding-left: 24px; margin: 0 0 28px; }
+.prose a { color: rgb(107,76,205); text-decoration: underline; }
+.prose img { max-width: 100%; height: auto; border-radius: 16px; margin: 12px 0 28px; }
+.prose blockquote { border-left: 3px solid rgb(107,76,205); margin: 0 0 28px; padding-left: 20px; color: rgb(90,86,80); font-style: italic; }
+</style><!--i18n-head-->
+<link rel="alternate" hreflang="en" href="https://macgie.com/journal/10-smart-casual-work-outfit-women-will-wear-on-repeat-this-season-p2">
+<link rel="alternate" hreflang="vi" href="https://macgie.com/vi/journal/10-smart-casual-work-outfit-women-will-wear-on-repeat-this-season-p2">
+<link rel="alternate" hreflang="x-default" href="https://macgie.com/journal/10-smart-casual-work-outfit-women-will-wear-on-repeat-this-season-p2">
+<script>(function(){
+var p=location.pathname,q=location.search+location.hash;
+if(p.indexOf('/preview')===0)return;
+function isVi(x){return x==='/vi'||x.indexOf('/vi/')===0;}
+function toVi(x){return isVi(x)?x:'/vi'+(x==='/'?'/':x);}
+function toEn(x){if(x==='/vi'||x==='/vi/')return '/';if(x.indexOf('/vi/')===0)return x.slice(3)||'/';return x;}
+function ck(){var m=document.cookie.match(/(?:^|;\s*)lang=([^;]+)/);return m?m[1]:'';}
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[data-lang]');if(a){document.cookie='lang='+a.getAttribute('data-lang')+';path=/;max-age=31536000;samesite=lax';}});
+var want=ck();
+if(want==='vi'){if(!isVi(p))location.replace(toVi(p)+q);return;}
+if(want==='en'){if(isVi(p))location.replace(toEn(p)+q);return;}
+fetch('/cdn-cgi/trace').then(function(r){return r.text();}).then(function(t){
+var loc=(t.match(/loc=([A-Z]+)/)||[])[1]||'';
+if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if(!isVi(p))location.replace(toVi(p)+q);}
+}).catch(function(){});
+})();</script>
+<!-- Google Analytics (GA4) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-BV41NVY90Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-BV41NVY90Z');</script>
+<!--/i18n-head-->
+</head>
+<body>
+<div id="dc-root"><div class="sc-host" data-sc-name="article"><div id="top" style="width: 100%;"><header style="position: sticky; top: 0px; z-index: 60; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(29, 31, 35, 0.07);">
+  <div style="max-width: 1200px; margin: 0px auto; padding: 0px 40px; height: 66px; display: flex; align-items: center; justify-content: space-between;">
+    <a href="/vi/" style="display: flex; align-items: center; gap: 9px;">
+      <img src="/m-lg-mrfpjcc9.svg" width="26" height="27" alt>
+      <span style="font-family: Geist, sans-serif; font-weight: 700; font-size: 20px; letter-spacing: -0.02em;">Macgie</span>
+    </a>
+    <nav style="display: flex; align-items: center; gap: 34px; font-family: Geist, sans-serif; font-size: 14px; font-weight: 500;">
+      <a class="navlink" href="/vi/#sample">Vì sao có tủ đồ mẫu</a>
+      <a class="navlink" href="/vi/features">Tính năng</a>
+      
+      <a class="navlink-active" href="/vi/journal">Nhật ký</a>
+    <!--i18n-sw--><div class="lang-switch" style="position:relative;display:inline-block;"><button type="button" class="lang-switch-btn" aria-haspopup="true" aria-expanded="false" style="display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border:none;border-radius:8px;background:rgba(29,31,35,0.07);font-family:Geist,sans-serif;font-size:13px;font-weight:600;line-height:1;color:rgb(29,31,35);cursor:pointer;">VI<svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true" style="margin-left:1px;"><path d="M1.5 3.5L5 7l3.5-3.5" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="lang-switch-menu" role="menu" style="display:none;position:absolute;top:calc(100% + 6px);right:0;min-width:170px;background:#fff;border-radius:10px;box-shadow:0 8px 28px rgba(29,31,35,0.16);padding:6px;z-index:80;"><a href="/journal/10-smart-casual-work-outfit-women-will-wear-on-repeat-this-season-p2" data-lang="en" role="menuitem" style="display:flex;align-items:center;padding:8px 10px;border-radius:7px;border:none;box-sizing:border-box;text-decoration:none;font-family:Geist,sans-serif;font-size:13px;font-weight:600;line-height:1.2;white-space:nowrap;color:rgb(84,88,96);">English</a><a href="/vi/journal/10-smart-casual-work-outfit-women-will-wear-on-repeat-this-season-p2" data-lang="vi" role="menuitem" style="display:flex;align-items:center;padding:8px 10px;border-radius:7px;border:none;box-sizing:border-box;text-decoration:none;font-family:Geist,sans-serif;font-size:13px;font-weight:600;line-height:1.2;white-space:nowrap;color:rgb(29,31,35);background:rgba(29,31,35,0.07);">Tiếng Việt</a><span role="menuitem" aria-disabled="true" style="display:flex;align-items:center;padding:8px 10px;border-radius:7px;border:none;box-sizing:border-box;text-decoration:none;font-family:Geist,sans-serif;font-size:13px;font-weight:600;line-height:1.2;white-space:nowrap;color:rgb(154,149,141);cursor:default;">Français<span style="margin-left:auto;padding-left:10px;font-size:10px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:rgb(154,149,141);">Soon</span></span><span role="menuitem" aria-disabled="true" style="display:flex;align-items:center;padding:8px 10px;border-radius:7px;border:none;box-sizing:border-box;text-decoration:none;font-family:Geist,sans-serif;font-size:13px;font-weight:600;line-height:1.2;white-space:nowrap;color:rgb(154,149,141);cursor:default;">Español<span style="margin-left:auto;padding-left:10px;font-size:10px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:rgb(154,149,141);">Soon</span></span></div></div><!--/i18n-sw--></nav>
+    <a class="store-badge" href="https://apps.apple.com/app/id6766749757" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 9px; background: rgb(17, 18, 20); color: rgb(255, 255, 255); border-radius: 11px; padding: 8px 15px;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M16.5 1.8c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.8-1.4zM19 17.3c-.5 1.2-.8 1.7-1.4 2.7-.9 1.4-2.2 3.2-3.8 3.2-1.4 0-1.8-.9-3.7-.9s-2.3.9-3.7.9c-1.6 0-2.8-1.6-3.7-3C-.1 16.7-.6 11 1.6 8.2c1-1.3 2.5-2 4-2 1.5 0 2.5.9 3.7.9 1.2 0 1.9-.9 3.7-.9 1.3 0 2.7.7 3.7 2-3.2 1.8-2.7 6.4.6 7.1z"></path></svg>
+      <span style="line-height: 1.05;"><span style="display: block; font-size: 8.5px; opacity: 0.85;">Tải về trên</span><span style="font-size: 13.5px; font-weight: 600;">Cửa hàng ứng dụng</span></span>
+    </a>
+    <button class="hamburger" aria-label="Thực đơn" style="flex: 0 0 auto; background: none; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; padding: 8px; margin: -8px -8px -8px 0px; cursor: pointer; align-items: center; justify-content: center; color: rgb(29, 31, 35);">
+      
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="#1d1f23" stroke-width="1.9" stroke-linecap="round"></path></svg>
+    </button>
+  </div></header><section style="background: rgb(240, 240, 240); padding: 64px 0px;">
+  <div style="max-width: 854px; margin: 0px auto; padding: 0px 40px; text-align: center; display: flex; flex-direction: column; gap: 12px; align-items: center;">
+    <div style="font-family: Geist, sans-serif; font-weight: 300; font-size: 16px; color: rgb(38, 38, 38);">Quản lý tủ đồ</div>
+    <h1 style="font-family: Geist, sans-serif; font-weight: 800; font-size: 48px; line-height: 64px; color: rgb(23, 24, 28); margin: 0px;">10 Trang Phục Công Sở Thông Minh Nữ Sẽ Được Mặc Liên Tục Mùa Này</h1>
+    <div style="font-family: Geist, sans-serif; font-weight: 300; font-size: 16px; color: rgb(38, 38, 38); display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;"><span>Macgie Truyền</span><span>25 tháng 8, 2026</span><span>5 phút đọc</span></div>
+  </div></section><article style="max-width: 760px; margin: 0px auto; padding: 40px 40px 96px;">
+  <a class="backlink" href="/vi/journal" style="display: inline-flex; align-items: center; gap: 8px; font-family: Geist, sans-serif; font-weight: 400; font-size: 16px; color: rgb(38, 38, 38); margin-bottom: 36px;">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="#262626" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    Quay lại Nhật ký
+  </a>
+
+  <div class="prose"><h2><strong>Chiếc jumpsuit hiện đại mang phong cách chuyên nghiệp (mà không cần cố gắng)</strong></h2>
+<p><img src="https://pub-ae38f9be5b764a49b1c435767f609ed3.r2.dev/Screenshot_2026_08_17_at_11_18_14_6740712941.png" alt="cô gái trong bộ đồ liền thân"></p>
+<p>Một bộ jumpsuit được thiết kế riêng là món đồ hoàn hảo mà bạn sẽ ngạc nhiên khi chưa thử sớm hơn. Nó thanh lịch, hiện đại và dễ dàng hơn so với việc phối đồ riêng lẻ. Thêm một chiếc thắt lưng, đôi giày sắc sảo, và bạn đã sẵn sàng để trình bày, dẫn dắt, hoặc nhẹ nhàng bước vào buổi gặp gỡ cà phê tiếp theo.</p>
+<h3><strong>Các món đồ trang phục:</strong></h3>
+<ul>
+<li><strong>Bộ jumpsuit vừa vặn</strong> với eo được định hình (bọc, thắt lưng, hoặc xếp ly)</li>
+<li><strong>blazer cấu trúc</strong> cho lớp hoàn thiện nhiều lớp</li>
+<li><strong>dép sandal gót vuông</strong> hoặc giày lười mũi nhọn</li>
+<li><strong>Dây lưng da</strong> (nếu bộ jumpsuit không ôm sát tự nhiên)</li>
+<li><strong>Bông tai hình học</strong> hoặc một vòng tay điêu khắc</li>
+<li><strong>Túi xách thời trang</strong> hoặc túi xách kiểu clutch</li>
+</ul>
+<h3><strong>Mẹo phối đồ:</strong></h3>
+<ul>
+<li>Chân ống cropped hoặc tapered giữ cho trang phục phù hợp với văn phòng; tránh các gấu quần quá rộng.</li>
+<li>Chọn kiểu cổ phù hợp với áo khoác của bạn—cổ chữ V hoặc kiểu chéo là lựa chọn tốt nhất.</li>
+<li>Gấu quần đến mắt cá chân để giày có thể nhìn thấy và tỷ lệ cảm thấy nhẹ nhàng.</li>
+<li>Giữ cho phụ kiện hiện đại và tối giản—hãy để dáng vẻ trở thành ngôi sao.</li>
+</ul>
+<p>Tuyệt vời cho những ngày họp lớn hoặc chuyến công tác. Trong thời tiết ấm hơn, bỏ qua áo khoác và thêm một chiếc khăn lụa buộc ở cổ. Nếu bạn cần sự linh hoạt, hãy chọn một bộ jumpsuit màu xanh hải quân hoặc xanh đậm—cả hai đều phối hợp tốt với phụ kiện màu đen và nâu.</p>
+<h2><strong>Ma thuật Đơn Sắc: Từ Đầu Đến Chân với Màu Trung Tính Trông Như Thiết Kế Cao Cấp</strong></h2>
+<p><img src="https://pub-ae38f9be5b764a49b1c435767f609ed3.r2.dev/Screenshot_2026_08_17_at_11_20_25_7621d90148.png" alt="bộ đồ đơn sắc"></p>
+<p>Không gì trông đắt tiền hơn (với ít nỗ lực) một trang phục đơn sắc. Từ đầu đến chân với màu be, nâu, kem hoặc xám tạo ra những đường nét sạch sẽ và vẻ ngoài ngay lập tức tinh tế. Nó thanh lịch, dễ chịu và hoàn toàn phù hợp để mặc từ thứ Hai đến thứ Sáu.</p>
+<h3><strong>Các món đồ trang phục:</strong></h3>
+<ul>
+<li><strong>Quần tây cạp cao được thiết kế vừa vặn</strong> trong màu lạc đà, cát, hoặc xám</li>
+<li><strong>Áo len phối hợp hoặc tông màu</strong> cổ lọ hoặc cổ tròn mỏng</li>
+<li><strong>Blazer phối hợp</strong> áo khoác cardigan dài</li>
+<li><strong>Giày lười da</strong> hoặc giày bệt slingback cùng tông màu</li>
+<li><strong>Dây lưng mỏng</strong> phối hợp với quần dài</li>
+<li><strong>Dây chuyền nhiều lớp tinh tế</strong> bằng vàng hoặc bạc</li>
+<li><strong>túi có cấu trúc</strong> Tạo tủ đồ capsule của riêng bạn  
+Khám phá trang phục mới  
+Thêm vào tủ đồ  
+Xem trang phục của bạn  
+Chỉnh sửa trang phục  
+Xóa trang phục  
+Lưu thay đổi  
+Chọn trang phục  
+Tìm kiếm trang phục  
+Gợi ý trang phục  
+Chia sẻ tủ đồ  
+Cá nhân hóa phong cách của bạn  
+Đăng nhập  
+Đăng ký  
+Tải lên ảnh  
+Chọn kích thước  
+Chọn màu sắc  
+Lịch sử trang phục  
+Yêu thích  
+Cài đặt  
+Trợ giúp  
+Liên hệ  
+Thông báo  
+Tìm kiếm  
+Khám phá  
+Tủ đồ của tôi  
+Trang phục yêu thích  
+Tạo mới  
+Xem tất cả  
+Thêm trang phục mới  
+Chỉnh sửa tủ đồ  
+Xem gợi ý  
+Đặt tên cho tủ đồ  
+Lưu tủ đồ  
+Xóa tủ đồ  
+Xem chi tiết  
+Tùy chọn  
+Đăng xuất  
+Cập nhật thông tin  
+Thông tin tài khoản  
+Thay đổi mật khẩu  
+Nhận thông báo mới  
+Khám phá xu hướng mới  
+Tạo phong cách riêng  
+Gợi ý cho bạn  
+Tìm kiếm theo phong cách  
+Tìm kiếm theo dịp  
+Tìm kiếm theo mùa  
+Tìm kiếm theo xu hướng  
+Tìm kiếm theo thương hiệu  
+Tìm kiếm theo loại trang phục  
+Tìm kiếm theo màu sắc  
+Tìm kiếm theo kích thước  
+Tìm kiếm theo giá  
+Tìm kiếm theo độ phổ biến  
+Tìm kiếm theo đánh giá  
+Xem thêm  
+Xem ít hơn  
+Tải xuống ứng dụng  
+Khám phá tính năng mới  
+Nhận thông báo về ưu đãi  
+Theo dõi chúng tôi trên mạng xã hội  
+Đánh giá ứng dụng  
+Gửi phản hồi  
+Cảm ơn bạn đã sử dụng Macgie!  
+Chúc bạn có những trải nghiệm tuyệt vời với tủ đồ của mình!</li>
+</ul>
+<h3><strong>Mẹo phối đồ:</strong></h3>
+<ul>
+<li>Pha trộn các chất liệu—quần len, áo lụa, và áo khoác mềm—để tạo chiều sâu.</li>
+<li>Giữ tông màu trong hai sắc thái để tạo sự hài hòa; màu kem + màu cát hoặc màu xám + màu xám nhạt sẽ rất đẹp.</li>
+<li>Sự vừa vặn: những món đồ được cắt may vừa vặn rất quan trọng ở đây vì bảng màu rất tinh tế.</li>
+<li>Hoàn thiện với tông trang điểm nhẹ nhàng để giữ cho không khí hài hòa và có chủ đích.</li>
+</ul>
+<p>Mặc cái này khi bạn muốn trông sang trọng mà không tốn sức. Nếu bạn dễ bị đổ, hãy chọn những màu trung tính như camel hoặc nấm. Vào những ngày thứ Sáu thoải mái, hãy thay áo blazer bằng áo khoác trench hoặc áo cardigan hơi rộng một chút.</p>
+<h2>Chiếc Áo Len Thanh Lịch + Váy Slip Bạn Sẽ Chọn Suốt Năm</h2>
+<p><img src="https://pub-ae38f9be5b764a49b1c435767f609ed3.r2.dev/Screenshot_2026_08_17_at_11_22_16_522562dda7.png" alt="áo len nữ tính"></p>
+<p>Chân váy slip là một món đồ thông minh và thoải mái. Kết hợp nó với một chiếc áo len sang trọng để có vẻ ngoài vừa ấm áp vừa tinh tế. Nó dễ chịu, đa năng và chuyển đổi hoàn hảo từ văn phòng đến bữa tối chỉ với một sự thay đổi giày nhanh chóng.</p>
+<h3><strong>Các món đồ trang phục:</strong></h3>
+<ul>
+<li><strong>Chân váy lụa satin hoặc lụa</strong> màu đen, màu ô liu, hoặc màu champagne</li>
+<li><strong>Áo len cổ tròn hoặc cổ thuyền</strong> trong một chất liệu đan mịn hoặc trung bình</li>
+<li><strong>Giày cao gót slingback</strong> hoặc bốt cổ chân thanh lịch</li>
+<li><strong>Dây chuyền chuỗi tinh tế</strong> và một bộ nhẫn tinh tế</li>
+<li><strong>Dây lưng tối giản</strong> (tùy chọn, bên ngoài áo len để tạo dáng)</li>
+<li><strong>Túi đeo vai nhỏ gọn</strong></li>
+</ul>
+<h3><strong>Mẹo phối đồ:</strong></h3>
+<ul>
+<li>Nửa nhét áo len hơi lệch sang một bên để tạo sự chuyển động và định hình eo.</li>
+<li>Chọn một chiếc váy cắt chéo để có độ rủ đẹp nhất và vừa vặn thoải mái.</li>
+<li>Giữ cho giày dép gọn gàng—không có đế dày—để phù hợp với sự mềm mại của chân váy.</li>
+<li>Hãy giữ một bảng màu trung tính để tối đa hóa khả năng phối hợp.</li>
+</ul>
+<p>Sử dụng điều này vào những ngày có các cuộc họp liên tiếp và kế hoạch ăn tối sau đó. Trong những tháng nóng hơn, thay thế áo len bằng một chiếc tank top có cấu trúc và thêm một chiếc blazer ngắn. Khi nhiệt độ giảm, hãy thêm tất mỏng và bốt cao đến đầu gối để giữ ấm dễ dàng.</p>
+<h2><strong>Áo thun tinh tế + Quần âu hoàn hảo cho ngày thứ Sáu thoải mái</strong></h2>
+<p><img src="https://pub-ae38f9be5b764a49b1c435767f609ed3.r2.dev/Screenshot_2026_08_17_at_11_23_43_4354360eb6.png" alt="cô gái trong áo phông bóng bẩy"></p>
+<p>Bạn hoàn toàn có thể mặc áo phông đi làm—chỉ cần phối hợp đúng cách. Kết hợp một chiếc áo phông cao cấp với quần tây cắt may và phụ kiện sắc sảo, bạn đã có trang phục smart casual mà không bị cứng nhắc. Đây là bộ đồng phục thứ Sáu vẫn nhận được lời khen.</p>
+<h3><strong>Các món đồ trang phục:</strong></h3>
+<ul>
+<li><strong>Áo thun cổ tròn chất lượng cao</strong> trong màu trắng, đen, hoặc xám nhạt</li>
+<li><strong>Quần âu ống slim hoặc ống thẳng</strong> màu đen, xanh hải quân, hoặc sọc dọc</li>
+<li><strong>blazer không cấu trúc</strong> hoặc áo khoác cardigan</li>
+<li><strong>Giày sneaker da</strong> hoặc giày lười bóng loáng</li>
+<li><strong>Mặt dây chuyền tinh tế</strong> và khuyên nhỏ</li>
+<li><strong>Túi da đeo chéo tối giản</strong> hoặc túi đeo chéo</li>
+</ul>
+<h3><strong>Mẹo phối đồ:</strong></h3>
+<ul>
+<li>Chọn một chiếc áo phông có độ dày và cấu trúc (không trong suốt). Kiểu dáng hơi rộng sẽ phù hợp nhất.</li>
+<li>Nhét áo phông vào hoàn toàn và thêm một chiếc thắt lưng để tạo sự tinh tế; là gấu áo để có đường viền sắc nét.</li>
+<li>Đi monochrome (áo thun đen + quần đen) để có hiệu ứng nâng cao, gần giống như bộ vest.</li>
+<li>Giữ cho giày sneaker sạch sẽ và tối giản - hãy nghĩ đến da mịn, thiết kế thấp.</li>
+</ul>
+<p>Bộ trang phục này hoàn hảo cho những ngày thứ Sáu thoải mái, các nhóm sáng tạo, hoặc những ngày bạn đang di chuyển. Thay áo phông bằng áo cổ cao trong những tháng lạnh hơn, hoặc thêm một chiếc khăn lụa để tạo điểm nhấn. Nếu bạn cần nâng cấp nhanh chóng, hãy khoác một chiếc blazer có cấu trúc và chuyển sang giày cao gót thấp.</p>
+<h2><strong>Bộ ba Áo Khoác Dài, Áo Len, và Quần Lửng Phù Hợp Với Mọi Thời Tiết</strong></h2>
+<p><img src="https://pub-ae38f9be5b764a49b1c435767f609ed3.r2.dev/Screenshot_2026_08_17_at_11_28_16_af92b58e68.png" alt="cô gái trong quần lửng"></p>
+<p>Gọi nó là nhà vô địch chuyển tiếp: một chiếc áo khoác trench sắc nét bên ngoài một chiếc áo len với quần cropped để lộ một chút mắt cá chân. Nó mang phong cách gần gũi với Paris mà không cần cố gắng quá nhiều. Các lớp nhẹ giúp bạn sẵn sàng cho những thay đổi nhiệt độ và những cuộc họp bất ngờ.</p>
+<h3><strong>Các món đồ trang phục:</strong></h3>
+<ul>
+<li><strong>Áo khoác trench coat cổ điển</strong> màu nâu nhạt, kaki, hoặc đá</li>
+<li><strong>Đan nhẹ</strong> (áo cổ tròn hoặc cổ cao)</li>
+<li><strong>Quần ống suông cropped</strong> hoặc quần ống suông bó gấu</li>
+<li><strong>Giày cao gót gót vuông</strong> hoặc giày ballet tinh tế</li>
+<li><strong>Khăn lụa</strong> (cột ở cổ hoặc tay cầm túi)</li>
+<li><strong>Túi xách da cầm tay</strong></li>
+<li><strong>Bông tai đơn giản</strong> hoặc một chiếc khuyên tai huggie mỏng</li>
+</ul>
+<h3><strong>Mẹo phối đồ:</strong></h3>
+<ul>
+<li>Đảm bảo quần cropped chạm ngay trên xương mắt cá chân—phép màu kéo dài chân.</li>
+<li>Chọn một chiếc áo khoác trench với đường nét sạch sẽ và phần cứng tối giản để tạo sự hiện đại.</li>
+<li>Nhét áo len vào để định hình vòng eo của bạn; một chiếc thắt lưng mảnh có thể tạo thêm dáng dưới áo khoác trench.</li>
+<li>Giữ cho khăn quàng nhỏ và mềm mại—không có nút thắt cồng kềnh—để nó bổ sung, chứ không cạnh tranh.</li>
+</ul>
+<p>Mặc điều này vào mùa xuân và mùa thu hoặc những ngày thời tiết văn phòng không ổn định. Vào những buổi sáng mưa, thêm đôi giày bệt chống nước hoặc bốt cổ thấp. Để có phong cách táo bạo hơn, chọn một chiếc áo len họa tiết bên dưới áo khoác trench và giữ phần còn lại đơn giản.</p>
+</div></article><section style="background: rgb(240, 240, 240); padding: 64px 0px;">
+  <div style="max-width: 1170px; margin: 0px auto; padding: 0px 40px;">
+    <div style="text-align: center;">
+      <div style="font-family: Geist, sans-serif; font-weight: 300; font-size: 16px; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(38, 38, 38);">Đọc tiếp</div>
+      <h2 style="font-family: Geist, sans-serif; font-weight: 800; font-size: 48px; line-height: 64px; color: rgb(23, 24, 28); margin: 12px 0px 0px;">Bài liên quan từ Nhật ký</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:40px;"><a class="post" href="/vi/journal/how-to-choose-the-right-shoes-for-every-outfit-a-simple-guide-for-men" style="display:flex;flex-direction:column;gap:12px;">
+    <div style="border-radius:20px;overflow:hidden;background:rgb(242,244,247);height:180px;"><img class="pimg" src="/img/journal/how-to-choose-the-right-shoes-for-every-outfit-a-simple-guide-for-men-card.webp" width="680" height="352" alt="Cách Chọn Giày Phù Hợp Cho Mỗi Trang Phục: Hướng Dẫn Đơn Giản Dành Cho Nam" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>
+    <div class="ptitle" style="font-family: Geist, sans-serif;font-weight:700;font-size:18px;line-height:1.2;color:rgb(23,24,28);">Cách Chọn Giày Phù Hợp Cho Mỗi Trang Phục: Hướng Dẫn Đơn Giản Dành Cho Nam</div>
+  </a>
+<a class="post" href="/vi/journal/why-some-clothes-make-you-look-tired-even-when-they-re-beautiful" style="display:flex;flex-direction:column;gap:12px;">
+    <div style="border-radius:20px;overflow:hidden;background:rgb(242,244,247);height:180px;"><img class="pimg" src="/img/journal/why-some-clothes-make-you-look-tired-even-when-they-re-beautiful-card.webp" width="680" height="381" alt="Tại Sao Một Số Trang Phục Khiến Bạn Trông Mệt Mỏi (Dù Chúng Rất Đẹp)" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>
+    <div class="ptitle" style="font-family: Geist, sans-serif;font-weight:700;font-size:18px;line-height:1.2;color:rgb(23,24,28);">Tại Sao Một Số Trang Phục Khiến Bạn Trông Mệt Mỏi (Ngay Cả Khi Chúng Đẹp)</div>
+  </a>
+<a class="post" href="/vi/journal/why-your-outfit-feels-off-even-when-every-piece-looks-great" style="display:flex;flex-direction:column;gap:12px;">
+    <div style="border-radius:20px;overflow:hidden;background:rgb(242,244,247);height:180px;"><img class="pimg" src="/img/journal/why-your-outfit-feels-off-even-when-every-piece-looks-great-card.webp" width="680" height="453" alt="Tại Sao Trang Phục Của Bạn Cảm Thấy Không Đúng (Ngay Cả Khi Mỗi Mảnh Đều Trông Tuyệt Vời)" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>
+    <div class="ptitle" style="font-family: Geist, sans-serif;font-weight:700;font-size:18px;line-height:1.2;color:rgb(23,24,28);">Tại Sao Trang Phục Của Bạn Cảm Thấy Không Đúng (Ngay Cả Khi Mỗi Mảnh Đều Trông Tuyệt Vời)</div>
+  </a></div>
+  </div></section><section id="cta" style="background: radial-gradient(691px 118px at 50% 74%, rgb(40, 44, 53) 16%, rgb(20, 21, 24) 100%); padding: 132px 0px; text-align: center;">
+  <div style="max-width: 794px; margin: 0px auto; padding: 0px 40px; display: flex; flex-direction: column; align-items: center; gap: 44px;">
+    <svg width="54" height="23" viewBox="0 0 54 23" fill="none"><ellipse cx="11" cy="12" rx="10.7" ry="10.8" fill="#fff"></ellipse><ellipse cx="15.5" cy="14" rx="2.6" ry="4.3" fill="#000"></ellipse><ellipse cx="44" cy="11.5" rx="8.8" ry="10.9" fill="#fff"></ellipse><ellipse cx="43.5" cy="15" rx="2.6" ry="4.5" fill="#000"></ellipse></svg>
+    <h2 style="font-family: Geist, sans-serif; font-weight: 800; font-size: 48px; line-height: 64px; color: rgb(242, 239, 236); margin: 0px;">Bạn đã sở hữu đủ rồi.<br>Macgie chỉ giúp bạn nhìn thấy điều đó.</h2>
+    <a class="store-badge" href="https://apps.apple.com/app/id6766749757" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 10px; background: rgb(255, 255, 255); color: rgb(17, 17, 17); border-radius: 13px; padding: 12px 22px;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="#111"><path d="M16.5 1.8c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.8-1.4zM19 17.3c-.5 1.2-.8 1.7-1.4 2.7-.9 1.4-2.2 3.2-3.8 3.2-1.4 0-1.8-.9-3.7-.9s-2.3.9-3.7.9c-1.6 0-2.8-1.6-3.7-3C-.1 16.7-.6 11 1.6 8.2c1-1.3 2.5-2 4-2 1.5 0 2.5.9 3.7.9 1.2 0 1.9-.9 3.7-.9 1.3 0 2.7.7 3.7 2-3.2 1.8-2.7 6.4.6 7.1z"></path></svg>
+      <span style="line-height: 1.1;"><span style="display: block; font-size: 10px; opacity: 0.7;">Tải về trên</span><span style="font-size: 17px; font-weight: 700;">Cửa hàng ứng dụng</span></span>
+    </a>
+  </div></section><footer style="background: rgb(255, 255, 255); padding: 56px 0px 40px; border-top: 1px solid rgba(29, 31, 35, 0.08);">
+  <div style="max-width: 1120px; margin: 0px auto; padding: 0px 40px; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px;">
+    <div>
+      <div style="display: flex; align-items: center; gap: 9px;"><img src="/assets/brand/macgie.svg" width="26" height="27" alt><span style="font-family: Geist, sans-serif; font-weight: 700; font-size: 20px; letter-spacing: -0.02em;">Macgie</span></div>
+      <p style="font-family: Geist, sans-serif; font-size: 13.5px; color: rgb(111, 106, 99); margin: 14px 0px 18px; max-width: 220px;">Mặc đẹp rõ ràng hơn, ít áp lực hơn.</p>
+      <a class="store-badge" href="https://apps.apple.com/app/id6766749757" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 9px; background: rgb(17, 18, 20); color: rgb(255, 255, 255); border-radius: 11px; padding: 8px 15px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M16.5 1.8c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.8-1.4zM19 17.3c-.5 1.2-.8 1.7-1.4 2.7-.9 1.4-2.2 3.2-3.8 3.2-1.4 0-1.8-.9-3.7-.9s-2.3.9-3.7.9c-1.6 0-2.8-1.6-3.7-3C-.1 16.7-.6 11 1.6 8.2c1-1.3 2.5-2 4-2 1.5 0 2.5.9 3.7.9 1.2 0 1.9-.9 3.7-.9 1.3 0 2.7.7 3.7 2-3.2 1.8-2.7 6.4.6 7.1z"></path></svg>
+        <span style="line-height: 1.05;"><span style="display: block; font-size: 8.5px; opacity: 0.85;">Tải về trên</span><span style="font-size: 13.5px; font-weight: 600;">Cửa hàng ứng dụng</span></span>
+      </a>
+    </div>
+    <div>
+      <div style="font-family: Geist, sans-serif; font-weight: 600; font-size: 13px; color: rgb(29, 31, 35); margin-bottom: 14px;">Sản phẩm</div>
+      <div style="display: flex; flex-direction: column; gap: 10px; font-family: Geist, sans-serif; font-size: 13.5px;"><a class="navlink" href="/vi/features">Tính năng</a><a class="navlink" href="/vi/#how">Nhật ký thay đổi</a></div>
+    </div>
+    <div>
+      <div style="font-family: Geist, sans-serif; font-weight: 600; font-size: 13px; color: rgb(29, 31, 35); margin-bottom: 14px;">Tài nguyên</div>
+      <div style="display: flex; flex-direction: column; gap: 10px; font-family: Geist, sans-serif; font-size: 13.5px;"><a class="navlink" href="/vi/journal">Blog</a><a class="navlink" href="#top">Cộng đồng</a></div>
+    </div>
+    <div>
+      <div style="font-family: Geist, sans-serif; font-weight: 600; font-size: 13px; color: rgb(29, 31, 35); margin-bottom: 14px;">Pháp lý</div>
+      <div style="display: flex; flex-direction: column; gap: 10px; font-family: Geist, sans-serif; font-size: 13.5px;"><a class="navlink" href="/privacy">Quyền riêng tư</a><a class="navlink" href="/terms">Điều khoản</a><a class="navlink" href="/ai-policy">AI &amp; Xử Lý Hình Ảnh</a><a class="navlink" href="/subscription">Đăng ký &amp; Hoàn tiền</a></div>
+    </div>
+  </div>
+  <div style="max-width: 1120px; margin: 36px auto 0px; padding: 20px 40px 0px; border-top: 1px solid rgba(29, 31, 35, 0.08); font-family: Geist, sans-serif; font-size: 12.5px; color: rgb(111, 106, 99);">© 2026 Macgie, Inc. Bảo lưu mọi quyền.</div></footer></div></div></div>
+
+
+
+<script src="/app.js?v=53e5d3fa" defer></script></body></html>
