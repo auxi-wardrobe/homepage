@@ -2,6 +2,22 @@
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Page not found — Macgie</title>
+<!-- AU-457: Smart App Banner. This page is what actually serves paths like
+     /discovery-outfit?id=... when the app isn't installed (no app claims
+     the Universal Link, so iOS falls back to the plain web page here).
+     Static app-id + a tiny inline script setting app-argument to the exact
+     URL the visitor landed on, so tapping the banner (once the app is
+     installed) can hand the same link back to the app. Runs before other
+     resources load so Safari's early banner scan picks up the real URL. -->
+<meta name="apple-itunes-app" content="app-id=6766749757">
+<script>
+  (function () {
+    var m = document.querySelector('meta[name="apple-itunes-app"]');
+    if (m) {
+      m.setAttribute('content', 'app-id=6766749757, app-argument=' + window.location.href);
+    }
+  })();
+</script>
 <meta name="description" content="This page doesn't exist. Head back to Macgie and let your closet finally work for you.">
 <meta name="robots" content="noindex, follow">
 <link rel="icon" type="image/svg+xml" href="/assets/brand/macgie.svg">
