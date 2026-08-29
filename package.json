@@ -5,6 +5,7 @@
   "scripts": {
     "build:journal": "node scripts/build-journal.mjs",
     "build:i18n": "node scripts/build-i18n-pages.mjs",
+    "audit:i18n": "node scripts/audit-vi-cache.mjs",
     "build:site": "node scripts/build-i18n-pages.mjs && node scripts/build-journal.mjs",
     "preview": "node scripts/build-journal.mjs && ./scripts/deploy.sh sandbox",
     "publish": "node scripts/build-journal.mjs && ./scripts/deploy.sh prod"

@@ -11,6 +11,12 @@ import { SITE_URL, toVi, headInjection, switcherHtml } from './i18n-inject.mjs';
 const SKIP_TAGS = new Set(['SCRIPT', 'STYLE', 'NOSCRIPT', 'SVG', 'CODE', 'PRE', 'TEMPLATE']);
 const HAS_LETTER = /[A-Za-zÀ-ÿ]/;
 const BRAND_ONLY = /^(macgie)$/i;
+// A bare asset filename ("Screenshot 2026-07-16 at 16.54.28.png") is not prose.
+// Sending one to the translator drew an English refusal ("I'm sorry, but I
+// can't assist with that.") which then sat in the alt attribute of the /vi
+// page. Leave these exactly as authored.
+const FILENAME_ONLY = /^[\w][\w\s.,()'\u2019-]*\.(png|jpe?g|webp|gif|svg|avif|pdf|mp4|mov)$/i;
+const translatable = (s) => HAS_LETTER.test(s) && !FILENAME_ONLY.test(s.trim());
 const ASSET_HREF = /^\/(assets|img|_ds|app\.js|sitemap\.xml|favicon)|\.(svg|png|jpe?g|webp|gif|css|js|xml|ico)(\?|#|$)/i;
 // Legal/policy pages ship English-only — machine-translating them would put
 // unreviewed Vietnamese legal text in front of users. Links to them must stay
@@ -88,19 +94,19 @@ async function rewriteDoc(html, { enPath, translate = true }) {
     for (const tn of nodes) {
       const m = tn.rawText.match(/^(\s*)([\s\S]*?)(\s*)$/);
       const core = m[2];
-      if (!HAS_LETTER.test(core) || BRAND_ONLY.test(core.trim())) continue;
+      if (!translatable(core) || BRAND_ONLY.test(core.trim())) continue;
       jobs.push(async () => { tn.rawText = m[1] + esc(await tr(core)) + m[3]; });
     }
 
     // translatable attributes
     for (const el of root.querySelectorAll('meta[name="description"], meta[property="og:title"], meta[property="og:description"]')) {
       const c = el.getAttribute('content');
-      if (c && HAS_LETTER.test(c)) jobs.push(async () => el.setAttribute('content', await tr(c)));
+      if (c && translatable(c)) jobs.push(async () => el.setAttribute('content', await tr(c)));
     }
     for (const el of root.querySelectorAll('[alt], [aria-label], [placeholder]')) {
       for (const attr of ['alt', 'aria-label', 'placeholder']) {
         const v = el.getAttribute(attr);
-        if (v && HAS_LETTER.test(v)) jobs.push(async () => el.setAttribute(attr, await tr(v)));
+        if (v && translatable(v)) jobs.push(async () => el.setAttribute(attr, await tr(v)));
       }
     }
   }

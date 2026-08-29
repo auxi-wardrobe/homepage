@@ -135,6 +135,19 @@ missing one is left alone rather than turned into a broken image). Renames go in
 its `IMG_ALIASES`, and any image the design ships without alt text goes in
 `IMG_ALT`.
 
+**Machine-translation sanity.** `scripts/lib/translate.mjs` rejects any provider
+output that isn't a translation — a refusal ("I'm sorry, but I can't assist with
+that.") or a runaway (output wildly longer than the source, or with lines the
+source never had). Those are never cached; the build falls back to the English
+source. This is not hypothetical: colon-terminated fragments ("Examples:",
+"Think about:", "Ask yourself:") got *answered* rather than translated, baking
+tens of KB of invented Vietnamese app-UI copy into every `/vi` page, where it
+read like keyword stuffing. Image filenames used as `alt` text drew the refusal.
+Run `npm run audit:i18n` to re-check the committed cache against that guard
+(`node scripts/audit-vi-cache.mjs --prune` drops anything it flags, then
+rebuild). Hand-authored Vietnamese always wins over MT — seed it into
+`scripts/i18n/vi-cache.json`.
+
 **Legal pages are English-only.** `EN_ONLY_HREF` in `scripts/lib/localize.mjs`
 keeps links to `/privacy`, `/terms`, `/ai-policy` and `/subscription` pointing at
 the EN URL even from a `/vi` page, and `enOnlyPaths` in `build-journal.mjs` keeps

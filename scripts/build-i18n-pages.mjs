@@ -15,12 +15,17 @@ const PAGES = [
   { file: 'index.html', enPath: '/' },
   { file: 'features.html', enPath: '/features' },
   { file: '404.html', enPath: '/404' },
+  // The flattened article demo. It is NOT a Strapi post, so the journal build
+  // skips it — but it is a live page, so its /vi mirror has to be rebuilt here
+  // or it silently keeps whatever the translator produced years of builds ago.
+  { file: 'journal/article.html', enPath: '/journal/article' },
 ];
 
 console.log(`i18n pages: translation ${hasKey() ? `ON (${provider()})` : 'OFF — /vi falls back to EN text'}`);
 await mkdir(join(pub, 'vi'), { recursive: true });
 
 for (const { file, enPath } of PAGES) {
+  await mkdir(dirname(join(pub, 'vi', file)), { recursive: true });
   const src = await readFile(join(pub, file), 'utf8');
   await writeFile(join(pub, file), localizeEn(src, { enPath }));
   await writeFile(join(pub, 'vi', file), await localizeToVi(src, { enPath }));
