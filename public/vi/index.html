@@ -38,6 +38,58 @@
   unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
 }
 
+/* Playfair Display — marketing display face, used by the hero headline.
+   Static instances at weight 500 (the variable original was ~65% larger);
+   regenerate from Google Fonts + fontTools if another weight is ever needed. */
+@font-face {
+  font-family: 'Playfair Display';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/PlayfairDisplay-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/PlayfairDisplay-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/PlayfairDisplay-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/PlayfairDisplay-Italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/PlayfairDisplay-Italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+  src: url('/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/PlayfairDisplay-Italic-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+
 /* ============================================================
    Auxi — Color tokens
    Source of truth: auxi mobile app theme.ds (theme.ts), extracted from
@@ -179,7 +231,6 @@
   .step-card { transition: background .18s ease; cursor: pointer; }
   @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
   #hpL, #hpR, #scL, #scR { transition: transform .09s linear; }
-  image-slot#hero-p2::part(frame) { background: transparent; }
   .hamburger { display: none; }
   .mobile-menu { display: none; }
   @media (max-width: 820px) {
@@ -189,20 +240,103 @@
     .mobile-menu { display: flex !important; }
     header > div { padding-left: 20px !important; padding-right: 20px !important; }
     section [style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
-    .hero-h1 { font-size: 112px !important; transform: translate(0, -90px) !important; }
-    #hero-p2 { transform: translateY(650px) scale(3) !important; }
-    image-slot#hero-p2::part(image) { object-position: center bottom !important; }
     footer > div:first-child { grid-template-columns: 1fr 1fr !important; }
     .problem-row { flex-direction: column !important; }
   }
-  @media (min-width: 821px) and (max-width: 1180px) {
-    .hero-slot { transform: scale(2); }
+  /* ---- Hero banner --------------------------------------------------
+     Editorial split: serif headline + CTA on the left, an overlapping
+     before/after pair on the right. The art geometry is percentage-based
+     inside .hero-art, so the whole composition scales as one unit. */
+  .hero { background: #f4f1ec; }
+  .hero-inner {
+    max-width: 1200px; margin: 0 auto; padding: 76px 40px 84px;
+    display: grid; grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
+    gap: 48px; align-items: center;
+  }
+  .hero-copy { max-width: 570px; }
+  .hero-h1 {
+    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    font-weight: 500; font-size: clamp(38px, 5.6vw, 80px);
+    line-height: 1.0; letter-spacing: -0.02em;
+    color: #14120f; margin: 0; max-width: 8em;
+  }
+  .hero-h1 em { font-style: italic; }
+  .hero-sub {
+    font-family: Geist, system-ui, sans-serif;
+    font-size: clamp(15px, 1.3vw, 18px); line-height: 1.72;
+    color: #3f3b36; margin: 28px 0 0; max-width: 27em;
+  }
+  .hero-actions { margin-top: 32px; width: max-content; max-width: 100%; }
+  .hero-cta {
+    display: flex; align-items: center; justify-content: center;
+    min-width: 288px; height: 62px; padding: 0 32px;
+    background: #0f0f10; color: #fff; border-radius: 999px;
+    font-family: Geist, system-ui, sans-serif; font-size: 16px; font-weight: 600;
+    box-shadow: 0 10px 26px rgba(20, 17, 15, .18);
+    transition: transform .16s ease, box-shadow .16s ease;
+  }
+  .hero-cta:hover { color: #fff; transform: translateY(-2px); box-shadow: 0 14px 34px rgba(20, 17, 15, .24); }
+  .hero-note {
+    display: block; margin-top: 11px; text-align: center;
+    font-family: Geist, system-ui, sans-serif; font-size: 12.5px; color: #706a63;
+  }
+  .hero-proof { margin-top: 44px; font-family: Geist, system-ui, sans-serif; }
+  .hero-proof p { margin: 0; font-size: 15px; line-height: 1.5; color: #3f3b36; }
+  .hero-rating { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+  .hero-rating svg { display: block; flex: 0 0 auto; }
+  .hero-rating span { font-size: 14px; color: #57524b; }
+
+  .hero-art { position: relative; width: min(100%, 560px); aspect-ratio: 56 / 62; margin: 0 auto; }
+  .hero-card {
+    position: absolute; overflow: hidden; border-radius: 24px;
+    background: #ece5db; box-shadow: 0 28px 64px rgba(30, 23, 16, .20);
+  }
+  .hero-card img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .hero-card--before { left: 0; top: 14%; width: 35%; height: 77%; z-index: 1; }
+  .hero-card--after { left: 45%; top: 0; width: 55%; height: 100%; z-index: 2; border-radius: 28px; }
+  .hero-tag {
+    position: absolute; top: 14px; left: 16px;
+    font-family: Geist, system-ui, sans-serif; font-size: 13px; font-weight: 500;
+  }
+  .hero-card--before::before {
+    content: ""; position: absolute; inset: 0 0 auto; height: 86px; z-index: 1;
+    background: linear-gradient(rgba(16, 13, 10, .46), rgba(16, 13, 10, 0));
+    pointer-events: none;
+  }
+  .hero-card--before .hero-tag { color: #fff; z-index: 2; }
+  .hero-card--after .hero-tag { color: #2b2621; }
+  .hero-chip {
+    position: absolute; left: 14px; bottom: 14px;
+    display: inline-flex; align-items: center; gap: 5px;
+    background: rgba(18, 18, 20, .86); color: #f4f1ec; border-radius: 9px;
+    padding: 5px 9px; font-family: Geist, system-ui, sans-serif;
+    font-size: 11px; font-weight: 500; letter-spacing: .01em;
+  }
+  .hero-arrow {
+    position: absolute; left: 44.4%; top: 49%; transform: translate(-50%, -50%);
+    z-index: 3; width: 11.5%; aspect-ratio: 1; border-radius: 50%;
+    background: #121214; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 10px 26px rgba(20, 17, 15, .3);
+  }
+  .hero-arrow svg { width: 42%; height: auto; display: block; }
+
+  @media (max-width: 980px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 44px; padding: 56px 24px 64px; }
+    .hero-copy { max-width: none; }
+    .hero-art { width: min(100%, 440px); }
+  }
+  @media (max-width: 560px) {
+    .hero-inner { padding: 44px 20px 56px; }
+    .hero-actions { width: 100%; }
+    .hero-cta { min-width: 0; width: 100%; }
+    .hero-note { text-align: left; }
   }
 </style><link rel="canonical" href="https://macgie.com/vi/">
 <meta property="og:url" content="https://macgie.com/vi/">
 <meta property="og:image" content="https://macgie.com/img/hero-p2.webp">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preload" as="image" href="/img/hero-p2.webp" fetchpriority="high">
+<link rel="preload" as="font" type="font/woff2" href="/_ds/auxi-design-system-83ddc100-d10e-4345-85f5-49c6f6a41c0f/assets/fonts/PlayfairDisplay-latin.woff2" crossorigin>
+<link rel="preload" as="image" href="/img/hero-after.webp" fetchpriority="high">
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://macgie.com/#org", "name": "Macgie", "url": "https://macgie.com/", "logo": "https://macgie.com/assets/brand/macgie.svg"}, {"@type": "WebSite", "@id": "https://macgie.com/#site", "url": "https://macgie.com/", "name": "Macgie", "publisher": {"@id": "https://macgie.com/#org"}}, {"@type": "SoftwareApplication", "name": "Macgie", "applicationCategory": "LifestyleApplication", "operatingSystem": "iOS", "description": "AI outfit recommendations built from the clothes you already own.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}]}</script>
 <style>#m-nav{position:fixed;top:0;left:0;right:0;bottom:0;z-index:200;background:#faf7f2;display:none;flex-direction:column;gap:4px;padding:84px 24px 32px;font-family:Geist,system-ui,sans-serif}#m-nav.open{display:flex}#m-nav a{color:#14110f;text-decoration:none;font-size:20px;font-weight:600;padding:14px 0;border-bottom:1px solid #e6e1d8}#m-nav .m-close{position:absolute;top:24px;right:20px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:none;border:0;padding:0;color:#14110f;cursor:pointer}#m-nav .m-store-badge{width:100%;justify-content:center;margin-top:24px;border-bottom:none}</style><!--i18n-head-->
 <link rel="alternate" hreflang="en" href="https://macgie.com/">
@@ -250,32 +384,67 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
       
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="#1d1f23" stroke-width="1.9" stroke-linecap="round"></path></svg>
     </button>
-  </div></header><section style="width: 100%; margin: 0px; padding: 0px;">
-  <div style="position: relative; overflow: hidden; background: rgb(231, 216, 200); height: calc(-67px + 100dvh); width: 100%;">
-    <div style="position: absolute; inset: 0px; display: flex; align-items: center; justify-content: center; pointer-events: none;">
-      <h1 class="hero-h1" style="font-family: Geist, sans-serif; font-weight: 700; font-size: clamp(70px, 11vw, 150px); line-height: 0.92; letter-spacing: -0.09em; text-align: center; color: rgb(149, 131, 110); margin: 0px; user-select: none; transform: translate(0px, -184px);">Bạn không<br>cần thêm quần áo</h1>
-    </div>
-    <div style="position: absolute; inset: 0px; display: flex; align-items: flex-end; justify-content: center; gap: 0px; padding: 0px 10px; width: 100%; height: 100%;">
-      <div style="width: 1147px; height: 675px; align-self: flex-end; position: relative; z-index: 2;">
-        <img src="/img/hero-p2.webp" alt="Người mặc trang phục hàng ngày được chọn bởi Macgie" width="1200" height="630" loading="eager" fetchpriority="high" decoding="async" style="position: absolute; inset: 0px; height: 100%; width: 100%; transform-origin: center bottom; opacity: 1; z-index: 3; pointer-events: auto; object-fit:contain; display:block;">
+  </div></header>
+<!-- ===================================================================
+     HERO BANNER — hand-authored (2026-09 redesign).
+
+     NOT flattened from the Claude Design project "Macgie design home page".
+     A re-export + re-flatten will overwrite it, so port this hero into the
+     design first if the pipeline is ever re-run. See CLAUDE.md.
+
+     Photography is PLACEHOLDER: hero-before.webp / hero-after.webp are crops
+     of existing site assets (diff-2.webp and the right-hand figure of
+     hero-p2.webp) and show two different people. The design calls for one
+     person shot twice. Drop replacements in at the same paths and aspect
+     ratios (before 205x500, after 273x549) — no markup change needed.
+     ================================================================== -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-inner">
+
+    <div class="hero-copy">
+      <h1 class="hero-h1" id="hero-title">Gặp phiên bản <em>tốt hơn</em> của bạn.</h1>
+      <p class="hero-sub">Thử đồ ngay trên chính bạn bằng AI, sắp xếp tủ đồ và khám phá những phong cách giúp bạn trông đẹp hơn và tự tin hơn.</p>
+
+      <div class="hero-actions">
+        <a class="hero-cta" href="https://apps.apple.com/app/id6766749757" target="_blank" rel="noopener">Dùng thử Macgie miễn phí</a>
+        <span class="hero-note">Không cần thẻ tín dụng</span>
+      </div>
+
+      <!-- UNVERIFIED SOCIAL PROOF. The App Store reports 0 ratings and no
+           average for id6766749757 in every storefront checked (US/VN/GB/SG),
+           so both numbers below are unsupported. Replace them with real
+           figures or delete this block before publishing. Deliberately NOT
+           mirrored into the page's JSON-LD as an aggregateRating. -->
+      <div class="hero-proof">
+        <p>Hơn 100.000 người yêu thích và mặc đẹp hơn mỗi ngày</p>
+        <div class="hero-rating">
+          <svg width="116" height="20" viewBox="0 0 116 20" fill="#e0a13c" aria-hidden="true" focusable="false">
+            <defs><path id="hstar" d="M10 .8l2.9 5.87 6.48.94-4.69 4.57 1.11 6.45L10 15.58 4.2 18.63l1.11-6.45L.61 7.61l6.48-.94z"></path></defs>
+            <use href="#hstar"></use><use href="#hstar" x="24"></use><use href="#hstar" x="48"></use><use href="#hstar" x="72"></use><use href="#hstar" x="96"></use>
+          </svg>
+          <span>4,8 điểm đánh giá trung bình</span>
+        </div>
       </div>
     </div>
-    
-    
-    <div style="position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); z-index: 5; width: min(560px, 86%); background: rgb(20, 20, 22); border-radius: 16px; padding: 14px 16px; display: flex; align-items: center; gap: 14px; box-shadow: rgba(20, 17, 15, 0.28) 0px 18px 44px;">
-      
-      <div style="flex: 1 1 0%; min-width: 0px; color: rgb(242, 239, 236); font-family: Geist, sans-serif;">
-        <div style="font-size: 13.5px; font-weight: 600; line-height: 1.3; text-align: right;"><span style="text-align: right; white-space: pre-wrap;">Macgie chọn từ những gì bạn đã có -
-mặc đẹp, tiếp tục ngày mới.</span><span data-metadata="&lt;!--(figmeta)eyJmaWxlS2V5IjoiMG5YWE1BUjRBcmYxWmZqdFF2dEJoMCIsInBhc3RlSUQiOjI3MTA3MTY1MiwiZGF0YVR5cGUiOiJzY2VuZSIsImVudmlyb25tZW50Ijoid3d3LmZpZ21hLmNvbSIsInNlbGVjdGVkTm9kZURhdGEiOiI0NTE5OjEzNDY4fDMxfDAifQo=(/figmeta)--&gt;"></span></div>
-        
+
+    <div class="hero-art">
+      <div class="hero-card hero-card--before">
+        <img src="/img/hero-before.webp" alt="Bộ đồ thường ngày trước khi dùng Macgie: áo trơn và quần jeans" width="205" height="500" loading="eager" decoding="async">
+        <span class="hero-chip"><svg width="10" height="10" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M6 0l1.2 3.3L10.5 4.5 7.2 5.7 6 9 4.8 5.7 1.5 4.5 4.8 3.3z"></path></svg>Cơ bản</span>
+        <span class="hero-tag">Trước</span>
       </div>
-      <a class="store-badge" href="https://apps.apple.com/app/id6766749757" target="_blank" rel="noopener" style="flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; background: rgb(255, 255, 255); color: rgb(17, 17, 17); border-radius: 10px; padding: 7px 12px;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="#111"><path d="M16.5 1.8c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.8-1.4zM19 17.3c-.5 1.2-.8 1.7-1.4 2.7-.9 1.4-2.2 3.2-3.8 3.2-1.4 0-1.8-.9-3.7-.9s-2.3.9-3.7.9c-1.6 0-2.8-1.6-3.7-3C-.1 16.7-.6 11 1.6 8.2c1-1.3 2.5-2 4-2 1.5 0 2.5.9 3.7.9 1.2 0 1.9-.9 3.7-.9 1.3 0 2.7.7 3.7 2-3.2 1.8-2.7 6.4.6 7.1z"></path></svg>
-        <span style="line-height: 1.05;"><span style="display: block; font-size: 8px; opacity: 0.7;">Tải về trên</span><span style="font-size: 12px; font-weight: 700;">Cửa hàng ứng dụng</span></span>
-      </a>
+      <div class="hero-card hero-card--after">
+        <img src="/img/hero-after.webp" alt="Vẫn tủ đồ đó, được Macgie phối lại thành một bộ đồ chỉn chu, gọn gàng" width="273" height="549" loading="eager" fetchpriority="high" decoding="async">
+        <span class="hero-chip"><svg width="10" height="10" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M6 0l1.2 3.3L10.5 4.5 7.2 5.7 6 9 4.8 5.7 1.5 4.5 4.8 3.3z"></path></svg>Tuyệt vời</span>
+        <span class="hero-tag">Sau</span>
+      </div>
+      <span class="hero-arrow" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 12h15m0 0l-6-6m6 6l-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </span>
     </div>
-    
-  </div></section><section id="problem" style="max-width: 940px; margin: 0px auto; padding: 96px 40px 88px; text-align: center;">
+
+  </div>
+</section><section id="problem" style="max-width: 940px; margin: 0px auto; padding: 96px 40px 88px; text-align: center;">
   <div style="font-family: Geist, sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(158, 150, 142);">Vấn đề lúc 8 giờ sáng</div>
   
   <div class="problem-row" style="display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 22px;">

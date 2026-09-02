@@ -96,6 +96,23 @@ homepage/
 
 ## Updating the site (re-flatten from the design)
 
+> **The home page hero is hand-authored and NOT in the design project.** The
+> 2026-09 hero redesign (`<section class="hero">` in `public/index.html`, plus
+> the `.hero-*` rules in the page's inlined `<style>`) was written by hand from
+> a mockup, because the Claude Design project could not be reached from the
+> session that built it. **A re-flatten will silently replace it with whatever
+> the design project still holds.** Before re-running the pipeline below,
+> either port the hero into "Macgie design home page" first, or re-apply it
+> afterwards from git history. Two things ride on it:
+> - `public/img/hero-before.webp` (205×500) and `hero-after.webp` (273×549) are
+>   **placeholder crops** of `img/diff-2.webp` and the right-hand figure of
+>   `img/hero-p2.webp` — two different people. The design wants one person shot
+>   twice. Replacements drop in at the same paths/aspect ratios, no markup edit.
+> - The "Loved by 100,000+ people … 4.8 average rating" block is **unverified**
+>   — the App Store reported 0 ratings for id6766749757 in every storefront
+>   checked (US/VN/GB/SG) on 2026-09-02. Do not publish it as-is, and do not
+>   mirror it into the page's JSON-LD as an `aggregateRating`.
+
 Design edits happen in **claude.ai/design**. Unzip the export into a **scratch
 dir** — do NOT wipe `public/`, which also holds build outputs the export doesn't
 carry (Strapi `journal/`, the `vi/` mirrors, optimized `img/`). Overlay the
@@ -163,8 +180,15 @@ faithful; keep any hand-edits inside these scripts, not in the generated HTML.
 - **No client framework/runtime.** Content ships in the initial HTML.
 - **Critical CSS is inlined** into each page `<head>` (the `_ds` token CSS +
   page style). No render-blocking external stylesheets.
-- **Fonts self-hosted as woff2**, `font-display: swap`; the LCP font
-  (Poppins-Bold) + Inter-Regular are `<link rel="preload">`ed. No Google Fonts.
+- **Fonts self-hosted as woff2**, `font-display: swap`; the LCP face is
+  `<link rel="preload">`ed. No Google Fonts at runtime. Geist is the body/UI
+  face; **Playfair Display** is the marketing display face (hero headline only)
+  and ships as *static weight-500 instances* of the latin / latin-ext /
+  vietnamese subsets — roman + italic, six files. Both families' `@font-face`
+  blocks live in `scripts/flatten-static.py` (`GEIST_FACES`, `PLAYFAIR_FACES`),
+  not in the design system's `fonts.css`, so a re-flatten keeps them. Need a
+  different Playfair weight? Re-fetch the subsets from Google Fonts and
+  re-instance with fontTools — don't declare a weight the files don't carry.
 - **All raster images are sized webp** with `width`/`height` + `loading="lazy"`
   (hero is `eager` + `fetchpriority=high` + preloaded).
 - **SEO:** per-page `<title>`/meta/canonical, `lang="en"`, JSON-LD, Open Graph,

@@ -36,6 +36,63 @@ GEIST_FACES = """
 }
 """
 
+# Playfair Display is the marketing DISPLAY face — the hero headline, and
+# nothing else so far. Like Geist it is not in the design system's bundled
+# fonts.css, so its faces live here. The shipped woff2 are static instances at
+# weight 500 (the variable originals were ~65% larger); if another weight is
+# ever needed, re-fetch the subsets from Google Fonts and re-instance with
+# fontTools rather than declaring a weight the files don't carry.
+PLAYFAIR_FACES = """
+@font-face {
+  font-family: 'Playfair Display';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url('{REL}/assets/fonts/PlayfairDisplay-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url('{REL}/assets/fonts/PlayfairDisplay-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url('{REL}/assets/fonts/PlayfairDisplay-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+  src: url('{REL}/assets/fonts/PlayfairDisplay-Italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+  src: url('{REL}/assets/fonts/PlayfairDisplay-Italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+  src: url('{REL}/assets/fonts/PlayfairDisplay-Italic-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+"""
+
 
 def ds_dir(pubdir):
     """The bundled design-system folder (its name carries a content hash)."""
@@ -44,7 +101,7 @@ def ds_dir(pubdir):
 
 
 def token_css(pubdir):
-    """Design-system token CSS, ready to inline: fonts + Geist + colors.
+    """Design-system token CSS, ready to inline: fonts + Geist + Playfair + colors.
 
     The export's fonts.css points at bundled TTFs via relative URLs. Pages are
     served from arbitrary depths (/, /features, /vi/…), and TTF is ~3x the bytes
@@ -68,7 +125,8 @@ def token_css(pubdir):
     fonts = re.sub(
         r"url\('\.\./assets/fonts/([^']+)\.ttf'\)\s*format\('truetype'\)", to_woff2, fonts
     )
-    return fonts + "\n" + GEIST_FACES.replace("{REL}", rel) + "\n" + colors
+    return (fonts + "\n" + GEIST_FACES.replace("{REL}", rel)
+            + "\n" + PLAYFAIR_FACES.replace("{REL}", rel) + "\n" + colors)
 
 
 # Raster images the design references under a different name than the one we
