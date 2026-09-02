@@ -280,11 +280,6 @@
     display: block; margin-top: 11px; text-align: center;
     font-family: Geist, system-ui, sans-serif; font-size: 12.5px; color: #706a63;
   }
-  .hero-proof { margin-top: 44px; font-family: Geist, system-ui, sans-serif; }
-  .hero-rating { display: flex; align-items: center; gap: 10px; }
-  .hero-rating svg { display: block; flex: 0 0 auto; }
-  .hero-rating span { font-size: 14px; color: #57524b; }
-
   .hero-art { position: relative; width: min(100%, 538px); aspect-ratio: 27 / 25; margin: 0 auto; }
   .hero-card {
     position: absolute; overflow: hidden; border-radius: 24px;
@@ -409,20 +404,6 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
         <span class="hero-note">Không cần thẻ tín dụng</span>
       </div>
 
-      <!-- UNVERIFIED. The App Store reports 0 ratings and no average for
-           id6766749757 in every storefront checked (US/VN/GB/SG), so "4.8" is
-           unsupported. Replace it with a real figure or delete this block
-           before publishing. Deliberately NOT mirrored into the page's JSON-LD
-           as an aggregateRating. -->
-      <div class="hero-proof">
-        <div class="hero-rating">
-          <svg width="116" height="20" viewBox="0 0 116 20" fill="#e0a13c" aria-hidden="true" focusable="false">
-            <defs><path id="hstar" d="M10 .8l2.9 5.87 6.48.94-4.69 4.57 1.11 6.45L10 15.58 4.2 18.63l1.11-6.45L.61 7.61l6.48-.94z"></path></defs>
-            <use href="#hstar"></use><use href="#hstar" x="24"></use><use href="#hstar" x="48"></use><use href="#hstar" x="72"></use><use href="#hstar" x="96"></use>
-          </svg>
-          <span>4,8 điểm đánh giá trung bình</span>
-        </div>
-      </div>
     </div>
 
     <div class="hero-art">

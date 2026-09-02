@@ -110,11 +110,13 @@ homepage/
 >   differently-shaped photo means re-deriving `width` on `.hero-card--before`
 >   and `.hero-card--after`, or accepting a centre crop and steering it with
 >   `.hero-card--* img { object-position }`. Both render at ~2.2× density.
-> - The "4.8 average rating" row is **unverified** — the App Store reported 0
->   ratings for id6766749757 in every storefront checked (US/VN/GB/SG) on
->   2026-09-02. Do not publish it as-is, and do not mirror it into the page's
->   JSON-LD as an `aggregateRating`. (The "Loved by 100,000+ people" line that
->   sat above it was removed on the same grounds.)
+> - **No social proof in the hero, deliberately.** A "Loved by 100,000+ people"
+>   line and a "★★★★★ 4.8 average rating" row were both drawn in the mockup and
+>   both removed: on 2026-09-02 the App Store reported 0 ratings and no average
+>   for id6766749757 in every storefront checked (US/VN/GB/SG), and the App
+>   Store button sits in the same header. Don't reinstate either without a real,
+>   current figure — and never mirror one into the page's JSON-LD as an
+>   `aggregateRating`.
 
 Design edits happen in **claude.ai/design**. Unzip the export into a **scratch
 dir** — do NOT wipe `public/`, which also holds build outputs the export doesn't
@@ -212,6 +214,12 @@ faithful; keep any hand-edits inside these scripts, not in the generated HTML.
 
 - **Sandbox first** to vibe-check; production is untouched until you run `prod`.
   Deploy is preview-first and never touches git — it just uploads `public/`.
+- **`main` also deploys itself.** `.github/workflows/auto-publish-journal.yml`
+  runs every 30 min, and when Strapi content has changed it commits the
+  regenerated journal and then uploads the **whole** `public/` directory to the
+  production branch. So anything merged to `main` reaches macgie.com on the next
+  content change (or immediately via a forced `workflow_dispatch`) with no
+  further action — `npm run publish` is the manual path, not the only one.
 - Needs `wrangler` auth (`wrangler whoami`, Pages write). No build step.
 - **Custom domain:** **`beta.macgie.com`** and **`macgie.com`** (apex, live
   since 2026-07-29) are both attached to the `macgie-homepage` project.
