@@ -131,10 +131,10 @@ homepage/
 > artwork already rounds. All four step phones are in (`/img/step-find.webp`,
 > `step-tryon.webp`, and `assets/feature/closet.webp` + `recommend.webp`).
 >
-> Still missing: the three `.pcard` visuals — `/img/card-inspire.webp`,
-> `card-wardrobe.webp`, `card-results.webp`, roughly 16:11. They render as a
-> dashed box, deliberately obvious so nobody publishes them by accident; each
-> carries an HTML comment naming its file.
+> The three `.pcard` visuals (`/img/card-inspire.webp`, `card-wardrobe.webp`,
+> `card-results.webp`, all 622×426) also carry their own rounded corners, so
+> they sit inset inside the card rather than bleeding off its bottom edge —
+> otherwise the card's radius and the artwork's would double up.
 >
 > Three sources are under-resolution for their slots and will look soft on a
 > retina display: `you-5.webp` (222px into a 190px slot, 1.17×) and the two new
@@ -210,8 +210,12 @@ faithful; keep any hand-edits inside these scripts, not in the generated HTML.
   page style). No render-blocking external stylesheets.
 - **Fonts self-hosted as woff2**, `font-display: swap`; the LCP face is
   `<link rel="preload">`ed. No Google Fonts at runtime. Geist is the body/UI
-  face; **Playfair Display** is the marketing display face (hero headline only)
-  and ships as *static weight-500 instances* of the latin / latin-ext /
+  face; **Playfair Display** is the marketing display face — every `h1`/`h2` on
+  `index.html`, `features.html` and `404.html`, always at weight 500, since the
+  files carry no other weight and a heavier request only gets a synthetic bold.
+  (`journal.html` and the article pages still set Geist on their headings; they
+  come from `scripts/templates/`, and changing them means a journal rebuild.)
+  It ships as *static weight-500 instances* of the latin / latin-ext /
   vietnamese subsets — roman + italic, six files. Both families' `@font-face`
   blocks live in `scripts/flatten-static.py` (`GEIST_FACES`, `PLAYFAIR_FACES`),
   not in the design system's `fonts.css`, so a re-flatten keeps them. Need a
