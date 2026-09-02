@@ -391,14 +391,16 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
      A re-export + re-flatten will overwrite it, so port this hero into the
      design first if the pipeline is ever re-run. See CLAUDE.md.
 
-     Photography is PLACEHOLDER: hero-before.webp / hero-after.webp are crops
-     of existing site assets (diff-2.webp and the right-hand figure of
-     hero-p2.webp) and show two different people. The design calls for one
-     person shot twice. The card slots are sized to the real photography's
-     proportions — before ~0.625, after ~0.67 — so replacements drop in at the
-     same paths with no markup change; object-fit: cover absorbs small
-     mismatches, and .hero-card--*  img { object-position } shifts the framing
-     if the centre crop lands wrong.
+     hero-before.webp is the real photograph, but only 247x404 — the slot
+     renders 224x359 CSS px, so it is under 1x on any retina display and will
+     look soft. Replace it with the original export (~700px wide or more).
+
+     hero-after.webp is still a PLACEHOLDER: a crop of the right-hand figure of
+     hero-p2.webp, a different person from the "before". The card slots are
+     sized to the intended photography — before ~0.625, after ~0.67 — so a
+     replacement drops in at the same path with no markup change; object-fit:
+     cover absorbs a small mismatch, and .hero-card--* img { object-position }
+     shifts the framing if the centre crop lands wrong.
      ================================================================== -->
 <section class="hero" aria-labelledby="hero-title">
   <div class="hero-inner">
@@ -430,7 +432,7 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
 
     <div class="hero-art">
       <div class="hero-card hero-card--before">
-        <img src="/img/hero-before.webp" alt="An everyday outfit before Macgie: a plain top and jeans" width="313" height="500" loading="eager" decoding="async">
+        <img src="/img/hero-before.webp" alt="Standing in front of an open closet in a tank top and sweatpants, with clothes piled on the floor" width="247" height="404" loading="eager" decoding="async">
         <span class="hero-chip"><svg width="10" height="10" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M6 0l1.2 3.3L10.5 4.5 7.2 5.7 6 9 4.8 5.7 1.5 4.5 4.8 3.3z"></path></svg>Basic</span>
         <span class="hero-tag">Before</span>
       </div>
