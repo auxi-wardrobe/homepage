@@ -96,14 +96,20 @@ homepage/
 
 ## Updating the site (re-flatten from the design)
 
-> **The home page hero is hand-authored and NOT in the design project.** The
-> 2026-09 hero redesign (`<section class="hero">` in `public/index.html`, plus
-> the `.hero-*` rules in the page's inlined `<style>`) was written by hand from
-> a mockup, because the Claude Design project could not be reached from the
-> session that built it. **A re-flatten will silently replace it with whatever
-> the design project still holds.** Before re-running the pipeline below,
-> either port the hero into "Macgie design home page" first, or re-apply it
-> afterwards from git history. Two things ride on it:
+> **The top of the home page is hand-authored and NOT in the design project.**
+> The 2026-09 redesign — `<section class="hero">`, `.cby` ("This could be you"),
+> `.steps` ("Your stylist, 4 simple steps") and `.pcards` (the three tinted
+> cards) in `public/index.html`, plus their `.hero-* / .sec-* / .cby-* /
+> .step* / .pcard-*` rules in the page's inlined `<style>` — was written by hand
+> from mockups, because the Claude Design project could not be reached from the
+> session that built it. It **replaced** the design's own `#problem` ("The 8AM
+> problem"), `#different` ("Meet Macgie") and `#how` ("How it works") sections.
+> **A re-flatten will silently bring all three back and drop these four.**
+> Before re-running the pipeline below, either port this work into "Macgie
+> design home page" first, or re-apply it afterwards from git history.
+> `finalize-static.py`'s `wire_how_it_works` still targets the design's old
+> step-card markup, which no longer ships — it is a no-op on the current page.
+> Two things ride on the hero specifically:
 > - `public/img/hero-before.webp` (494×807) and `hero-after.webp` (723×1063) are
 >   the final photography, and the two card slots carry their **exact** aspect
 >   ratios (0.612 / 0.680) so `object-fit: cover` crops nothing. Swapping in a
@@ -117,6 +123,15 @@ homepage/
 >   Store button sits in the same header. Don't reinstate either without a real,
 >   current figure — and never mirror one into the page's JSON-LD as an
 >   `aggregateRating`.
+>
+> **Artwork still missing** in the three new sections: the seven `.cby-tile`
+> collage tiles (`/img/you-1.webp` … `you-7.webp`, each shown over the flat
+> colour it sits on), two of the four step phones (`/img/step-find.webp` and
+> `/img/step-tryon.webp`, matching the 1100×2237 transparent device mockups in
+> `assets/feature/`), and the three card visuals (`/img/card-inspire.webp`,
+> `card-wardrobe.webp`, `card-results.webp`). Empty slots render as a flat tile
+> or a dashed box — deliberately obvious, so nobody publishes them by accident.
+> Each slot carries an HTML comment naming its file.
 
 Design edits happen in **claude.ai/design**. Unzip the export into a **scratch
 dir** — do NOT wipe `public/`, which also holds build outputs the export doesn't

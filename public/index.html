@@ -228,7 +228,6 @@
   .feat-card:hover { transform: translateY(-3px); }
   #featTrack::-webkit-scrollbar { display: none; }
   .featdot { transition: width .2s ease, background .2s ease; cursor: pointer; }
-  .step-card { transition: background .18s ease; cursor: pointer; }
   @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
   #hpL, #hpR, #scL, #scR { transition: transform .09s linear; }
   .hamburger { display: none; }
@@ -241,8 +240,135 @@
     header > div { padding-left: 20px !important; padding-right: 20px !important; }
     section [style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
     footer > div:first-child { grid-template-columns: 1fr 1fr !important; }
-    .problem-row { flex-direction: column !important; }
   }
+  /* ---- Shared section head (eyebrow + serif title) ------------------- */
+  .sec-head { max-width: 940px; margin: 0 auto; padding: 0 40px; text-align: center; }
+  .sec-eyebrow {
+    font-family: Geist, system-ui, sans-serif; font-size: 11.5px; font-weight: 600;
+    letter-spacing: .16em; text-transform: uppercase; color: #9e968e; margin: 0;
+  }
+  .sec-title {
+    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-weight: 500;
+    font-size: clamp(28px, 3.7vw, 46px); line-height: 1.14; letter-spacing: -.015em;
+    color: #14120f; margin: 16px 0 0; text-wrap: balance;
+  }
+
+  /* ---- "This could be you" — note / collage / note ------------------- */
+  .cby { padding: 100px 0 96px; }
+  .cby-band {
+    max-width: 1200px; margin: 54px auto 0; padding: 0 40px;
+    display: grid; grid-template-columns: 200px minmax(0, 1fr) 200px;
+    gap: 36px; align-items: center;
+  }
+  .cby-side { display: flex; flex-direction: column; gap: 26px; }
+  .cby-note h3 {
+    font-family: Geist, system-ui, sans-serif; font-size: 17px; font-weight: 600;
+    line-height: 1.24; letter-spacing: -.01em; color: #14120f; margin: 0;
+  }
+  .cby-note p {
+    font-family: Geist, system-ui, sans-serif; font-size: 13.5px; line-height: 1.5;
+    color: #6f6a63; margin: 9px 0 0;
+  }
+  .cby-collage { display: grid; grid-template-columns: 1fr 1.18fr 1fr; gap: 22px; align-items: center; }
+  .cby-stack { display: flex; flex-direction: column; gap: 20px; }
+  .cby-tile { margin: 0; border-radius: 18px; overflow: hidden; }
+  .cby-tile img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .cby-tile--tall { border-radius: 22px; aspect-ratio: 13 / 25; }
+  .cby-tile--sq { aspect-ratio: 1; }
+  .cby-tile--wide { aspect-ratio: 39 / 25; }
+  .cby-tile--box { aspect-ratio: 15 / 16; }
+  .cby-tile--land { aspect-ratio: 3 / 2; }
+  /* Flat grounds from the mockup; each also shows through behind its photo. */
+  .cby-tile--amber { background: #f5a340; }
+  .cby-tile--sand { background: #ece4d8; }
+  .cby-tile--teal { background: #17807e; }
+  .cby-tile--yellow { background: #f3d93e; }
+  .cby-tile--flame { background: #f2652a; }
+  .cby-tile--blue { background: #2e9be8; }
+  .cby-tile--sage { background: #7cc3a1; }
+
+  /* ---- "Your stylist, 4 simple steps" -------------------------------- */
+  .steps { padding: 0 0 100px; }
+  .steps-grid {
+    max-width: 1120px; margin: 54px auto 0; padding: 0 40px;
+    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 44px 32px;
+  }
+  .step { text-align: center; }
+  .step img, .step .step-slot { display: block; width: 100%; max-width: 178px; margin: 0 auto; }
+  .step img { height: auto; }
+  .step .step-slot { aspect-ratio: 1100 / 2237; border-radius: 26px; background: #f4f1ec; border: 1px dashed #d5cec5; }
+  .step h3 {
+    font-family: Geist, system-ui, sans-serif; font-size: 17px; font-weight: 600;
+    letter-spacing: -.01em; color: #14120f; margin: 24px 0 0;
+  }
+  .step p {
+    font-family: Geist, system-ui, sans-serif; font-size: 13.5px; line-height: 1.55;
+    color: #6f6a63; margin: 9px auto 0; max-width: 25ch;
+  }
+
+  /* ---- Three tinted product cards ------------------------------------ */
+  .pcards {
+    max-width: 1240px; margin: 0 auto; padding: 0 40px 104px;
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px;
+  }
+  .pcard { border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; }
+  .pcard-body { padding: 32px 30px 26px; }
+  .pcard-eyebrow {
+    font-family: Geist, system-ui, sans-serif; font-size: 11px; font-weight: 700;
+    letter-spacing: .14em; text-transform: uppercase; margin: 0;
+  }
+  .pcard h3 {
+    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-weight: 500;
+    font-size: clamp(22px, 2.1vw, 27px); line-height: 1.18; letter-spacing: -.01em;
+    color: #14120f; margin: 15px 0 0;
+  }
+  .pcard p {
+    font-family: Geist, system-ui, sans-serif; font-size: 14px; line-height: 1.55;
+    color: #4a453f; margin: 14px 0 0;
+  }
+  .pcard-btn {
+    display: inline-flex; align-items: center; margin-top: 22px;
+    background: #121214; color: #fff; border-radius: 999px; padding: 11px 20px;
+    font-family: Geist, system-ui, sans-serif; font-size: 13.5px; font-weight: 600;
+    transition: transform .16s ease;
+  }
+  .pcard-btn:hover { color: #fff; transform: translateY(-2px); }
+  .pcard-art { margin-top: auto; }
+  .pcard-art img { display: block; width: 100%; height: auto; }
+  .pcard-art .pcard-slot {
+    aspect-ratio: 16 / 11; margin: 0 30px 30px; border-radius: 14px;
+    background: rgba(20, 18, 15, .05); border: 1px dashed rgba(20, 18, 15, .18);
+  }
+  .pcard--pink { background: #fbe9ef; } .pcard--pink .pcard-eyebrow { color: #d93d76; }
+  .pcard--lilac { background: #eeeefb; } .pcard--lilac .pcard-eyebrow { color: #5e51db; }
+  .pcard--cream { background: #fdf2e2; } .pcard--cream .pcard-eyebrow { color: #d9512f; }
+
+  @media (max-width: 1020px) {
+    .cby-band { grid-template-columns: 1fr; gap: 34px; }
+    .cby-side { flex-direction: row; align-items: center; gap: 24px; }
+    .cby-side .cby-note { flex: 1 1 0; }
+    .cby-side .cby-tile { flex: 0 0 128px; }
+  }
+  @media (max-width: 900px) {
+    .steps-grid { grid-template-columns: 1fr 1fr; }
+    .pcards { grid-template-columns: 1fr; max-width: 580px; }
+  }
+  @media (max-width: 640px) {
+    .cby { padding: 72px 0 68px; }
+    .sec-head, .cby-band, .steps-grid { padding-left: 20px; padding-right: 20px; }
+    .pcards { padding: 0 20px 76px; }
+    .cby-side { flex-direction: column; align-items: stretch; gap: 20px; }
+    .cby-side .cby-tile { flex: none; }
+    .cby-collage { grid-template-columns: 1fr; gap: 16px; }
+    .cby-stack { flex-direction: row; gap: 16px; }
+    .cby-stack > .cby-tile { flex: 1 1 0; aspect-ratio: 1; }
+    .cby-tile--tall { aspect-ratio: 4 / 5; }
+    .steps { padding-bottom: 76px; }
+  }
+  @media (max-width: 460px) {
+    .steps-grid { grid-template-columns: 1fr; gap: 40px; }
+  }
+
   /* ---- Hero banner --------------------------------------------------
      Editorial split: serif headline + CTA on the left, an overlapping
      before/after pair on the right. The art geometry is percentage-based
@@ -436,104 +562,132 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
     </div>
 
   </div>
-</section><section id="problem" style="max-width: 940px; margin: 0px auto; padding: 96px 40px 88px; text-align: center;">
-  <div style="font-family: Geist, sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(158, 150, 142);">The 8AM problem</div>
-  
-  <div class="problem-row" style="display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 22px;">
-    <svg width="104" height="97" viewBox="0 0 88 130" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex: 0 0 auto;"><g clip-path="url(#homecatclip)"><path d="M48.5082 9.02734C49.3879 9.14471 50.1769 9.40779 50.7502 10.138C52.4146 12.2581 52.8078 12.4655 53.8248 14.9149C54.9923 17.7268 55.2054 16.5928 55.9718 19.5419C56.0539 19.9688 56.3952 20.7224 56.3981 21.1126C57.0495 22.8636 57.4903 23.1791 59.5656 22.8858C60.0146 22.8224 61.0146 22.8819 61.5111 22.8636C61.8933 22.8495 62.6383 22.9563 62.9811 22.7838C63.8844 22.7838 65.5152 20.4412 65.5152 20.4412C65.5152 20.4412 67.6221 16.5406 68.0339 15.3775C68.2472 14.7751 68.5292 14.2119 68.7815 13.6256C70.1604 9.40792 73.5044 8.6224 75.16 13.3165C75.3775 13.933 75.8808 14.7973 76.1065 15.4529C77.5823 19.72 78.5514 18.7 79.4006 23.1273C79.5281 23.7923 79.4453 24.611 79.5144 25.2944C79.7461 27.8732 79.6013 30.4888 79.4876 33.0724C79.4 34.0615 79.1434 35.0196 79.1255 36.0162C79.1093 36.9114 79.4671 37.7565 79.6006 38.6292C79.8243 40.0928 79.9496 41.7351 79.7261 43.1987C79.6307 43.8229 79.4108 44.5124 79.2645 45.1286C80.303 44.9729 87.3148 43.9503 87.5123 45.0704C87.4138 45.2738 87.4482 45.2911 87.2848 45.3747C86.7658 45.3488 85.6594 45.1084 85.2441 45.1459C83.5835 45.2952 80.5976 45.486 79.0242 45.9258C78.5953 46.4821 78.1905 47.4395 78.151 48.1509C78.1491 48.1854 78.1877 48.3543 78.2327 48.3618C81.119 48.8334 84.1872 48.5676 86.9774 49.6058C87.3224 49.7343 87.8382 49.8831 88 50.2381L87.9901 50.3984C87.6591 50.6226 86.865 50.2128 86.4908 50.0785C84.5372 49.3775 82.4635 49.3291 80.4114 49.2029C79.5735 49.1516 78.5735 49.0524 77.7327 49.1031C77.0261 49.8612 76.4012 50.6002 75.6707 51.3732C76.4577 51.7352 77.5071 51.8689 78.353 52.0868C80.1887 52.5606 82.092 53.1232 83.6649 54.2104C83.9281 54.3925 84.8071 54.8387 84.5892 55.2088C84.4181 55.278 84.3952 55.2791 84.2106 55.2693C83.7472 55.0261 83.3286 54.7407 82.8737 54.5067C81.2673 53.6812 79.5505 53.1284 77.815 52.6413C76.9964 52.4119 75.9872 52.2684 75.1357 52.0476C73.9389 52.6459 72.9473 53.4864 71.614 54.0818C70.5826 54.543 68.8098 54.9015 67.9698 55.3742C67.9488 61.1017 65.99 67.2618 68.9925 74.7466C69.3847 76.5175 68.5798 77.6018 68.9925 79.4009C69.7678 82.5679 66.1787 85.7739 65.99 89.0273H37.1391C37.6595 86.7827 37.7439 84.7386 38.173 82.5245C38.6051 80.7624 39.2457 78.984 39.8879 77.2853C40.1677 76.5451 40.6013 75.4412 40.9844 74.7466C42.51 71.982 43.8177 69.1125 45.3546 66.3514C45.7634 65.617 45.9809 64.5754 46.3196 63.7954C47.1521 61.76 48.0354 59.7834 48.7861 57.7146C49.1951 56.5882 49.6108 55.8267 49.8283 54.5862C49.3726 54.1522 47.9314 53.6149 47.2656 53.2621C46.2681 52.7341 45.4312 51.9732 44.4176 51.5911C42.7528 52.141 41.0617 52.7826 39.552 53.6605C39.3079 53.8028 39.0597 53.9424 38.8136 54.0807C38.1339 54.4548 37.443 54.8082 36.7417 55.1402C36.4183 55.297 35.9414 55.6411 35.6157 55.531C35.5823 55.4042 35.5844 55.3713 35.6548 55.2497C35.8337 54.9407 39.4168 52.7168 39.9379 52.4828C41.1746 51.9277 42.6119 51.6147 43.7557 50.8953C43.1936 50.3459 42.4297 49.1343 41.6273 49.2127C39.0625 49.4623 36.6076 49.879 34.1172 50.546C33.9343 50.595 33.613 50.5719 33.4578 50.4468C33.4451 50.3275 33.4375 50.3062 33.5221 50.2082C33.9758 49.6836 40.3795 48.6685 41.4882 48.4333C40.8775 47.409 40.614 46.7449 40.1351 45.6837C37.8158 45.7165 35.8762 45.739 33.5999 46.2988C33.437 46.3385 33.163 46.2815 33.0209 46.1783C32.6772 45.1586 36.6728 45.1286 37.2457 45.1315C38.148 45.1355 39.0357 45.0571 39.9301 45.0352C39.0233 43.0234 38.9115 41.6573 39.261 39.4576C39.3218 39.0748 39.6133 37.8447 39.5585 37.5576C39.2598 35.9909 39.111 34.5999 39.034 33.0014C38.9137 30.5026 38.7723 28.0225 39.2377 25.5433C39.4986 24.1921 39.5 23 40.3808 21.2525C41.2616 19.5049 44.0289 15.6781 45.3847 12.9596C46.1672 11.3906 46.8172 9.86214 48.5082 9.02734Z" fill="black"></path><path d="M42.1364 70.4571C42.8836 66.9595 46.3082 60.8894 47.9271 58.2916L49.6566 54.0273H63.5467C63.9826 57.0687 65.8223 64.7925 67.9144 69.5066C70.5296 75.3993 69.4088 81.0929 69.4088 84.4743C69.4088 88.5785 68.288 90.6061 70.5296 98.0195C72.7711 105.433 66.2332 109.044 66.9804 109.615C67.7276 110.185 69.4088 111.896 69.4088 114.367C69.4088 116.838 65.2993 114.367 62.4973 116.078C59.6954 117.788 42.1364 115.697 39.5213 114.367C37.0198 113.094 38.1074 111.126 35.9179 106.798C34.4245 105.537 32.107 103.305 29.1284 104.778C27.3278 105.668 26.7127 107.167 27.1153 108.759C27.5179 110.351 27.9205 110.75 29.531 111.148C31.1414 111.546 31.9467 110.75 33.1545 110.75C34.3623 110.75 36.3754 110.75 37.1806 113.935C37.5219 115.284 36.3754 117.518 34.3623 117.916C32.2363 118.336 27.9205 117.518 25.5049 116.323C23.0892 115.129 21.4786 111.944 21.076 109.615C20.6734 107.285 21.8497 102.964 25.1021 101.195C29.3393 98.8904 32.2387 99.7829 34.2697 100.45C34.1061 96.215 35.1009 91.6178 35.5985 89.4656C36.3457 86.2342 38.7741 83.9531 39.5213 81.8622C40.2684 79.7713 41.2024 74.829 42.1364 70.4571Z" fill="black"></path><path d="M61.5439 85.0195C61.7453 80.5991 62.029 74.9682 64.8965 71.2018C68.4809 66.4937 72.2623 59.6513 76.1071 60.7361C79.9518 61.821 84.5007 60.8377 84.9154 57.9185C85.3157 55.1008 83.8797 54.6697 81.7124 53.8931L81.174 53.4872C80.8391 53.1553 80.4841 52.7445 80.1108 52.6856C79.2015 52.5421 78.5845 53.2195 77.4861 53.3135C72.5547 53.7355 61.1542 60.8073 57.45 68.0342C54.4867 73.8158 55.3871 80.4409 50.3564 85.6634L61.5439 85.0195Z" fill="black"></path><path d="M53.3794 36.0027L53.6607 36.0001C55.1621 35.9935 55.8938 36.2691 57.025 37.1457C58.2336 38.0819 58.9637 40.2791 59 41.6176C58.9184 42.9837 58.7397 44.5816 57.5275 45.5556C55.7933 46.9493 54.7803 47.0141 52.5814 46.9983C49.0187 46.8763 46.38 43.9486 47.1272 40.8815C47.8069 38.0921 50.0434 36.1007 53.3794 36.0027Z" fill="white"></path><path id="hpL" d="M54.3488 37.0215C56.0441 36.7559 56.0628 39.0246 55.9697 40.046C55.8753 41.0803 55.6443 41.6642 54.5857 42C52.5262 41.3992 52.5001 37.875 54.3488 37.0215Z" fill="black"></path><path d="M69.4059 36.0331C69.6681 36.0143 69.9014 36.0472 70.1484 36.0513C72.7877 36.0968 74.1969 37.7383 74.8 39.7624C74.9566 40.2881 74.9287 40.8098 74.9602 41.3563C75.0325 42.6163 75.103 43.8641 74.2371 44.9641C73.3416 46.1366 72.2442 46.6638 70.6601 46.9669C66.9798 47.3894 65.4849 45.5552 65.06 42.7352C64.6548 40.0462 66.3253 36.9788 69.4059 36.0331Z" fill="white"></path><path id="hpR" d="M70.3488 38.0215C72.0441 37.7559 72.0628 40.0246 71.9697 41.046C71.8753 42.0803 71.6443 42.6642 70.5857 43C68.5262 42.3992 68.5001 38.875 70.3488 38.0215Z" fill="black"></path><path d="M62.0617 43.0364C62.6169 43.0085 63.1778 43.0061 63.7341 43L64 43.6638C63.6049 43.7949 63.1768 43.8829 62.7674 43.9763L62.7098 44C62.2631 43.9593 61.1277 43.7609 61 43.3161L61.1071 43.1863C61.3891 43.0231 61.7227 43.0461 62.0617 43.0364Z" fill="white"></path><path d="M62 52.5667C63.808 51.8295 69.1976 50.5422 69.8317 51.2169C71.1455 52.6145 64.4106 53.6725 62 52.5667Z" fill="white"></path><path d="M46.6301 29.3953L46.4166 29.2646C46.29 29.4712 46.107 29.8044 45.9664 30.1389C45.8961 30.306 45.8339 30.4795 45.7955 30.6413C45.7587 30.7963 45.736 30.9709 45.7737 31.1252L46.0167 31.0666L46.2597 31.008C46.2506 30.9705 46.2508 30.8899 46.2822 30.7576C46.312 30.6322 46.3633 30.4863 46.4277 30.3332C46.5563 30.0273 46.7267 29.7167 46.8435 29.5261L46.6301 29.3953ZM46.0167 31.0666L45.7737 31.1252C45.807 31.262 45.9018 31.3652 45.9888 31.4369C46.0807 31.5126 46.1944 31.5781 46.3145 31.6331C46.555 31.7434 46.8542 31.8267 47.1411 31.8614C47.4195 31.895 47.7287 31.8881 47.9645 31.7767C48.0883 31.7183 48.2038 31.6249 48.2715 31.4835C48.3392 31.3418 48.3439 31.1831 48.3047 31.0224L48.0617 31.081L47.8186 31.1396C47.8379 31.2187 47.8262 31.2544 47.8199 31.2674C47.8136 31.2806 47.7978 31.3023 47.7499 31.3249C47.6424 31.3757 47.4476 31.3952 47.2002 31.3653C46.9613 31.3364 46.7127 31.2662 46.5223 31.179C46.4269 31.1353 46.3544 31.091 46.3066 31.0516C46.2539 31.0082 46.2556 30.9911 46.2597 31.008L46.0167 31.0666ZM48.0617 31.081L48.3047 31.0224C48.1799 30.5106 47.9492 30.1355 47.8299 29.8803C47.767 29.7458 47.7353 29.6489 47.7299 29.5636C47.725 29.487 47.7404 29.4031 47.8075 29.2935L47.5941 29.1628L47.3807 29.032C47.2652 29.2204 47.2186 29.4053 47.2306 29.5943C47.2421 29.7748 47.3063 29.9404 47.3767 30.091C47.524 30.4062 47.7096 30.6923 47.8186 31.1396L48.0617 31.081Z" fill="white"></path><path d="M78.2039 39.4618L78.4173 39.331C78.5439 39.5376 78.727 39.8708 78.8676 40.2053C78.9379 40.3724 79.0001 40.5459 79.0385 40.7077C79.0753 40.8627 79.098 41.0373 79.0603 41.1916L78.8173 41.133L78.5743 41.0744C78.5834 41.0369 78.5832 40.9563 78.5518 40.824C78.522 40.6986 78.4707 40.5527 78.4063 40.3996C78.2777 40.0937 78.1073 39.7831 77.9905 39.5925L78.2039 39.4618ZM78.8173 41.133L79.0603 41.1916C79.027 41.3284 78.9322 41.4316 78.8452 41.5033C78.7533 41.579 78.6396 41.6445 78.5195 41.6995C78.279 41.8098 77.9798 41.8931 77.6928 41.9278C77.4144 41.9614 77.1053 41.9545 76.8695 41.8431C76.7457 41.7847 76.6301 41.6914 76.5625 41.5499C76.4948 41.4082 76.4901 41.2495 76.5293 41.0888L76.7723 41.1474L77.0154 41.206C76.9961 41.2851 77.0078 41.3208 77.0141 41.3338C77.0204 41.347 77.0362 41.3687 77.0841 41.3913C77.1916 41.4421 77.3863 41.4616 77.6338 41.4317C77.8727 41.4028 78.1213 41.3326 78.3117 41.2454C78.4071 41.2017 78.4796 41.1574 78.5274 41.118C78.58 41.0746 78.5784 41.0575 78.5743 41.0744L78.8173 41.133ZM76.7723 41.1474L76.5293 41.0888C76.654 40.577 76.8848 40.2019 77.0041 39.9467C77.067 39.8122 77.0987 39.7153 77.1041 39.6301C77.109 39.5534 77.0936 39.4695 77.0265 39.3599L77.2399 39.2292L77.4533 39.0984C77.5688 39.2868 77.6154 39.4717 77.6034 39.6607C77.5919 39.8412 77.5277 40.0068 77.4573 40.1574C77.3099 40.4726 77.1244 40.7587 77.0154 41.206L76.7723 41.1474Z" fill="white"></path><path d="M66.4742 54.4994C65.6494 54.005 64.8247 53.3458 64 53.0162L68.9483 52.0273C69.4982 52.5218 70.4329 53.7084 69.7731 54.4994C68.9483 55.4883 67.0573 54.849 66.4742 54.4994Z" fill="#E386F3"></path></g><defs><clipPath id="homecatclip"><rect width="88" height="130" fill="white"></rect></clipPath></defs></svg>
-    <h2 style="font-family: Geist, sans-serif; font-weight: 700; font-size: clamp(28px, 4vw, 42px); line-height: 1.12; letter-spacing: -0.02em; margin: 0px; text-align: left;">A full closet and still<br><span style="color: rgb(171, 177, 186);">I have nothing to wear</span></h2>
-  </div><p style="font-family: Geist, sans-serif; font-size: 16px; line-height: 1.6; color: rgb(111, 106, 99); max-width: 560px; margin: 22px auto 0px;">You're not disorganized and you don't need to shop more. Your wardrobe just has no memory — so every morning starts from zero.</p>
-  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin-top: 56px; text-align: left;">
-    <div>
-      <h3 style="font-family: Geist, sans-serif; font-weight: 600; font-size: 16px; margin: 0px 0px 8px;">Decision fatigue</h3>
-      <p style="font-family: Geist, sans-serif; font-size: 13.5px; line-height: 1.55; color: rgb(111, 106, 99); margin: 0px;">15–30 minutes lost every morning deciding what to wear — before the day even begins.</p>
-    </div>
-    <div>
-      <h3 style="font-family: Geist, sans-serif; font-weight: 600; font-size: 16px; margin: 0px 0px 8px;">The 80% you forget</h3>
-      <p style="font-family: Geist, sans-serif; font-size: 13.5px; line-height: 1.55; color: rgb(111, 106, 99); margin: 0px;">Most people wear about 20% of their wardrobe. The rest hangs there, unseen and unworn.</p>
-    </div>
-    <div>
-      <h3 style="font-family: Geist, sans-serif; font-weight: 600; font-size: 16px; margin: 0px 0px 8px;">Duplicate buys</h3>
-      <p style="font-family: Geist, sans-serif; font-size: 13.5px; line-height: 1.55; color: rgb(111, 106, 99); margin: 0px;">Another black tee, another white shirt — because you couldn't remember what you already owned.</p>
-    </div>
-    <div>
-      <h3 style="font-family: Geist, sans-serif; font-weight: 600; font-size: 16px; margin: 0px 0px 8px;">Outfit anxiety</h3>
-      <p style="font-family: Geist, sans-serif; font-size: 13.5px; line-height: 1.55; color: rgb(111, 106, 99); margin: 0px;">Standing in front of the mirror, second-guessing — and reaching for the same safe thing again.</p>
-    </div>
-  </div></section><section id="different" style="background: rgb(242, 240, 237); padding: 80px 0px 96px;">
-  <div style="max-width: 1120px; margin: 0px auto; padding: 0px 40px; text-align: center;">
-    <div style="font-family: Geist, sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(158, 150, 142);">Meet Macgie</div>
-    <h2 style="font-family: Geist, sans-serif; font-weight: 700; font-size: clamp(28px, 4vw, 40px); letter-spacing: -0.02em; margin: 14px 0px 0px;">Why Macgie feels <span style="background: linear-gradient(95deg, rgb(139, 43, 226) 0%, rgb(224, 85, 155) 48%, rgb(242, 121, 43) 100%) text; color: transparent;">different</span></h2>
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 34px; margin-top: 56px; text-align: left;">
-      <div>
-        <div style="aspect-ratio: 4 / 5; border-radius: 16px; overflow: hidden; background: rgb(230, 226, 220);"><img src="img/diff-1.webp" alt="Browsing outfit suggestions in the Macgie app" width="431" height="648" loading="lazy" decoding="async" style="object-fit:cover; display:block; width:100%; height:100%;"></div>
-        <h3 style="font-family: Geist, sans-serif; font-weight: 600; font-size: 18px; margin: 20px 0px 8px;">Instant Experience</h3>
-        <p style="font-family: Geist, sans-serif; font-size: 14px; line-height: 1.55; color: rgb(111, 106, 99); margin: 0px;">No empty wardrobe. Explore outfit recommendations immediately using our sample wardrobe.</p>
+</section><!-- ===================================================================
+     Hand-authored (2026-09), like the hero — NOT flattened from the Claude
+     Design project. A re-flatten overwrites these three sections too.
+
+     ARTWORK STILL MISSING. Every dashed box and every flat colour tile below
+     is an empty slot; the two step phones that do exist point at real files.
+     Drop the rest in at the paths named in each comment — no markup change.
+     ================================================================== -->
+<section class="cby" aria-labelledby="cby-title">
+  <div class="sec-head">
+    <p class="sec-eyebrow">This could be you</p>
+    <h2 class="sec-title" id="cby-title">When you look good, you feel unstoppable</h2>
+  </div>
+
+  <div class="cby-band">
+    <div class="cby-side">
+      <div class="cby-note">
+        <h3>Walk out the door with confidence</h3>
+        <p>No more overthinking or second guessing</p>
       </div>
-      <div>
-        <div style="aspect-ratio: 4 / 5; border-radius: 16px; overflow: hidden; background: rgb(230, 226, 220);"><img src="img/diff-2.webp" alt="Macgie building an outfit from your own clothes" width="564" height="648" loading="lazy" decoding="async" style="object-fit:cover; display:block; width:100%; height:100%;"></div>
-        <h3 style="font-family: Geist, sans-serif; font-weight: 600; font-size: 18px; margin: 20px 0px 8px;">Built Around Your Closet</h3>
-        <p style="font-family: Geist, sans-serif; font-size: 14px; line-height: 1.55; color: rgb(111, 106, 99); margin: 0px;">Replace the sample wardrobe with your own clothes, at your own pace.</p>
-      </div>
-      <div>
-        <div style="aspect-ratio: 4 / 5; border-radius: 16px; overflow: hidden; background: rgb(230, 226, 220);"><img src="img/diff-3.webp" alt="A finished outfit recommendation in Macgie" width="432" height="648" loading="lazy" decoding="async" style="object-fit:cover; display:block; width:100%; height:100%;"></div>
-        <h3 style="font-family: Geist, sans-serif; font-weight: 600; font-size: 18px; margin: 20px 0px 8px;">Learns Your Style</h3>
-        <p style="font-family: Geist, sans-serif; font-size: 14px; line-height: 1.55; color: rgb(111, 106, 99); margin: 0px;">Macgie continuously learns your preferences and recommends better outfits every day.</p>
+      <figure class="cby-tile cby-tile--amber cby-tile--sq"><!-- /img/you-1.webp — woman in a black tee, on amber --></figure>
+      <div class="cby-note">
+        <h3>Enjoy getting dressed</h3>
+        <p>Outfits you love, made easy</p>
       </div>
     </div>
-  </div></section><section id="how" style="background: rgb(18, 18, 20); color: rgb(242, 239, 236); padding: 88px 0px;">
-  <div style="max-width: 1120px; margin: 0px auto; padding: 0px 40px;">
-    <div style="text-align: center;">
-      <div style="font-family: Geist, sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(138, 133, 126);">How it works</div>
-      <h2 style="font-family: Geist, sans-serif; font-weight: 700; font-size: clamp(28px, 4vw, 40px); letter-spacing: -0.02em; margin: 14px 0px 0px; line-height: 1.15;">From <span style="background: linear-gradient(95deg, rgb(139, 43, 226) 0%, rgb(224, 85, 155) 48%, rgb(242, 121, 43) 100%) text; color: transparent;">download</span> to first outfit<br>in under a minute</h2>
-    </div>
-    <div style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items: center; margin-top: 56px;">
-      <div style="display: flex; flex-direction: column; gap: 14px;">
-        <div class="step-card" style="position: relative; border-radius: 16px; padding: 20px 22px; border: 1px solid rgba(242, 239, 236, 0.1);">
-          <div class="step-hl" style="display:block; position: absolute; inset: 0px; background: rgba(242, 239, 236, 0.07); border-radius: 16px; border: 1px solid rgba(242, 239, 236, 0.16);"></div>
-          <div style="position: relative; display: flex; gap: 16px; align-items: flex-start;">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="3.5" width="7" height="7" rx="2" stroke="#f2efec" stroke-width="1.7"></rect><rect x="13.5" y="3.5" width="7" height="7" rx="2" stroke="#f2efec" stroke-width="1.7"></rect><rect x="3.5" y="13.5" width="7" height="7" rx="2" stroke="#f2efec" stroke-width="1.7"></rect><rect x="13.5" y="13.5" width="7" height="7" rx="2" stroke="#f2efec" stroke-width="1.7"></rect></svg>
-            <div>
-              <div style="font-family: Geist, sans-serif; font-weight: 600; font-size: 16px;">Open the app and discover your perfect outfit</div>
-              <div style="font-family: Geist, sans-serif; font-size: 13.5px; color: rgb(167, 162, 155); line-height: 1.5; margin-top: 5px;">Not random generation. Real looks built from your style, the weather, your calendar.</div>
-            </div>
-          </div>
-        </div>
-        <div class="step-card" style="position: relative; border-radius: 16px; padding: 20px 22px; border: 1px solid rgba(242, 239, 236, 0.1);"><div class="step-hl" style="position:absolute;inset:0;background:rgba(242,239,236,.07);border-radius:16px;border:1px solid rgba(242,239,236,.16);display:none"></div>
-          
-          <div style="position: relative; display: flex; gap: 16px; align-items: flex-start;">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.3-9.3-8.6C1.3 8.4 2.6 5 5.6 5c1.9 0 3.1 1.1 3.6 2 .5-.9 1.7-2 3.6-2 3 0 4.3 3.4 2.9 6.4C19.4 15.7 12 20 12 20z" stroke="#f2efec" stroke-width="1.7" stroke-linejoin="round"></path></svg>
-            <div>
-              <div style="font-family: Geist, sans-serif; font-weight: 600; font-size: 16px;">Save the looks you love</div>
-              <div style="font-family: Geist, sans-serif; font-size: 13.5px; color: rgb(167, 162, 155); line-height: 1.5; margin-top: 5px;">Swipe through smart suggestions and keep the outfits that feel like you.</div>
-            </div>
-          </div>
-        </div>
-        <div class="step-card" style="position: relative; border-radius: 16px; padding: 20px 22px; border: 1px solid rgba(242, 239, 236, 0.1);"><div class="step-hl" style="position:absolute;inset:0;background:rgba(242,239,236,.07);border-radius:16px;border:1px solid rgba(242,239,236,.16);display:none"></div>
-          
-          <div style="position: relative; display: flex; gap: 16px; align-items: flex-start;">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 4l1.6 3.9L17.5 9l-3.9 1.6L12 14l-1.6-3.4L6.5 9l3.9-1.1L12 4z" fill="#c07af2"></path><path d="M18 14l.8 1.9 1.9.8-1.9.8-.8 1.9-.8-1.9-1.9-.8 1.9-.8.8-1.9z" fill="#c07af2"></path></svg>
-            <div>
-              <div style="font-family: Geist, sans-serif; font-weight: 600; font-size: 16px;">See yourself wearing them</div>
-              <div style="font-family: Geist, sans-serif; font-size: 13.5px; color: rgb(167, 162, 155); line-height: 1.5; margin-top: 5px;">Preview the outfit on you before you put it on.</div>
-            </div>
-          </div>
-        </div>
-        <a class="store-badge" href="https://apps.apple.com/app/id6766749757" target="_blank" rel="noopener" style="align-self: flex-start; margin-top: 8px; display: inline-flex; align-items: center; gap: 9px; background: rgb(255, 255, 255); color: rgb(17, 17, 17); border-radius: 11px; padding: 9px 16px;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="#111"><path d="M16.5 1.8c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.8-1.4zM19 17.3c-.5 1.2-.8 1.7-1.4 2.7-.9 1.4-2.2 3.2-3.8 3.2-1.4 0-1.8-.9-3.7-.9s-2.3.9-3.7.9c-1.6 0-2.8-1.6-3.7-3C-.1 16.7-.6 11 1.6 8.2c1-1.3 2.5-2 4-2 1.5 0 2.5.9 3.7.9 1.2 0 1.9-.9 3.7-.9 1.3 0 2.7.7 3.7 2-3.2 1.8-2.7 6.4.6 7.1z"></path></svg>
-          <span style="line-height: 1.05;"><span style="display: block; font-size: 8.5px; opacity: 0.7;">Download on the</span><span style="font-size: 13.5px; font-weight: 700;">App Store</span></span>
-        </a>
+
+    <div class="cby-collage">
+      <div class="cby-stack">
+        <figure class="cby-tile cby-tile--sand cby-tile--wide"><!-- /img/you-2.webp — striped shirt, arms up, on sand --></figure>
+        <figure class="cby-tile cby-tile--teal cby-tile--box"><!-- /img/you-3.webp — mirror selfie in a cream coat, on teal --></figure>
       </div>
-      
-      <div style="display: flex; justify-content: center;">
-        <div style="border-radius: 42px; border: 9px solid rgb(0, 0, 0); background: rgb(0, 0, 0); box-shadow: rgba(0, 0, 0, 0.5) 0px 30px 70px; overflow: hidden; height: 600px; width: 300px;">
-          <img class="how-photo" src="img/how-photo-0.webp" alt="Macgie app showing today's outfit" width="251" height="478" loading="lazy" decoding="async" style="width: 274px; height: 565px; object-fit:cover; display:block;"><img class="how-photo" src="img/how-photo-1.webp" alt="Saving a favourite outfit in Macgie" width="232" height="478" loading="lazy" decoding="async" style="width: 274px; height: 565px; object-fit:cover; display:none;"><img class="how-photo" src="img/how-photo-2.webp" alt="Previewing an outfit on yourself in Macgie" width="251" height="478" loading="lazy" decoding="async" style="width: 274px; height: 565px; object-fit:cover; display:none;">
-          
-          
-        </div>
+      <figure class="cby-tile cby-tile--yellow cby-tile--tall"><!-- /img/you-4.webp — cream blazer full length, on yellow --></figure>
+      <div class="cby-stack">
+        <figure class="cby-tile cby-tile--flame cby-tile--sq"><!-- /img/you-5.webp — purple hooded jacket in profile, on flame --></figure>
+        <figure class="cby-tile cby-tile--blue cby-tile--land"><!-- /img/you-6.webp — grey sweatshirt and glasses, on blue --></figure>
       </div>
     </div>
-  </div></section><section id="features" style="max-width: 1120px; margin: 0px auto; padding: 96px 40px;">
+
+    <div class="cby-side">
+      <div class="cby-note">
+        <h3>People notice</h3>
+        <p>The right outfit makes the right impression</p>
+      </div>
+      <figure class="cby-tile cby-tile--sage cby-tile--sq"><!-- /img/you-7.webp — grey blazer over a white tee, on sage --></figure>
+      <div class="cby-note">
+        <h3>More you, everyday</h3>
+        <p>Express your style and love how you show up</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="steps" id="how" aria-labelledby="steps-title">
+  <div class="sec-head">
+    <p class="sec-eyebrow">How Macgie works</p>
+    <h2 class="sec-title" id="steps-title">Your stylist, 4 simple steps</h2>
+  </div>
+
+  <div class="steps-grid">
+    <div class="step">
+      <!-- /img/step-find.webp — the discovery grid, same device mockup treatment
+           as the two below (1100x2237, transparent outside the phone) -->
+      <div class="step-slot" role="presentation"></div>
+      <h3>Find inspiration</h3>
+      <p>Discover looks you love from Instagram, Pinterest, and beyond.</p>
+    </div>
+    <div class="step">
+      <!-- /img/step-tryon.webp — a try-on result, same treatment -->
+      <div class="step-slot" role="presentation"></div>
+      <h3>See it on you</h3>
+      <p>Save your favorite looks, then instantly see them on yourself.</p>
+    </div>
+    <div class="step">
+      <img src="/assets/feature/closet.webp" alt="The Macgie wardrobe screen, every saved piece in one grid" width="1100" height="2236" loading="lazy" decoding="async">
+      <h3>Build your wardrobe</h3>
+      <p>Save pieces from your favorite looks to your wardrobe.</p>
+    </div>
+    <div class="step">
+      <img src="/assets/feature/recommend.webp" alt="A Macgie outfit recommendation for the day, ready to wear" width="1100" height="2237" loading="lazy" decoding="async">
+      <h3>Plan and wear</h3>
+      <p>Plan your week and get dressed with confidence.</p>
+    </div>
+  </div>
+</section>
+
+<section class="pcards" aria-label="What Macgie does">
+  <div class="pcard pcard--pink">
+    <div class="pcard-body">
+      <p class="pcard-eyebrow">Get inspired</p>
+      <h3>Steal the looks you love.</h3>
+      <p>Millions of outfits. One tap to see it on you.</p>
+      <a class="pcard-btn" href="https://apps.apple.com/app/id6766749757" target="_blank" rel="noopener">Explore looks</a>
+    </div>
+    <div class="pcard-art">
+      <!-- /img/card-inspire.webp — three styled looks side by side -->
+      <div class="pcard-slot" role="presentation"></div>
+    </div>
+  </div>
+
+  <div class="pcard pcard--lilac">
+    <div class="pcard-body">
+      <p class="pcard-eyebrow">Your wardrobe, smarter</p>
+      <h3>Every piece knows what goes together.</h3>
+      <p>Tap any item to discover countless outfit ideas.</p>
+    </div>
+    <div class="pcard-art">
+      <!-- /img/card-wardrobe.webp — an item detail screen with its matches -->
+      <div class="pcard-slot" role="presentation"></div>
+    </div>
+  </div>
+
+  <div class="pcard pcard--cream">
+    <div class="pcard-body">
+      <p class="pcard-eyebrow">See the difference</p>
+      <h3>Realistic results. Real you.</h3>
+      <p>Our AI delivers ultra-realistic try-on results that look natural and accurate.</p>
+    </div>
+    <div class="pcard-art">
+      <!-- /img/card-results.webp — a before/after try-on comparison -->
+      <div class="pcard-slot" role="presentation"></div>
+    </div>
+  </div>
+</section>
+
+<section id="features" style="max-width: 1120px; margin: 0px auto; padding: 96px 40px;">
   <div style="text-align: center;">
     <div style="font-family: Geist, sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(158, 150, 142);">One app, your whole wardrobe</div>
     <div style="display: flex; align-items: center; justify-content: center; gap: 24px; margin-top: 16px;">
@@ -935,7 +1089,7 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
     </div>
     <div>
       <div style="font-family: Geist, sans-serif; font-weight: 600; font-size: 13px; color: rgb(29, 31, 35); margin-bottom: 14px;">Resources</div>
-      <div style="display: flex; flex-direction: column; gap: 10px; font-family: Geist, sans-serif; font-size: 13.5px;"><a class="navlink" href="/journal">Blog</a><a class="navlink" href="#problem">Help Center</a><a class="navlink" href="#sample">Community</a></div>
+      <div style="display: flex; flex-direction: column; gap: 10px; font-family: Geist, sans-serif; font-size: 13.5px;"><a class="navlink" href="/journal">Blog</a><a class="navlink" href="#how">Help Center</a><a class="navlink" href="#sample">Community</a></div>
     </div>
     <div>
       <div style="font-family: Geist, sans-serif; font-weight: 600; font-size: 13px; color: rgb(29, 31, 35); margin-bottom: 14px;">Legal</div>

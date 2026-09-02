@@ -57,7 +57,7 @@
   // carry `transition: transform .09s linear` from the design CSS.
   var EYES=['hpL','hpR','scL','scR'];
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(!reduce&&document.getElementById('hpL')){
+  if(!reduce&&EYES.some(function(id){return document.getElementById(id);})){
     var pending=null;
     window.addEventListener('mousemove',function(e){
       if(pending)return;
