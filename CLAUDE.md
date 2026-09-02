@@ -104,14 +104,19 @@ homepage/
 > the design project still holds.** Before re-running the pipeline below,
 > either port the hero into "Macgie design home page" first, or re-apply it
 > afterwards from git history. Two things ride on it:
-> - `public/img/hero-before.webp` (205×500) and `hero-after.webp` (273×549) are
+> - `public/img/hero-before.webp` (313×500) and `hero-after.webp` (368×549) are
 >   **placeholder crops** of `img/diff-2.webp` and the right-hand figure of
 >   `img/hero-p2.webp` — two different people. The design wants one person shot
->   twice. Replacements drop in at the same paths/aspect ratios, no markup edit.
-> - The "Loved by 100,000+ people … 4.8 average rating" block is **unverified**
->   — the App Store reported 0 ratings for id6766749757 in every storefront
->   checked (US/VN/GB/SG) on 2026-09-02. Do not publish it as-is, and do not
->   mirror it into the page's JSON-LD as an `aggregateRating`.
+>   twice. The card slots are sized to the intended photography (before ≈0.625,
+>   after ≈0.67), so replacements drop in at the same paths with no markup edit;
+>   `object-fit: cover` absorbs a small aspect mismatch and
+>   `.hero-card--* img { object-position }` shifts the framing. Ship a source at
+>   least ~700px wide — the after card renders 334×498 CSS px.
+> - The "4.8 average rating" row is **unverified** — the App Store reported 0
+>   ratings for id6766749757 in every storefront checked (US/VN/GB/SG) on
+>   2026-09-02. Do not publish it as-is, and do not mirror it into the page's
+>   JSON-LD as an `aggregateRating`. (The "Loved by 100,000+ people" line that
+>   sat above it was removed on the same grounds.)
 
 Design edits happen in **claude.ai/design**. Unzip the export into a **scratch
 dir** — do NOT wipe `public/`, which also holds build outputs the export doesn't

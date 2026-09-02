@@ -250,13 +250,13 @@
   .hero { background: #f4f1ec; }
   .hero-inner {
     max-width: 1200px; margin: 0 auto; padding: 76px 40px 84px;
-    display: grid; grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
-    gap: 48px; align-items: center;
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 44px; align-items: center;
   }
-  .hero-copy { max-width: 570px; }
+  .hero-copy { max-width: 538px; }
   .hero-h1 {
     font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
-    font-weight: 500; font-size: clamp(38px, 5.6vw, 80px);
+    font-weight: 500; font-size: clamp(38px, 5.5vw, 78px);
     line-height: 1.0; letter-spacing: -0.02em;
     color: #14120f; margin: 0; max-width: 8em;
   }
@@ -281,25 +281,24 @@
     font-family: Geist, system-ui, sans-serif; font-size: 12.5px; color: #706a63;
   }
   .hero-proof { margin-top: 44px; font-family: Geist, system-ui, sans-serif; }
-  .hero-proof p { margin: 0; font-size: 15px; line-height: 1.5; color: #3f3b36; }
-  .hero-rating { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+  .hero-rating { display: flex; align-items: center; gap: 10px; }
   .hero-rating svg { display: block; flex: 0 0 auto; }
   .hero-rating span { font-size: 14px; color: #57524b; }
 
-  .hero-art { position: relative; width: min(100%, 560px); aspect-ratio: 56 / 62; margin: 0 auto; }
+  .hero-art { position: relative; width: min(100%, 538px); aspect-ratio: 27 / 25; margin: 0 auto; }
   .hero-card {
     position: absolute; overflow: hidden; border-radius: 24px;
     background: #ece5db; box-shadow: 0 28px 64px rgba(30, 23, 16, .20);
   }
   .hero-card img { display: block; width: 100%; height: 100%; object-fit: cover; }
-  .hero-card--before { left: 0; top: 14%; width: 35%; height: 77%; z-index: 1; }
-  .hero-card--after { left: 45%; top: 0; width: 55%; height: 100%; z-index: 2; border-radius: 28px; }
+  .hero-card--before { left: 0; top: 20%; width: 41.7%; height: 72%; z-index: 1; }
+  .hero-card--after { left: 38%; top: 0; width: 62%; height: 100%; z-index: 2; border-radius: 28px; }
   .hero-tag {
     position: absolute; top: 14px; left: 16px;
     font-family: Geist, system-ui, sans-serif; font-size: 13px; font-weight: 500;
   }
   .hero-card--before::before {
-    content: ""; position: absolute; inset: 0 0 auto; height: 86px; z-index: 1;
+    content: ""; position: absolute; inset: 0 0 auto; height: 78px; z-index: 1;
     background: linear-gradient(rgba(16, 13, 10, .46), rgba(16, 13, 10, 0));
     pointer-events: none;
   }
@@ -313,8 +312,8 @@
     font-size: 11px; font-weight: 500; letter-spacing: .01em;
   }
   .hero-arrow {
-    position: absolute; left: 44.4%; top: 49%; transform: translate(-50%, -50%);
-    z-index: 3; width: 11.5%; aspect-ratio: 1; border-radius: 50%;
+    position: absolute; left: 39.8%; top: 53%; transform: translate(-50%, -50%);
+    z-index: 3; width: 11.4%; aspect-ratio: 1; border-radius: 50%;
     background: #121214; display: flex; align-items: center; justify-content: center;
     box-shadow: 0 10px 26px rgba(20, 17, 15, .3);
   }
@@ -395,8 +394,11 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
      Photography is PLACEHOLDER: hero-before.webp / hero-after.webp are crops
      of existing site assets (diff-2.webp and the right-hand figure of
      hero-p2.webp) and show two different people. The design calls for one
-     person shot twice. Drop replacements in at the same paths and aspect
-     ratios (before 205x500, after 273x549) — no markup change needed.
+     person shot twice. The card slots are sized to the real photography's
+     proportions — before ~0.625, after ~0.67 — so replacements drop in at the
+     same paths with no markup change; object-fit: cover absorbs small
+     mismatches, and .hero-card--*  img { object-position } shifts the framing
+     if the centre crop lands wrong.
      ================================================================== -->
 <section class="hero" aria-labelledby="hero-title">
   <div class="hero-inner">
@@ -410,13 +412,12 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
         <span class="hero-note">Không cần thẻ tín dụng</span>
       </div>
 
-      <!-- UNVERIFIED SOCIAL PROOF. The App Store reports 0 ratings and no
-           average for id6766749757 in every storefront checked (US/VN/GB/SG),
-           so both numbers below are unsupported. Replace them with real
-           figures or delete this block before publishing. Deliberately NOT
-           mirrored into the page's JSON-LD as an aggregateRating. -->
+      <!-- UNVERIFIED. The App Store reports 0 ratings and no average for
+           id6766749757 in every storefront checked (US/VN/GB/SG), so "4.8" is
+           unsupported. Replace it with a real figure or delete this block
+           before publishing. Deliberately NOT mirrored into the page's JSON-LD
+           as an aggregateRating. -->
       <div class="hero-proof">
-        <p>Hơn 100.000 người yêu thích và mặc đẹp hơn mỗi ngày</p>
         <div class="hero-rating">
           <svg width="116" height="20" viewBox="0 0 116 20" fill="#e0a13c" aria-hidden="true" focusable="false">
             <defs><path id="hstar" d="M10 .8l2.9 5.87 6.48.94-4.69 4.57 1.11 6.45L10 15.58 4.2 18.63l1.11-6.45L.61 7.61l6.48-.94z"></path></defs>
@@ -429,12 +430,12 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
 
     <div class="hero-art">
       <div class="hero-card hero-card--before">
-        <img src="/img/hero-before.webp" alt="Bộ đồ thường ngày trước khi dùng Macgie: áo trơn và quần jeans" width="205" height="500" loading="eager" decoding="async">
+        <img src="/img/hero-before.webp" alt="Bộ đồ thường ngày trước khi dùng Macgie: áo trơn và quần jeans" width="313" height="500" loading="eager" decoding="async">
         <span class="hero-chip"><svg width="10" height="10" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M6 0l1.2 3.3L10.5 4.5 7.2 5.7 6 9 4.8 5.7 1.5 4.5 4.8 3.3z"></path></svg>Cơ bản</span>
         <span class="hero-tag">Trước</span>
       </div>
       <div class="hero-card hero-card--after">
-        <img src="/img/hero-after.webp" alt="Vẫn tủ đồ đó, được Macgie phối lại thành một bộ đồ chỉn chu, gọn gàng" width="273" height="549" loading="eager" fetchpriority="high" decoding="async">
+        <img src="/img/hero-after.webp" alt="Vẫn tủ đồ đó, được Macgie phối lại thành một bộ đồ chỉn chu, gọn gàng" width="368" height="549" loading="eager" fetchpriority="high" decoding="async">
         <span class="hero-chip"><svg width="10" height="10" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M6 0l1.2 3.3L10.5 4.5 7.2 5.7 6 9 4.8 5.7 1.5 4.5 4.8 3.3z"></path></svg>Tuyệt vời</span>
         <span class="hero-tag">Sau</span>
       </div>
