@@ -120,7 +120,8 @@ homepage/
 >   in step, flying the old pair out sideways while the new pair rises in. Add a
 >   pair by appending one `<img>` to *each* card in the same order
 >   (`hero-before-2.webp` + `hero-after-2.webp`, then `-3`); no JS change, and a
->   single pair simply never starts the cycle. It auto-advances, so per WCAG
+>   single pair simply never starts the cycle. It auto-advances every 3s, so
+>   per WCAG
 >   2.2.2 it pauses on hover, on focus, off-screen, on a hidden tab, and is off
 >   entirely under `prefers-reduced-motion` — which leaves pair 1 as a static
 >   hero, the same thing JS-off visitors get. No "Basic"/"Amazing" chips: they

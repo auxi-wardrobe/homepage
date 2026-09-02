@@ -86,7 +86,7 @@
     var EXIT = ['translate(-26%, -4%) rotate(-5deg) scale(.94)',
                 'translate(26%, -4%) rotate(5deg) scale(.94)'];
     var ENTER = 'translate(0, 9%) scale(.96)';
-    var HOLD = 4200, LEAD = 140, SETTLE = 700;
+    var HOLD = 3000, LEAD = 140, SETTLE = 700;
     var idx = 0, timer = null, busy = false;
 
     function swap(card, from, to, exit) {
