@@ -116,6 +116,16 @@ homepage/
 >   differently-shaped photo means re-deriving `width` on `.hero-card--before`
 >   and `.hero-card--after`, or accepting a centre crop and steering it with
 >   `.hero-card--* img { object-position }`. Both render at ~2.2× density.
+>   Each card can hold **several** shots — `heroShots()` in `app.js` cycles them
+>   in step, flying the old pair out sideways while the new pair rises in. Add a
+>   pair by appending one `<img>` to *each* card in the same order
+>   (`hero-before-2.webp` + `hero-after-2.webp`, then `-3`); no JS change, and a
+>   single pair simply never starts the cycle. It auto-advances, so per WCAG
+>   2.2.2 it pauses on hover, on focus, off-screen, on a hidden tab, and is off
+>   entirely under `prefers-reduced-motion` — which leaves pair 1 as a static
+>   hero, the same thing JS-off visitors get. No "Basic"/"Amazing" chips: they
+>   were dropped with the rotation, since a per-shot verdict would need per-shot
+>   copy.
 > - **No social proof in the hero, deliberately.** A "Loved by 100,000+ people"
 >   line and a "★★★★★ 4.8 average rating" row were both drawn in the mockup and
 >   both removed: on 2026-09-02 the App Store reported 0 ratings and no average

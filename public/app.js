@@ -51,6 +51,97 @@
     document.addEventListener('click',function(){closeAll();});
     document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAll();});
   }
+  // Hero shot carousel. Each .hero-card holds one <img> per pair; the two cards
+  // advance together so a before/after pair is never split. The outgoing pair
+  // flies out sideways (each card toward its own edge) while the incoming pair
+  // rises into place, with the "before" card leading by a beat so it reads as a
+  // sequence rather than a cut.
+  //
+  // WCAG 2.2.2: this auto-advances, so it stops on hover, on keyboard focus
+  // inside the hero, when the tab is hidden, when the hero scrolls out of view,
+  // and entirely under prefers-reduced-motion — which leaves the first pair as
+  // a plain static hero, exactly as it renders with JS off.
+  (function heroShots(){
+    var art = document.querySelector('.hero-art');
+    if (!art) return;
+    var cards = [art.querySelector('.hero-card--before'), art.querySelector('.hero-card--after')];
+    if (!cards[0] || !cards[1]) return;
+
+    var shots = cards.map(function (c) {
+      return Array.prototype.slice.call(c.querySelectorAll('img'));
+    });
+    var pairs = Math.min(shots[0].length, shots[1].length);
+    if (pairs < 2) return;                       // one pair — nothing to cycle
+
+    var motionOK = !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    if (!motionOK) return;
+
+    shots.forEach(function (list) {
+      list.forEach(function (img, i) {
+        img.classList.toggle('is-active', i === 0);
+        img.setAttribute('aria-hidden', i === 0 ? 'false' : 'true');
+      });
+    });
+
+    var EXIT = ['translate(-26%, -4%) rotate(-5deg) scale(.94)',
+                'translate(26%, -4%) rotate(5deg) scale(.94)'];
+    var ENTER = 'translate(0, 9%) scale(.96)';
+    var HOLD = 4200, LEAD = 140, SETTLE = 700;
+    var idx = 0, timer = null, busy = false;
+
+    function swap(card, from, to, exit) {
+      to.classList.remove('is-moving');
+      to.style.transform = ENTER;
+      to.style.opacity = '0';
+      to.classList.add('is-active');
+      void to.offsetWidth;                       // commit the start state
+      to.classList.add('is-moving');
+      from.classList.add('is-moving');
+      from.style.transform = exit;
+      from.style.opacity = '0';
+      to.style.transform = '';
+      to.style.opacity = '';
+      from.setAttribute('aria-hidden', 'true');
+      to.setAttribute('aria-hidden', 'false');
+      setTimeout(function () {
+        from.classList.remove('is-active', 'is-moving');
+        from.style.transform = '';
+        from.style.opacity = '';
+        to.classList.remove('is-moving');
+      }, SETTLE);
+    }
+
+    function step() {
+      if (busy) return;
+      busy = true;
+      var cur = idx, next = (idx + 1) % pairs;
+      cards.forEach(function (card, i) {
+        setTimeout(function () { swap(card, shots[i][cur], shots[i][next], EXIT[i]); }, i * LEAD);
+      });
+      idx = next;
+      setTimeout(function () { busy = false; }, SETTLE + LEAD);
+    }
+
+    function play() { if (!timer) timer = setInterval(step, HOLD); }
+    function pause() { if (timer) { clearInterval(timer); timer = null; } }
+
+    art.addEventListener('mouseenter', pause);
+    art.addEventListener('mouseleave', play);
+    art.addEventListener('focusin', pause);
+    art.addEventListener('focusout', play);
+    document.addEventListener('visibilitychange', function () {
+      document.hidden ? pause() : play();
+    });
+
+    if (window.IntersectionObserver) {
+      new IntersectionObserver(function (entries) {
+        entries[0].isIntersecting ? play() : pause();
+      }, { threshold: 0.2 }).observe(art);
+    } else {
+      play();
+    }
+  })();
+
   // Cat eyes follow the cursor. The design does this in its canvas runtime
   // (componentDidMount -> _eyeMove), which flattening strips, leaving the cats
   // staring blankly. Same maths as the original; #hpL/#hpR/#scL/#scR already
