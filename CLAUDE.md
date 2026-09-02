@@ -124,14 +124,22 @@ homepage/
 >   current figure — and never mirror one into the page's JSON-LD as an
 >   `aggregateRating`.
 >
-> **Artwork still missing** in the three new sections: the seven `.cby-tile`
-> collage tiles (`/img/you-1.webp` … `you-7.webp`, each shown over the flat
-> colour it sits on), two of the four step phones (`/img/step-find.webp` and
-> `/img/step-tryon.webp`, matching the 1100×2237 transparent device mockups in
-> `assets/feature/`), and the three card visuals (`/img/card-inspire.webp`,
-> `card-wardrobe.webp`, `card-results.webp`). Empty slots render as a flat tile
-> or a dashed box — deliberately obvious, so nobody publishes them by accident.
-> Each slot carries an HTML comment naming its file.
+> **Artwork.** The seven `.cby-tile` collage images (`/img/you-1.webp` …
+> `you-7.webp`) each ship with their own rounded, coloured ground baked in, so
+> the tile sets no background, radius or aspect-ratio — the image sizes it.
+> Don't reintroduce a CSS background there: it squares off the corners the
+> artwork already rounds. All four step phones are in (`/img/step-find.webp`,
+> `step-tryon.webp`, and `assets/feature/closet.webp` + `recommend.webp`).
+>
+> Still missing: the three `.pcard` visuals — `/img/card-inspire.webp`,
+> `card-wardrobe.webp`, `card-results.webp`, roughly 16:11. They render as a
+> dashed box, deliberately obvious so nobody publishes them by accident; each
+> carries an HTML comment naming its file.
+>
+> Three sources are under-resolution for their slots and will look soft on a
+> retina display: `you-5.webp` (222px into a 190px slot, 1.17×) and the two new
+> step phones (262px into 178px, 1.47× — against 6.2× for the two beside them).
+> Everything else lands near 2.3×.
 
 Design edits happen in **claude.ai/design**. Unzip the export into a **scratch
 dir** — do NOT wipe `public/`, which also holds build outputs the export doesn't

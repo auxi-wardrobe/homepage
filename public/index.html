@@ -271,21 +271,10 @@
   }
   .cby-collage { display: grid; grid-template-columns: 1fr 1.18fr 1fr; gap: 22px; align-items: center; }
   .cby-stack { display: flex; flex-direction: column; gap: 20px; }
-  .cby-tile { margin: 0; border-radius: 18px; overflow: hidden; }
-  .cby-tile img { display: block; width: 100%; height: 100%; object-fit: cover; }
-  .cby-tile--tall { border-radius: 22px; aspect-ratio: 13 / 25; }
-  .cby-tile--sq { aspect-ratio: 1; }
-  .cby-tile--wide { aspect-ratio: 39 / 25; }
-  .cby-tile--box { aspect-ratio: 15 / 16; }
-  .cby-tile--land { aspect-ratio: 3 / 2; }
-  /* Flat grounds from the mockup; each also shows through behind its photo. */
-  .cby-tile--amber { background: #f5a340; }
-  .cby-tile--sand { background: #ece4d8; }
-  .cby-tile--teal { background: #17807e; }
-  .cby-tile--yellow { background: #f3d93e; }
-  .cby-tile--flame { background: #f2652a; }
-  .cby-tile--blue { background: #2e9be8; }
-  .cby-tile--sage { background: #7cc3a1; }
+  /* Each tile's artwork ships with its own rounded, coloured ground baked in,
+     so the tile sets no background, radius or ratio — the image sizes it. */
+  .cby-tile { margin: 0; }
+  .cby-tile img { display: block; width: 100%; height: auto; }
 
   /* ---- "Your stylist, 4 simple steps" -------------------------------- */
   .steps { padding: 0 0 100px; }
@@ -294,9 +283,7 @@
     display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 44px 32px;
   }
   .step { text-align: center; }
-  .step img, .step .step-slot { display: block; width: 100%; max-width: 178px; margin: 0 auto; }
-  .step img { height: auto; }
-  .step .step-slot { aspect-ratio: 1100 / 2237; border-radius: 26px; background: #f4f1ec; border: 1px dashed #d5cec5; }
+  .step img { display: block; width: 100%; max-width: 178px; height: auto; margin: 0 auto; }
   .step h3 {
     font-family: Geist, system-ui, sans-serif; font-size: 17px; font-weight: 600;
     letter-spacing: -.01em; color: #14120f; margin: 24px 0 0;
@@ -360,9 +347,8 @@
     .cby-side { flex-direction: column; align-items: stretch; gap: 20px; }
     .cby-side .cby-tile { flex: none; }
     .cby-collage { grid-template-columns: 1fr; gap: 16px; }
-    .cby-stack { flex-direction: row; gap: 16px; }
-    .cby-stack > .cby-tile { flex: 1 1 0; aspect-ratio: 1; }
-    .cby-tile--tall { aspect-ratio: 4 / 5; }
+    .cby-stack { flex-direction: row; align-items: center; gap: 16px; }
+    .cby-stack > .cby-tile { flex: 1 1 0; }
     .steps { padding-bottom: 76px; }
   }
   @media (max-width: 460px) {
@@ -582,7 +568,7 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
         <h3>Walk out the door with confidence</h3>
         <p>No more overthinking or second guessing</p>
       </div>
-      <figure class="cby-tile cby-tile--amber cby-tile--sq"><!-- /img/you-1.webp — woman in a black tee, on amber --></figure>
+      <figure class="cby-tile"><img src="/img/you-1.webp" alt="A woman in a fitted black tee and grey trousers" width="448" height="450" loading="lazy" decoding="async"></figure>
       <div class="cby-note">
         <h3>Enjoy getting dressed</h3>
         <p>Outfits you love, made easy</p>
@@ -591,13 +577,13 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
 
     <div class="cby-collage">
       <div class="cby-stack">
-        <figure class="cby-tile cby-tile--sand cby-tile--wide"><!-- /img/you-2.webp — striped shirt, arms up, on sand --></figure>
-        <figure class="cby-tile cby-tile--teal cby-tile--box"><!-- /img/you-3.webp — mirror selfie in a cream coat, on teal --></figure>
+        <figure class="cby-tile"><img src="/img/you-2.webp" alt="A man in a blue-and-white striped sweatshirt and cap, arms behind his head" width="444" height="288" loading="lazy" decoding="async"></figure>
+        <figure class="cby-tile"><img src="/img/you-3.webp" alt="A woman taking a mirror selfie in a cream jacket over a brown turtleneck" width="448" height="448" loading="lazy" decoding="async"></figure>
       </div>
-      <figure class="cby-tile cby-tile--yellow cby-tile--tall"><!-- /img/you-4.webp — cream blazer full length, on yellow --></figure>
+      <figure class="cby-tile"><img src="/img/you-4.webp" alt="A woman in a cream blazer, grey tee and navy wide-leg trousers, holding a tote" width="514" height="994" loading="lazy" decoding="async"></figure>
       <div class="cby-stack">
-        <figure class="cby-tile cby-tile--flame cby-tile--sq"><!-- /img/you-5.webp — purple hooded jacket in profile, on flame --></figure>
-        <figure class="cby-tile cby-tile--blue cby-tile--land"><!-- /img/you-6.webp — grey sweatshirt and glasses, on blue --></figure>
+        <figure class="cby-tile"><img src="/img/you-5.webp" alt="A person in a purple hooded windbreaker, seen in profile" width="222" height="222" loading="lazy" decoding="async"></figure>
+        <figure class="cby-tile"><img src="/img/you-6.webp" alt="A man in a grey sweatshirt adjusting his glasses" width="444" height="290" loading="lazy" decoding="async"></figure>
       </div>
     </div>
 
@@ -606,7 +592,7 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
         <h3>People notice</h3>
         <p>The right outfit makes the right impression</p>
       </div>
-      <figure class="cby-tile cby-tile--sage cby-tile--sq"><!-- /img/you-7.webp — grey blazer over a white tee, on sage --></figure>
+      <figure class="cby-tile"><img src="/img/you-7.webp" alt="A man in a grey blazer over a white tee" width="450" height="450" loading="lazy" decoding="async"></figure>
       <div class="cby-note">
         <h3>More you, everyday</h3>
         <p>Express your style and love how you show up</p>
@@ -623,15 +609,12 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
 
   <div class="steps-grid">
     <div class="step">
-      <!-- /img/step-find.webp — the discovery grid, same device mockup treatment
-           as the two below (1100x2237, transparent outside the phone) -->
-      <div class="step-slot" role="presentation"></div>
+      <img src="/img/step-find.webp" alt="The Macgie discovery feed, a grid of outfit ideas to save" width="262" height="533" loading="lazy" decoding="async">
       <h3>Find inspiration</h3>
       <p>Discover looks you love from Instagram, Pinterest, and beyond.</p>
     </div>
     <div class="step">
-      <!-- /img/step-tryon.webp — a try-on result, same treatment -->
-      <div class="step-slot" role="presentation"></div>
+      <img src="/img/step-tryon.webp" alt="A saved look rendered on the user in the Macgie try-on view" width="262" height="533" loading="lazy" decoding="async">
       <h3>See it on you</h3>
       <p>Save your favorite looks, then instantly see them on yourself.</p>
     </div>
