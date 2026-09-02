@@ -104,14 +104,12 @@ homepage/
 > the design project still holds.** Before re-running the pipeline below,
 > either port the hero into "Macgie design home page" first, or re-apply it
 > afterwards from git history. Two things ride on it:
-> - `public/img/hero-before.webp` (313×500) and `hero-after.webp` (368×549) are
->   **placeholder crops** of `img/diff-2.webp` and the right-hand figure of
->   `img/hero-p2.webp` — two different people. The design wants one person shot
->   twice. The card slots are sized to the intended photography (before ≈0.625,
->   after ≈0.67), so replacements drop in at the same paths with no markup edit;
->   `object-fit: cover` absorbs a small aspect mismatch and
->   `.hero-card--* img { object-position }` shifts the framing. Ship a source at
->   least ~700px wide — the after card renders 334×498 CSS px.
+> - `public/img/hero-before.webp` (494×807) and `hero-after.webp` (723×1063) are
+>   the final photography, and the two card slots carry their **exact** aspect
+>   ratios (0.612 / 0.680) so `object-fit: cover` crops nothing. Swapping in a
+>   differently-shaped photo means re-deriving `width` on `.hero-card--before`
+>   and `.hero-card--after`, or accepting a centre crop and steering it with
+>   `.hero-card--* img { object-position }`. Both render at ~2.2× density.
 > - The "4.8 average rating" row is **unverified** — the App Store reported 0
 >   ratings for id6766749757 in every storefront checked (US/VN/GB/SG) on
 >   2026-09-02. Do not publish it as-is, and do not mirror it into the page's
