@@ -303,12 +303,13 @@ homepage/
 > set. Don't "fix" this with `text-transform: uppercase`: that loses the tall
 > initial letter the design depends on.
 >
-> Their four visuals (`/img/feat-canvas.webp`, `feat-planning.webp`,
-> `feat-tryon.webp`, `feat-capsule.webp`, all 622×426) carry their own rounded
-> corners in the alpha, so `.fcard img` sets **no radius** — it would double
-> up. Three are the old `.pcard` artwork renamed by `git mv` to match the card
-> each now sits in; **`feat-planning.webp` is a dashed "artwork pending"
-> placeholder** — nothing in the repo was a street-style planning shot.
+> Their four visuals carry their own rounded corners in the alpha, so
+> `.fcard img` sets **no radius** — it would double up. Three were supplied
+> for these cards at 498px wide into a 227px box (2.2×): `feat-canvas.webp`
+> 498×406, `feat-planning.webp` 498×304, `feat-capsule.webp` 498×352.
+> `feat-tryon.webp` (622×426) is the one inherited from the old `.pcard` set —
+> it was already the before/after pair this card wants. The three `card-*`
+> names were `git mv`'d to `feat-*` to match the card each now sits in.
 >
 > Soft sources: everything in the match stage (~1.6–1.8×) and both hero item
 > shots (~1–1.6×). Everything else on the page lands near 2.3×.
