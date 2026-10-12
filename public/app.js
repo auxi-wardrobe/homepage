@@ -51,20 +51,20 @@
     document.addEventListener('click',function(){closeAll();});
     document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAll();});
   }
-  // Hero shot carousel. Each .hero-card holds one <img> per pair; the two cards
-  // advance together so a before/after pair is never split. The outgoing pair
-  // flies out sideways (each card toward its own edge) while the incoming pair
-  // rises into place, with the "before" card leading by a beat so it reads as a
-  // sequence rather than a cut.
+  // Hero shot carousel. The closet shot and the styled figure each hold one
+  // <img> per look; the two advance together so a look and the wardrobe it came
+  // from are never shown out of sync. The outgoing pair flies out sideways
+  // (each away from the other) while the incoming pair rises into place, with
+  // the closet shot leading by a beat so it reads as a sequence, not a cut.
   //
   // WCAG 2.2.2: this auto-advances, so it stops on hover, on keyboard focus
   // inside the hero, when the tab is hidden, when the hero scrolls out of view,
   // and entirely under prefers-reduced-motion — which leaves the first pair as
   // a plain static hero, exactly as it renders with JS off.
   (function heroShots(){
-    var art = document.querySelector('.hero-art');
+    var art = document.querySelector('.hs');
     if (!art) return;
-    var cards = [art.querySelector('.hero-card--before'), art.querySelector('.hero-card--after')];
+    var cards = [art.querySelector('.hs-shot'), art.querySelector('.hs-figure')];
     if (!cards[0] || !cards[1]) return;
 
     var shots = cards.map(function (c) {

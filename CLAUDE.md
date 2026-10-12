@@ -110,23 +110,38 @@ homepage/
 > `finalize-static.py`'s `wire_how_it_works` still targets the design's old
 > step-card markup, which no longer ships — it is a no-op on the current page.
 > Two things ride on the hero specifically:
-> - `public/img/hero-before.webp` (494×807) and `hero-after.webp` (723×1063) are
->   the final photography, and the two card slots carry their **exact** aspect
->   ratios (0.612 / 0.680) so `object-fit: cover` crops nothing. Swapping in a
->   differently-shaped photo means re-deriving `width` on `.hero-card--before`
->   and `.hero-card--after`, or accepting a centre crop and steering it with
->   `.hero-card--* img { object-position }`. Both render at ~2.2× density.
->   Each card can hold **several** shots — `heroShots()` in `app.js` cycles them
->   in step, flying the old pair out sideways while the new pair rises in. Add a
->   pair by appending one `<img>` to *each* card in the same order
->   (`hero-before-2.webp` + `hero-after-2.webp`, then `-3`); no JS change, and a
->   single pair simply never starts the cycle. It auto-advances every 3s, so
->   per WCAG
->   2.2.2 it pauses on hover, on focus, off-screen, on a hidden tab, and is off
->   entirely under `prefers-reduced-motion` — which leaves pair 1 as a static
->   hero, the same thing JS-off visitors get. No "Basic"/"Amazing" chips: they
->   were dropped with the rotation, since a per-shot verdict would need per-shot
->   copy.
+> - The collage is `.hs`: a peach `.hs-stage`, the cut-out `.hs-figure`
+>   standing over its bottom edge, the `.hs-item` card and the `.hs-shot`
+>   closet photo it was built from, a floating `.hs-pill`, and the two halves
+>   of one sentence as captions ("From an item" / "to a look that feels like
+>   you."). Every box is a percentage of `.hs`, so the whole composition
+>   scales as one unit — change `.hs`'s `aspect-ratio` and everything moves
+>   together.
+> - **Never use percentage padding inside `.hs`.** Those boxes are
+>   `position: absolute`, and percentage padding resolves against the
+>   *containing block's* width (`.hs`, ~594px), not the element's own ~100px.
+>   A `padding: 12%` on `.hs-item` collapsed its content box to 0px wide. Inset
+>   with percentages on the child instead, which do resolve against the parent.
+> - `hero-figure*.webp` are cut-outs keyed off the flat yellow / orange / green
+>   grounds the originals shipped on, so they stand on the peach stage instead
+>   of carrying a clashing background. `.hs-figure` sizes them by **height**,
+>   not width: the three are not the same width and they must share a baseline.
+>   The `.hs-shot` photos keep their 0.612 ratio.
+> - `hero-item.webp` is a **stand-in** — a trouser cut-out lifted from the
+>   sample wardrobe screen, not the garment in the look beside it, and only
+>   138px wide (soft on retina). Replace it at the same path.
+> - The accent green is `#5a7b2c`. The mockup's lighter green measured 2.88:1
+>   on white — under AA even for display text — so it was darkened until one
+>   value cleared 4.5:1 and could serve both the headline and the 11px labels.
+> - `.hs-figure` and `.hs-shot` each hold **several** shots; `heroShots()` in
+>   `app.js` cycles them in step, so a look and the wardrobe it came from are
+>   never out of sync. The old pair flies out sideways while the new one rises
+>   in. Add a look by appending one `<img>` to *each* in the same order
+>   (`hero-figure-2.webp` + `hero-before-2.webp`, then `-3`); no JS change, and
+>   a single pair never starts the cycle. It auto-advances every 3s, so per
+>   WCAG 2.2.2 it pauses on hover, on focus, off-screen and on a hidden tab,
+>   and is off entirely under `prefers-reduced-motion` — leaving look 1 static,
+>   the same thing JS-off visitors get.
 > - **No social proof in the hero, deliberately.** A "Loved by 100,000+ people"
 >   line and a "★★★★★ 4.8 average rating" row were both drawn in the mockup and
 >   both removed: on 2026-09-02 the App Store reported 0 ratings and no average
