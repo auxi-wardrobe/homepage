@@ -257,15 +257,18 @@ homepage/
 > parent hands them to `.mz-stage`, so the figure escapes its grid cell and
 > renders behind the cards.
 >
-> **Its artwork is mostly placeholder.** `match-item.webp` is real but is a
-> copy of `hero-item-2.webp` (101px into a ~133px slot, so soft).
-> `match-figure-1…3.webp` are the hero cut-outs standing in — they are not
-> wearing these trousers. `match-shirt-*`, `match-shoes-*` and `match-knit-*`
-> (nine files) are dashed "artwork pending" tiles, deliberately: nothing in the
-> repo resembles those product cut-outs and an obviously empty slot beats the
-> wrong garment. The look 2 / look 3 captions are invented placeholder copy
-> too. Real artwork overwrites the same paths; only each `width`/`height`,
-> `alt` and caption change with it.
+> **Its artwork** is twelve transparent cut-outs — `match-figure-1…3`,
+> `match-shirt-1…3`, `match-shoes-1…3`, `match-knit-1…3` — each trimmed to its
+> alpha bbox before committing, as the hero cut-outs are. Every `<figcaption>`
+> is the supplied file's own name (so renaming the source renames the caption)
+> and the `alt` beneath it describes the garment; they are two separate pieces
+> of copy, and the Vietnamese for both is hand-seeded.
+>
+> `match-item.webp` — the pinned trousers — is the one stand-in left: a copy of
+> `hero-item-2.webp`. Everything in this stage lands around **1.6–1.8×** its
+> retina size rather than the 2.3× the rest of the page manages, because the
+> sources arrive 180–460px wide. Noticeable but not bad; re-request at 2× if
+> sharper originals turn up.
 >
 > **Artwork.** The four step phones from the old section are now unused but
 > still on disk (`/img/step-find.webp`, `step-tryon.webp`, and
@@ -291,9 +294,8 @@ homepage/
 > they sit inset inside the card rather than bleeding off its bottom edge —
 > otherwise the card's radius and the artwork's would double up.
 >
-> Soft sources, in order of how visible it is: `match-item.webp` (101px into
-> ~133px, 1.5×) and both hero item shots (~1–1.6×). Everything still on the
-> page otherwise lands near 2.3×.
+> Soft sources: everything in the match stage (~1.6–1.8×) and both hero item
+> shots (~1–1.6×). Everything else on the page lands near 2.3×.
 
 Design edits happen in **claude.ai/design**. Unzip the export into a **scratch
 dir** — do NOT wipe `public/`, which also holds build outputs the export doesn't
