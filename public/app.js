@@ -267,3 +267,69 @@
     rowEl.addEventListener('click',function(){ a.style.display=(a.style.display==='none')?'block':'none'; });
   });
 })();
+/* ---- Inspiration rail -------------------------------------------------
+   A continuous horizontal strip of looks. The ten cards are cloned once so
+   the loop has no seam, then a requestAnimationFrame drives one transform.
+
+   Speed is eased rather than switched, so "slow down on hover" reads as a
+   glide, not a gear change. Three states feed one target speed: hovering
+   drops it to a crawl, and a keyboard focus or a press-and-hold stops it
+   outright — the stop WCAG 2.2.2 wants for content that moves on its own.
+   It also idles off-screen and on a hidden tab, and under
+   prefers-reduced-motion it never starts: the rail stays the plain
+   scroll-by-hand row that visitors without JS get. ------------------- */
+(function inspRail(){
+  var rail = document.querySelector('[data-marquee]');
+  var track = rail && rail.firstElementChild;
+  if (!track) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var cards = Array.prototype.slice.call(track.children);
+  if (cards.length < 2) return;
+  cards.forEach(function (card) {
+    var copy = card.cloneNode(true);
+    copy.setAttribute('aria-hidden', 'true');
+    Array.prototype.forEach.call(copy.querySelectorAll('a'), function (a) { a.tabIndex = -1; });
+    track.appendChild(copy);
+  });
+  rail.classList.add('is-live');
+
+  var FAST = 34, SLOW = 5;                    // px per second
+  var hover = false, held = false, focused = false;
+  var speed = FAST, target = FAST, x = 0, period = 0, prev = 0, raf = 0, visible = true, shown = true;
+
+  // One period is the offset of the first clone — exact, gap included.
+  function measure() { period = track.children[cards.length].offsetLeft - track.children[0].offsetLeft; }
+  function sync() { target = (held || focused) ? 0 : (hover ? SLOW : FAST); }
+
+  function frame(now) {
+    var dt = prev ? Math.min((now - prev) / 1000, 0.05) : 0;
+    prev = now;
+    speed += (target - speed) * Math.min(dt * 3.2, 1);
+    x += speed * dt;
+    if (period > 0 && x >= period) x -= period;
+    track.style.transform = 'translate3d(' + (-x) + 'px,0,0)';
+    raf = requestAnimationFrame(frame);
+  }
+  function play() { if (!raf && visible && shown) { prev = 0; raf = requestAnimationFrame(frame); } }
+  function pause() { if (raf) { cancelAnimationFrame(raf); raf = 0; } }
+
+  measure();
+  window.addEventListener('resize', function () { measure(); if (period > 0) x %= period; });
+  rail.addEventListener('mouseenter', function () { hover = true; sync(); });
+  rail.addEventListener('mouseleave', function () { hover = false; sync(); });
+  rail.addEventListener('focusin', function () { focused = true; sync(); });
+  rail.addEventListener('focusout', function () { focused = false; sync(); });
+  rail.addEventListener('pointerdown', function () { held = true; sync(); });
+  window.addEventListener('pointerup', function () { held = false; sync(); });
+  window.addEventListener('pointercancel', function () { held = false; sync(); });
+  document.addEventListener('visibilitychange', function () {
+    shown = !document.hidden; shown ? play() : pause();
+  });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      visible = entries[0].isIntersecting; visible ? play() : pause();
+    }, { rootMargin: '150px' }).observe(rail);
+  }
+  play();
+})();

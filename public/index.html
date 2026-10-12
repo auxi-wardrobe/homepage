@@ -253,28 +253,71 @@
     color: #14120f; margin: 16px 0 0; text-wrap: balance;
   }
 
-  /* ---- "This could be you" — note / collage / note ------------------- */
-  .cby { padding: 100px 0 96px; }
-  .cby-band {
-    max-width: 1200px; margin: 54px auto 0; padding: 0 40px;
-    display: grid; grid-template-columns: 200px minmax(0, 1fr) 200px;
-    gap: 36px; align-items: center;
+  /* ---- "Discover the looks you want to wear" — head + scrolling rail --
+     Three-column head over a full-bleed marquee. The columns and the
+     headline size are the mockup's own proportions, scaled to this page's
+     1120px content box (1200 max-width less the 40px gutters) — measured off
+     the mockup rather than guessed, which is why they are not round numbers.
+     The rail deliberately runs edge to edge rather than stopping at the
+     content gutter: it is moving, so a gutter it only respects at rest reads
+     as a clipped row. ------------------------------------------------- */
+  .insp { padding: 96px 0 100px; }
+  .insp-rule { max-width: 1200px; margin: 0 auto 48px; padding: 0 40px; }
+  .insp-rule hr { border: 0; border-top: 1px solid #e8e5dd; margin: 0; }
+  .insp-head {
+    max-width: 1200px; margin: 0 auto; padding: 0 40px;
+    display: grid; grid-template-columns: 219px minmax(0, 1fr) 399px;
+    column-gap: 74px; align-items: start;
   }
-  .cby-side { display: flex; flex-direction: column; gap: 26px; }
-  .cby-note h3 {
-    font-family: Geist, system-ui, sans-serif; font-size: 17px; font-weight: 600;
-    line-height: 1.24; letter-spacing: -.01em; color: #14120f; margin: 0;
+  .insp-eyebrow {
+    font-family: Geist, system-ui, sans-serif; font-size: 11.5px; font-weight: 600;
+    letter-spacing: .1em; text-transform: uppercase; color: #14120f; margin: 0;
   }
-  .cby-note p {
-    font-family: Geist, system-ui, sans-serif; font-size: 13.5px; line-height: 1.5;
-    color: #6f6a63; margin: 9px 0 0;
+  .insp-num {
+    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-weight: 500;
+    font-size: clamp(38px, 4.4vw, 54px); line-height: 1; letter-spacing: -.01em;
+    color: #14120f; margin: 22px 0 0;
   }
-  .cby-collage { display: grid; grid-template-columns: 1fr 1.18fr 1fr; gap: 22px; align-items: center; }
-  .cby-stack { display: flex; flex-direction: column; gap: 20px; }
-  /* Each tile's artwork ships with its own rounded, coloured ground baked in,
-     so the tile sets no background, radius or ratio — the image sizes it. */
-  .cby-tile { margin: 0; }
-  .cby-tile img { display: block; width: 100%; height: auto; }
+  .insp-cats {
+    font-family: Geist, system-ui, sans-serif; font-size: 14.5px; line-height: 1.5;
+    color: #4a443d; margin: 20px 0 0;
+  }
+  .insp-title {
+    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-weight: 500;
+    font-size: clamp(32px, 4.1vw, 50px); line-height: 1.08; letter-spacing: -.018em;
+    color: #14120f; margin: 0;
+  }
+  .insp-lede {
+    font-family: Geist, system-ui, sans-serif; font-size: 15.5px; line-height: 1.55;
+    color: #2f2b26; margin: 4px 0 0;
+  }
+  .insp-cta {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 238px; height: 49px; margin-top: 26px;
+    background: #2d2a26; color: #fff; border-radius: 12px; text-decoration: none;
+    font-family: Geist, system-ui, sans-serif; font-size: 15px; font-weight: 600;
+    letter-spacing: -.005em; transition: transform .16s ease, background .16s ease;
+  }
+  .insp-cta:hover { color: #fff; background: #1c1a17; transform: translateY(-1px); }
+
+  /* No JS (or reduced motion): an ordinary row the visitor scrolls by hand.
+     app.js adds .is-live, which hands the scrolling over to the marquee. */
+  .insp-rail { margin-top: 48px; overflow-x: auto; scrollbar-width: none; }
+  .insp-rail::-webkit-scrollbar { display: none; }
+  .insp-rail.is-live { overflow: hidden; }
+  .insp-track {
+    display: flex; align-items: flex-start; gap: 10px;
+    list-style: none; margin: 0; padding: 0 40px; width: max-content;
+  }
+  .insp-rail.is-live .insp-track { padding: 0; will-change: transform; }
+  .insp-card { flex: 0 0 240px; margin: 0; }
+  .insp-card img {
+    display: block; width: 100%; height: auto; border-radius: 12px; background: #f1ede6;
+  }
+  .insp-card figcaption {
+    font-family: Geist, system-ui, sans-serif; font-size: 13px; line-height: 1.4;
+    color: #4a443d; text-align: center; margin: 16px 6px 0;
+  }
 
   /* ---- "Your stylist, 4 simple steps" -------------------------------- */
   .steps { padding: 0 0 100px; }
@@ -327,24 +370,30 @@
   .pcard--cream { background: #fdf2e2; } .pcard--cream .pcard-eyebrow { color: #d9512f; }
 
   @media (max-width: 1020px) {
-    .cby-band { grid-template-columns: 1fr; gap: 34px; }
-    .cby-side { flex-direction: row; align-items: center; gap: 24px; }
-    .cby-side .cby-note { flex: 1 1 0; }
-    .cby-side .cby-tile { flex: 0 0 128px; }
+    /* the stat block and the lede drop under the headline, in that order */
+    .insp-head { grid-template-columns: minmax(0, 1fr) 360px; column-gap: 48px; row-gap: 36px; }
+    .insp-stat { grid-column: 1; grid-row: 2; }
+    .insp-title { grid-column: 1; grid-row: 1; }
+    .insp-aside { grid-column: 2; grid-row: 1 / span 2; }
   }
   @media (max-width: 900px) {
     .steps-grid { grid-template-columns: 1fr 1fr; }
     .pcards { grid-template-columns: 1fr; max-width: 580px; }
   }
+  @media (max-width: 760px) {
+    .insp-head { grid-template-columns: minmax(0, 1fr); row-gap: 28px; }
+    .insp-stat, .insp-title, .insp-aside { grid-column: 1; grid-row: auto; }
+    .insp-num { margin-top: 16px; }
+    .insp-cta { width: 100%; max-width: 300px; }
+  }
   @media (max-width: 640px) {
-    .cby { padding: 72px 0 68px; }
-    .sec-head, .cby-band, .steps-grid { padding-left: 20px; padding-right: 20px; }
+    .insp { padding: 72px 0 68px; }
+    .sec-head, .insp-rule, .insp-head, .steps-grid { padding-left: 20px; padding-right: 20px; }
+    .insp-rule { margin-bottom: 40px; }
+    .insp-rail { margin-top: 40px; }
+    .insp-track { padding: 0 20px; }
+    .insp-card { flex: 0 0 182px; }
     .pcards { padding: 0 20px 76px; }
-    .cby-side { flex-direction: column; align-items: stretch; gap: 20px; }
-    .cby-side .cby-tile { flex: none; }
-    .cby-collage { grid-template-columns: 1fr; gap: 16px; }
-    .cby-stack { flex-direction: row; align-items: center; gap: 16px; }
-    .cby-stack > .cby-tile { flex: 1 1 0; }
     .steps { padding-bottom: 76px; }
   }
   @media (max-width: 460px) {
@@ -628,51 +677,78 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
      Hand-authored (2026-09), like the hero — NOT flattened from the Claude
      Design project. A re-flatten overwrites these three sections too.
 
-     ARTWORK STILL MISSING. Every dashed box and every flat colour tile below
-     is an empty slot; the two step phones that do exist point at real files.
-     Drop the rest in at the paths named in each comment — no markup change.
+     The "This could be you" collage that used to open this run was replaced
+     (2026-10) by the inspiration rail below. Its seven tiles live on as the
+     rail's placeholder artwork, renamed look-1…7.webp.
      ================================================================== -->
-<section class="cby" aria-labelledby="cby-title">
-  <div class="sec-head">
-    <p class="sec-eyebrow">This could be you</p>
-    <h2 class="sec-title" id="cby-title">When you look good, you feel unstoppable</h2>
+<section class="insp" aria-labelledby="insp-title">
+  <div class="insp-rule"><hr></div>
+
+  <div class="insp-head">
+    <div class="insp-stat">
+      <p class="insp-eyebrow">A world of style inspiration</p>
+      <p class="insp-num">1000+</p>
+      <p class="insp-cats">Minimal, Smart Casual, Sporty, Timeless &amp; More</p>
+    </div>
+
+    <h2 class="insp-title" id="insp-title">Discover the looks you want to wear.</h2>
+
+    <div class="insp-aside">
+      <p class="insp-lede">Find inspiration for your next outfit, explore new styles, and discover fresh ways to wear what you already own.</p>
+      <a class="insp-cta" href="https://apps.apple.com/app/id6766749757" target="_blank" rel="noopener">Make it yours</a>
+    </div>
   </div>
 
-  <div class="cby-band">
-    <div class="cby-side">
-      <div class="cby-note">
-        <h3>Walk out the door with confidence</h3>
-        <p>No more overthinking or second guessing</p>
-      </div>
-      <figure class="cby-tile"><img src="/img/you-1.webp" alt="A woman in a fitted black tee and grey trousers" width="448" height="450" loading="lazy" decoding="async"></figure>
-      <div class="cby-note">
-        <h3>Enjoy getting dressed</h3>
-        <p>Outfits you love, made easy</p>
-      </div>
-    </div>
+  <!-- PLACEHOLDER ARTWORK. look-1…7.webp are the old "This could be you"
+       tiles, renamed; look-8…10 are copies of the first three. Ten real
+       photographs replace them at the same paths — overwrite the files and
+       fix each width/height, alt and <figcaption>; no other change needed.
 
-    <div class="cby-collage">
-      <div class="cby-stack">
-        <figure class="cby-tile"><img src="/img/you-2.webp" alt="A man in a blue-and-white striped sweatshirt and cap, arms behind his head" width="444" height="288" loading="lazy" decoding="async"></figure>
-        <figure class="cby-tile"><img src="/img/you-3.webp" alt="A woman taking a mirror selfie in a cream jacket over a brown turtleneck" width="448" height="448" loading="lazy" decoding="async"></figure>
-      </div>
-      <figure class="cby-tile"><img src="/img/you-4.webp" alt="A woman in a cream blazer, grey tee and navy wide-leg trousers, holding a tote" width="514" height="994" loading="lazy" decoding="async"></figure>
-      <div class="cby-stack">
-        <figure class="cby-tile"><img src="/img/you-5.webp" alt="A person in a purple hooded windbreaker, seen in profile" width="222" height="222" loading="lazy" decoding="async"></figure>
-        <figure class="cby-tile"><img src="/img/you-6.webp" alt="A man in a grey sweatshirt adjusting his glasses" width="444" height="290" loading="lazy" decoding="async"></figure>
-      </div>
-    </div>
-
-    <div class="cby-side">
-      <div class="cby-note">
-        <h3>People notice</h3>
-        <p>The right outfit makes the right impression</p>
-      </div>
-      <figure class="cby-tile"><img src="/img/you-7.webp" alt="A man in a grey blazer over a white tee" width="450" height="450" loading="lazy" decoding="async"></figure>
-      <div class="cby-note">
-        <h3>More you, everyday</h3>
-        <p>Express your style and love how you show up</p>
-      </div>
+       app.js (inspRail) clones the ten cards once so the strip wraps without
+       a seam, then drives it with requestAnimationFrame. Hovering eases it
+       down to a crawl; focus or press-and-hold stops it outright. -->
+  <div class="insp-rail" data-marquee>
+    <div class="insp-track">
+      <figure class="insp-card">
+        <img src="/img/look-1.webp" alt="A woman in a fitted black tee and grey trousers" width="448" height="450" loading="lazy" decoding="async">
+        <figcaption>Quiet Academia</figcaption>
+      </figure>
+      <figure class="insp-card">
+        <img src="/img/look-2.webp" alt="A man in a blue-and-white striped sweatshirt and cap, arms behind his head" width="444" height="288" loading="lazy" decoding="async">
+        <figcaption>Minimal Monochrome Tailoring</figcaption>
+      </figure>
+      <figure class="insp-card">
+        <img src="/img/look-3.webp" alt="A woman taking a mirror selfie in a cream jacket over a brown turtleneck" width="448" height="448" loading="lazy" decoding="async">
+        <figcaption>Monochrome Urban Utility</figcaption>
+      </figure>
+      <figure class="insp-card">
+        <img src="/img/look-4.webp" alt="A woman in a cream blazer, grey tee and navy wide-leg trousers, holding a tote" width="514" height="994" loading="lazy" decoding="async">
+        <figcaption>Modern Leather Casual</figcaption>
+      </figure>
+      <figure class="insp-card">
+        <img src="/img/look-5.webp" alt="A person in a purple hooded windbreaker, seen in profile" width="222" height="222" loading="lazy" decoding="async">
+        <figcaption>Sporty Blazer Streetwear</figcaption>
+      </figure>
+      <figure class="insp-card">
+        <img src="/img/look-6.webp" alt="A man in a grey sweatshirt adjusting his glasses" width="444" height="290" loading="lazy" decoding="async">
+        <figcaption>Soft Neutral Layering</figcaption>
+      </figure>
+      <figure class="insp-card">
+        <img src="/img/look-7.webp" alt="A man in a grey blazer over a white tee" width="450" height="450" loading="lazy" decoding="async">
+        <figcaption>Relaxed Weekend Denim</figcaption>
+      </figure>
+      <figure class="insp-card">
+        <img src="/img/look-8.webp" alt="A woman in a fitted black tee and grey trousers" width="448" height="450" loading="lazy" decoding="async">
+        <figcaption>Clean Office Tailoring</figcaption>
+      </figure>
+      <figure class="insp-card">
+        <img src="/img/look-9.webp" alt="A man in a blue-and-white striped sweatshirt and cap, arms behind his head" width="444" height="288" loading="lazy" decoding="async">
+        <figcaption>Elevated Street Basics</figcaption>
+      </figure>
+      <figure class="insp-card">
+        <img src="/img/look-10.webp" alt="A woman taking a mirror selfie in a cream jacket over a brown turtleneck" width="448" height="448" loading="lazy" decoding="async">
+        <figcaption>Timeless Trench and Knit</figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -1156,4 +1232,4 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
 
 
 
-<script src="app.js?v=53e5d3fa" defer></script></body></html>
+<script src="app.js?v=8aa07aa9" defer></script></body></html>

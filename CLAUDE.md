@@ -81,7 +81,7 @@ homepage/
 │   ├── index.html · features.html · journal.html · article.html
 │   ├── privacy.html · terms.html · ai-policy.html · subscription.html   # legal set (EN-only)
 │   ├── 404.html
-│   ├── app.js                    # tiny progressive-enhancement JS (mobile menu, feature carousel, FAQ accordion)
+│   ├── app.js                    # progressive-enhancement JS — GENERATED, see the warning below
 │   ├── robots.txt · sitemap.xml
 │   ├── img/                       # slot images extracted from the design, as webp
 │   ├── _ds/…/assets/fonts/*.woff2 # self-hosted fonts (woff2); @font-face is INLINED in each page
@@ -94,13 +94,35 @@ homepage/
     └── finalize-static.py        # step 5: strip the dead lang pill + wire mobile-menu/carousel/FAQ JS
 ```
 
+> **`public/app.js` is generated — edit it in `scripts/finalize-static.py`.**
+> That script holds the whole file as the `APP_JS` constant and line ~194
+> overwrites `public/app.js` with it, so a hand-edit there survives only until
+> the next re-flatten. It had already drifted twice (the hero carousel and the
+> cat-eye fix were written straight into `public/app.js`); 2026-10 ported the
+> live file back into `APP_JS`, and the two are byte-identical again — keep
+> them that way. The script also derives the cache-buster from that constant
+> (`APP_JS_V = md5(APP_JS)[:8]`, written into every `app.js?v=…`), so while
+> they are out of sync the URL does not change when the file does and
+> returning visitors sit on a stale script behind the zone's 4-hour TTL.
+> That is exactly what happened: pages shipped `?v=53e5d3fa` against an
+> app.js hashing `1c900b9d`, so nobody who had already visited was getting
+> the hero carousel. Both are `8aa07aa9` now. Note that
+> `scripts/templates/article.html` and `journal-index.html` hardcode the
+> query instead of deriving it, so a journal rebuild can reintroduce the
+> skew — bump those two by hand whenever app.js changes.
+>
+> `finalize-static.py` needs **Python 3.12+** (it puts backslashes inside
+> f-strings); plain `python3` here is 3.11 and will not even parse it.
+
 ## Updating the site (re-flatten from the design)
 
 > **The top of the home page is hand-authored and NOT in the design project.**
-> The 2026-09 redesign — `<section class="hero">`, `.cby` ("This could be you"),
-> `.steps` ("Your stylist, 4 simple steps") and `.pcards` (the three tinted
-> cards) in `public/index.html`, plus their `.hero-* / .sec-* / .cby-* /
-> .step* / .pcard-*` rules in the page's inlined `<style>` — was written by hand
+> The 2026-09 redesign — `<section class="hero">`, `.insp` ("Discover the looks
+> you want to wear", which replaced the original `.cby` "This could be you"
+> collage in 2026-10), `.steps` ("Your stylist, 4 simple steps") and `.pcards`
+> (the three tinted cards) in `public/index.html`, plus their `.hero-* /
+> .sec-* / .insp-* / .step* / .pcard-*` rules in the page's inlined `<style>`
+> — was written by hand
 > from mockups, because the Claude Design project could not be reached from the
 > session that built it. It **replaced** the design's own `#problem` ("The 8AM
 > problem"), `#different` ("Meet Macgie") and `#how` ("How it works") sections.
@@ -172,22 +194,56 @@ homepage/
 >   current figure — and never mirror one into the page's JSON-LD as an
 >   `aggregateRating`.
 >
-> **Artwork.** The seven `.cby-tile` collage images (`/img/you-1.webp` …
-> `you-7.webp`) each ship with their own rounded, coloured ground baked in, so
-> the tile sets no background, radius or aspect-ratio — the image sizes it.
-> Don't reintroduce a CSS background there: it squares off the corners the
-> artwork already rounds. All four step phones are in (`/img/step-find.webp`,
+> **The inspiration rail** (`.insp`). A three-column head — the `1000+` stat
+> block, the Playfair headline, the lede + "Make it yours" CTA — over a
+> full-bleed strip of look cards. The head's columns (`219 / 354 / 399`, 74px
+> gaps) and the 50px headline were measured off the mockup and scaled to this
+> page's **1120px** content box (the 1200 max-width *less* the 40px gutters —
+> scaling to 1200 instead is what first broke the headline onto four lines
+> rather than the mockup's three). Cards are a fixed 240px wide (182px under
+> 640px) and keep each photo's own height, top-aligned, as the mockup does.
+>
+> The strip is a marquee, not a carousel: `inspRail()` in `app.js` clones the
+> ten cards once so the loop has no seam, measures one period as the first
+> clone's `offsetLeft` (exact, gap included) and drives a single `translate3d`
+> from `requestAnimationFrame`. Speed is **eased toward** a target rather than
+> switched, so hover reads as a glide down to a crawl (34 → 5 px/s) instead of
+> a gear change. Three inputs feed one target: hover slows it; keyboard focus
+> or press-and-hold stops it dead. That stop matters — WCAG 2.2.2 wants a
+> pause for content that moves on its own and **slowing is not pausing**, so
+> don't drop the focus/hold branch when tuning speeds. It also idles
+> off-screen and on a hidden tab, and under `prefers-reduced-motion` it never
+> starts: the rail stays `overflow-x: auto`, the plain scroll-by-hand row that
+> JS-off visitors get. `app.js` adds `.is-live` to take scrolling over.
+>
+> The rail deliberately runs edge to edge rather than stopping at the content
+> gutter: it moves, so a gutter it only respects at rest reads as a clipped
+> row.
+>
+> **Artwork.** All four step phones are in (`/img/step-find.webp`,
 > `step-tryon.webp`, and `assets/feature/closet.webp` + `recommend.webp`).
+>
+> **The inspiration rail's ten photos are placeholders.** `/img/look-1.webp` …
+> `look-10.webp`: 1–7 are the old `.cby` collage tiles, renamed by `git mv`;
+> 8–10 are copies of 1–3. They still carry the rounded, coloured grounds those
+> tiles were cut on, which is why they look nothing like the editorial
+> photography the section is drawn for. Replacing them is a file overwrite at
+> the same ten paths plus each card's `width`/`height`, `alt` and
+> `<figcaption>` — no CSS and no JS change. The captions are style names
+> ("Quiet Academia", "Monochrome Urban Utility", …) and describe the *final*
+> artwork; each `alt` still describes the placeholder underneath it, so the two
+> disagree until the swap. Seed the Vietnamese for any caption you change —
+> `scripts/i18n/vi-cache.json`, key `sha1("vi\ntext\n" + text)`.
 >
 > The three `.pcard` visuals (`/img/card-inspire.webp`, `card-wardrobe.webp`,
 > `card-results.webp`, all 622×426) also carry their own rounded corners, so
 > they sit inset inside the card rather than bleeding off its bottom edge —
 > otherwise the card's radius and the artwork's would double up.
 >
-> Three sources are under-resolution for their slots and will look soft on a
-> retina display: `you-5.webp` (222px into a 190px slot, 1.17×) and the two new
-> step phones (262px into 178px, 1.47× — against 6.2× for the two beside them).
-> Everything else lands near 2.3×.
+> Two step phones are under-resolution for their slots and will look soft on a
+> retina display (262px into 178px, 1.47× — against 6.2× for the two beside
+> them), as are both hero item shots (~1–1.6×). Everything else lands near
+> 2.3×.
 
 Design edits happen in **claude.ai/design**. Unzip the export into a **scratch
 dir** — do NOT wipe `public/`, which also holds build outputs the export doesn't

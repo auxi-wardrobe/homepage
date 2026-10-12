@@ -30,6 +30,11 @@ def inject_faq(html):
         html = pat.sub(rep, html, count=1)
     return html
 
+# NOTE (2026-10): this constant is the source of truth for public/app.js —
+# line ~194 overwrites the file with it. It had drifted: the hero carousel
+# and the cat-eye fix were hand-edited into public/app.js and a re-flatten
+# would have wiped both, while APP_JS_V below kept hashing the stale copy.
+# Edit app.js HERE, not in public/.
 APP_JS = r"""(function(){
   var btn=document.querySelector('.hamburger'), nav=document.querySelector('header nav');
   if(btn&&nav){
@@ -83,13 +88,121 @@ APP_JS = r"""(function(){
     document.addEventListener('click',function(){closeAll();});
     document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAll();});
   }
+  // Hero shot carousel. The closet shot and the styled figure each hold one
+  // <img> per look; the two advance together so a look and the wardrobe it came
+  // from are never shown out of sync. The outgoing pair flies out sideways
+  // (each away from the other) while the incoming pair rises into place, with
+  // the closet shot leading by a beat so it reads as a sequence, not a cut.
+  //
+  // WCAG 2.2.2: this auto-advances, so it stops on hover, on keyboard focus
+  // inside the hero, when the tab is hidden, when the hero scrolls out of view,
+  // and entirely under prefers-reduced-motion — which leaves the first pair as
+  // a plain static hero, exactly as it renders with JS off.
+  (function heroShots(){
+    var art = document.querySelector('.hs');
+    if (!art) return;
+
+    // Left to right, which is also the order they animate in. Each flies out
+    // away from the middle of the composition.
+    var SPEC = [
+      { sel: '.hs-item',   exit: 'translate(-34%, -7%) rotate(-7deg) scale(.90)' },
+      { sel: '.hs-shot',   exit: 'translate(-26%, -4%) rotate(-5deg) scale(.94)' },
+      { sel: '.hs-figure', exit: 'translate(26%, -4%) rotate(5deg) scale(.94)' }
+    ];
+    var ENTER = 'translate(0, 9%) scale(.96)';
+    var HOLD = 3000, LEAD = 120, SETTLE = 700;
+
+    var slots = [];
+    SPEC.forEach(function (spec) {
+      var el = art.querySelector(spec.sel);
+      if (!el) return;
+      spec.el = el;
+      spec.shots = Array.prototype.slice.call(el.querySelectorAll('img'));
+      if (spec.shots.length) slots.push(spec);
+    });
+    if (!slots.length) return;
+
+    // Every shot after the first starts hidden, whether or not its slot turns
+    // out to cycle — so a half-filled slot shows its first shot, not a stack.
+    slots.forEach(function (s) {
+      s.shots.forEach(function (img, i) {
+        img.classList.toggle('is-active', i === 0);
+        img.setAttribute('aria-hidden', i === 0 ? 'false' : 'true');
+      });
+    });
+
+    // Slots advance together or not at all: a slot with fewer shots than the
+    // longest would drift out of step with the look it belongs to, so it stays
+    // on its first shot until it has a shot per look.
+    var cycle = slots.reduce(function (n, s) { return Math.max(n, s.shots.length); }, 0);
+    var moving = slots.filter(function (s) { return s.shots.length === cycle; });
+    if (cycle < 2 || !moving.length) return;
+
+    var motionOK = !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    if (!motionOK) return;
+
+    var idx = 0, timer = null, busy = false;
+
+    function swap(from, to, exit) {
+      to.classList.remove('is-moving');
+      to.style.transform = ENTER;
+      to.style.opacity = '0';
+      to.classList.add('is-active');
+      void to.offsetWidth;                       // commit the start state
+      to.classList.add('is-moving');
+      from.classList.add('is-moving');
+      from.style.transform = exit;
+      from.style.opacity = '0';
+      to.style.transform = '';
+      to.style.opacity = '';
+      from.setAttribute('aria-hidden', 'true');
+      to.setAttribute('aria-hidden', 'false');
+      setTimeout(function () {
+        from.classList.remove('is-active', 'is-moving');
+        from.style.transform = '';
+        from.style.opacity = '';
+        to.classList.remove('is-moving');
+      }, SETTLE);
+    }
+
+    function step() {
+      if (busy) return;
+      busy = true;
+      var cur = idx, next = (idx + 1) % cycle;
+      moving.forEach(function (s, i) {
+        setTimeout(function () { swap(s.shots[cur], s.shots[next], s.exit); }, i * LEAD);
+      });
+      idx = next;
+      setTimeout(function () { busy = false; }, SETTLE + moving.length * LEAD);
+    }
+
+    function play() { if (!timer) timer = setInterval(step, HOLD); }
+    function pause() { if (timer) { clearInterval(timer); timer = null; } }
+
+    art.addEventListener('mouseenter', pause);
+    art.addEventListener('mouseleave', play);
+    art.addEventListener('focusin', pause);
+    art.addEventListener('focusout', play);
+    document.addEventListener('visibilitychange', function () {
+      document.hidden ? pause() : play();
+    });
+
+    if (window.IntersectionObserver) {
+      new IntersectionObserver(function (entries) {
+        entries[0].isIntersecting ? play() : pause();
+      }, { threshold: 0.2 }).observe(art);
+    } else {
+      play();
+    }
+  })();
+
   // Cat eyes follow the cursor. The design does this in its canvas runtime
   // (componentDidMount -> _eyeMove), which flattening strips, leaving the cats
   // staring blankly. Same maths as the original; #hpL/#hpR/#scL/#scR already
   // carry `transition: transform .09s linear` from the design CSS.
   var EYES=['hpL','hpR','scL','scR'];
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(!reduce&&document.getElementById('hpL')){
+  if(!reduce&&EYES.some(function(id){return document.getElementById(id);})){
     var pending=null;
     window.addEventListener('mousemove',function(e){
       if(pending)return;
@@ -190,7 +303,74 @@ APP_JS = r"""(function(){
     rowEl.style.cursor='pointer';
     rowEl.addEventListener('click',function(){ a.style.display=(a.style.display==='none')?'block':'none'; });
   });
-})();"""
+})();
+/* ---- Inspiration rail -------------------------------------------------
+   A continuous horizontal strip of looks. The ten cards are cloned once so
+   the loop has no seam, then a requestAnimationFrame drives one transform.
+
+   Speed is eased rather than switched, so "slow down on hover" reads as a
+   glide, not a gear change. Three states feed one target speed: hovering
+   drops it to a crawl, and a keyboard focus or a press-and-hold stops it
+   outright — the stop WCAG 2.2.2 wants for content that moves on its own.
+   It also idles off-screen and on a hidden tab, and under
+   prefers-reduced-motion it never starts: the rail stays the plain
+   scroll-by-hand row that visitors without JS get. ------------------- */
+(function inspRail(){
+  var rail = document.querySelector('[data-marquee]');
+  var track = rail && rail.firstElementChild;
+  if (!track) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var cards = Array.prototype.slice.call(track.children);
+  if (cards.length < 2) return;
+  cards.forEach(function (card) {
+    var copy = card.cloneNode(true);
+    copy.setAttribute('aria-hidden', 'true');
+    Array.prototype.forEach.call(copy.querySelectorAll('a'), function (a) { a.tabIndex = -1; });
+    track.appendChild(copy);
+  });
+  rail.classList.add('is-live');
+
+  var FAST = 34, SLOW = 5;                    // px per second
+  var hover = false, held = false, focused = false;
+  var speed = FAST, target = FAST, x = 0, period = 0, prev = 0, raf = 0, visible = true, shown = true;
+
+  // One period is the offset of the first clone — exact, gap included.
+  function measure() { period = track.children[cards.length].offsetLeft - track.children[0].offsetLeft; }
+  function sync() { target = (held || focused) ? 0 : (hover ? SLOW : FAST); }
+
+  function frame(now) {
+    var dt = prev ? Math.min((now - prev) / 1000, 0.05) : 0;
+    prev = now;
+    speed += (target - speed) * Math.min(dt * 3.2, 1);
+    x += speed * dt;
+    if (period > 0 && x >= period) x -= period;
+    track.style.transform = 'translate3d(' + (-x) + 'px,0,0)';
+    raf = requestAnimationFrame(frame);
+  }
+  function play() { if (!raf && visible && shown) { prev = 0; raf = requestAnimationFrame(frame); } }
+  function pause() { if (raf) { cancelAnimationFrame(raf); raf = 0; } }
+
+  measure();
+  window.addEventListener('resize', function () { measure(); if (period > 0) x %= period; });
+  rail.addEventListener('mouseenter', function () { hover = true; sync(); });
+  rail.addEventListener('mouseleave', function () { hover = false; sync(); });
+  rail.addEventListener('focusin', function () { focused = true; sync(); });
+  rail.addEventListener('focusout', function () { focused = false; sync(); });
+  rail.addEventListener('pointerdown', function () { held = true; sync(); });
+  window.addEventListener('pointerup', function () { held = false; sync(); });
+  window.addEventListener('pointercancel', function () { held = false; sync(); });
+  document.addEventListener('visibilitychange', function () {
+    shown = !document.hidden; shown ? play() : pause();
+  });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      visible = entries[0].isIntersecting; visible ? play() : pause();
+    }, { rootMargin: '150px' }).observe(rail);
+  }
+  play();
+})();
+"""
 open(os.path.join(PUB, "app.js"), "w", encoding="utf-8").write(APP_JS)
 
 # Cache-bust by content hash. public/_headers asks for max-age=0 on /app.js but
