@@ -196,7 +196,9 @@ homepage/
 >
 > **The inspiration rail** (`.insp`). A three-column head — the `1000+` stat
 > block, the Playfair headline, the lede + "Make it yours" CTA — over a
-> full-bleed strip of look cards. The head's columns (`219 / 354 / 399`, 74px
+> full-bleed strip of look cards. It is the one band on an otherwise white
+> page: `background: #fbfaf7`, full viewport width, with white sections
+> either side. The head's columns (`219 / 354 / 399`, 74px
 > gaps) and the 50px headline were measured off the mockup and scaled to this
 > page's **1120px** content box (the 1200 max-width *less* the 40px gutters —
 > scaling to 1200 instead is what first broke the headline onto four lines
