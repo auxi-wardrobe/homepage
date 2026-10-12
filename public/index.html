@@ -311,9 +311,10 @@
   }
   .insp-rail.is-live .insp-track { padding: 0; will-change: transform; }
   .insp-card { flex: 0 0 240px; margin: 0; }
-  .insp-card img {
-    display: block; width: 100%; height: auto; border-radius: 12px; background: #f1ede6;
-  }
+  /* Each look ships with its own rounded corners baked into the alpha (~10.5px
+     at the rendered 240px). Don't add a radius — it doubles up — and never a
+     background: it fills the transparent corners and squares the artwork off. */
+  .insp-card img { display: block; width: 100%; height: auto; }
   .insp-card figcaption {
     font-family: Geist, system-ui, sans-serif; font-size: 13px; line-height: 1.4;
     color: #4a443d; text-align: center; margin: 16px 6px 0;
@@ -699,10 +700,9 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
     </div>
   </div>
 
-  <!-- PLACEHOLDER ARTWORK. look-1…7.webp are the old "This could be you"
-       tiles, renamed; look-8…10 are copies of the first three. Ten real
-       photographs replace them at the same paths — overwrite the files and
-       fix each width/height, alt and <figcaption>; no other change needed.
+  <!-- Each caption is the supplied file's own name; the alt beneath it
+       describes the photograph. Both are per-image copy — change them
+       together, and seed the Vietnamese for any caption you touch.
 
        app.js (inspRail) clones the ten cards once so the strip wraps without
        a seam, then drives it with requestAnimationFrame. Hovering eases it
@@ -710,44 +710,44 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
   <div class="insp-rail" data-marquee>
     <div class="insp-track">
       <figure class="insp-card">
-        <img src="/img/look-1.webp" alt="A woman in a fitted black tee and grey trousers" width="448" height="450" loading="lazy" decoding="async">
-        <figcaption>Quiet Academia</figcaption>
+        <img src="/img/look-1.webp" alt="A woman outside a cafe in a tan suede bomber over a white tank, white denim shorts and tan suede trainers, carrying a large tan tote" width="503" height="670" loading="lazy" decoding="async">
+        <figcaption>Casual City Weekend</figcaption>
       </figure>
       <figure class="insp-card">
-        <img src="/img/look-2.webp" alt="A man in a blue-and-white striped sweatshirt and cap, arms behind his head" width="444" height="288" loading="lazy" decoding="async">
+        <img src="/img/look-2.webp" alt="A woman in a long chocolate-brown coat over a matching turtleneck and belted side-slit maxi skirt, with a brown leather tote and pointed heels" width="503" height="968" loading="lazy" decoding="async">
+        <figcaption>Dark Brown Tailored Layered Look</figcaption>
+      </figure>
+      <figure class="insp-card">
+        <img src="/img/look-3.webp" alt="Three views of a cream turtleneck jumper with black wide-leg trousers, a small black top-handle bag and black pointed heels" width="503" height="754" loading="lazy" decoding="async">
         <figcaption>Minimal Monochrome Tailoring</figcaption>
       </figure>
       <figure class="insp-card">
-        <img src="/img/look-3.webp" alt="A woman taking a mirror selfie in a cream jacket over a brown turtleneck" width="448" height="448" loading="lazy" decoding="async">
-        <figcaption>Monochrome Urban Utility</figcaption>
-      </figure>
-      <figure class="insp-card">
-        <img src="/img/look-4.webp" alt="A woman in a cream blazer, grey tee and navy wide-leg trousers, holding a tote" width="514" height="994" loading="lazy" decoding="async">
+        <img src="/img/look-4.webp" alt="A woman in a black leather bomber over a beige mock neck with wide-leg blue jeans" width="503" height="670" loading="lazy" decoding="async">
         <figcaption>Modern Leather Casual</figcaption>
       </figure>
       <figure class="insp-card">
-        <img src="/img/look-5.webp" alt="A person in a purple hooded windbreaker, seen in profile" width="222" height="222" loading="lazy" decoding="async">
+        <img src="/img/look-5.webp" alt="A man on the street in a black cap, black hoodie and black cargo trousers, with a black backpack and black high-top trainers" width="503" height="876" loading="lazy" decoding="async">
+        <figcaption>Monochrome Urban Utility</figcaption>
+      </figure>
+      <figure class="insp-card">
+        <img src="/img/look-6.webp" alt="A woman in a cream wrap blazer with beige wide-leg trousers, a woven top-handle bag and white heels" width="503" height="754" loading="lazy" decoding="async">
+        <figcaption>Polished Neutral Tailoring</figcaption>
+      </figure>
+      <figure class="insp-card">
+        <img src="/img/look-7.webp" alt="A woman in a burgundy jumper over a white collared shirt, with grey pleated wide-leg trousers and black flats" width="503" height="670" loading="lazy" decoding="async">
+        <figcaption>Quiet Academia</figcaption>
+      </figure>
+      <figure class="insp-card">
+        <img src="/img/look-8.webp" alt="A woman in a black turtleneck with a charcoal wool A-line midi skirt, black tights, loafers and a small black shoulder bag" width="503" height="670" loading="lazy" decoding="async">
+        <figcaption>Quiet Black A-Line</figcaption>
+      </figure>
+      <figure class="insp-card">
+        <img src="/img/look-9.webp" alt="A man in a charcoal sweatshirt over a white tee with grey sweat shorts, white socks and grey running trainers" width="503" height="876" loading="lazy" decoding="async">
+        <figcaption>Relaxed Monochrome Athleisure</figcaption>
+      </figure>
+      <figure class="insp-card">
+        <img src="/img/look-10.webp" alt="A woman leaning on a wall in a navy cap and navy blazer over a white top, with black shorts, a brown shoulder bag and white trainers" width="503" height="968" loading="lazy" decoding="async">
         <figcaption>Sporty Blazer Streetwear</figcaption>
-      </figure>
-      <figure class="insp-card">
-        <img src="/img/look-6.webp" alt="A man in a grey sweatshirt adjusting his glasses" width="444" height="290" loading="lazy" decoding="async">
-        <figcaption>Soft Neutral Layering</figcaption>
-      </figure>
-      <figure class="insp-card">
-        <img src="/img/look-7.webp" alt="A man in a grey blazer over a white tee" width="450" height="450" loading="lazy" decoding="async">
-        <figcaption>Relaxed Weekend Denim</figcaption>
-      </figure>
-      <figure class="insp-card">
-        <img src="/img/look-8.webp" alt="A woman in a fitted black tee and grey trousers" width="448" height="450" loading="lazy" decoding="async">
-        <figcaption>Clean Office Tailoring</figcaption>
-      </figure>
-      <figure class="insp-card">
-        <img src="/img/look-9.webp" alt="A man in a blue-and-white striped sweatshirt and cap, arms behind his head" width="444" height="288" loading="lazy" decoding="async">
-        <figcaption>Elevated Street Basics</figcaption>
-      </figure>
-      <figure class="insp-card">
-        <img src="/img/look-10.webp" alt="A woman taking a mirror selfie in a cream jacket over a brown turtleneck" width="448" height="448" loading="lazy" decoding="async">
-        <figcaption>Timeless Trench and Knit</figcaption>
       </figure>
     </div>
   </div>

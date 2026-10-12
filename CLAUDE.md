@@ -223,17 +223,19 @@ homepage/
 > **Artwork.** All four step phones are in (`/img/step-find.webp`,
 > `step-tryon.webp`, and `assets/feature/closet.webp` + `recommend.webp`).
 >
-> **The inspiration rail's ten photos are placeholders.** `/img/look-1.webp` …
-> `look-10.webp`: 1–7 are the old `.cby` collage tiles, renamed by `git mv`;
-> 8–10 are copies of 1–3. They still carry the rounded, coloured grounds those
-> tiles were cut on, which is why they look nothing like the editorial
-> photography the section is drawn for. Replacing them is a file overwrite at
-> the same ten paths plus each card's `width`/`height`, `alt` and
-> `<figcaption>` — no CSS and no JS change. The captions are style names
-> ("Quiet Academia", "Monochrome Urban Utility", …) and describe the *final*
-> artwork; each `alt` still describes the placeholder underneath it, so the two
-> disagree until the swap. Seed the Vietnamese for any caption you change —
-> `scripts/i18n/vi-cache.json`, key `sha1("vi\ntext\n" + text)`.
+> **The ten rail photos** are `/img/look-1.webp` … `look-10.webp`, all 503px
+> wide into a 240px slot (2.1×) with their own natural heights. Each
+> `<figcaption>` is the supplied file's own name — that is how they arrive, so
+> renaming the source file renames the caption — and the `alt` beneath it
+> describes the photograph. They are two different pieces of copy: change them
+> together, and seed the Vietnamese for any caption you touch
+> (`scripts/i18n/vi-cache.json`, key `sha1("vi\ntext\n" + text)`).
+>
+> Like the `.pcard` visuals, each one ships with its **rounded corners baked
+> into the alpha** (~10.5px at the rendered size). `.insp-card img` therefore
+> sets no `border-radius` — it would double up — and above all **no
+> background**, which would fill the transparent corners and square the
+> artwork off.
 >
 > The three `.pcard` visuals (`/img/card-inspire.webp`, `card-wardrobe.webp`,
 > `card-results.webp`, all 622×426) also carry their own rounded corners, so
