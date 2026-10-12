@@ -127,11 +127,16 @@ homepage/
 >   of carrying a clashing background. `.hs-figure` sizes them by **height**,
 >   not width: the three are not the same width and they must share a baseline.
 >   The `.hs-shot` photos keep their 0.612 ratio.
-> - `hero-item.webp` is the real garment — the skirt the figure beside it is
->   wearing. `hero-item-2.webp` / `hero-item-3.webp` are **still missing**, so
->   the item slot is sitting the cycle out (see the slot rule below) and holding
->   on this one while the other two advance. That is the one open gap in the
->   hero, and it breaks the all-three rule below — close it by adding both.
+> - Each `hero-item*.webp` is a real garment out of the look beside it: the
+>   pleated skirt, the charcoal wide-leg trousers, the white cropped tee. All
+>   three slots carry three shots, so the all-three rule below holds.
+>   The card ground is `#f7f1e8`, **not white** — look 3's tee is white and
+>   vanished on a white card. The artwork box is `76% × 80%` of the card, wide
+>   enough for a top; a tall garment is height-constrained and unaffected by
+>   the width.
+>   Both trouser shots are supplied at ~1–1.6× their retina size, so they are
+>   softer than the rest of the page (which lands near 2.3×) — re-request at
+>   2× if a sharper original turns up.
 > - Cut-outs arrive with a lot of empty margin; **trim to the alpha bbox before
 >   committing one**. `.hs-figure` sizes by height, so the margin would shrink
 >   the person inside the slot rather than crop away. Look 1's figure came in at

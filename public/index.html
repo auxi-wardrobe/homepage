@@ -438,7 +438,7 @@
   .hs-shot img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
   .hs-item {
     position: absolute; left: 7.36%; top: 17.08%; width: 16.8%; z-index: 3;
-    aspect-ratio: 146 / 240; border-radius: 14px; background: #fff;
+    aspect-ratio: 146 / 240; border-radius: 14px; background: #f7f1e8;
     border: 1px solid #ece6dd; box-shadow: 0 10px 28px rgba(30, 23, 16, .10);
   }
   /* Inset the artwork with percentages on the IMAGE, not padding on the card:
@@ -446,7 +446,7 @@
      containing block's width (.hs, 594px), not the card's own ~100px, which
      collapsed the content box to zero. */
   .hs-item img {
-    position: absolute; top: 10%; left: 16%; width: 68%; height: 80%;
+    position: absolute; top: 10%; left: 12%; width: 76%; height: 80%;
     display: block; object-fit: contain;
   }
   .hs-pill {
@@ -554,10 +554,15 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
      The closet shots keep their 0.612 ratio, which .hs-shot matches exactly,
      so object-fit: cover crops nothing.
 
-     hero-item.webp is the real garment now — the skirt the figure beside it
-     is wearing. hero-item-2.webp / hero-item-3.webp are still missing, so the
-     item slot sits the cycle out and holds on this one while the other two
-     slots keep advancing.
+     Each hero-item*.webp is a real garment out of the look beside it — the
+     pleated skirt, the charcoal wide-leg trousers, the white cropped tee. All
+     three slots now carry three shots, so every advance changes the item, the
+     wardrobe and the outfit together.
+
+     The card ground is #f7f1e8, not white, so a pale garment (look 3's tee)
+     still reads against it. The artwork box is 76% x 80% of the card: wide
+     enough for a top, while a tall garment stays height-constrained and is
+     unaffected.
      ================================================================== -->
 <section class="hero" aria-labelledby="hero-title">
   <div class="hero-inner">
@@ -599,10 +604,8 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
 
       <div class="hs-item hs-slot">
         <img class="is-active" src="/img/hero-item.webp" alt="A pleated grey midi skirt saved to the wardrobe" width="118" height="253" loading="lazy" decoding="async">
-        <!-- hero-item-2.webp and hero-item-3.webp go here, one per look, in
-             the same order as the figures and closet shots below. Until all
-             three are in, this slot stays on the first item while the other
-             two keep cycling. -->
+        <img src="/img/hero-item-2.webp" alt="Charcoal pleated wide-leg trousers saved to the wardrobe" width="101" height="276" loading="lazy" decoding="async">
+        <img src="/img/hero-item-3.webp" alt="A white cropped tee saved to the wardrobe" width="193" height="140" loading="lazy" decoding="async">
       </div>
 
       <div class="hs-shot hs-slot">
