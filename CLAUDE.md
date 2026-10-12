@@ -127,10 +127,14 @@ homepage/
 >   of carrying a clashing background. `.hs-figure` sizes them by **height**,
 >   not width: the three are not the same width and they must share a baseline.
 >   The `.hs-shot` photos keep their 0.612 ratio.
-> - `hero-item.webp` is a **stand-in** — a trouser cut-out lifted from the
->   sample wardrobe screen, not the garment in the look beside it, and only
->   138px wide (soft on retina). Replace it at the same path, and add
->   `hero-item-2.webp` / `hero-item-3.webp` so the item changes with the look.
+> - `hero-item.webp` is the real garment — the skirt the figure beside it is
+>   wearing. `hero-item-2.webp` / `hero-item-3.webp` are still missing, so the
+>   item slot sits the cycle out (see the slot rule below) and holds on this one
+>   while the other two slots advance.
+> - Cut-outs arrive with a lot of empty margin; **trim to the alpha bbox before
+>   committing one**. `.hs-figure` sizes by height, so the margin would shrink
+>   the person inside the slot rather than crop away. Look 1's figure came in at
+>   1200×1817 with 82% of that transparent — 438×1425 of actual subject.
 > - The item card sits **24px** from the stage on its right and 24px from the
 >   closet shot below it, written as percentages of `.hs` (4.04% / 3.55%) so
 >   the gap scales with everything else rather than growing at small sizes.

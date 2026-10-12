@@ -554,9 +554,10 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
      The closet shots keep their 0.612 ratio, which .hs-shot matches exactly,
      so object-fit: cover crops nothing.
 
-     hero-item.webp is a STAND-IN: a trouser cut-out lifted from the sample
-     wardrobe screen, not the garment in the look beside it, and only 138px
-     wide. Replace it with the real item at the same path.
+     hero-item.webp is the real garment now — the skirt the figure beside it
+     is wearing. hero-item-2.webp / hero-item-3.webp are still missing, so the
+     item slot sits the cycle out and holds on this one while the other two
+     slots keep advancing.
      ================================================================== -->
 <section class="hero" aria-labelledby="hero-title">
   <div class="hero-inner">
@@ -591,13 +592,13 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
       <div class="hs-stage" aria-hidden="true"></div>
 
       <div class="hs-figure hs-slot">
-        <img class="is-active" src="/img/hero-figure.webp" alt="A tailored brown blazer over a white top and cream wide-leg trousers, styled by Macgie" width="311" height="940" loading="eager" fetchpriority="high" decoding="async">
+        <img class="is-active" src="/img/hero-figure.webp" alt="A white shirt under a grey knit vest with a pleated grey midi skirt and white trainers" width="438" height="1425" loading="eager" fetchpriority="high" decoding="async">
         <img src="/img/hero-figure-2.webp" alt="A grey cardigan over a white tee with black wide-leg trousers" width="317" height="964" loading="lazy" decoding="async">
         <img src="/img/hero-figure-3.webp" alt="A cap, white tee and pinstripe wide-leg trousers" width="254" height="942" loading="lazy" decoding="async">
       </div>
 
       <div class="hs-item hs-slot">
-        <img class="is-active" src="/img/hero-item.webp" alt="Wide-leg trousers saved to the wardrobe" width="138" height="321" loading="lazy" decoding="async">
+        <img class="is-active" src="/img/hero-item.webp" alt="A pleated grey midi skirt saved to the wardrobe" width="118" height="253" loading="lazy" decoding="async">
         <!-- hero-item-2.webp and hero-item-3.webp go here, one per look, in
              the same order as the figures and closet shots below. Until all
              three are in, this slot stays on the first item while the other
