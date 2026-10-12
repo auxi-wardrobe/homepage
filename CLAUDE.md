@@ -313,6 +313,26 @@ homepage/
 >
 > Soft sources: everything in the match stage (~1.6–1.8×) and both hero item
 > shots (~1–1.6×). Everything else on the page lands near 2.3×.
+>
+> **The feature grid** (`#features` on the home page, and the plain grid on
+> `features.html`) is the one part of this run that is still flattened design
+> markup — inline styles, Figma metadata blobs and all. It carries **13 cards**
+> on the home page and 12 on `features.html`; the three newest (Style
+> Discovery / Find the Best Match / Make It Yours) were hand-added to both,
+> with inline SVG icons drawn to match the supplied mockup.
+>
+> The home carousel is **three slides of 5 / 4 / 4**, not two of 6 / 7.
+> `featTrack`'s slides are flex items, so they all take the height of the
+> tallest; two slides of 6 and 7 made the 7-card slide three rows deep and
+> **stretched every card on the other slide** to match. Three slides of 5/4/4
+> are two rows each, so the heights agree. `align-content: start` on each
+> slide grid keeps rows from stretching if that balance is ever broken again.
+> The carousel JS is generic — it reads `dots.length` — so changing the slide
+> count only means adding or removing a `.featdot` span.
+>
+> **No "coming soon" tag anywhere** (2026-10): the one on Wardrobe Insights
+> was removed from both pages, and the flex wrapper it shared with the icon
+> went with it so the icon sits like every other card's.
 
 Design edits happen in **claude.ai/design**. Unzip the export into a **scratch
 dir** — do NOT wipe `public/`, which also holds build outputs the export doesn't
