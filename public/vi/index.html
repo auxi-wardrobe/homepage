@@ -320,22 +320,89 @@
     color: #4a443d; text-align: center; margin: 16px 6px 0;
   }
 
-  /* ---- "Your stylist, 4 simple steps" -------------------------------- */
-  .steps { padding: 0 0 100px; }
-  .steps-grid {
-    max-width: 1120px; margin: 54px auto 0; padding: 0 40px;
-    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 44px 32px;
+  /* ---- "One piece. More possibilities." — the match stage -------------
+     A fixed-ratio stage with four product cards pinned around a figure, all
+     positioned as percentages of .mz-stage, so the composition scales as one
+     unit (same system as the hero's .hs — and the same trap: never use
+     percentage padding on these absolutely positioned boxes, it resolves
+     against the stage's width, not the box's own). Geometry is measured off
+     the mockup: the stage is its 1215x863 block, the cards its 206x266 at
+     16.95% of the stage width. Under 860px the whole thing drops out of
+     absolute positioning into a plain stack (see the media queries). ---- */
+  .mz { padding: 96px 0 104px; background: #e2e3de; }
+  .mz-rule { max-width: 1200px; margin: 0 auto 46px; padding: 0 40px; }
+  .mz-rule hr { border: 0; border-top: 1px solid #d5d2cb; margin: 0; }
+  .mz-head { max-width: 1120px; margin: 0 auto; padding: 0 40px; text-align: center; }
+  .mz-eyebrow {
+    font-family: Geist, system-ui, sans-serif; font-size: 11.5px; font-weight: 600;
+    letter-spacing: .14em; text-transform: uppercase; color: #14120f; margin: 0;
   }
-  .step { text-align: center; }
-  .step img { display: block; width: 100%; max-width: 178px; height: auto; margin: 0 auto; }
-  .step h3 {
-    font-family: Geist, system-ui, sans-serif; font-size: 17px; font-weight: 600;
-    letter-spacing: -.01em; color: #14120f; margin: 24px 0 0;
+  .mz-title {
+    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-weight: 500;
+    font-size: clamp(30px, 4.3vw, 54px); line-height: 1.1; letter-spacing: -.02em;
+    color: #14120f; margin: 20px 0 0; text-wrap: balance;
   }
-  .step p {
-    font-family: Geist, system-ui, sans-serif; font-size: 13.5px; line-height: 1.55;
-    color: #6f6a63; margin: 9px auto 0; max-width: 25ch;
+  .mz-lede {
+    font-family: Geist, system-ui, sans-serif; font-size: 16px; line-height: 1.6;
+    color: #3b3833; margin: 22px auto 0; max-width: 1040px;
   }
+
+  .mz-stage {
+    position: relative; width: min(100%, 980px); aspect-ratio: 1215 / 863;
+    margin: 56px auto 0;
+  }
+  .mz-card { position: absolute; width: 16.95%; }
+  .mz-card--item  { left: 11.69%; top: 0; }
+  .mz-card--shirt { left: 72.02%; top: .7%; }
+  .mz-card--shoes { left: 0;      top: 55.62%; }
+  .mz-card--knit  { left: 83.13%; top: 55.62%; }
+  .mz-tile {
+    position: relative; aspect-ratio: 206 / 266; border-radius: 11px; background: #fff;
+    overflow: hidden; box-shadow: 0 6px 20px rgba(32, 30, 24, .06);
+  }
+  .mz-tile img { position: absolute; inset: 9% 10%; width: 80%; height: 82%; object-fit: contain; }
+  /* Two lines' worth of room always, so a one-line caption in one look and a
+     two-line caption in the next don't shunt the button up and down. */
+  .mz-cap {
+    position: relative; min-height: 2.7em;
+    font-family: Geist, system-ui, sans-serif; font-size: 13px; line-height: 1.35;
+    color: #2f2c27; margin: 11px 0 0;
+  }
+  .mz-cap span { position: absolute; left: 0; right: 0; top: 0; }
+  .mz-cap--fixed span { position: static; }
+  .mz-figure { position: absolute; left: 48.5%; transform: translateX(-50%); top: 1.5%; width: 34%; height: 92.5%; }
+  .mz-figure img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: bottom center; }
+
+  /* The pill is a real control — it advances to the next look — and the
+     auto-advance replays the same press on it, which is the effect asked
+     for. Without that it would be a button that lies about being clicked. */
+  .mz-btn {
+    display: flex; align-items: center; justify-content: center; gap: 9px;
+    width: 100%; height: 38px; margin-top: 13px; padding: 0 10px;
+    background: #303437; color: #fff; border: 0; border-radius: 10px; cursor: pointer;
+    /* 11.5px is the mockup's own size once its 205px pill is scaled to this
+       166px card — anything larger wraps "Find the best match" onto two lines. */
+    font-family: Geist, system-ui, sans-serif; font-size: 11.5px; font-weight: 600;
+    letter-spacing: -.005em; white-space: nowrap;
+    transition: transform .14s ease, background .14s ease;
+  }
+  .mz-btn:hover { background: #1f2224; }
+  .mz-btn.is-pressed { transform: scale(.955); background: #15181a; }
+  .mz-btn svg { flex: none; width: 13px; height: 13px; opacity: .85; }
+
+  .mz-dots { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); display: flex; gap: 11px; }
+  .mz-dot {
+    width: 9px; height: 9px; padding: 0; border: 0; border-radius: 50%;
+    background: #a3a39e; cursor: pointer; transition: background .2s ease, transform .2s ease;
+  }
+  .mz-dot[aria-current="true"] { background: #5a7b2c; transform: scale(1.12); }
+
+  /* One look at a time: every shot in a slot is stacked and only .is-active
+     is painted. Shots are already absolute inside .mz-tile / .mz-cap /
+     .mz-figure, so hiding one costs no layout. */
+  .mz-slot > * { opacity: 0; }
+  .mz-slot > .is-active { opacity: 1; }
+  .mz-slot > .is-fading { transition: opacity .4s ease, transform .4s ease; }
 
   /* ---- Three tinted product cards ------------------------------------ */
   .pcards {
@@ -378,8 +445,28 @@
     .insp-aside { grid-column: 2; grid-row: 1 / span 2; }
   }
   @media (max-width: 900px) {
-    .steps-grid { grid-template-columns: 1fr 1fr; }
     .pcards { grid-template-columns: 1fr; max-width: 580px; }
+  }
+  /* Below 860px the match stage leaves absolute positioning entirely: the
+     figure on top, then the four cards two-up. Everything that was a
+     percentage of the stage becomes ordinary flow, so nothing has to be
+     re-tuned per breakpoint. */
+  @media (max-width: 860px) {
+    .mz-stage {
+      width: min(100%, 520px); aspect-ratio: auto; padding: 0 20px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 30px 20px; justify-items: stretch;
+    }
+    .mz-card, .mz-card--item, .mz-card--shirt, .mz-card--shoes, .mz-card--knit {
+      position: static; width: auto; left: auto; top: auto;
+    }
+    /* relative, NOT static: the shots inside are absolute, and a static
+       parent would hand them to .mz-stage and let the figure escape its
+       grid cell and sit behind the cards. */
+    .mz-figure {
+      position: relative; transform: none; left: auto; top: auto;
+      width: auto; height: 340px; grid-column: 1 / -1; margin-bottom: 4px;
+    }
+    .mz-dots { position: static; transform: none; grid-column: 1 / -1; justify-content: center; margin-top: 8px; }
   }
   @media (max-width: 760px) {
     .insp-head { grid-template-columns: minmax(0, 1fr); row-gap: 28px; }
@@ -389,16 +476,19 @@
   }
   @media (max-width: 640px) {
     .insp { padding: 72px 0 68px; }
-    .sec-head, .insp-rule, .insp-head, .steps-grid { padding-left: 20px; padding-right: 20px; }
-    .insp-rule { margin-bottom: 40px; }
+    .mz { padding: 72px 0 76px; }
+    .sec-head, .insp-rule, .insp-head, .mz-rule, .mz-head { padding-left: 20px; padding-right: 20px; }
+    .insp-rule, .mz-rule { margin-bottom: 40px; }
     .insp-rail { margin-top: 40px; }
     .insp-track { padding: 0 20px; }
     .insp-card { flex: 0 0 182px; }
+    .mz-stage { margin-top: 40px; }
+    .mz-figure { height: 280px; }
     .pcards { padding: 0 20px 76px; }
-    .steps { padding-bottom: 76px; }
   }
   @media (max-width: 460px) {
-    .steps-grid { grid-template-columns: 1fr; gap: 40px; }
+    .mz-stage { gap: 26px 14px; }
+    .mz-cap { font-size: 12.5px; }
   }
 
   /* ---- Hero banner ----------------------------------------------------
@@ -666,7 +756,7 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
 
       <span class="hs-pill">
         <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0l1.5 4.4L14 6l-4.5 1.6L8 12 6.5 7.6 2 6l4.5-1.6z"></path><path d="M13.2 10.4l.6 1.8 1.8.6-1.8.6-.6 1.8-.6-1.8-1.8-.6 1.8-.6z"></path></svg>
-        Tìm món hợp nhất
+        Tìm bộ phối hợp nhất
       </span>
 
       <p class="hs-cap hs-cap--item">Từ một món đồ</p>
@@ -753,32 +843,86 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
   </div>
 </section>
 
-<section class="steps" id="how" aria-labelledby="steps-title">
-  <div class="sec-head">
-    <p class="sec-eyebrow">Macgie hoạt động thế nào</p>
-    <h2 class="sec-title" id="steps-title">Stylist của bạn, 4 bước đơn giản</h2>
+<section class="mz" id="how" aria-labelledby="mz-title">
+  <div class="mz-rule"><hr></div>
+
+  <div class="mz-head">
+    <p class="mz-eyebrow">Tìm bộ phối hợp nhất</p>
+    <h2 class="mz-title" id="mz-title">Một món đồ. Vô vàn cách phối.</h2>
+    <p class="mz-lede">Chọn một món đồ bạn muốn mặc. Macgie đưa ra các cách hoàn thiện bộ đồ, để bạn bớt thời gian loay hoay phối đồ và có thêm thời gian mặc những bộ mình thích.</p>
   </div>
 
-  <div class="steps-grid">
-    <div class="step">
-      <img src="/img/step-find.webp" alt="Bảng khám phá của Macgie, lưới ý tưởng phối đồ để lưu lại" width="262" height="533" loading="lazy" decoding="async">
-      <h3>Tìm cảm hứng</h3>
-      <p>Khám phá những bộ đồ bạn thích từ Instagram, Pinterest và nhiều nơi khác.</p>
+  <!-- One garment stays put — the charcoal trousers — while the figure and the
+       other three cards cycle through three looks built around it. Each
+       .mz-slot holds one shot per look, in the same order, and matchLooks()
+       in app.js advances them together; the caption is a slot too, since the
+       garment it names changes with the picture.
+
+       match-shirt-*, match-shoes-* and match-knit-* are PLACEHOLDER TILES —
+       nothing in the repo resembles those product cut-outs, so they say so
+       rather than showing the wrong garment. The figures are the hero
+       cut-outs standing in, and they are not wearing these trousers. Nine
+       real cut-outs plus three figures replace them at the same paths; only
+       each width/height, alt and caption change with them. -->
+  <div class="mz-stage">
+    <div class="mz-figure mz-slot">
+      <img class="is-active" src="/img/match-figure-1.webp" alt="Áo sơ mi trắng bên trong áo gi-lê len xám, chân váy xếp ly xám dài và giày trắng" width="438" height="1425" loading="lazy" decoding="async">
+      <img src="/img/match-figure-2.webp" alt="Áo cardigan xám khoác ngoài áo thun trắng với quần ống rộng đen" width="317" height="964" loading="lazy" decoding="async">
+      <img src="/img/match-figure-3.webp" alt="Mũ lưỡi trai, áo thun trắng và quần ống rộng sọc nhỏ" width="255" height="943" loading="lazy" decoding="async">
     </div>
-    <div class="step">
-      <img src="/img/step-tryon.webp" alt="Bộ đồ đã lưu được dựng lên chính người dùng trong màn hình thử đồ Macgie" width="262" height="533" loading="lazy" decoding="async">
-      <h3>Thử ngay trên chính bạn</h3>
-      <p>Lưu những bộ đồ yêu thích, rồi thử lên người bạn ngay lập tức.</p>
-    </div>
-    <div class="step">
-      <img src="/assets/feature/closet.webp" alt="Màn hình tủ đồ Macgie, mọi món đã lưu gọn trong một lưới" width="1100" height="2236" loading="lazy" decoding="async">
-      <h3>Xây dựng tủ đồ</h3>
-      <p>Lưu từng món trong bộ đồ bạn thích vào tủ đồ của mình.</p>
-    </div>
-    <div class="step">
-      <img src="/assets/feature/recommend.webp" alt="Gợi ý trang phục Macgie cho hôm nay, mặc là đi" width="1100" height="2237" loading="lazy" decoding="async">
-      <h3>Lên đồ và mặc</h3>
-      <p>Lên đồ cho cả tuần và mặc đẹp đầy tự tin.</p>
+
+      <div class="mz-card mz-card--item">
+        <div class="mz-tile">
+          <img src="/img/match-item.webp" alt="Quần ống rộng xếp ly xám than" width="101" height="276" loading="lazy" decoding="async">
+        </div>
+        <p class="mz-cap mz-cap--fixed"><span>Quần ống rộng xếp ly xám than</span></p>
+        <button class="mz-btn" type="button" data-mz-next>
+          Tìm bộ phối hợp nhất
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.2 2.1l7.3 5.2-3 .6 1.9 3.9-1.7.8-1.9-3.9-2.1 2.2z" fill="currentColor"></path><path d="M12.8 11.3l1.9 1.1M11.1 13.6l1.1 1.9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"></path></svg>
+        </button>
+      </div>
+
+      <div class="mz-card mz-card--shirt">
+        <div class="mz-tile mz-slot">
+        <img class="is-active" src="/img/match-shirt-1.webp" alt="Áo sơ mi cotton cài cúc màu xanh nhạt" width="412" height="532" loading="lazy" decoding="async">
+        <img src="/img/match-shirt-2.webp" alt="Ô ảnh tạm cho áo của look 2" width="412" height="532" loading="lazy" decoding="async">
+        <img src="/img/match-shirt-3.webp" alt="Ô ảnh tạm cho áo của look 3" width="412" height="532" loading="lazy" decoding="async">
+        </div>
+        <p class="mz-cap mz-slot">
+        <span class="is-active">Sơ mi cài cúc màu xanh</span>
+        <span>Áo lụa màu ngà</span>
+        <span>Sơ mi cotton kẻ sọc</span>
+        </p>
+      </div>
+      <div class="mz-card mz-card--shoes">
+        <div class="mz-tile mz-slot">
+        <img class="is-active" src="/img/match-shoes-1.webp" alt="Đôi giày lười da bóng đen đế dày" width="412" height="532" loading="lazy" decoding="async">
+        <img src="/img/match-shoes-2.webp" alt="Ô ảnh tạm cho giày của look 2" width="412" height="532" loading="lazy" decoding="async">
+        <img src="/img/match-shoes-3.webp" alt="Ô ảnh tạm cho giày của look 3" width="412" height="532" loading="lazy" decoding="async">
+        </div>
+        <p class="mz-cap mz-slot">
+        <span class="is-active">Giày lười đen</span>
+        <span>Giày thể thao da trắng</span>
+        <span>Bốt cổ ngắn đen</span>
+        </p>
+      </div>
+      <div class="mz-card mz-card--knit">
+        <div class="mz-tile mz-slot">
+        <img class="is-active" src="/img/match-knit-1.webp" alt="Áo len dệt kim cổ tim màu xám than" width="412" height="532" loading="lazy" decoding="async">
+        <img src="/img/match-knit-2.webp" alt="Ô ảnh tạm cho áo len của look 2" width="412" height="532" loading="lazy" decoding="async">
+        <img src="/img/match-knit-3.webp" alt="Ô ảnh tạm cho áo len của look 3" width="412" height="532" loading="lazy" decoding="async">
+        </div>
+        <p class="mz-cap mz-slot">
+        <span class="is-active">Áo len cổ tim xám than</span>
+        <span>Áo len cổ tròn màu camel</span>
+        <span>Áo len thừng xanh navy</span>
+        </p>
+      </div>
+
+    <div class="mz-dots">
+      <button class="mz-dot" type="button" aria-current="true" aria-label="Xem look 1"></button>
+      <button class="mz-dot" type="button" aria-current="false" aria-label="Xem look 2"></button>
+      <button class="mz-dot" type="button" aria-current="false" aria-label="Xem look 3"></button>
     </div>
   </div>
 </section>
@@ -1232,4 +1376,4 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
 
 
 
-<script src="/app.js?v=8aa07aa9" defer></script></body></html>
+<script src="/app.js?v=9bad6f95" defer></script></body></html>

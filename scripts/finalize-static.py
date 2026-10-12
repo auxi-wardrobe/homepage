@@ -370,6 +370,88 @@ APP_JS = r"""(function(){
   }
   play();
 })();
+
+/* ---- "One piece. More possibilities." — the match stage ---------------
+   One garment is pinned (the trousers) and everything else — the figure,
+   the shirt, the shoes, the knit, and each of their captions — advances
+   together through three looks, so a look is never shown half-changed.
+
+   The "Find the best match" pill is a real control: clicking it advances,
+   and the auto-advance replays the same press on it, which is the effect
+   the design asks for. The dots jump straight to a look.
+
+   WCAG 2.2.2, same discipline as the hero: it stops on hover, on keyboard
+   focus inside the stage, off-screen and on a hidden tab, and under
+   prefers-reduced-motion it never starts — leaving look 1 as a static
+   composition with the dots and the pill still working by hand, which is
+   also exactly what a visitor with JS off gets. --------------------- */
+(function matchLooks(){
+  var stage = document.querySelector('.mz-stage');
+  if (!stage) return;
+  var slots = Array.prototype.slice.call(stage.querySelectorAll('.mz-slot')).map(function (el) {
+    return { el: el, shots: Array.prototype.slice.call(el.children) };
+  }).filter(function (s) { return s.shots.length > 1; });
+  if (!slots.length) return;
+
+  var looks = slots.reduce(function (n, s) { return Math.max(n, s.shots.length); }, 0);
+  var moving = slots.filter(function (s) { return s.shots.length === looks; });
+  if (looks < 2 || !moving.length) return;
+
+  var dots = Array.prototype.slice.call(stage.querySelectorAll('.mz-dot'));
+  var btn = stage.querySelector('[data-mz-next]');
+  var HOLD = 3000, FADE = 420;
+  var idx = 0, timer = 0, hover = false, focused = false, onScreen = true, shown = true;
+
+  moving.forEach(function (s) {
+    s.shots.forEach(function (shot, i) {
+      shot.classList.toggle('is-active', i === 0);
+      if (shot.tagName === 'IMG' || shot.tagName === 'SPAN') shot.setAttribute('aria-hidden', i === 0 ? 'false' : 'true');
+    });
+  });
+
+  function press() {
+    if (!btn) return;
+    btn.classList.add('is-pressed');
+    setTimeout(function () { btn.classList.remove('is-pressed'); }, 220);
+  }
+  function show(next, withPress) {
+    if (next === idx) return;
+    moving.forEach(function (s) {
+      var from = s.shots[idx], to = s.shots[next];
+      if (!from || !to) return;
+      from.classList.add('is-fading'); to.classList.add('is-fading');
+      from.classList.remove('is-active'); to.classList.add('is-active');
+      from.setAttribute('aria-hidden', 'true'); to.setAttribute('aria-hidden', 'false');
+      setTimeout(function () { from.classList.remove('is-fading'); to.classList.remove('is-fading'); }, FADE);
+    });
+    idx = next;
+    dots.forEach(function (d, i) { d.setAttribute('aria-current', i === idx ? 'true' : 'false'); });
+    if (withPress) press();
+  }
+  function advance() { show((idx + 1) % looks, true); }
+
+  function running() { return !hover && !focused && onScreen && shown; }
+  function play() { if (!timer && running()) timer = setInterval(advance, HOLD); }
+  function stop() { if (timer) { clearInterval(timer); timer = 0; } }
+  function sync() { running() ? play() : stop(); }
+
+  dots.forEach(function (d, i) {
+    d.addEventListener('click', function () { stop(); show(i, false); sync(); });
+  });
+  if (btn) btn.addEventListener('click', function () { stop(); advance(); sync(); });
+
+  stage.addEventListener('mouseenter', function () { hover = true; sync(); });
+  stage.addEventListener('mouseleave', function () { hover = false; sync(); });
+  stage.addEventListener('focusin', function () { focused = true; sync(); });
+  stage.addEventListener('focusout', function () { focused = false; sync(); });
+  document.addEventListener('visibilitychange', function () { shown = !document.hidden; sync(); });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (e) { onScreen = e[0].isIntersecting; sync(); },
+      { rootMargin: '120px' }).observe(stage);
+  }
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  play();
+})();
 """
 open(os.path.join(PUB, "app.js"), "w", encoding="utf-8").write(APP_JS)
 

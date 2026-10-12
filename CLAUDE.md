@@ -106,7 +106,7 @@ homepage/
 > returning visitors sit on a stale script behind the zone's 4-hour TTL.
 > That is exactly what happened: pages shipped `?v=53e5d3fa` against an
 > app.js hashing `1c900b9d`, so nobody who had already visited was getting
-> the hero carousel. Both are `8aa07aa9` now. Note that
+> the hero carousel. They have matched on every change since. Note that
 > `scripts/templates/article.html` and `journal-index.html` hardcode the
 > query instead of deriving it, so a journal rebuild can reintroduce the
 > skew — bump those two by hand whenever app.js changes.
@@ -119,9 +119,10 @@ homepage/
 > **The top of the home page is hand-authored and NOT in the design project.**
 > The 2026-09 redesign — `<section class="hero">`, `.insp` ("Discover the looks
 > you want to wear", which replaced the original `.cby` "This could be you"
-> collage in 2026-10), `.steps` ("Your stylist, 4 simple steps") and `.pcards`
-> (the three tinted cards) in `public/index.html`, plus their `.hero-* /
-> .sec-* / .insp-* / .step* / .pcard-*` rules in the page's inlined `<style>`
+> collage in 2026-10), `.mz` ("One piece. More possibilities.", which replaced
+> `.steps` "Your stylist, 4 simple steps" in 2026-10) and `.pcards` (the three
+> tinted cards) in `public/index.html`, plus their `.hero-* / .sec-* /
+> .insp-* / .mz-* / .pcard-*` rules in the page's inlined `<style>`
 > — was written by hand
 > from mockups, because the Claude Design project could not be reached from the
 > session that built it. It **replaced** the design's own `#problem` ("The 8AM
@@ -222,8 +223,54 @@ homepage/
 > gutter: it moves, so a gutter it only respects at rest reads as a clipped
 > row.
 >
-> **Artwork.** All four step phones are in (`/img/step-find.webp`,
-> `step-tryon.webp`, and `assets/feature/closet.webp` + `recommend.webp`).
+> **The match stage** (`.mz`). "One piece. More possibilities." — the section
+> that replaced "Your stylist, 4 simple steps". It **keeps `id="how"`**,
+> because two footer links point at it. Background `#e2e3de`, from the mockup.
+>
+> Below the centred head sits `.mz-stage`, a fixed-ratio block (`1215 / 863`,
+> the mockup's own composition) holding four product cards pinned around a
+> figure. Everything inside is a percentage of the stage, like the hero's
+> `.hs`, and the same rule applies: **never percentage padding on those
+> absolutely positioned boxes.** Card geometry is measured, not guessed —
+> `16.95%` wide, `206 / 266` ratio, at `11.69 / 72.02 / 0 / 83.13` percent.
+>
+> One garment is **pinned** — the charcoal trousers, `.mz-card--item` — and
+> the figure, the shirt, the shoes, the knit *and their captions* advance
+> together through three looks. Each `.mz-slot` holds one shot per look in the
+> same order and `matchLooks()` in `app.js` moves them as a set. The caption
+> is a slot too, since the garment it names changes with the picture, and
+> `.mz-cap` reserves two lines (`min-height: 2.7em`) so a one-line caption in
+> one look and a two-line caption in the next don't shunt the pill up and down.
+>
+> The "Find the best match" pill is a **real `<button>`**: clicking it advances
+> a look, and the auto-advance replays the same `.is-pressed` press on it —
+> which is the effect the mockup asks for. Don't turn it back into a decoration
+> that only animates; it would be a button that lies about being clicked. The
+> dots jump straight to a look. WCAG 2.2.2 as everywhere else: stops on hover,
+> on focus inside the stage, off-screen and on a hidden tab, and never starts
+> under `prefers-reduced-motion` — leaving look 1 static with the pill and dots
+> still working by hand, which is also the JS-off view.
+>
+> Under 860px the stage leaves absolute positioning for a plain grid: figure
+> across the top, cards two-up. One trap there — `.mz-figure` goes
+> **`position: relative`, not `static`**. Its shots are absolute, and a static
+> parent hands them to `.mz-stage`, so the figure escapes its grid cell and
+> renders behind the cards.
+>
+> **Its artwork is mostly placeholder.** `match-item.webp` is real but is a
+> copy of `hero-item-2.webp` (101px into a ~133px slot, so soft).
+> `match-figure-1…3.webp` are the hero cut-outs standing in — they are not
+> wearing these trousers. `match-shirt-*`, `match-shoes-*` and `match-knit-*`
+> (nine files) are dashed "artwork pending" tiles, deliberately: nothing in the
+> repo resembles those product cut-outs and an obviously empty slot beats the
+> wrong garment. The look 2 / look 3 captions are invented placeholder copy
+> too. Real artwork overwrites the same paths; only each `width`/`height`,
+> `alt` and caption change with it.
+>
+> **Artwork.** The four step phones from the old section are now unused but
+> still on disk (`/img/step-find.webp`, `step-tryon.webp`, and
+> `assets/feature/closet.webp` + `recommend.webp` — the last two are still
+> referenced from `features.html`).
 >
 > **The ten rail photos** are `/img/look-1.webp` … `look-10.webp`, all 503px
 > wide into a 240px slot (2.1×) with their own natural heights. Each
@@ -244,10 +291,9 @@ homepage/
 > they sit inset inside the card rather than bleeding off its bottom edge —
 > otherwise the card's radius and the artwork's would double up.
 >
-> Two step phones are under-resolution for their slots and will look soft on a
-> retina display (262px into 178px, 1.47× — against 6.2× for the two beside
-> them), as are both hero item shots (~1–1.6×). Everything else lands near
-> 2.3×.
+> Soft sources, in order of how visible it is: `match-item.webp` (101px into
+> ~133px, 1.5×) and both hero item shots (~1–1.6×). Everything still on the
+> page otherwise lands near 2.3×.
 
 Design edits happen in **claude.ai/design**. Unzip the export into a **scratch
 dir** — do NOT wipe `public/`, which also holds build outputs the export doesn't
