@@ -2,6 +2,47 @@
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Page not found — Macgie</title>
+<!-- AU-457: Smart App Banner. This page is what actually serves paths like
+     /discovery-outfit?id=... when the app isn't installed (no app claims
+     the Universal Link, so iOS falls back to the plain web page here).
+     Static app-id + a tiny inline script setting app-argument to the exact
+     URL the visitor landed on, so tapping the banner (once the app is
+     installed) can hand the same link back to the app. Runs before other
+     resources load so Safari's early banner scan picks up the real URL. -->
+<meta name="apple-itunes-app" content="app-id=6766749757">
+<script>
+  (function () {
+    var m = document.querySelector('meta[name="apple-itunes-app"]');
+    if (m) {
+      m.setAttribute('content', 'app-id=6766749757, app-argument=' + window.location.href);
+    }
+  })();
+</script>
+<!-- AU-457: automatic app-or-App-Store redirect, no tap required (the Smart
+     App Banner above still needs a manual tap — this covers "just get me
+     there"). Only fires for recognized deep-link-shaped paths (not every
+     stray 404) and runs BEFORE the locale-detect script below so it takes
+     priority over a /vi redirect for a lost deep-link visitor.
+     1. Try the auxi:// custom scheme immediately — covers "app IS installed
+        but the Universal Link didn't route" (the exact failure this session
+        hit from a stale on-device domain-association cache). If that opens
+        the app, this tab backgrounds and the timer below never fires
+        (guarded by `document.hidden`).
+     2. If we're still here after ~1.2s (app not installed, or the custom
+        scheme silently failed), fall through to the App Store listing. -->
+<script>
+  (function () {
+    var DEEP_LINK_PATHS = ['/discovery-outfit', '/verify-email', '/reset-password'];
+    var path = window.location.pathname.replace(/^\/vi(?=\/|$)/, '') || '/';
+    if (DEEP_LINK_PATHS.indexOf(path) === -1) return;
+    window.__auMacgieDeepLinkRedirect = true;
+    window.location.href = 'auxi:/' + '/' + path.slice(1) + window.location.search;
+    setTimeout(function () {
+      if (document.hidden) return;
+      window.location.href = 'https://apps.apple.com/vn/app/macgie/id6766749757';
+    }, 1200);
+  })();
+</script>
 <meta name="description" content="This page doesn't exist. Head back to Macgie and let your closet finally work for you.">
 <meta name="robots" content="noindex, follow">
 <link rel="icon" type="image/svg+xml" href="/assets/brand/macgie.svg">
