@@ -120,9 +120,10 @@ homepage/
 > The 2026-09 redesign — `<section class="hero">`, `.insp` ("Discover the looks
 > you want to wear", which replaced the original `.cby` "This could be you"
 > collage in 2026-10), `.mz` ("One piece. More possibilities.", which replaced
-> `.steps` "Your stylist, 4 simple steps" in 2026-10) and `.pcards` (the three
-> tinted cards) in `public/index.html`, plus their `.hero-* / .sec-* /
-> .insp-* / .mz-* / .pcard-*` rules in the page's inlined `<style>`
+> `.steps` "Your stylist, 4 simple steps" in 2026-10) and `.fcards` (the four
+> tinted feature cards, which replaced the three `.pcards` in 2026-10) in
+> `public/index.html`, plus their `.hero-* / .sec-* / .insp-* / .mz-* /
+> .fcard-*` rules in the page's inlined `<style>`
 > — was written by hand
 > from mockups, because the Claude Design project could not be reached from the
 > session that built it. It **replaced** the design's own `#problem` ("The 8AM
@@ -289,10 +290,25 @@ homepage/
 > background**, which would fill the transparent corners and square the
 > artwork off.
 >
-> The three `.pcard` visuals (`/img/card-inspire.webp`, `card-wardrobe.webp`,
-> `card-results.webp`, all 622×426) also carry their own rounded corners, so
-> they sit inset inside the card rather than bleeding off its bottom edge —
-> otherwise the card's radius and the artwork's would double up.
+> **The four feature cards** (`.fcards`) — Canvas / Outfit planning / See it
+> on you / Capsule wardrobe. Equal columns with **content-driven heights**,
+> top-aligned, as the mockup draws them; 28px padding, 10px gutters, one image
+> at the foot of each. Two up under 900px, one up under 640px.
+>
+> Their headings are **small caps**, and our Playfair subsets carry no `smcp`
+> feature (they have only calt/ccmp/dnom/frac/liga/lnum/locl/numr/rlig), so
+> `font-variant-caps: small-caps` is **synthesised** by the browser from
+> scaled capitals — which is what the mockup's own webfont does. The small
+> positive `letter-spacing` compensates for how tight synthesised small caps
+> set. Don't "fix" this with `text-transform: uppercase`: that loses the tall
+> initial letter the design depends on.
+>
+> Their four visuals (`/img/feat-canvas.webp`, `feat-planning.webp`,
+> `feat-tryon.webp`, `feat-capsule.webp`, all 622×426) carry their own rounded
+> corners in the alpha, so `.fcard img` sets **no radius** — it would double
+> up. Three are the old `.pcard` artwork renamed by `git mv` to match the card
+> each now sits in; **`feat-planning.webp` is a dashed "artwork pending"
+> placeholder** — nothing in the repo was a street-style planning shot.
 >
 > Soft sources: everything in the match stage (~1.6–1.8×) and both hero item
 > shots (~1–1.6×). Everything else on the page lands near 2.3×.

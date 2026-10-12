@@ -404,38 +404,42 @@
   .mz-slot > .is-active { opacity: 1; }
   .mz-slot > .is-fading { transition: opacity .4s ease, transform .4s ease; }
 
-  /* ---- Three tinted product cards ------------------------------------ */
-  .pcards {
-    max-width: 1240px; margin: 0 auto; padding: 0 40px 104px;
-    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px;
+  /* ---- Four tinted feature cards -------------------------------------
+     Equal columns, content-driven heights (the mockup's cards are not the
+     same height either), each with its own tint and one image at the foot.
+     Geometry off the mockup: 28px padding all round, 10px gutters. ----- */
+  .fcards {
+    max-width: 1240px; margin: 0 auto; padding: 96px 40px 104px;
+    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px; align-items: start;
   }
-  .pcard { border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; }
-  .pcard-body { padding: 32px 30px 26px; }
-  .pcard-eyebrow {
-    font-family: Geist, system-ui, sans-serif; font-size: 11px; font-weight: 700;
-    letter-spacing: .14em; text-transform: uppercase; margin: 0;
+  .fcard { border-radius: 18px; padding: 28px; }
+  .fcard-eyebrow {
+    font-family: Geist, system-ui, sans-serif; font-size: 11px; font-weight: 600;
+    letter-spacing: .12em; text-transform: uppercase; color: #5d574e; margin: 0;
   }
-  .pcard h3 {
+  /* Small caps, as the mockup draws them. Our Playfair subsets carry no
+     `smcp` feature (checked: only calt/ccmp/dnom/frac/liga/lnum/locl/numr/
+     rlig), so the browser SYNTHESISES these from scaled capitals — which is
+     what the mockup's own webfont does too. The letter-spacing compensates
+     for how tight synthesised small caps set. Don't swap this for
+     text-transform: uppercase; it loses the tall initial letter. */
+  .fcard h3 {
     font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-weight: 500;
-    font-size: clamp(22px, 2.1vw, 27px); line-height: 1.18; letter-spacing: -.01em;
-    color: #14120f; margin: 15px 0 0;
+    font-variant-caps: small-caps; font-size: clamp(23px, 2.5vw, 33px);
+    line-height: 1.14; letter-spacing: .005em; color: #14120f; margin: 22px 0 0;
   }
-  .pcard p {
+  .fcard p {
     font-family: Geist, system-ui, sans-serif; font-size: 14px; line-height: 1.55;
-    color: #4a453f; margin: 14px 0 0;
+    color: #4a453f; margin: 20px 0 0;
   }
-  .pcard-btn {
-    display: inline-flex; align-items: center; margin-top: 22px;
-    background: #121214; color: #fff; border-radius: 999px; padding: 11px 20px;
-    font-family: Geist, system-ui, sans-serif; font-size: 13.5px; font-weight: 600;
-    transition: transform .16s ease;
-  }
-  .pcard-btn:hover { color: #fff; transform: translateY(-2px); }
-  .pcard-art { margin: auto 24px 24px; }
-  .pcard-art img { display: block; width: 100%; height: auto; }
-  .pcard--pink { background: #fbe9ef; } .pcard--pink .pcard-eyebrow { color: #d93d76; }
-  .pcard--lilac { background: #eeeefb; } .pcard--lilac .pcard-eyebrow { color: #5e51db; }
-  .pcard--cream { background: #fdf2e2; } .pcard--cream .pcard-eyebrow { color: #d9512f; }
+  /* No radius here: all four ship their rounded corners baked into the
+     alpha, so a CSS radius doubles up. Same trap as the rail photos. */
+  .fcard img { display: block; width: 100%; height: auto; margin-top: 26px; }
+  .fcard--canvas  { background: #f3f2e9; }
+  .fcard--plan    { background: #ffeae2; }
+  .fcard--tryon   { background: #f6f0e9; }
+  .fcard--capsule { background: #f4ffe5; }
 
   @media (max-width: 1020px) {
     /* the stat block and the lede drop under the headline, in that order */
@@ -445,7 +449,7 @@
     .insp-aside { grid-column: 2; grid-row: 1 / span 2; }
   }
   @media (max-width: 900px) {
-    .pcards { grid-template-columns: 1fr; max-width: 580px; }
+    .fcards { grid-template-columns: 1fr 1fr; max-width: 760px; }
   }
   /* Below 860px the match stage leaves absolute positioning entirely: the
      figure on top, then the four cards two-up. Everything that was a
@@ -484,7 +488,7 @@
     .insp-card { flex: 0 0 182px; }
     .mz-stage { margin-top: 40px; }
     .mz-figure { height: 280px; }
-    .pcards { padding: 0 20px 76px; }
+    .fcards { grid-template-columns: 1fr; max-width: 420px; padding: 72px 20px 76px; gap: 14px; }
   }
   @media (max-width: 460px) {
     .mz-stage { gap: 26px 14px; }
@@ -928,39 +932,35 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
   </div>
 </section>
 
-<section class="pcards" aria-label="What Macgie does">
-  <div class="pcard pcard--pink">
-    <div class="pcard-body">
-      <p class="pcard-eyebrow">Lấy cảm hứng</p>
-      <h3>Bắt trọn phong cách bạn mê.</h3>
-      <p>Hàng triệu bộ đồ. Một chạm để thử lên người bạn.</p>
-      <a class="pcard-btn" href="https://apps.apple.com/app/id6766749757" target="_blank" rel="noopener">Khám phá phong cách</a>
-    </div>
-    <div class="pcard-art">
-      <img src="/img/card-inspire.webp" alt="Ba bộ đồ đã phối, lưu lại từ bảng cảm hứng của Macgie" width="622" height="426" loading="lazy" decoding="async">
-    </div>
+<!-- feat-planning.webp is a PLACEHOLDER tile; the other three are the old
+     pcard visuals, renamed to match the card each one now sits in. -->
+<section class="fcards" aria-label="What Macgie does">
+  <div class="fcard fcard--canvas">
+    <p class="fcard-eyebrow">Canvas</p>
+    <h3>Phối, thử và biến thành của riêng bạn</h3>
+    <p>Thử nhiều cách phối khác nhau, đổi từng món, và xem bộ đồ dần thành hình. Khám phá các khả năng mới cho tới khi tìm được một bộ thật sự hợp với bạn.</p>
+    <img src="/img/feat-canvas.webp" alt="Bốn bộ đồ street style được lưu cạnh nhau trên canvas của Macgie" width="622" height="426" loading="lazy" decoding="async">
   </div>
 
-  <div class="pcard pcard--lilac">
-    <div class="pcard-body">
-      <p class="pcard-eyebrow">Tủ đồ của bạn, thông minh hơn</p>
-      <h3>Mỗi món đồ đều biết mình hợp với món nào.</h3>
-      <p>Chạm vào món bất kỳ để khám phá vô số ý tưởng phối đồ.</p>
-    </div>
-    <div class="pcard-art">
-      <img src="/img/card-wardrobe.webp" alt="Áo khoác camel, áo trắng và chân váy nâu được ghép cùng túi, khuyên tai và đồng hồ" width="622" height="426" loading="lazy" decoding="async">
-    </div>
+  <div class="fcard fcard--plan">
+    <p class="fcard-eyebrow">Lên kế hoạch trang phục</p>
+    <h3>Chuẩn bị cả tuần chỉ trong vài phút.</h3>
+    <p>Lên trước trang phục và thêm vào lịch của bạn. Buổi sáng nhẹ nhàng hơn, chủ động hơn, và bớt thời gian phân vân hôm nay mặc gì.</p>
+    <img src="/img/feat-planning.webp" alt="Ô ảnh tạm cho thẻ lên kế hoạch trang phục" width="622" height="426" loading="lazy" decoding="async">
   </div>
 
-  <div class="pcard pcard--cream">
-    <div class="pcard-body">
-      <p class="pcard-eyebrow">Thấy rõ khác biệt</p>
-      <h3>Kết quả chân thực. Vẫn là bạn.</h3>
-      <p>AI của Macgie cho kết quả thử đồ siêu chân thực, tự nhiên và chính xác.</p>
-    </div>
-    <div class="pcard-art">
-      <img src="/img/card-results.webp" alt="Vẫn một người, lúc mặc áo thun xám trơn, lúc khoác blazer nâu với quần kem" width="622" height="426" loading="lazy" decoding="async">
-    </div>
+  <div class="fcard fcard--tryon">
+    <p class="fcard-eyebrow">Thử trên chính bạn</p>
+    <h3>Kết quả chân thực. Chính là bạn.</h3>
+    <p>Xem bộ đồ trên chính bạn trước khi mặc. Thử màu sắc và cách phối chỉ trong vài giây.</p>
+    <img src="/img/feat-tryon.webp" alt="Vẫn một người, lúc mặc áo thun xám trơn, lúc khoác blazer nâu với quần kem" width="622" height="426" loading="lazy" decoding="async">
+  </div>
+
+  <div class="fcard fcard--capsule">
+    <p class="fcard-eyebrow">Tủ đồ capsule</p>
+    <h3>Một tủ đồ có chủ đích hơn.</h3>
+    <p>Xây dựng tủ đồ capsule quanh phong cách, nhịp sống và những món bạn yêu thích. Tìm ra các món cơ bản dễ phối, tạo nhiều bộ đồ hơn từ ít món hơn, và chọn đồ một cách có cân nhắc hơn.</p>
+    <img src="/img/feat-capsule.webp" alt="Áo khoác camel, áo trắng và chân váy nâu được ghép cùng túi, khuyên tai và đồng hồ" width="622" height="426" loading="lazy" decoding="async">
   </div>
 </section>
 
