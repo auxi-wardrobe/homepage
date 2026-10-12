@@ -64,32 +64,49 @@
   (function heroShots(){
     var art = document.querySelector('.hs');
     if (!art) return;
-    var cards = [art.querySelector('.hs-shot'), art.querySelector('.hs-figure')];
-    if (!cards[0] || !cards[1]) return;
 
-    var shots = cards.map(function (c) {
-      return Array.prototype.slice.call(c.querySelectorAll('img'));
+    // Left to right, which is also the order they animate in. Each flies out
+    // away from the middle of the composition.
+    var SPEC = [
+      { sel: '.hs-item',   exit: 'translate(-34%, -7%) rotate(-7deg) scale(.90)' },
+      { sel: '.hs-shot',   exit: 'translate(-26%, -4%) rotate(-5deg) scale(.94)' },
+      { sel: '.hs-figure', exit: 'translate(26%, -4%) rotate(5deg) scale(.94)' }
+    ];
+    var ENTER = 'translate(0, 9%) scale(.96)';
+    var HOLD = 3000, LEAD = 120, SETTLE = 700;
+
+    var slots = [];
+    SPEC.forEach(function (spec) {
+      var el = art.querySelector(spec.sel);
+      if (!el) return;
+      spec.el = el;
+      spec.shots = Array.prototype.slice.call(el.querySelectorAll('img'));
+      if (spec.shots.length) slots.push(spec);
     });
-    var pairs = Math.min(shots[0].length, shots[1].length);
-    if (pairs < 2) return;                       // one pair — nothing to cycle
+    if (!slots.length) return;
 
-    var motionOK = !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-    if (!motionOK) return;
-
-    shots.forEach(function (list) {
-      list.forEach(function (img, i) {
+    // Every shot after the first starts hidden, whether or not its slot turns
+    // out to cycle — so a half-filled slot shows its first shot, not a stack.
+    slots.forEach(function (s) {
+      s.shots.forEach(function (img, i) {
         img.classList.toggle('is-active', i === 0);
         img.setAttribute('aria-hidden', i === 0 ? 'false' : 'true');
       });
     });
 
-    var EXIT = ['translate(-26%, -4%) rotate(-5deg) scale(.94)',
-                'translate(26%, -4%) rotate(5deg) scale(.94)'];
-    var ENTER = 'translate(0, 9%) scale(.96)';
-    var HOLD = 3000, LEAD = 140, SETTLE = 700;
+    // Slots advance together or not at all: a slot with fewer shots than the
+    // longest would drift out of step with the look it belongs to, so it stays
+    // on its first shot until it has a shot per look.
+    var cycle = slots.reduce(function (n, s) { return Math.max(n, s.shots.length); }, 0);
+    var moving = slots.filter(function (s) { return s.shots.length === cycle; });
+    if (cycle < 2 || !moving.length) return;
+
+    var motionOK = !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    if (!motionOK) return;
+
     var idx = 0, timer = null, busy = false;
 
-    function swap(card, from, to, exit) {
+    function swap(from, to, exit) {
       to.classList.remove('is-moving');
       to.style.transform = ENTER;
       to.style.opacity = '0';
@@ -114,12 +131,12 @@
     function step() {
       if (busy) return;
       busy = true;
-      var cur = idx, next = (idx + 1) % pairs;
-      cards.forEach(function (card, i) {
-        setTimeout(function () { swap(card, shots[i][cur], shots[i][next], EXIT[i]); }, i * LEAD);
+      var cur = idx, next = (idx + 1) % cycle;
+      moving.forEach(function (s, i) {
+        setTimeout(function () { swap(s.shots[cur], s.shots[next], s.exit); }, i * LEAD);
       });
       idx = next;
-      setTimeout(function () { busy = false; }, SETTLE + LEAD);
+      setTimeout(function () { busy = false; }, SETTLE + moving.length * LEAD);
     }
 
     function play() { if (!timer) timer = setInterval(step, HOLD); }

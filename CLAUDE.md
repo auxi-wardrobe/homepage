@@ -129,16 +129,22 @@ homepage/
 >   The `.hs-shot` photos keep their 0.612 ratio.
 > - `hero-item.webp` is a **stand-in** — a trouser cut-out lifted from the
 >   sample wardrobe screen, not the garment in the look beside it, and only
->   138px wide (soft on retina). Replace it at the same path.
+>   138px wide (soft on retina). Replace it at the same path, and add
+>   `hero-item-2.webp` / `hero-item-3.webp` so the item changes with the look.
+> - The item card sits **24px** from the stage on its right and 24px from the
+>   closet shot below it, written as percentages of `.hs` (4.04% / 3.55%) so
+>   the gap scales with everything else rather than growing at small sizes.
 > - The accent green is `#5a7b2c`. The mockup's lighter green measured 2.88:1
 >   on white — under AA even for display text — so it was darkened until one
 >   value cleared 4.5:1 and could serve both the headline and the 11px labels.
-> - `.hs-figure` and `.hs-shot` each hold **several** shots; `heroShots()` in
->   `app.js` cycles them in step, so a look and the wardrobe it came from are
->   never out of sync. The old pair flies out sideways while the new one rises
->   in. Add a look by appending one `<img>` to *each* in the same order
->   (`hero-figure-2.webp` + `hero-before-2.webp`, then `-3`); no JS change, and
->   a single pair never starts the cycle. It auto-advances every 3s, so per
+> - Every `.hs-slot` — `.hs-item`, `.hs-shot`, `.hs-figure` — holds one `<img>`
+>   per look, and `heroShots()` in `app.js` advances them together, so an item,
+>   the wardrobe it sits in and the look it builds are never out of sync. The
+>   old set flies out sideways while the new one rises in, left to right. Add a
+>   look by appending one `<img>` to *each* slot in the same order; no JS
+>   change. A slot holding **fewer** shots than the longest sits out and stays
+>   on its first image rather than drifting out of step, and with a single look
+>   nothing cycles. It auto-advances every 3s, so per
 >   WCAG 2.2.2 it pauses on hover, on focus, off-screen and on a hidden tab,
 >   and is off entirely under `prefers-reduced-motion` — leaving look 1 static,
 >   the same thing JS-off visitors get.

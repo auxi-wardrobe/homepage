@@ -437,7 +437,7 @@
   }
   .hs-shot img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
   .hs-item {
-    position: absolute; left: 4.5%; top: 17.9%; width: 16.8%; z-index: 3;
+    position: absolute; left: 7.36%; top: 17.08%; width: 16.8%; z-index: 3;
     aspect-ratio: 146 / 240; border-radius: 14px; background: #fff;
     border: 1px solid #ece6dd; box-shadow: 0 10px 28px rgba(30, 23, 16, .10);
   }
@@ -580,12 +580,13 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
       </p>
     </div>
 
-    <!-- The peach stage and the item card are fixed; the figure and the closet
-         shot each hold several shots that app.js cycles in step, so a look and
-         the wardrobe it came from are never shown out of sync. Add a pair by
-         appending one <img> to EACH of .hs-figure and .hs-shot in the same
-         order (hero-figure-2.webp + hero-before-2.webp, then -3) — no JS
-         change. With a single pair the cycle never starts. -->
+    <!-- The peach stage is fixed. Each .hs-slot — the item card, the closet
+         shot and the figure — holds one <img> per look, and app.js advances
+         them together so an item, the wardrobe it sits in and the look it
+         builds are never shown out of sync. Add a look by appending one <img>
+         to EACH slot in the same order; no JS change. A slot holding fewer
+         shots than the others simply stays on its first one, and with a single
+         look nothing cycles at all. -->
     <div class="hs">
       <div class="hs-stage" aria-hidden="true"></div>
 
@@ -595,8 +596,12 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
         <img src="/img/hero-figure-3.webp" alt="A cap, white tee and pinstripe wide-leg trousers" width="254" height="942" loading="lazy" decoding="async">
       </div>
 
-      <div class="hs-item">
-        <img src="/img/hero-item.webp" alt="Wide-leg trousers saved to the wardrobe" width="138" height="321" loading="lazy" decoding="async">
+      <div class="hs-item hs-slot">
+        <img class="is-active" src="/img/hero-item.webp" alt="Wide-leg trousers saved to the wardrobe" width="138" height="321" loading="lazy" decoding="async">
+        <!-- hero-item-2.webp and hero-item-3.webp go here, one per look, in
+             the same order as the figures and closet shots below. Until all
+             three are in, this slot stays on the first item while the other
+             two keep cycling. -->
       </div>
 
       <div class="hs-shot hs-slot">
