@@ -316,19 +316,26 @@ homepage/
 >
 > **The feature grid** (`#features` on the home page, and the plain grid on
 > `features.html`) is the one part of this run that is still flattened design
-> markup — inline styles, Figma metadata blobs and all. It carries **13 cards**
-> on the home page and 12 on `features.html`; the three newest (Style
-> Discovery / Find the Best Match / Make It Yours) were hand-added to both,
-> with inline SVG icons drawn to match the supplied mockup.
+> markup — inline styles, Figma metadata blobs and all. The three newest cards
+> (Style Discovery / Find the Best Match / Make It Yours) were hand-added to
+> both, with inline SVG icons drawn to match the supplied mockup.
 >
-> The home carousel is **three slides of 5 / 4 / 4**, not two of 6 / 7.
+> **The two pages carry different sets, deliberately.** The home carousel is
+> **12 cards, two slides of 6** — `Auto Background Removal` was dropped from
+> it to make that round, and `Capsule Wardrobe` is only there.
+> `features.html` is the full catalogue: **12 cards** including
+> `Auto Background Removal`, in a plain 3-column grid (four clean rows), with
+> no `Capsule Wardrobe`. Don't "sync" them without being asked.
+>
 > `featTrack`'s slides are flex items, so they all take the height of the
-> tallest; two slides of 6 and 7 made the 7-card slide three rows deep and
-> **stretched every card on the other slide** to match. Three slides of 5/4/4
-> are two rows each, so the heights agree. `align-content: start` on each
-> slide grid keeps rows from stretching if that balance is ever broken again.
-> The carousel JS is generic — it reads `dots.length` — so changing the slide
-> count only means adding or removing a `.featdot` span.
+> tallest. Slides of 6 and 7 made the 7-card slide three rows deep and
+> **stretched every card on the six-card slide** to fill a row it didn't have.
+> Keep the slides the same number of grid rows. `align-content: start` on each
+> slide grid stops rows stretching if that balance is ever broken again. The
+> carousel JS is generic — it reads `dots.length` — so changing the slide count
+> only means adding or removing a `.featdot` span, and the track's own closing
+> `</div>` is easy to drop when rebuilding the slides (it swallows the dots
+> row into the track).
 >
 > **No "coming soon" tag anywhere** (2026-10): the one on Wardrobe Insights
 > was removed from both pages, and the flex wrapper it shared with the icon
