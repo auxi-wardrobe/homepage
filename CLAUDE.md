@@ -128,9 +128,10 @@ homepage/
 >   not width: the three are not the same width and they must share a baseline.
 >   The `.hs-shot` photos keep their 0.612 ratio.
 > - `hero-item.webp` is the real garment — the skirt the figure beside it is
->   wearing. `hero-item-2.webp` / `hero-item-3.webp` are still missing, so the
->   item slot sits the cycle out (see the slot rule below) and holds on this one
->   while the other two slots advance.
+>   wearing. `hero-item-2.webp` / `hero-item-3.webp` are **still missing**, so
+>   the item slot is sitting the cycle out (see the slot rule below) and holding
+>   on this one while the other two advance. That is the one open gap in the
+>   hero, and it breaks the all-three rule below — close it by adding both.
 > - Cut-outs arrive with a lot of empty margin; **trim to the alpha bbox before
 >   committing one**. `.hs-figure` sizes by height, so the margin would shrink
 >   the person inside the slot rather than crop away. Look 1's figure came in at
@@ -148,7 +149,13 @@ homepage/
 >   look by appending one `<img>` to *each* slot in the same order; no JS
 >   change. A slot holding **fewer** shots than the longest sits out and stays
 >   on its first image rather than drifting out of step, and with a single look
->   nothing cycles. It auto-advances every 3s, so per
+>   nothing cycles — a fallback for a half-finished set, never a state to ship.
+>   **All three slots must change on every advance.** A look is one garment, the
+>   wardrobe it came out of and the outfit it ends up in; show two of the three
+>   moving and the sentence the collage is telling breaks. So artwork is
+>   supplied and swapped **as a set of three** — item + closet shot + figure for
+>   the same look, in one go — never a slot at a time.
+>   It auto-advances every 3s, so per
 >   WCAG 2.2.2 it pauses on hover, on focus, off-screen and on a hidden tab,
 >   and is off entirely under `prefers-reduced-motion` — leaving look 1 static,
 >   the same thing JS-off visitors get.
