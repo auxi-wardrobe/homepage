@@ -772,81 +772,14 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
      Hand-authored (2026-09), like the hero — NOT flattened from the Claude
      Design project. A re-flatten overwrites these three sections too.
 
+     Order (2026-10): hero -> .mz "One piece. More possibilities." -> .insp
+     "Discover the looks you want to wear" -> .fcards. The match stage was
+     moved ahead of the rail; nothing in app.js depends on their order.
+
      The "This could be you" collage that used to open this run was replaced
-     (2026-10) by the inspiration rail below. Its seven tiles live on as the
-     rail's placeholder artwork, renamed look-1…7.webp.
+     by the inspiration rail. Its seven tiles live on as that rail's
+     placeholder artwork, renamed look-1…7.webp.
      ================================================================== -->
-<section class="insp" aria-labelledby="insp-title">
-  <div class="insp-rule"><hr></div>
-
-  <div class="insp-head">
-    <div class="insp-stat">
-      <p class="insp-eyebrow">A world of style inspiration</p>
-      <p class="insp-num">1000+</p>
-      <p class="insp-cats">Minimal, Smart Casual, Sporty, Timeless &amp; More</p>
-    </div>
-
-    <h2 class="insp-title" id="insp-title">Discover the looks you want to wear.</h2>
-
-    <div class="insp-aside">
-      <p class="insp-lede">Find inspiration for your next outfit, explore new styles, and discover fresh ways to wear what you already own.</p>
-      <a class="insp-cta" href="https://apps.apple.com/app/id6766749757" target="_blank" rel="noopener">Make it yours</a>
-    </div>
-  </div>
-
-  <!-- Each caption is the supplied file's own name; the alt beneath it
-       describes the photograph. Both are per-image copy — change them
-       together, and seed the Vietnamese for any caption you touch.
-
-       app.js (inspRail) clones the ten cards once so the strip wraps without
-       a seam, then drives it with requestAnimationFrame. Hovering eases it
-       down to a crawl; focus or press-and-hold stops it outright. -->
-  <div class="insp-rail" data-marquee>
-    <div class="insp-track">
-      <figure class="insp-card">
-        <img src="/img/look-1.webp" alt="A woman outside a cafe in a tan suede bomber over a white tank, white denim shorts and tan suede trainers, carrying a large tan tote" width="503" height="670" loading="lazy" decoding="async">
-        <figcaption>Casual City Weekend</figcaption>
-      </figure>
-      <figure class="insp-card">
-        <img src="/img/look-2.webp" alt="A woman in a long chocolate-brown coat over a matching turtleneck and belted side-slit maxi skirt, with a brown leather tote and pointed heels" width="503" height="968" loading="lazy" decoding="async">
-        <figcaption>Dark Brown Tailored Layered Look</figcaption>
-      </figure>
-      <figure class="insp-card">
-        <img src="/img/look-3.webp" alt="Three views of a cream turtleneck jumper with black wide-leg trousers, a small black top-handle bag and black pointed heels" width="503" height="754" loading="lazy" decoding="async">
-        <figcaption>Minimal Monochrome Tailoring</figcaption>
-      </figure>
-      <figure class="insp-card">
-        <img src="/img/look-4.webp" alt="A woman in a black leather bomber over a beige mock neck with wide-leg blue jeans" width="503" height="670" loading="lazy" decoding="async">
-        <figcaption>Modern Leather Casual</figcaption>
-      </figure>
-      <figure class="insp-card">
-        <img src="/img/look-5.webp" alt="A man on the street in a black cap, black hoodie and black cargo trousers, with a black backpack and black high-top trainers" width="503" height="876" loading="lazy" decoding="async">
-        <figcaption>Monochrome Urban Utility</figcaption>
-      </figure>
-      <figure class="insp-card">
-        <img src="/img/look-6.webp" alt="A woman in a cream wrap blazer with beige wide-leg trousers, a woven top-handle bag and white heels" width="503" height="754" loading="lazy" decoding="async">
-        <figcaption>Polished Neutral Tailoring</figcaption>
-      </figure>
-      <figure class="insp-card">
-        <img src="/img/look-7.webp" alt="A woman in a burgundy jumper over a white collared shirt, with grey pleated wide-leg trousers and black flats" width="503" height="670" loading="lazy" decoding="async">
-        <figcaption>Quiet Academia</figcaption>
-      </figure>
-      <figure class="insp-card">
-        <img src="/img/look-8.webp" alt="A woman in a black turtleneck with a charcoal wool A-line midi skirt, black tights, loafers and a small black shoulder bag" width="503" height="670" loading="lazy" decoding="async">
-        <figcaption>Quiet Black A-Line</figcaption>
-      </figure>
-      <figure class="insp-card">
-        <img src="/img/look-9.webp" alt="A man in a charcoal sweatshirt over a white tee with grey sweat shorts, white socks and grey running trainers" width="503" height="876" loading="lazy" decoding="async">
-        <figcaption>Relaxed Monochrome Athleisure</figcaption>
-      </figure>
-      <figure class="insp-card">
-        <img src="/img/look-10.webp" alt="A woman leaning on a wall in a navy cap and navy blazer over a white top, with black shorts, a brown shoulder bag and white trainers" width="503" height="968" loading="lazy" decoding="async">
-        <figcaption>Sporty Blazer Streetwear</figcaption>
-      </figure>
-    </div>
-  </div>
-</section>
-
 <section class="mz" id="how" aria-labelledby="mz-title">
   <div class="mz-rule"><hr></div>
 
@@ -928,6 +861,77 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
       <button class="mz-dot" type="button" aria-current="true" aria-label="Show look 1"></button>
       <button class="mz-dot" type="button" aria-current="false" aria-label="Show look 2"></button>
       <button class="mz-dot" type="button" aria-current="false" aria-label="Show look 3"></button>
+    </div>
+  </div>
+</section>
+
+<section class="insp" aria-labelledby="insp-title">
+  <div class="insp-rule"><hr></div>
+
+  <div class="insp-head">
+    <div class="insp-stat">
+      <p class="insp-eyebrow">A world of style inspiration</p>
+      <p class="insp-num">1000+</p>
+      <p class="insp-cats">Minimal, Smart Casual, Sporty, Timeless &amp; More</p>
+    </div>
+
+    <h2 class="insp-title" id="insp-title">Discover the looks you want to wear.</h2>
+
+    <div class="insp-aside">
+      <p class="insp-lede">Find inspiration for your next outfit, explore new styles, and discover fresh ways to wear what you already own.</p>
+      <a class="insp-cta" href="https://apps.apple.com/app/id6766749757" target="_blank" rel="noopener">Make it yours</a>
+    </div>
+  </div>
+
+  <!-- Each caption is the supplied file's own name; the alt beneath it
+       describes the photograph. Both are per-image copy — change them
+       together, and seed the Vietnamese for any caption you touch.
+
+       app.js (inspRail) clones the ten cards once so the strip wraps without
+       a seam, then drives it with requestAnimationFrame. Hovering eases it
+       down to a crawl; focus or press-and-hold stops it outright. -->
+  <div class="insp-rail" data-marquee>
+    <div class="insp-track">
+      <figure class="insp-card">
+        <img src="/img/look-1.webp" alt="A woman outside a cafe in a tan suede bomber over a white tank, white denim shorts and tan suede trainers, carrying a large tan tote" width="503" height="670" loading="lazy" decoding="async">
+        <figcaption>Casual City Weekend</figcaption>
+      </figure>
+      <figure class="insp-card">
+        <img src="/img/look-2.webp" alt="A woman in a long chocolate-brown coat over a matching turtleneck and belted side-slit maxi skirt, with a brown leather tote and pointed heels" width="503" height="968" loading="lazy" decoding="async">
+        <figcaption>Dark Brown Tailored Layered Look</figcaption>
+      </figure>
+      <figure class="insp-card">
+        <img src="/img/look-3.webp" alt="Three views of a cream turtleneck jumper with black wide-leg trousers, a small black top-handle bag and black pointed heels" width="503" height="754" loading="lazy" decoding="async">
+        <figcaption>Minimal Monochrome Tailoring</figcaption>
+      </figure>
+      <figure class="insp-card">
+        <img src="/img/look-4.webp" alt="A woman in a black leather bomber over a beige mock neck with wide-leg blue jeans" width="503" height="670" loading="lazy" decoding="async">
+        <figcaption>Modern Leather Casual</figcaption>
+      </figure>
+      <figure class="insp-card">
+        <img src="/img/look-5.webp" alt="A man on the street in a black cap, black hoodie and black cargo trousers, with a black backpack and black high-top trainers" width="503" height="876" loading="lazy" decoding="async">
+        <figcaption>Monochrome Urban Utility</figcaption>
+      </figure>
+      <figure class="insp-card">
+        <img src="/img/look-6.webp" alt="A woman in a cream wrap blazer with beige wide-leg trousers, a woven top-handle bag and white heels" width="503" height="754" loading="lazy" decoding="async">
+        <figcaption>Polished Neutral Tailoring</figcaption>
+      </figure>
+      <figure class="insp-card">
+        <img src="/img/look-7.webp" alt="A woman in a burgundy jumper over a white collared shirt, with grey pleated wide-leg trousers and black flats" width="503" height="670" loading="lazy" decoding="async">
+        <figcaption>Quiet Academia</figcaption>
+      </figure>
+      <figure class="insp-card">
+        <img src="/img/look-8.webp" alt="A woman in a black turtleneck with a charcoal wool A-line midi skirt, black tights, loafers and a small black shoulder bag" width="503" height="670" loading="lazy" decoding="async">
+        <figcaption>Quiet Black A-Line</figcaption>
+      </figure>
+      <figure class="insp-card">
+        <img src="/img/look-9.webp" alt="A man in a charcoal sweatshirt over a white tee with grey sweat shorts, white socks and grey running trainers" width="503" height="876" loading="lazy" decoding="async">
+        <figcaption>Relaxed Monochrome Athleisure</figcaption>
+      </figure>
+      <figure class="insp-card">
+        <img src="/img/look-10.webp" alt="A woman leaning on a wall in a navy cap and navy blazer over a white top, with black shorts, a brown shoulder bag and white trainers" width="503" height="968" loading="lazy" decoding="async">
+        <figcaption>Sporty Blazer Streetwear</figcaption>
+      </figure>
     </div>
   </div>
 </section>

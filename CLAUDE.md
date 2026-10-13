@@ -228,6 +228,10 @@ homepage/
 > that replaced "Your stylist, 4 simple steps". It **keeps `id="how"`**,
 > because two footer links point at it. Background `#e2e3de`, from the mockup.
 >
+> Running order on the page (2026-10): **hero → `.mz` → `.insp` → `.fcards`**.
+> `.mz` was moved ahead of the rail; nothing in `app.js` depends on the order,
+> since all three behaviours find their own section by class.
+>
 > Below the centred head sits `.mz-stage`, a fixed-ratio block (`1215 / 863`,
 > the mockup's own composition) holding four product cards pinned around a
 > figure. Everything inside is a percentage of the stage, like the hero's

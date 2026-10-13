@@ -772,81 +772,14 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
      Hand-authored (2026-09), like the hero — NOT flattened from the Claude
      Design project. A re-flatten overwrites these three sections too.
 
+     Order (2026-10): hero -> .mz "One piece. More possibilities." -> .insp
+     "Discover the looks you want to wear" -> .fcards. The match stage was
+     moved ahead of the rail; nothing in app.js depends on their order.
+
      The "This could be you" collage that used to open this run was replaced
-     (2026-10) by the inspiration rail below. Its seven tiles live on as the
-     rail's placeholder artwork, renamed look-1…7.webp.
+     by the inspiration rail. Its seven tiles live on as that rail's
+     placeholder artwork, renamed look-1…7.webp.
      ================================================================== -->
-<section class="insp" aria-labelledby="insp-title">
-  <div class="insp-rule"><hr></div>
-
-  <div class="insp-head">
-    <div class="insp-stat">
-      <p class="insp-eyebrow">Cả một thế giới cảm hứng phong cách</p>
-      <p class="insp-num">1000+</p>
-      <p class="insp-cats">Tối giản, Thanh lịch thường ngày, Năng động, Vượt thời gian &amp; Hơn thế nữa</p>
-    </div>
-
-    <h2 class="insp-title" id="insp-title">Khám phá những bộ đồ bạn muốn mặc.</h2>
-
-    <div class="insp-aside">
-      <p class="insp-lede">Tìm cảm hứng cho bộ đồ tiếp theo, khám phá phong cách mới, và tìm ra những cách mặc mới mẻ với chính những món đồ bạn đang có.</p>
-      <a class="insp-cta" href="https://apps.apple.com/app/id6766749757" target="_blank" rel="noopener">Biến nó thành của bạn</a>
-    </div>
-  </div>
-
-  <!-- Each caption is the supplied file's own name; the alt beneath it
-       describes the photograph. Both are per-image copy — change them
-       together, and seed the Vietnamese for any caption you touch.
-
-       app.js (inspRail) clones the ten cards once so the strip wraps without
-       a seam, then drives it with requestAnimationFrame. Hovering eases it
-       down to a crawl; focus or press-and-hold stops it outright. -->
-  <div class="insp-rail" data-marquee>
-    <div class="insp-track">
-      <figure class="insp-card">
-        <img src="/img/look-1.webp" alt="Cô gái trước quán cà phê, mặc áo bomber da lộn nâu khoác ngoài áo hai dây trắng, quần short jeans trắng và giày da lộn nâu, tay xách túi tote nâu cỡ lớn" width="503" height="670" loading="lazy" decoding="async">
-        <figcaption>Cuối tuần dạo phố</figcaption>
-      </figure>
-      <figure class="insp-card">
-        <img src="/img/look-2.webp" alt="Cô gái mặc áo khoác dài màu nâu socola cùng tông với áo cổ lọ và chân váy maxi xẻ tà thắt đai, kèm túi tote da nâu và giày cao gót mũi nhọn" width="503" height="968" loading="lazy" decoding="async">
-        <figcaption>Layer tông nâu trầm, phom tailored</figcaption>
-      </figure>
-      <figure class="insp-card">
-        <img src="/img/look-3.webp" alt="Ba góc nhìn của áo len cổ lọ màu kem phối quần ống rộng đen, túi xách tay nhỏ màu đen và giày cao gót mũi nhọn đen" width="503" height="754" loading="lazy" decoding="async">
-        <figcaption>Tailoring đơn sắc tối giản</figcaption>
-      </figure>
-      <figure class="insp-card">
-        <img src="/img/look-4.webp" alt="Cô gái mặc áo bomber da đen khoác ngoài áo cổ giả be, phối quần jeans xanh ống rộng" width="503" height="670" loading="lazy" decoding="async">
-        <figcaption>Đồ da hiện đại, phom thoải mái</figcaption>
-      </figure>
-      <figure class="insp-card">
-        <img src="/img/look-5.webp" alt="Chàng trai trên phố với mũ lưỡi trai đen, áo hoodie đen và quần cargo đen, đeo balo đen và mang giày cổ cao đen" width="503" height="876" loading="lazy" decoding="async">
-        <figcaption>Utility đô thị đơn sắc</figcaption>
-      </figure>
-      <figure class="insp-card">
-        <img src="/img/look-6.webp" alt="Cô gái mặc blazer vạt chéo màu kem phối quần ống rộng be, túi cói xách tay và giày cao gót trắng" width="503" height="754" loading="lazy" decoding="async">
-        <figcaption>Tailoring trung tính, chỉn chu</figcaption>
-      </figure>
-      <figure class="insp-card">
-        <img src="/img/look-7.webp" alt="Cô gái mặc áo len đỏ booc-đô khoác ngoài sơ mi cổ bẻ trắng, quần ống rộng xếp ly xám và giày bệt đen" width="503" height="670" loading="lazy" decoding="async">
-        <figcaption>Quiet Academia</figcaption>
-      </figure>
-      <figure class="insp-card">
-        <img src="/img/look-8.webp" alt="Cô gái mặc áo cổ lọ đen với chân váy midi xoè chất len xám than, tất đen, giày lười và túi đeo vai nhỏ màu đen" width="503" height="670" loading="lazy" decoding="async">
-        <figcaption>Chân váy xoè đen tối giản</figcaption>
-      </figure>
-      <figure class="insp-card">
-        <img src="/img/look-9.webp" alt="Chàng trai mặc áo nỉ xám than khoác ngoài áo thun trắng, quần short nỉ xám, tất trắng và giày chạy bộ xám" width="503" height="876" loading="lazy" decoding="async">
-        <figcaption>Athleisure đơn sắc thoải mái</figcaption>
-      </figure>
-      <figure class="insp-card">
-        <img src="/img/look-10.webp" alt="Cô gái tựa tường với mũ lưỡi trai xanh navy và blazer navy khoác ngoài áo trắng, quần short đen, túi đeo vai nâu và giày thể thao trắng" width="503" height="968" loading="lazy" decoding="async">
-        <figcaption>Blazer thể thao xuống phố</figcaption>
-      </figure>
-    </div>
-  </div>
-</section>
-
 <section class="mz" id="how" aria-labelledby="mz-title">
   <div class="mz-rule"><hr></div>
 
@@ -928,6 +861,77 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
       <button class="mz-dot" type="button" aria-current="true" aria-label="Xem look 1"></button>
       <button class="mz-dot" type="button" aria-current="false" aria-label="Xem look 2"></button>
       <button class="mz-dot" type="button" aria-current="false" aria-label="Xem look 3"></button>
+    </div>
+  </div>
+</section>
+
+<section class="insp" aria-labelledby="insp-title">
+  <div class="insp-rule"><hr></div>
+
+  <div class="insp-head">
+    <div class="insp-stat">
+      <p class="insp-eyebrow">Cả một thế giới cảm hứng phong cách</p>
+      <p class="insp-num">1000+</p>
+      <p class="insp-cats">Tối giản, Thanh lịch thường ngày, Năng động, Vượt thời gian &amp; Hơn thế nữa</p>
+    </div>
+
+    <h2 class="insp-title" id="insp-title">Khám phá những bộ đồ bạn muốn mặc.</h2>
+
+    <div class="insp-aside">
+      <p class="insp-lede">Tìm cảm hứng cho bộ đồ tiếp theo, khám phá phong cách mới, và tìm ra những cách mặc mới mẻ với chính những món đồ bạn đang có.</p>
+      <a class="insp-cta" href="https://apps.apple.com/app/id6766749757" target="_blank" rel="noopener">Biến nó thành của bạn</a>
+    </div>
+  </div>
+
+  <!-- Each caption is the supplied file's own name; the alt beneath it
+       describes the photograph. Both are per-image copy — change them
+       together, and seed the Vietnamese for any caption you touch.
+
+       app.js (inspRail) clones the ten cards once so the strip wraps without
+       a seam, then drives it with requestAnimationFrame. Hovering eases it
+       down to a crawl; focus or press-and-hold stops it outright. -->
+  <div class="insp-rail" data-marquee>
+    <div class="insp-track">
+      <figure class="insp-card">
+        <img src="/img/look-1.webp" alt="Cô gái trước quán cà phê, mặc áo bomber da lộn nâu khoác ngoài áo hai dây trắng, quần short jeans trắng và giày da lộn nâu, tay xách túi tote nâu cỡ lớn" width="503" height="670" loading="lazy" decoding="async">
+        <figcaption>Cuối tuần dạo phố</figcaption>
+      </figure>
+      <figure class="insp-card">
+        <img src="/img/look-2.webp" alt="Cô gái mặc áo khoác dài màu nâu socola cùng tông với áo cổ lọ và chân váy maxi xẻ tà thắt đai, kèm túi tote da nâu và giày cao gót mũi nhọn" width="503" height="968" loading="lazy" decoding="async">
+        <figcaption>Layer tông nâu trầm, phom tailored</figcaption>
+      </figure>
+      <figure class="insp-card">
+        <img src="/img/look-3.webp" alt="Ba góc nhìn của áo len cổ lọ màu kem phối quần ống rộng đen, túi xách tay nhỏ màu đen và giày cao gót mũi nhọn đen" width="503" height="754" loading="lazy" decoding="async">
+        <figcaption>Tailoring đơn sắc tối giản</figcaption>
+      </figure>
+      <figure class="insp-card">
+        <img src="/img/look-4.webp" alt="Cô gái mặc áo bomber da đen khoác ngoài áo cổ giả be, phối quần jeans xanh ống rộng" width="503" height="670" loading="lazy" decoding="async">
+        <figcaption>Đồ da hiện đại, phom thoải mái</figcaption>
+      </figure>
+      <figure class="insp-card">
+        <img src="/img/look-5.webp" alt="Chàng trai trên phố với mũ lưỡi trai đen, áo hoodie đen và quần cargo đen, đeo balo đen và mang giày cổ cao đen" width="503" height="876" loading="lazy" decoding="async">
+        <figcaption>Utility đô thị đơn sắc</figcaption>
+      </figure>
+      <figure class="insp-card">
+        <img src="/img/look-6.webp" alt="Cô gái mặc blazer vạt chéo màu kem phối quần ống rộng be, túi cói xách tay và giày cao gót trắng" width="503" height="754" loading="lazy" decoding="async">
+        <figcaption>Tailoring trung tính, chỉn chu</figcaption>
+      </figure>
+      <figure class="insp-card">
+        <img src="/img/look-7.webp" alt="Cô gái mặc áo len đỏ booc-đô khoác ngoài sơ mi cổ bẻ trắng, quần ống rộng xếp ly xám và giày bệt đen" width="503" height="670" loading="lazy" decoding="async">
+        <figcaption>Quiet Academia</figcaption>
+      </figure>
+      <figure class="insp-card">
+        <img src="/img/look-8.webp" alt="Cô gái mặc áo cổ lọ đen với chân váy midi xoè chất len xám than, tất đen, giày lười và túi đeo vai nhỏ màu đen" width="503" height="670" loading="lazy" decoding="async">
+        <figcaption>Chân váy xoè đen tối giản</figcaption>
+      </figure>
+      <figure class="insp-card">
+        <img src="/img/look-9.webp" alt="Chàng trai mặc áo nỉ xám than khoác ngoài áo thun trắng, quần short nỉ xám, tất trắng và giày chạy bộ xám" width="503" height="876" loading="lazy" decoding="async">
+        <figcaption>Athleisure đơn sắc thoải mái</figcaption>
+      </figure>
+      <figure class="insp-card">
+        <img src="/img/look-10.webp" alt="Cô gái tựa tường với mũ lưỡi trai xanh navy và blazer navy khoác ngoài áo trắng, quần short đen, túi đeo vai nâu và giày thể thao trắng" width="503" height="968" loading="lazy" decoding="async">
+        <figcaption>Blazer thể thao xuống phố</figcaption>
+      </figure>
     </div>
   </div>
 </section>
