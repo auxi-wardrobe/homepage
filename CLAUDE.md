@@ -275,6 +275,17 @@ homepage/
 > sources arrive 180–460px wide. Noticeable but not bad; re-request at 2× if
 > sharper originals turn up.
 >
+> **Guest style match** (`.gm`, `id="try"`), right after `.mz`. The live
+> version of the match-stage demo: a visitor uploads one garment, the backend
+> tags it **synchronously** (`POST /api/public/style-match/tag`, anonymous,
+> capped at 5 tags per IP per day) and "Find the best match" fetches the
+> Discovery looks built around it (`/find`). Its JS is **`public/style-match.js`
+> — hand-written, not generated, loaded by `index.html` only** — so it is NOT
+> in `finalize-static.py`'s `APP_JS`. Bump its `?v=` (md5 of the file, first 8)
+> whenever it changes. The API origin is the section's `data-api`; on
+> localhost the script uses `http://localhost:5001` instead. With JS off,
+> `.gm-body` stays `hidden` and only the head + App Store link show.
+>
 > **Artwork.** The four step phones from the old section are now unused but
 > still on disk (`/img/step-find.webp`, `step-tryon.webp`, and
 > `assets/feature/closet.webp` + `recommend.webp` — the last two are still

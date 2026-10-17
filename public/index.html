@@ -404,6 +404,107 @@
   .mz-slot > .is-active { opacity: 1; }
   .mz-slot > .is-fading { transition: opacity .4s ease, transform .4s ease; }
 
+  /* ---- "Try it with your own piece" — guest style match --------------
+     The live version of the .mz demo above: a visitor uploads one garment,
+     the backend tags it synchronously (POST /api/public/style-match/tag)
+     and "Find the best match" fetches the Discovery looks built around it
+     (/find). Everything interactive lives in /style-match.js; with JS off
+     the section shows its head and the app link only (.gm-app). */
+  .gm { padding: 96px 0 104px; background: #fff; }
+  .gm-head { max-width: 1120px; margin: 0 auto; padding: 0 40px; text-align: center; }
+  .gm-body {
+    max-width: 1120px; margin: 48px auto 0; padding: 0 40px;
+    display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: 40px; align-items: start;
+  }
+  .gm-panel { background: #f4f3ef; border-radius: 16px; padding: 22px; }
+  .gm-drop {
+    position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 10px; aspect-ratio: 1 / 1; border: 1.5px dashed #b9b5ab; border-radius: 12px; background: #fff;
+    cursor: pointer; overflow: hidden; text-align: center; padding: 20px;
+    font-family: Geist, system-ui, sans-serif; font-size: 14px; color: #3b3833;
+    transition: border-color .2s ease, background .2s ease;
+  }
+  .gm-drop:hover, .gm-drop.is-over { border-color: #5a7b2c; background: #fbfcf8; }
+  .gm-drop:focus-within { outline: 2px solid #5a7b2c; outline-offset: 2px; }
+  .gm-drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+  .gm-drop strong { font-weight: 600; color: #14120f; }
+  .gm-drop small { font-size: 12px; color: #6b675f; }
+  .gm-drop img { position: absolute; inset: 6%; width: 88%; height: 88%; object-fit: contain; }
+  .gm-drop.has-photo { border-style: solid; border-color: #e2e0da; }
+  .gm-drop.has-photo > :not(img):not(input) { display: none; }
+  .gm-status {
+    min-height: 1.4em; margin: 14px 0 0; font-family: Geist, system-ui, sans-serif;
+    font-size: 13.5px; line-height: 1.45; color: #3b3833;
+  }
+  .gm-status.is-error { color: #a1301f; }
+  .gm-status.is-busy::before {
+    content: ""; display: inline-block; width: 11px; height: 11px; margin-right: 8px; vertical-align: -1px;
+    border: 2px solid #c9c6be; border-top-color: #303437; border-radius: 50%; animation: gm-spin .8s linear infinite;
+  }
+  @keyframes gm-spin { to { transform: rotate(360deg); } }
+  .gm-name { margin: 14px 0 0; font-family: Geist, system-ui, sans-serif; font-size: 15px; font-weight: 600; color: #14120f; }
+  .gm-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 0; padding: 0; list-style: none; }
+  .gm-tags li {
+    font-family: Geist, system-ui, sans-serif; font-size: 12px; line-height: 1; padding: 7px 10px;
+    border-radius: 999px; background: #fff; color: #2f2c27; border: 1px solid #e2e0da;
+  }
+  .gm-gender { display: flex; gap: 6px; margin: 16px 0 0; padding: 0; border: 0; }
+  .gm-gender legend { font-family: Geist, system-ui, sans-serif; font-size: 12px; color: #6b675f; margin-bottom: 8px; padding: 0; }
+  .gm-gender label { flex: 1; }
+  .gm-gender input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .gm-gender span {
+    display: block; text-align: center; padding: 9px 0; border-radius: 9px; cursor: pointer;
+    font-family: Geist, system-ui, sans-serif; font-size: 13px; background: #fff; color: #2f2c27; border: 1px solid #e2e0da;
+  }
+  .gm-gender input:checked + span { background: #303437; color: #fff; border-color: #303437; }
+  .gm-gender input:focus-visible + span { outline: 2px solid #5a7b2c; outline-offset: 2px; }
+  .gm .mz-btn { margin-top: 16px; height: 42px; }
+  .gm .mz-btn[disabled] { opacity: .45; cursor: not-allowed; }
+  .gm-reset {
+    display: block; margin: 10px auto 0; padding: 4px 8px; background: none; border: 0; cursor: pointer;
+    font-family: Geist, system-ui, sans-serif; font-size: 12.5px; color: #6b675f; text-decoration: underline;
+  }
+  .gm-note { margin: 12px 0 0; font-family: Geist, system-ui, sans-serif; font-size: 12px; line-height: 1.5; color: #6b675f; }
+  .gm-note a { color: inherit; }
+  .gm-results { min-height: 200px; }
+  .gm-empty {
+    display: flex; align-items: center; justify-content: center; min-height: 360px; border-radius: 16px;
+    background: #f4f3ef; padding: 32px; text-align: center;
+    font-family: Geist, system-ui, sans-serif; font-size: 14.5px; line-height: 1.6; color: #6b675f;
+  }
+  .gm-empty a { color: #14120f; font-weight: 600; }
+  .gm-count { margin: 0 0 16px; font-family: Geist, system-ui, sans-serif; font-size: 13px; color: #6b675f; }
+  .gm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 18px; margin: 0; padding: 0; list-style: none; }
+  .gm-look { background: #f4f3ef; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; }
+  .gm-cover { position: relative; aspect-ratio: 3 / 4; background: #ecebe6; }
+  .gm-cover > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .gm-collage { position: absolute; inset: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 10px; }
+  .gm-collage img { width: 100%; height: 100%; object-fit: contain; background: #fff; border-radius: 8px; padding: 6px; }
+  .gm-badge {
+    position: absolute; left: 10px; top: 10px; padding: 5px 9px; border-radius: 999px;
+    font-family: Geist, system-ui, sans-serif; font-size: 11px; font-weight: 600; background: #fff; color: #14120f;
+  }
+  .gm-badge--exact { background: #5a7b2c; color: #fff; }
+  .gm-look h3 { margin: 12px 14px 0; font-family: Geist, system-ui, sans-serif; font-size: 14px; font-weight: 600; color: #14120f; }
+  .gm-pieces { display: grid; grid-template-columns: repeat(auto-fill, minmax(40px, 1fr)); gap: 6px; margin: 10px 14px 14px; padding: 0; list-style: none; }
+  .gm-pieces li { position: relative; aspect-ratio: 4 / 5; border-radius: 8px; background: #fff; overflow: hidden; }
+  .gm-pieces img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
+  .gm-pieces .is-yours { outline: 2px solid #5a7b2c; outline-offset: -2px; }
+  .gm-app { margin: 28px 0 0; text-align: center; font-family: Geist, system-ui, sans-serif; font-size: 14px; color: #3b3833; }
+  .gm-app a { color: #14120f; font-weight: 600; }
+  @media (max-width: 860px) {
+    .gm-body { grid-template-columns: minmax(0, 1fr); max-width: 560px; gap: 28px; }
+    .gm-drop { aspect-ratio: 4 / 3; }
+    .gm-empty { min-height: 160px; }
+  }
+  @media (max-width: 640px) {
+    .gm { padding: 72px 0 76px; }
+    .gm-head, .gm-body { padding-left: 20px; padding-right: 20px; }
+    .gm-body { margin-top: 36px; }
+    .gm-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .gm-status.is-busy::before { animation: none; } }
+
   /* ---- Four tinted feature cards -------------------------------------
      Equal columns, content-driven heights (the mockup's cards are not the
      same height either), each with its own tint and one image at the foot.
@@ -863,6 +964,47 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
       <button class="mz-dot" type="button" aria-current="false" aria-label="Show look 3"></button>
     </div>
   </div>
+</section>
+
+<section class="gm" id="try" aria-labelledby="gm-title" data-api="https://wardrobe-backend-production-c8d9.up.railway.app">
+  <div class="gm-head">
+    <p class="mz-eyebrow">Try it now</p>
+    <h2 class="mz-title" id="gm-title">Start with your own piece.</h2>
+    <p class="mz-lede">Upload a photo of one item you own. Macgie tags it in seconds, then finds the looks built around it. No account needed.</p>
+  </div>
+
+  <div class="gm-body" hidden>
+    <div class="gm-panel">
+      <label class="gm-drop">
+        <input type="file" accept="image/jpeg,image/png,image/webp" data-gm-file>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 16V4m0 0L7 9m5-5l5 5M5 15v3a2 2 0 002 2h10a2 2 0 002-2v-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <strong>Upload a photo of one item</strong>
+        <small>A top, bottom, dress, shoes or jacket. JPEG, PNG or WebP.</small>
+      </label>
+      <p class="gm-status" role="status" aria-live="polite" data-gm-status></p>
+      <div data-gm-tagged hidden>
+        <p class="gm-name" data-gm-name></p>
+        <ul class="gm-tags" aria-label="Tags" data-gm-tags></ul>
+        <fieldset class="gm-gender">
+          <legend>Show looks for</legend>
+          <label><input type="radio" name="gm-gender" value="W"><span>Women</span></label>
+          <label><input type="radio" name="gm-gender" value="M"><span>Men</span></label>
+        </fieldset>
+        <button class="mz-btn" type="button" data-gm-find>
+          Find the best match
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.2 2.1l7.3 5.2-3 .6 1.9 3.9-1.7.8-1.9-3.9-2.1 2.2z" fill="currentColor"></path><path d="M12.8 11.3l1.9 1.1M11.1 13.6l1.1 1.9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"></path></svg>
+        </button>
+      </div>
+      <button class="gm-reset" type="button" data-gm-reset hidden>Try another item</button>
+      <p class="gm-note">Your photo is only used to tag the item and is never stored. <a href="/ai-policy">AI policy</a></p>
+    </div>
+
+    <div class="gm-results" aria-live="polite" data-gm-results>
+      <div class="gm-empty"><p>Your matched looks will appear here.</p></div>
+    </div>
+  </div>
+
+  <p class="gm-app">Want looks from your whole wardrobe? <a href="https://apps.apple.com/app/id6766749757">Get Macgie on the App Store</a></p>
 </section>
 
 <section class="insp" aria-labelledby="insp-title">
@@ -1386,4 +1528,4 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
 
 
 
-<script src="app.js?v=9bad6f95" defer></script></body></html>
+<script src="app.js?v=9bad6f95" defer></script><script src="style-match.js?v=92442a10" defer></script></body></html>

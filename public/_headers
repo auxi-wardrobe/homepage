@@ -6,3 +6,6 @@
 
 /.well-known/assetlinks.json
   Content-Type: application/json
+
+/style-match.js
+  Cache-Control: public, max-age=0, must-revalidate
