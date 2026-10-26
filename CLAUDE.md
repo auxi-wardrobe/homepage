@@ -119,10 +119,10 @@ homepage/
 > **The top of the home page is hand-authored and NOT in the design project.**
 > The 2026-09 redesign — `<section class="hero">`, `.insp` ("Discover the looks
 > you want to wear", which replaced the original `.cby` "This could be you"
-> collage in 2026-10), `.mz` ("One piece. More possibilities.", which replaced
-> `.steps` "Your stylist, 4 simple steps" in 2026-10) and `.fcards` (the four
+> collage in 2026-10), `.gm` ("Start with your own piece", the guest upload
+> that replaced first `.steps` and then the `.mz` match-stage demo) and `.fcards` (the four
 > tinted feature cards, which replaced the three `.pcards` in 2026-10) in
-> `public/index.html`, plus their `.hero-* / .sec-* / .insp-* / .mz-* /
+> `public/index.html`, plus their `.hero-* / .sec-* / .insp-* / .gm-* /
 > .fcard-*` rules in the page's inlined `<style>`
 > — was written by hand
 > from mockups, because the Claude Design project could not be reached from the
@@ -224,67 +224,28 @@ homepage/
 > gutter: it moves, so a gutter it only respects at rest reads as a clipped
 > row.
 >
-> **The match stage** (`.mz`). "One piece. More possibilities." — the section
-> that replaced "Your stylist, 4 simple steps". It **keeps `id="how"`**,
-> because two footer links point at it. Background `#e2e3de`, from the mockup.
+> **Guest style match** (`.gm`) — "Start with your own piece". It **carries
+> `id="how"`**, which every page's footer links to (`/#how`), inherited from the
+> `.mz` match stage it replaced. Running order (2026-10-26): **hero → `.gm` →
+> `.insp` → `.fcards`**.
 >
-> Running order on the page (2026-10): **hero → `.mz` → `.insp` → `.fcards`**.
-> `.mz` was moved ahead of the rail; nothing in `app.js` depends on the order,
-> since all three behaviours find their own section by class.
+> A visitor uploads one garment, the backend tags it **synchronously**
+> (`POST /api/public/style-match/tag`, anonymous, capped at 10 tags per IP per
+> day) and "Find the best match" fetches the Discovery looks built around it
+> (`/find`). Its JS is **`public/style-match.js` — hand-written, not generated,
+> loaded by `index.html` only** — so it is NOT in `finalize-static.py`'s
+> `APP_JS`. Bump its `?v=` (md5 of the file, first 8) whenever it changes. The
+> API origin is the section's `data-api`; on localhost the script uses
+> `http://localhost:5001` instead. With JS off, `.gm-body` stays `hidden` and
+> only the head + App Store link show. The status / error / result strings are
+> written by the script in English, so `/vi` shows them untranslated.
 >
-> Below the centred head sits `.mz-stage`, a fixed-ratio block (`1215 / 863`,
-> the mockup's own composition) holding four product cards pinned around a
-> figure. Everything inside is a percentage of the stage, like the hero's
-> `.hs`, and the same rule applies: **never percentage padding on those
-> absolutely positioned boxes.** Card geometry is measured, not guessed —
-> `16.95%` wide, `206 / 266` ratio, at `11.69 / 72.02 / 0 / 83.13` percent.
->
-> One garment is **pinned** — the charcoal trousers, `.mz-card--item` — and
-> the figure, the shirt, the shoes, the knit *and their captions* advance
-> together through three looks. Each `.mz-slot` holds one shot per look in the
-> same order and `matchLooks()` in `app.js` moves them as a set. The caption
-> is a slot too, since the garment it names changes with the picture, and
-> `.mz-cap` reserves two lines (`min-height: 2.7em`) so a one-line caption in
-> one look and a two-line caption in the next don't shunt the pill up and down.
->
-> The "Find the best match" pill is a **real `<button>`**: clicking it advances
-> a look, and the auto-advance replays the same `.is-pressed` press on it —
-> which is the effect the mockup asks for. Don't turn it back into a decoration
-> that only animates; it would be a button that lies about being clicked. The
-> dots jump straight to a look. WCAG 2.2.2 as everywhere else: stops on hover,
-> on focus inside the stage, off-screen and on a hidden tab, and never starts
-> under `prefers-reduced-motion` — leaving look 1 static with the pill and dots
-> still working by hand, which is also the JS-off view.
->
-> Under 860px the stage leaves absolute positioning for a plain grid: figure
-> across the top, cards two-up. One trap there — `.mz-figure` goes
-> **`position: relative`, not `static`**. Its shots are absolute, and a static
-> parent hands them to `.mz-stage`, so the figure escapes its grid cell and
-> renders behind the cards.
->
-> **Its artwork** is twelve transparent cut-outs — `match-figure-1…3`,
-> `match-shirt-1…3`, `match-shoes-1…3`, `match-knit-1…3` — each trimmed to its
-> alpha bbox before committing, as the hero cut-outs are. Every `<figcaption>`
-> is the supplied file's own name (so renaming the source renames the caption)
-> and the `alt` beneath it describes the garment; they are two separate pieces
-> of copy, and the Vietnamese for both is hand-seeded.
->
-> `match-item.webp` — the pinned trousers — is the one stand-in left: a copy of
-> `hero-item-2.webp`. Everything in this stage lands around **1.6–1.8×** its
-> retina size rather than the 2.3× the rest of the page manages, because the
-> sources arrive 180–460px wide. Noticeable but not bad; re-request at 2× if
-> sharper originals turn up.
->
-> **Guest style match** (`.gm`, `id="try"`), right after `.mz`. The live
-> version of the match-stage demo: a visitor uploads one garment, the backend
-> tags it **synchronously** (`POST /api/public/style-match/tag`, anonymous,
-> capped at 5 tags per IP per day) and "Find the best match" fetches the
-> Discovery looks built around it (`/find`). Its JS is **`public/style-match.js`
-> — hand-written, not generated, loaded by `index.html` only** — so it is NOT
-> in `finalize-static.py`'s `APP_JS`. Bump its `?v=` (md5 of the file, first 8)
-> whenever it changes. The API origin is the section's `data-api`; on
-> localhost the script uses `http://localhost:5001` instead. With JS off,
-> `.gm-body` stays `hidden` and only the head + App Store link show.
+> **The `.mz` match stage was removed on 2026-10-26** ("One piece. More
+> possibilities." — a pinned pair of charcoal trousers cycling through three
+> demo looks). `matchLooks()` still lives in `app.js` (it is generated — see
+> above) and returns at once because no `.mz-stage` exists. Its twelve cut-outs
+> (`match-figure-1…3`, `match-shirt-1…3`, `match-shoes-1…3`, `match-knit-1…3`)
+> and `match-item.webp` are unused but still on disk, like the step phones.
 >
 > **Artwork.** The four step phones from the old section are now unused but
 > still on disk (`/img/step-find.webp`, `step-tryon.webp`, and
@@ -326,8 +287,7 @@ homepage/
 > it was already the before/after pair this card wants. The three `card-*`
 > names were `git mv`'d to `feat-*` to match the card each now sits in.
 >
-> Soft sources: everything in the match stage (~1.6–1.8×) and both hero item
-> shots (~1–1.6×). Everything else on the page lands near 2.3×.
+> Soft sources: both hero item shots (~1–1.6×). Everything else on the page lands near 2.3×.
 >
 > **The feature grid** (`#features` on the home page, and the plain grid on
 > `features.html`) is the one part of this run that is still flattened design

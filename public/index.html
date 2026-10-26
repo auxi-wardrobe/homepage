@@ -320,98 +320,29 @@
     color: #4a443d; text-align: center; margin: 16px 6px 0;
   }
 
-  /* ---- "One piece. More possibilities." — the match stage -------------
-     A fixed-ratio stage with four product cards pinned around a figure, all
-     positioned as percentages of .mz-stage, so the composition scales as one
-     unit (same system as the hero's .hs — and the same trap: never use
-     percentage padding on these absolutely positioned boxes, it resolves
-     against the stage's width, not the box's own). Geometry is measured off
-     the mockup: the stage is its 1215x863 block, the cards its 206x266 at
-     16.95% of the stage width. Under 860px the whole thing drops out of
-     absolute positioning into a plain stack (see the media queries). ---- */
-  .mz { padding: 96px 0 104px; background: #e2e3de; }
-  .mz-rule { max-width: 1200px; margin: 0 auto 46px; padding: 0 40px; }
-  .mz-rule hr { border: 0; border-top: 1px solid #d5d2cb; margin: 0; }
-  .mz-head { max-width: 1120px; margin: 0 auto; padding: 0 40px; text-align: center; }
-  .mz-eyebrow {
-    font-family: Geist, system-ui, sans-serif; font-size: 11.5px; font-weight: 600;
-    letter-spacing: .14em; text-transform: uppercase; color: #14120f; margin: 0;
-  }
-  .mz-title {
-    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-weight: 500;
-    font-size: clamp(30px, 4.3vw, 54px); line-height: 1.1; letter-spacing: -.02em;
-    color: #14120f; margin: 20px 0 0; text-wrap: balance;
-  }
-  .mz-lede {
-    font-family: Geist, system-ui, sans-serif; font-size: 16px; line-height: 1.6;
-    color: #3b3833; margin: 22px auto 0; max-width: 1040px;
-  }
-
-  .mz-stage {
-    position: relative; width: min(100%, 980px); aspect-ratio: 1215 / 863;
-    margin: 56px auto 0;
-  }
-  .mz-card { position: absolute; width: 16.95%; }
-  .mz-card--item  { left: 11.69%; top: 0; }
-  .mz-card--shirt { left: 72.02%; top: .7%; }
-  .mz-card--shoes { left: 0;      top: 55.62%; }
-  .mz-card--knit  { left: 83.13%; top: 55.62%; }
-  .mz-tile {
-    position: relative; aspect-ratio: 206 / 266; border-radius: 11px; background: #fff;
-    overflow: hidden; box-shadow: 0 6px 20px rgba(32, 30, 24, .06);
-  }
-  .mz-tile img { position: absolute; inset: 9% 10%; width: 80%; height: 82%; object-fit: contain; }
-  /* Two lines' worth of room always, so a one-line caption in one look and a
-     two-line caption in the next don't shunt the button up and down. */
-  .mz-cap {
-    position: relative; min-height: 2.7em;
-    font-family: Geist, system-ui, sans-serif; font-size: 13px; line-height: 1.35;
-    color: #2f2c27; margin: 11px 0 0;
-  }
-  .mz-cap span { position: absolute; left: 0; right: 0; top: 0; }
-  .mz-cap--fixed span { position: static; }
-  .mz-figure { position: absolute; left: 48.5%; transform: translateX(-50%); top: 1.5%; width: 34%; height: 92.5%; }
-  .mz-figure img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: bottom center; }
-
-  /* The pill is a real control — it advances to the next look — and the
-     auto-advance replays the same press on it, which is the effect asked
-     for. Without that it would be a button that lies about being clicked. */
-  .mz-btn {
-    display: flex; align-items: center; justify-content: center; gap: 9px;
-    width: 100%; height: 38px; margin-top: 13px; padding: 0 10px;
-    background: #303437; color: #fff; border: 0; border-radius: 10px; cursor: pointer;
-    /* 11.5px is the mockup's own size once its 205px pill is scaled to this
-       166px card — anything larger wraps "Find the best match" onto two lines. */
-    font-family: Geist, system-ui, sans-serif; font-size: 11.5px; font-weight: 600;
-    letter-spacing: -.005em; white-space: nowrap;
-    transition: transform .14s ease, background .14s ease;
-  }
-  .mz-btn:hover { background: #1f2224; }
-  .mz-btn.is-pressed { transform: scale(.955); background: #15181a; }
-  .mz-btn svg { flex: none; width: 13px; height: 13px; opacity: .85; }
-
-  .mz-dots { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); display: flex; gap: 11px; }
-  .mz-dot {
-    width: 9px; height: 9px; padding: 0; border: 0; border-radius: 50%;
-    background: #a3a39e; cursor: pointer; transition: background .2s ease, transform .2s ease;
-  }
-  .mz-dot[aria-current="true"] { background: #5a7b2c; transform: scale(1.12); }
-
-  /* One look at a time: every shot in a slot is stacked and only .is-active
-     is painted. Shots are already absolute inside .mz-tile / .mz-cap /
-     .mz-figure, so hiding one costs no layout. */
-  .mz-slot > * { opacity: 0; }
-  .mz-slot > .is-active { opacity: 1; }
-  .mz-slot > .is-fading { transition: opacity .4s ease, transform .4s ease; }
-
   /* ---- "Try it with your own piece" — guest style match --------------
-     The live version of the .mz demo above: a visitor uploads one garment,
+     A visitor uploads one garment,
      the backend tags it synchronously (POST /api/public/style-match/tag)
      and "Find the best match" fetches the Discovery looks built around it
      (/find). Everything interactive lives in /style-match.js; with JS off
      the section shows its head and the app link only (.gm-app). */
   .gm { padding: 96px 0 104px; background: #fff; }
+  /* display: grid / block below would otherwise beat the hidden attribute. */
+  .gm [hidden] { display: none !important; }
   .gm-head { max-width: 1120px; margin: 0 auto; padding: 0 40px; text-align: center; }
+  .gm-eyebrow {
+    font-family: Geist, system-ui, sans-serif; font-size: 11.5px; font-weight: 600;
+    letter-spacing: .14em; text-transform: uppercase; color: #14120f; margin: 0;
+  }
+  .gm-title {
+    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-weight: 500;
+    font-size: clamp(30px, 4.3vw, 54px); line-height: 1.1; letter-spacing: -.02em;
+    color: #14120f; margin: 20px 0 0; text-wrap: balance;
+  }
+  .gm-lede {
+    font-family: Geist, system-ui, sans-serif; font-size: 16px; line-height: 1.6;
+    color: #3b3833; margin: 22px auto 0; max-width: 1040px;
+  }
   .gm-body {
     max-width: 1120px; margin: 48px auto 0; padding: 0 40px;
     display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: 40px; align-items: start;
@@ -458,8 +389,18 @@
   }
   .gm-gender input:checked + span { background: #303437; color: #fff; border-color: #303437; }
   .gm-gender input:focus-visible + span { outline: 2px solid #5a7b2c; outline-offset: 2px; }
-  .gm .mz-btn { margin-top: 16px; height: 42px; }
-  .gm .mz-btn[disabled] { opacity: .45; cursor: not-allowed; }
+  .gm-btn {
+    display: flex; align-items: center; justify-content: center; gap: 9px;
+    width: 100%; height: 42px; margin-top: 16px; padding: 0 10px;
+    background: #303437; color: #fff; border: 0; border-radius: 10px; cursor: pointer;
+    font-family: Geist, system-ui, sans-serif; font-size: 13px; font-weight: 600;
+    letter-spacing: -.005em; white-space: nowrap;
+    transition: transform .14s ease, background .14s ease;
+  }
+  .gm-btn:hover { background: #1f2224; }
+  .gm-btn.is-pressed { transform: scale(.955); background: #15181a; }
+  .gm-btn svg { flex: none; width: 13px; height: 13px; opacity: .85; }
+  .gm-btn[disabled] { opacity: .45; cursor: not-allowed; }
   .gm-reset {
     display: block; margin: 10px auto 0; padding: 4px 8px; background: none; border: 0; cursor: pointer;
     font-family: Geist, system-ui, sans-serif; font-size: 12.5px; color: #6b675f; text-decoration: underline;
@@ -552,27 +493,6 @@
   @media (max-width: 900px) {
     .fcards { grid-template-columns: 1fr 1fr; max-width: 760px; }
   }
-  /* Below 860px the match stage leaves absolute positioning entirely: the
-     figure on top, then the four cards two-up. Everything that was a
-     percentage of the stage becomes ordinary flow, so nothing has to be
-     re-tuned per breakpoint. */
-  @media (max-width: 860px) {
-    .mz-stage {
-      width: min(100%, 520px); aspect-ratio: auto; padding: 0 20px;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 30px 20px; justify-items: stretch;
-    }
-    .mz-card, .mz-card--item, .mz-card--shirt, .mz-card--shoes, .mz-card--knit {
-      position: static; width: auto; left: auto; top: auto;
-    }
-    /* relative, NOT static: the shots inside are absolute, and a static
-       parent would hand them to .mz-stage and let the figure escape its
-       grid cell and sit behind the cards. */
-    .mz-figure {
-      position: relative; transform: none; left: auto; top: auto;
-      width: auto; height: 340px; grid-column: 1 / -1; margin-bottom: 4px;
-    }
-    .mz-dots { position: static; transform: none; grid-column: 1 / -1; justify-content: center; margin-top: 8px; }
-  }
   @media (max-width: 760px) {
     .insp-head { grid-template-columns: minmax(0, 1fr); row-gap: 28px; }
     .insp-stat, .insp-title, .insp-aside { grid-column: 1; grid-row: auto; }
@@ -581,19 +501,12 @@
   }
   @media (max-width: 640px) {
     .insp { padding: 72px 0 68px; }
-    .mz { padding: 72px 0 76px; }
-    .sec-head, .insp-rule, .insp-head, .mz-rule, .mz-head { padding-left: 20px; padding-right: 20px; }
-    .insp-rule, .mz-rule { margin-bottom: 40px; }
+    .sec-head, .insp-rule, .insp-head { padding-left: 20px; padding-right: 20px; }
+    .insp-rule { margin-bottom: 40px; }
     .insp-rail { margin-top: 40px; }
     .insp-track { padding: 0 20px; }
     .insp-card { flex: 0 0 182px; }
-    .mz-stage { margin-top: 40px; }
-    .mz-figure { height: 280px; }
     .fcards { grid-template-columns: 1fr; max-width: 420px; padding: 72px 20px 76px; gap: 14px; }
-  }
-  @media (max-width: 460px) {
-    .mz-stage { gap: 26px 14px; }
-    .mz-cap { font-size: 12.5px; }
   }
 
   /* ---- Hero banner ----------------------------------------------------
@@ -873,104 +786,21 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
      Hand-authored (2026-09), like the hero — NOT flattened from the Claude
      Design project. A re-flatten overwrites these three sections too.
 
-     Order (2026-10): hero -> .mz "One piece. More possibilities." -> .insp
-     "Discover the looks you want to wear" -> .fcards. The match stage was
-     moved ahead of the rail; nothing in app.js depends on their order.
+     Order (2026-10): hero -> .gm "Start with your own piece" (guest upload,
+     carries id="how" for the footer links) -> .insp "Discover the looks you
+     want to wear" -> .fcards. The .mz match-stage demo ("Find the best
+     match") was removed; matchLooks() in app.js finds no .mz-stage and
+     returns.
 
      The "This could be you" collage that used to open this run was replaced
      by the inspiration rail. Its seven tiles live on as that rail's
      placeholder artwork, renamed look-1…7.webp.
      ================================================================== -->
-<section class="mz" id="how" aria-labelledby="mz-title">
-  <div class="mz-rule"><hr></div>
-
-  <div class="mz-head">
-    <p class="mz-eyebrow">Find the best match</p>
-    <h2 class="mz-title" id="mz-title">One piece. More possibilities.</h2>
-    <p class="mz-lede">Choose one item you want to wear. Macgie provide solutions to complete the look, so you can spend less time figuring out what goes together and more time wearing outfits you love.</p>
-  </div>
-
-  <!-- One garment stays put — the charcoal trousers — while the figure and the
-       other three cards cycle through three looks built around it. Each
-       .mz-slot holds one shot per look, in the same order, and matchLooks()
-       in app.js advances them together; the caption is a slot too, since the
-       garment it names changes with the picture.
-
-       Every caption is the supplied file's own name; the alt beneath it
-       describes the garment. Both are per-image copy — change them together,
-       and seed the Vietnamese for any caption you touch.
-
-       match-item.webp is the one piece still standing in: it is a copy of
-       the hero's charcoal trousers at 101px into a ~133px slot, so it is
-       softer than everything around it. -->
-  <div class="mz-stage">
-    <div class="mz-figure mz-slot">
-      <img class="is-active" src="/img/match-figure-1.webp" alt="A woman in a charcoal V-neck knit over a blue collared shirt, with charcoal wide-leg pleated trousers" width="354" height="1107" loading="lazy" decoding="async">
-      <img src="/img/match-figure-2.webp" alt="A woman in a chocolate-brown knit over a white collared shirt, with charcoal wide-leg pleated trousers" width="308" height="1070" loading="lazy" decoding="async">
-      <img src="/img/match-figure-3.webp" alt="A woman in a beige ribbed cardigan over a beige shirt, with charcoal wide-leg pleated trousers, holding a bag" width="456" height="1102" loading="lazy" decoding="async">
-    </div>
-
-      <div class="mz-card mz-card--item">
-        <div class="mz-tile">
-          <img src="/img/match-item.webp" alt="Charcoal wide-leg pleated trousers" width="101" height="276" loading="lazy" decoding="async">
-        </div>
-        <p class="mz-cap mz-cap--fixed"><span>Charcoal Wide-Leg Pleated Trousers</span></p>
-        <button class="mz-btn" type="button" data-mz-next>
-          Find the best match
-          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.2 2.1l7.3 5.2-3 .6 1.9 3.9-1.7.8-1.9-3.9-2.1 2.2z" fill="currentColor"></path><path d="M12.8 11.3l1.9 1.1M11.1 13.6l1.1 1.9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"></path></svg>
-        </button>
-      </div>
-
-      <div class="mz-card mz-card--shirt">
-        <div class="mz-tile mz-slot">
-        <img class="is-active" src="/img/match-shirt-1.webp" alt="A light blue cotton button-down shirt, laid flat" width="236" height="243" loading="lazy" decoding="async">
-        <img src="/img/match-shirt-2.webp" alt="A crisp white cotton shirt, laid flat" width="190" height="296" loading="lazy" decoding="async">
-        <img src="/img/match-shirt-3.webp" alt="A beige silk shirt, laid flat" width="210" height="271" loading="lazy" decoding="async">
-        </div>
-        <p class="mz-cap mz-slot">
-        <span class="is-active">Blue Button-Down Shirt</span>
-        <span>White Shirt</span>
-        <span>Beige Shirt</span>
-        </p>
-      </div>
-      <div class="mz-card mz-card--shoes">
-        <div class="mz-tile mz-slot">
-        <img class="is-active" src="/img/match-shoes-1.webp" alt="A pair of black patent chunky-sole loafers" width="188" height="136" loading="lazy" decoding="async">
-        <img src="/img/match-shoes-2.webp" alt="A black pointed-toe slingback flat, seen from the side" width="180" height="52" loading="lazy" decoding="async">
-        <img src="/img/match-shoes-3.webp" alt="A pair of dark brown leather penny loafers" width="134" height="159" loading="lazy" decoding="async">
-        </div>
-        <p class="mz-cap mz-slot">
-        <span class="is-active">Black loafer</span>
-        <span>Black pointed-toe slingback shoes</span>
-        <span>Dark Brown Leather Loafers</span>
-        </p>
-      </div>
-      <div class="mz-card mz-card--knit">
-        <div class="mz-tile mz-slot">
-        <img class="is-active" src="/img/match-knit-1.webp" alt="A grey V-neck knitted sweater, laid flat" width="211" height="255" loading="lazy" decoding="async">
-        <img src="/img/match-knit-2.webp" alt="A chocolate-brown crewneck knitted sweater, laid flat" width="217" height="247" loading="lazy" decoding="async">
-        <img src="/img/match-knit-3.webp" alt="A beige ribbed V-neck cardigan, laid flat" width="184" height="262" loading="lazy" decoding="async">
-        </div>
-        <p class="mz-cap mz-slot">
-        <span class="is-active">Charcoal V-Neck Knit Sweater</span>
-        <span>Chocolate Brown Knit Sweater</span>
-        <span>Beige Ribbed V-Neck Cardigan</span>
-        </p>
-      </div>
-
-    <div class="mz-dots">
-      <button class="mz-dot" type="button" aria-current="true" aria-label="Show look 1"></button>
-      <button class="mz-dot" type="button" aria-current="false" aria-label="Show look 2"></button>
-      <button class="mz-dot" type="button" aria-current="false" aria-label="Show look 3"></button>
-    </div>
-  </div>
-</section>
-
-<section class="gm" id="try" aria-labelledby="gm-title" data-api="https://wardrobe-backend-production-c8d9.up.railway.app">
+<section class="gm" id="how" aria-labelledby="gm-title" data-api="https://wardrobe-backend-production-c8d9.up.railway.app">
   <div class="gm-head">
-    <p class="mz-eyebrow">Try it now</p>
-    <h2 class="mz-title" id="gm-title">Start with your own piece.</h2>
-    <p class="mz-lede">Upload a photo of one item you own. Macgie tags it in seconds, then finds the looks built around it. No account needed.</p>
+    <p class="gm-eyebrow">Try it now</p>
+    <h2 class="gm-title" id="gm-title">Start with your own piece.</h2>
+    <p class="gm-lede">Upload a photo of one item you own. Macgie tags it in seconds, then finds the looks built around it. No account needed.</p>
   </div>
 
   <div class="gm-body" hidden>
@@ -990,7 +820,7 @@ if(loc==='VN'){document.cookie='lang=vi;path=/;max-age=31536000;samesite=lax';if
           <label><input type="radio" name="gm-gender" value="W"><span>Women</span></label>
           <label><input type="radio" name="gm-gender" value="M"><span>Men</span></label>
         </fieldset>
-        <button class="mz-btn" type="button" data-gm-find>
+        <button class="gm-btn" type="button" data-gm-find>
           Find the best match
           <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.2 2.1l7.3 5.2-3 .6 1.9 3.9-1.7.8-1.9-3.9-2.1 2.2z" fill="currentColor"></path><path d="M12.8 11.3l1.9 1.1M11.1 13.6l1.1 1.9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"></path></svg>
         </button>
